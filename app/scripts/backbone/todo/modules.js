@@ -2,7 +2,7 @@ define(["../todo/mediator"], function (mediator) {
 
 
 			//Modules for Todo view
-			//
+
 
 			//subscriber for new content (todoAdder)
 			mediator.subscribe('newContentAvailable', function(context){
@@ -55,7 +55,7 @@ define(["../todo/mediator"], function (mediator) {
 
 
 
-			// Subscribe to what happens when entries are added..
+			// Subscribe to entry creation..
 			mediator.subscribe('createWhenEntered', function(context, e, todos){
 				if (e.keyCode != 13) return;
 			   todos.create(context.newAttributes());
@@ -63,7 +63,7 @@ define(["../todo/mediator"], function (mediator) {
 			});
 
 
-			///// Todo counter and remaining entries
+			// Todo counter and remaining entries
 			mediator.subscribe('renderDone', function(context, Todos){
 				   var done = Todos.done().length;
 				    context.$('#todo-stats').html(context.statsTemplate({
@@ -75,7 +75,6 @@ define(["../todo/mediator"], function (mediator) {
 
 
 			//Do things when the completed items have been cleared
-
 			mediator.subscribe('clearContent', function(Todos){
 				_.each(Todos.done(), function(todo){ todo.clear(); });
 			});
