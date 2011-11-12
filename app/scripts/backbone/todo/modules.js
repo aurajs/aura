@@ -3,8 +3,8 @@ define(["../todo/mediator"], function (mediator) {
 
 			//Modules for Todo view
 
-
-			//subscriber for new content (todoAdder)
+			// Name:
+			// Subscribes to: newContentAvailable
 			mediator.subscribe('newContentAvailable', function(context){
 				 var content = context.model.get('content');
 				 context.$('.todo-content').text(content);
@@ -15,6 +15,8 @@ define(["../todo/mediator"], function (mediator) {
 
 
 			//subscribe to user editing (todoEditor)
+			// Name:
+			// Subscribes to: beginContentEditing
 			mediator.subscribe('beginContentEditing', function(context){
 				$(context.el).addClass("editing");
 			  	context.input.focus();
@@ -22,6 +24,8 @@ define(["../todo/mediator"], function (mediator) {
 
 
 			//todo saver
+			// Name:
+			// Subscribes to: endContentEditing
 			mediator.subscribe('endContentEditing', function(context){					
 				try{
 					context.model.save({content: context.input.val()});
@@ -33,6 +37,8 @@ define(["../todo/mediator"], function (mediator) {
 
 
 			//todo deleter
+			// Name:
+			// Subscribes to: destroyContent
 			mediator.subscribe('destroyContent', function(context){
 				try{
 					context.model.clear();
@@ -41,8 +47,12 @@ define(["../todo/mediator"], function (mediator) {
 				}
 			});
 
+
+
 			//Modules for app view
 			// Subscribe..Tooltip module for adding entry
+			// Name:
+			// Subscribes to: addingNewTodo
 			mediator.subscribe('addingNewTodo', function(context, todo){
 				  var tooltip = context.$(".ui-tooltip-top");
 				 var val = context.input.val();
@@ -56,6 +66,8 @@ define(["../todo/mediator"], function (mediator) {
 
 
 			// Subscribe to entry creation..
+			// Name:
+			// Subscribes to: createWhenEntered
 			mediator.subscribe('createWhenEntered', function(context, e, todos){
 				if (e.keyCode != 13) return;
 			   todos.create(context.newAttributes());

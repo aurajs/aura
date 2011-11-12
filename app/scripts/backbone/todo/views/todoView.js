@@ -19,11 +19,9 @@ define(["text!../templates/todo.js","../mediator","../modules"], function (templ
 			 },
 
 	    render : function(){
-	    	//mediator.publish('initialized');
-			     $(this.el).html(this.template(this.model.toJSON()));
-			     //this.setContent();
-			     mediator.publish('newContentAvailable', this);
-			     return this;
+			    $(this.el).html(this.template(this.model.toJSON()));
+			    mediator.publish('newContentAvailable', this);
+			    return this;
 		     },
 
 	    // Toggle the `"done"` state of the model.
@@ -53,7 +51,7 @@ define(["text!../templates/todo.js","../mediator","../modules"], function (templ
 
 	    // Remove the item, destroy the model.
 	    clear: function() {
-	    		mediator.publish('destroyContent', this);
+	    	mediator.publish('destroyContent', this);
 		}
 
 
