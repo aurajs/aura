@@ -1,3 +1,5 @@
+##Backbone-mediator
+
 A Todo application using:
 
 <ul>
@@ -17,6 +19,8 @@ For more information on writing applications using AMD modules see [2]
 
 Based on portions by Ryan Rauh [3]
 
-[1] http://backbonetutorials.com/organizing-backbone-using-modules/
-[2] http://addyosmani.com/writing-modular-js
-[3] https://github.com/rauhryan/Backbone_RequireJS
+<ul>
+<li>[1] http://backbonetutorials.com/organizing-backbone-using-modules</li>
+<li>[2] http://addyosmani.com/writing-modular-js</li>
+<li>[3] https://github.com/rauhryan/Backbone_RequireJS</li>
+</ul>
