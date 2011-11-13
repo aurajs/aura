@@ -9,5 +9,7 @@ A Todo application using:
 <li>Templating via jQuery.tmpl</li>
 </ul>
 
+For more information on writing applications using AMD modules see:
+http://addyosmani.com/writing-modular-js
 
-*Based on portions by Ryan Rauh.
+Based on portions by Ryan Rauh.
