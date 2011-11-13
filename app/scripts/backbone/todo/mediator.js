@@ -17,4 +17,5 @@ define([], function(obj){
   };
 
   return obj;
+
 });

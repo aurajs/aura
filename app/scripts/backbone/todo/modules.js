@@ -1,10 +1,12 @@
-define(["../todo/mediator"], function (mediator) {
+define(["../todo/facade"], function (facade) {
 
 
     //Subscriber modules for Todo view
+
+
     // Desc: Update view with latest todo content
     // Subscribes to: newContentAvailable
-    mediator.subscribe('newContentAvailable', function (context) {
+    facade.subscribe('newContentAvailable', function (context) {
         var content = context.model.get('content');
         context.$('.todo-content').text(content);
         context.input = context.$('.todo-input');
@@ -16,7 +18,7 @@ define(["../todo/mediator"], function (mediator) {
 
     // Desc: update editing UI on switching mode to editing content
     // Subscribes to: beginContentEditing
-    mediator.subscribe('beginContentEditing', function (context) {
+    facade.subscribe('beginContentEditing', function (context) {
         $(context.el).addClass("editing");
         context.input.focus();
     });
@@ -25,7 +27,7 @@ define(["../todo/mediator"], function (mediator) {
 
     // Desc: Save models when a user has finishes editing
     // Subscribes to: endContentEditing
-    mediator.subscribe('endContentEditing', function (context) {
+    facade.subscribe('endContentEditing', function (context) {
         try {
             context.model.save({
                 content: context.input.val()
@@ -40,7 +42,7 @@ define(["../todo/mediator"], function (mediator) {
 
     // Desc: Delete a todo when the user no longer needs it
     // Subscribes to: destroyContent
-    mediator.subscribe('destroyContent', function (context) {
+    facade.subscribe('destroyContent', function (context) {
         try {
             context.model.clear();
         } catch (e) {
@@ -52,7 +54,7 @@ define(["../todo/mediator"], function (mediator) {
 
     // Desc: When a user is adding a new entry, display a tooltip
     // Subscribes to: addingNewTodo
-    mediator.subscribe('addingNewTodo', function (context, todo) {
+    facade.subscribe('addingNewTodo', function (context, todo) {
         var tooltip = context.$(".ui-tooltip-top");
         var val = context.input.val();
         tooltip.fadeOut();
@@ -68,7 +70,7 @@ define(["../todo/mediator"], function (mediator) {
 
     // Desc: Create a new todo entry 
     // Subscribes to: createWhenEntered
-    mediator.subscribe('createWhenEntered', function (context, e, todos) {
+    facade.subscribe('createWhenEntered', function (context, e, todos) {
         if (e.keyCode != 13) return;
         todos.create(context.newAttributes());
         context.input.val('');
@@ -78,7 +80,7 @@ define(["../todo/mediator"], function (mediator) {
 
     // Desc: A Todo and remaining entry counter
     // Subscribes to: renderDone
-    mediator.subscribe('renderDone', function (context, Todos) {
+    facade.subscribe('renderDone', function (context, Todos) {
         var done = Todos.done().length;
         context.$('#todo-stats').html(context.statsTemplate({
             total: Todos.length,
@@ -90,7 +92,7 @@ define(["../todo/mediator"], function (mediator) {
 
     // Desc: Clear all completed todos when clearContent is dispatched
     // Subscribes to: clearContent
-    mediator.subscribe('clearContent', function (Todos) {
+    facade.subscribe('clearContent', function (Todos) {
         _.each(Todos.done(), function (todo) {
             todo.clear();
         });
