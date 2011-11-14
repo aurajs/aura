@@ -4,6 +4,7 @@ A Todo application using:
 
 <ul>
 <li>The mediator pattern for centralized Pub/Sub</li>
+<li>(Initial) facade integration</li>
 <li>RequireJS</li>
 <li>AMD modules</li>
 <li>Backbone.js & Underscore.js</li>
@@ -24,3 +25,7 @@ Based on portions by Ryan Rauh [3]
 <li>[2] http://addyosmani.com/writing-modular-js</li>
 <li>[3] https://github.com/rauhryan/Backbone_RequireJS</li>
 </ul>
+
+Todos:
+
+Better express the concept of the facade and sample usage.
