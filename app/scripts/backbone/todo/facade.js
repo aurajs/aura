@@ -4,10 +4,13 @@ define([ "../todo/mediator" , "../todo/permissions" ], function (mediator, permi
 
 	var facade = facade || {};
 
-	facade.subscribe = function(channel, subscription){
-		//optional: handle persmissions
-		//if(permissions.validate)
-		mediator.subscribe( channel, subscription );
+	facade.subscribe = function(subscriber, channel, callback){
+		// optional: handle persmissions
+		// the conditional permissions check can be removed 
+		// to just use the mediator directly.
+		if(permissions.validate(subscriber, channel)){
+			mediator.subscribe( channel, callback );
+		}
 	}
 
 	facade.publish = function(channel){

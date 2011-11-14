@@ -1,12 +1,12 @@
 define(["../todo/facade"], function (facade) {
 
-
-    //Subscriber modules for Todo view
-
+    //Subscriber modules for Todo view with named
+    // subscribers
 
     // Desc: Update view with latest todo content
     // Subscribes to: newContentAvailable
-    facade.subscribe('newContentAvailable', function (context) {
+
+    facade.subscribe('contentUpdater', 'newContentAvailable', function (context) {
         var content = context.model.get('content');
         context.$('.todo-content').text(content);
         context.input = context.$('.todo-input');
@@ -15,19 +15,9 @@ define(["../todo/facade"], function (facade) {
     });
 
 
-
-    // Desc: update editing UI on switching mode to editing content
-    // Subscribes to: beginContentEditing
-    facade.subscribe('beginContentEditing', function (context) {
-        $(context.el).addClass("editing");
-        context.input.focus();
-    });
-
-
-
     // Desc: Save models when a user has finishes editing
     // Subscribes to: endContentEditing
-    facade.subscribe('endContentEditing', function (context) {
+    facade.subscribe('todoSaver','endContentEditing', function (context) {
         try {
             context.model.save({
                 content: context.input.val()
@@ -38,11 +28,18 @@ define(["../todo/facade"], function (facade) {
         }
     });
 
+    // Desc: update editing UI on switching mode to editing content
+    // Subscribes to: beginContentEditing
+    facade.subscribe('editFocus','beginContentEditing', function (context) {
+        $(context.el).addClass("editing");
+        context.input.focus();
+    });
+
 
 
     // Desc: Delete a todo when the user no longer needs it
     // Subscribes to: destroyContent
-    facade.subscribe('destroyContent', function (context) {
+    facade.subscribe('todoRemover','destroyContent', function (context) {
         try {
             context.model.clear();
         } catch (e) {
@@ -54,7 +51,7 @@ define(["../todo/facade"], function (facade) {
 
     // Desc: When a user is adding a new entry, display a tooltip
     // Subscribes to: addingNewTodo
-    facade.subscribe('addingNewTodo', function (context, todo) {
+    facade.subscribe('todoTooltip','addingNewTodo', function (context, todo) {
         var tooltip = context.$(".ui-tooltip-top");
         var val = context.input.val();
         tooltip.fadeOut();
@@ -70,7 +67,7 @@ define(["../todo/facade"], function (facade) {
 
     // Desc: Create a new todo entry 
     // Subscribes to: createWhenEntered
-    facade.subscribe('createWhenEntered', function (context, e, todos) {
+    facade.subscribe('keyboardManager','createWhenEntered', function (context, e, todos) {
         if (e.keyCode != 13) return;
         todos.create(context.newAttributes());
         context.input.val('');
@@ -80,7 +77,7 @@ define(["../todo/facade"], function (facade) {
 
     // Desc: A Todo and remaining entry counter
     // Subscribes to: renderDone
-    facade.subscribe('renderDone', function (context, Todos) {
+    facade.subscribe('todoCounter','renderDone', function (context, Todos) {
         var done = Todos.done().length;
         context.$('#todo-stats').html(context.statsTemplate({
             total: Todos.length,
@@ -92,7 +89,7 @@ define(["../todo/facade"], function (facade) {
 
     // Desc: Clear all completed todos when clearContent is dispatched
     // Subscribes to: clearContent
-    facade.subscribe('clearContent', function (Todos) {
+    facade.subscribe('garbageCollector','clearContent', function (Todos) {
         _.each(Todos.done(), function (todo) {
             todo.clear();
         });

@@ -1,10 +1,10 @@
-##Backbone-mediator
+##Backbone-aura
 
 A Todo application using:
 
 <ul>
 <li>The mediator pattern for centralized Pub/Sub</li>
-<li>(Initial) facade integration</li>
+<li>Facade pattern for security/permissions</li>
 <li>RequireJS</li>
 <li>AMD modules</li>
 <li>Backbone.js & Underscore.js</li>
@@ -23,9 +23,9 @@ Based on portions by Ryan Rauh [3]
 <ul>
 <li>[1] http://backbonetutorials.com/organizing-backbone-using-modules</li>
 <li>[2] http://addyosmani.com/writing-modular-js</li>
-<li>[3] https://github.com/rauhryan/Backbone_RequireJS</li>
+<li>[3] https://github.com/addyosmani/Backbone_RequireJS or https://github.com/rauhryan/Backbone_RequireJS</li>
 </ul>
 
-Todos:
+For demonstration:
 
-Better express the concept of the facade and sample usage.
+It's useful to see how easy it is for the application logic to be decoupled now that it's based on centralized pub/sub. Also try using the permissions manager (permissions.js). By changing say, permissions -> renderDone -> todoCounter to be false, you can completely disable that component from displaying counts (because it isn't allowed to subscribe to that event). Nifty, eh?
