@@ -9,7 +9,7 @@ This repo demonstrates an (event-driven) Todo application using 2/3 of the conce
 <li>AMD modules (great for modular development)</li>
 <li>Backbone.js & Underscore.js for MVC structure</li>
 <li>jQuery 1.7</li>
-<li>Templating via jQuery.tmpl (although this can be switched out for anything)</li>
+<li>Templating via jQuery.tmpl (although this can be switched out for any other templating solution)</li>
 </ul>
 
 ### Summary
