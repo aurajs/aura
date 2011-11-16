@@ -7,9 +7,7 @@ define(['./underscore', './cookie', './module-activator'], function (_, cookie, 
         authorizedCookieKey = 'authorized';
 
     exports.execute = function (element) {
-        $('div[data-dynamic-uri], div[data-auth-uri]', element)
-        .css('visibility', 'hidden')
-        .each(function () {
+        $('div[data-dynamic-uri], div[data-auth-uri]', element).css('visibility', 'hidden').each(function () {
             var element = $(this),
                 load = element.data('dynamic-load'),
                 authUri = element.data('auth-uri'),
@@ -51,7 +49,9 @@ define(['./underscore', './cookie', './module-activator'], function (_, cookie, 
                 error: function (xhr) {
                     var authCookieChk = cookie(authorizedCookieKey);
                     if (xhr.status === 403 && authCookieChk) {
-                        cookie(authorizedCookieKey, null, { path: "/" });
+                        cookie(authorizedCookieKey, null, {
+                            path: "/"
+                        });
                         location.reload();
                     }
                     element.css('visibility', 'visible');

@@ -30,7 +30,7 @@ define([], function () {
 		},
 
 		renderDone:{
-			todoCounter:false
+			todoCounter:true
 		},
 
 		destroyContent:{

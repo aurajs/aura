@@ -1,7 +1,6 @@
 define([ "../todo/mediator" , "../todo/permissions" ], function (mediator, permissions) {
 
 	// Facade
-
 	var facade = facade || {};
 
 	facade.subscribe = function(subscriber, channel, callback){

@@ -28,14 +28,6 @@ define(["../todo/facade"], function (facade) {
         }
     });
 
-    // Desc: update editing UI on switching mode to editing content
-    // Subscribes to: beginContentEditing
-    facade.subscribe('editFocus','beginContentEditing', function (context) {
-        $(context.el).addClass("editing");
-        context.input.focus();
-    });
-
-
 
     // Desc: Delete a todo when the user no longer needs it
     // Subscribes to: destroyContent
@@ -63,6 +55,13 @@ define(["../todo/facade"], function (facade) {
         context.tooltipTimeout = _.delay(show, 1000);
     });
 
+
+    // Desc: update editing UI on switching mode to editing content
+    // Subscribes to: beginContentEditing
+    facade.subscribe('editFocus','beginContentEditing', function (context) {
+        $(context.el).addClass("editing");
+        context.input.focus();
+    });
 
 
     // Desc: Create a new todo entry 
