@@ -14,7 +14,7 @@ define([ "../todo/mediator" , "../todo/permissions" ], function (mediator, permi
 
 	facade.publish = function(channel){
 		//optional: handle persmissions
-		mediator.publush( channel );
+		mediator.publish( channel );
 	}
 
 	return facade;
