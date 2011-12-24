@@ -2,7 +2,9 @@
 
 <strong>Update 24/12:</strong> A slimmer, more clean version of the application is now available in <code>new-version</code>. For historical context you can still access the older app in <code>module-activator-version</code> should you wish to use it.
 
-This repo demonstrates a decoupled, event-driven Backbone Todo application using 2/3 of the concepts I discuss in my talks on [large-scale JavaScript application development](http://addyosmani.com/largescalejavascript) which Nicholas Zakas has also previously discussed. Specifically, ideas regarding mediator and facade pattern integration with Backbone are shown.
+### Introduction
+
+This repo demonstrates a decoupled, event-driven Backbone Todo application using 2/3 of the concepts I discuss in my talks on [large-scale JavaScript application development](http://addyosmani.com/largescalejavascript). Specifically, ideas regarding mediator and facade pattern integration with Backbone are shown.
 
 The implementation includes:
 
@@ -23,7 +25,7 @@ All <code>subscriptions</code> go through a facade (or sandbox). What this does 
 
 For demonstration, see the permissions manager (permissions.js). By changing say, permissions -> renderDone -> todoCounter to be false, you can completely disable that component from displaying counts (because it isn't allowed to subscribe to that event). The rest of the Todo app can still however be used without issue. Nifty, eh?
 
-### Folders
+### Directories
 
 The most important part of this application can be found in the <code>js/aura</code> directory (mediator.js for centralized pub/sub and facade.js + permissions.js for permissions for sandboxing and security). The main directory contains the usual models/views/collections etc. whilst the modules.js hosts the subscriber 'modules' consuming events broadcast (published) from the views.
 
