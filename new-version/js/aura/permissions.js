@@ -2,10 +2,10 @@ define([], function () {
 
 	// Permissions
 
-	// A permissions structure can check
-	// against subscriptions prior to allowing
-	// them to clear. This enforces a light 
-	// security layer for your application.
+	// A permissions structure can support checking
+	// against subscriptions prior to allowing them 
+	// to clear. This enforces a flexible security 
+	// layer for your application.
 
 	var permissions = {
 
