@@ -9,12 +9,12 @@ This repo demonstrates a decoupled, event-driven Backbone Todo application using
 The implementation includes:
 
 <ul>
-<li>The mediator pattern for centralized Pub/Sub</li>
+<li>The Mediator pattern for centralized Pub/Sub</li>
 <li>Facade pattern for security/permissions</li>
 <li>RequireJS + AMD modules for organization and modular development</li>
 <li>Backbone.js for MV* structure</li>
 <li>jQuery 1.7</li>
-<li>Templating via jQuery.tmpl (although this can be switched out for any other templating solution)</li>
+<li>Templating via Underscore</li>
 </ul>
 
 ### Summary
