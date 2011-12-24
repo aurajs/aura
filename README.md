@@ -27,7 +27,7 @@ For demonstration, see the permissions manager (permissions.js). By changing say
 
 ### Directories
 
-The most important part of this application can be found in the <code>js/aura</code> directory (mediator.js for centralized pub/sub and facade.js + permissions.js for permissions for sandboxing and security). The main directory contains the usual models/views/collections etc. whilst the modules.js hosts the subscriber 'modules' consuming events broadcast (published) from the views.
+The most important part of this application can be found in the <code>js/aura</code> directory (mediator.js for centralized pub/sub and facade.js + permissions.js for permissions for sandboxing and security). The main directory contains the usual models/views/collections etc. whilst the subscribers.js file hosts the subscriber 'modules' consuming events broadcast (published) from the views.
 
 I strongly recommend using the updated <code>new-version</code> of the code. If however you opt for the <code>module-activator-version</code>, note that <code>app/scripts/util</code> contains a set of helpers for module loading and execution. Whilst that version of the app use theses helpers, they are by no means absolutely required for successfully creating Backbone applications using AMD modules. 
 
