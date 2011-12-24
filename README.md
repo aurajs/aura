@@ -2,9 +2,9 @@
 
 <strong>Update 24/12:</strong> A slimmer, more clean version of the application is now available in <code>new-version</code>. For historical context you can still access the older app in <code>module-activator-version</code> should you wish to use it.
 
-This repo demonstrates a decoupled, event-driven Backbone Todo application using 2/3 of the concepts I discuss in my talks on large-scale JavaScript application development [1]. Specifically, ideas regarding mediator and facade pattern integration with Backbone are shown.
+This repo demonstrates a decoupled, event-driven Backbone Todo application using 2/3 of the concepts I discuss in my talks on [large-scale JavaScript application development](http://addyosmani.com/largescalejavascript) which Nicholas Zakas has also previously discussed. Specifically, ideas regarding mediator and facade pattern integration with Backbone are shown.
 
-The implementation covers:
+The implementation includes:
 
 <ul>
 <li>The mediator pattern for centralized Pub/Sub</li>
@@ -29,16 +29,8 @@ The most important part of this application can be found in the <code>js/aura</c
 
 I strongly recommend using the updated <code>new-version</code> of the code. If however you opt for the <code>module-activator-version</code>, note that <code>app/scripts/util</code> contains a set of helpers for module loading and execution. Whilst that version of the app use theses helpers, they are by no means absolutely required for successfully creating Backbone applications using AMD modules. 
 
-For more information on writing applications using AMD modules see [2]
+For more information on writing applications using AMD modules see my [guide](http://addyosmani.com/writing-modular-js).
 
-The older module-activator-version is based on portions by Ryan Rauh [3]
+The older module-activator-version is based on [portions](https://github.com/addyosmani/Backbone_RequireJS) by Ryan Rauh
 
-
-###References
-
-<ul>
-<li>[1] http://addyosmani.com/largescalejavascript</li>
-<li>[2] http://addyosmani.com/writing-modular-js</li>
-<li>[3] https://github.com/addyosmani/Backbone_RequireJS or https://github.com/rauhryan/Backbone_RequireJS</li>
-</ul>
 
