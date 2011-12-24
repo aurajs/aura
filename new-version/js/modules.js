@@ -2,7 +2,7 @@ define(["jquery", "underscore", "aura/facade"],
 function ($, _, facade) {
 
     // Subscription 'modules' for our views. These take the 
-    // the form facade.subscribe( subscriberName, eventName, callBack )
+    // the form facade.subscribe( subscriberName, notificationToSubscribeTo , callBack )
 
     // Update view with latest todo content
     // Subscribes to: newContentAvailable
@@ -41,7 +41,6 @@ function ($, _, facade) {
     });
 
 
-
     // When a user is adding a new entry, display a tooltip
     // Subscribes to: addingNewTodo
     facade.subscribe('todoTooltip','addingNewTodo', function (context, todo) {
@@ -75,7 +74,7 @@ function ($, _, facade) {
 
 
 
-    // =A Todo and remaining entry counter
+    // A Todo and remaining entry counter
     // Subscribes to: renderDone
     facade.subscribe('todoCounter','renderDone', function (context, Todos) {
         var done = Todos.done().length;
