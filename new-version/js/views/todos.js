@@ -4,7 +4,7 @@ define([
   'backbone',
   'text!templates/todos.html',
   '../aura/mediator',
-  '../subscribers'
+  '../modules'
   ], function($, _, Backbone, textTemplate, mediator){
   var TodoView = Backbone.View.extend({
 

@@ -30,7 +30,11 @@ define([], function () {
 		},
 
 		renderDone:{
-			todoCounter:true //switch to false to see what happens :)
+			todoCounter:true 
+			//switch to false and you'll notice that this
+			//component is effectively no longer rendered
+			//in the application as it hasn't passed
+			//the facade security/permissions clearance
 		},
 
 		destroyContent:{
