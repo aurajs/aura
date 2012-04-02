@@ -87,8 +87,8 @@ define(['jquery', 'underscore'], function ($, _) {
          * @param {string} str String to make camelCase
          */
         camelize: function (str) {
-            return str.replace (/(?:^|[-_])(\w)/g, function (delimiter, c) {
-                return c ? c.toUpperCase () : '';
+            return str.replace(/(?:^|[\-_])(\w)/g, function (delimiter, c) {
+                return c ? c.toUpperCase() : '';
             });
         },
         /**
@@ -102,6 +102,14 @@ define(['jquery', 'underscore'], function ($, _) {
         },
         parseJson: function (json) {
             return $.parseJSON(json);
+        },
+        /**
+         * Get the rest of the elements from an index in an array
+         * @param {array} arr The array or arguments object
+         * @param {integer} [index=0] The index at which to start
+         */
+        rest: function (arr, index) {
+            return _.rest(arr, index);
         }
     };
 
@@ -118,14 +126,24 @@ define(['jquery', 'underscore'], function ($, _) {
     obj.events = {
         listen: function (context, events, selector, callback) {
             return $(context).on(events, selector, callback);
+        },
+        bindAll: function () {
+            return _.bindAll.apply(this, arguments);
         }
     };
 
     obj.templates = function (name) {
-        require(["text!templates/" + name], function (template) {
-            
-        });
-    }
+        // var dfr = $.Deferred();
+
+        // require(["text!templates/" + name], function (template) {
+        //     dfr.resolve(template);
+        // });
+
+        // return dfr.promise();
+    };
+
+    // Placeholder for things like ajax and local storage
+    obj.data = {};
 
     return obj;
 

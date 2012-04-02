@@ -51,12 +51,16 @@ define(["./mediator", "./permissions"], function (mediator, permissions) {
          */
         listen: function (context, events, selector, callback) {
             mediator.events.listen(context, events, selector, callback);
-        }
+        },
+        bindAll: mediator.events.bindAll
     };
 
     facade.util = {
-        each: mediator.util.each
+        each: mediator.util.each,
+        rest: mediator.util.rest
     };
+
+    facade.data = mediator.data;
 
     return facade;
 });
