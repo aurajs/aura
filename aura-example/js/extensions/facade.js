@@ -4,10 +4,11 @@
 /*global define*/
 define(["../libs/aura-core/facade", "./mediator", "./permissions"], 
     function (facade, mediator, permissions) {
+
+        facade.data.store = mediator.data.store;    
+        facade.backbone = mediator.backbone;
+        facade.models = mediator.models;
+        facade.collections = mediator.collections;
     
-    facade.backbone = mediator.backbone;
-    facade.models = mediator.models;
-    facade.collections = mediator.collections;
-    
-    return facade;
+        return facade;
 });
