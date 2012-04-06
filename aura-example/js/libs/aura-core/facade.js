@@ -26,7 +26,7 @@ define(["./mediator", "./permissions"], function (mediator, permissions) {
      * @param {string} channel Event name
      */
     facade.publish = function (channel) {
-        mediator.publish(channel);
+        mediator.publish.apply(mediator, arguments);
     };
 
     facade.dom = {
