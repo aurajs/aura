@@ -1,12 +1,17 @@
+/**
+ * @fileOverview Todo module
+ */
+/*jslint sloppy:true*/
+/*global define*/
 define(["../extensions/facade"], function (facade) {
 
-    var TodosCollection = facade.backbone.Collection.extend({
+    var Todos = facade.mvc.createCollection({
 
         // Reference to this collection's model.
-        model: facade.models.todo,
+        model: facade.mvc.getModel("todo"),
 
         // Save all of the todo items under the `"todos"` namespace.
-        localStorage: new facade.data.store("todos"),
+        localStorage: new facade.data.Store("todos"),
 
         // Filter down the list of all todo items that are finished.
         done: function() {
@@ -30,5 +35,6 @@ define(["../extensions/facade"], function (facade) {
             return todo.get('order');
         }
     });
-    return new TodosCollection();
+
+    return Todos;
 });
