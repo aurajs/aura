@@ -143,7 +143,9 @@ define(['jquery', 'underscore'], function ($, _) {
     };
 
     // Placeholder for things like ajax and local storage
-    obj.data = {};
+    obj.data = {
+        deferred: $.Deferred
+    };
 
     return obj;
 
