@@ -1,31 +1,39 @@
-define({});
-// define(['underscore', 'backbone'], function(_, Backbone) {
-//   var TodoModel = Backbone.Model.extend({
+/**
+ * @fileOverview Todo module
+ */
+/*jslint sloppy:true*/
+/*global define*/
+define(["../extensions/facade"], function (facade) {
 
-//     // Default attributes for the todo.
-//     defaults: {
-//       content: "empty todo...",
-//       done: false
-//     },
+    var Todo;
 
-//     // Ensure that each todo created has `content`.
-//     initialize: function() {
-//       if (!this.get("content")) {
-//         this.set({"content": this.defaults.content});
-//       }
-//     },
+    Todo = facade.mvc.createModel({
 
-//     // Toggle the `done` state of this todo item.
-//     toggle: function() {
-//       this.save({done: !this.get("done")});
-//     },
+        // Default attributes for the todo.
+        defaults: {
+            content: "empty todo...",
+            done: false
+        },
 
-//     // Remove this Todo from *localStorage* and delete its view.
-//     clear: function() {
-//       this.destroy();
-//       this.view.remove();
-//     }
+        // Ensure that each todo created has `content`.
+        initialize: function() {
+            if (!this.get("content")) {
+                this.set({"content": this.defaults.content});
+            }
+        },
 
-//   });
-//   return TodoModel;
-// });
+        // Toggle the `done` state of this todo item.
+        toggle: function() {
+            this.save({done: !this.get("done")});
+        },
+
+        // Remove this Todo from *localStorage* and delete its view.
+        clear: function() {
+            this.destroy();
+            this.view.remove();
+        }
+
+    });
+
+    return Todo;
+});
