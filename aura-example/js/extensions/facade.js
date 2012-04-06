@@ -5,10 +5,8 @@
 define(["../libs/aura-core/facade", "./mediator", "./permissions"], 
     function (facade, mediator, permissions) {
 
-        facade.data.store = mediator.data.store;    
-        facade.backbone = mediator.backbone;
-        facade.models = mediator.models;
-        facade.collections = mediator.collections;
+        facade.data.Store = mediator.data.Store;    
+        facade.mvc = mediator.mvc;
     
         return facade;
 });
