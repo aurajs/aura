@@ -11,17 +11,18 @@
  */
 define([], function () {
 	
-	var obj = {};
-	obj.rules = {};
+	var permissions = {
+		rules: {}
+	};
 
 	/**
      * @param {string} subscriber Module name
      * @param {string} channel Event name
      */
-	obj.validate = function(subscriber, channel){
-		var test = obj.rules[channel][subscriber];
+	permissions.validate = function(subscriber, channel){
+		var test = permissions.rules[channel][subscriber];
 		return test === undefined ? false : test;
 	};
 
-	return obj;
+	return permissions;
 });
