@@ -1,10 +1,10 @@
 ##Backbone-Aura
 
-<strong>Update 1/2012:</strong> A slimmer, more clean version of the application is now available in <code>new-version</code>. For historical context you can still access the older app in <code>module-activator-version</code> should you wish to use it.
+Backbone Aura is a decoupled, event-driven Backbone architecture for developing applications. It uses concepts discussed in my talks on [large-scale JavaScript application development](http://addyosmani.com/largescalejavascript). Specifically, ideas regarding mediator and facade pattern integration with Backbone are shown.
+
+A number of different implementations of this idea are demonstrated in this repository. At present, new-version and module-activator-version are examples recommended to review. aura-core and aura-example are currently still in development in collaboration with Dustin Boston.
 
 ### Introduction
-
-This repo demonstrates a decoupled, event-driven Backbone Todo application using 2/3 of the concepts I discuss in my talks on [large-scale JavaScript application development](http://addyosmani.com/largescalejavascript). Specifically, ideas regarding mediator and facade pattern integration with Backbone are shown.
 
 The implementation includes:
 
@@ -13,7 +13,7 @@ The implementation includes:
 <li>Facade pattern for security/permissions</li>
 <li>RequireJS + AMD modules for organization and modular development</li>
 <li>Backbone.js for MV* structure</li>
-<li>jQuery 1.7.1</li>
+<li>jQuery</li>
 <li>Templating via Underscore</li>
 </ul>
 

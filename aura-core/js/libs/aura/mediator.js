@@ -3,7 +3,7 @@
  */
 /*jslint nomen:true, sloppy:true, browser:true*/
 /*global define*/
-define([], function(obj){
+define([], function (obj) {
 
   var channels = {};
   if (!obj) obj = {};
