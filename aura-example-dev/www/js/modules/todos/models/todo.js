@@ -1,5 +1,5 @@
 define(['sandbox'], function(sandbox) {
-    return sandbox.mvc.Model({
+    var TodoModel = sandbox.mvc.Model({
 
         // Default attributes for the todo.
         defaults: {
@@ -25,4 +25,5 @@ define(['sandbox'], function(sandbox) {
         }
 
     });
+    return TodoModel;
 });

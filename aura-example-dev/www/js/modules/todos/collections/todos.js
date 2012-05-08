@@ -1,6 +1,6 @@
 define(['sandbox', '../models/todo'], function(sandbox, Todo){
 
-    return new sandbox.mvc.Collection({
+    var TodosCollection = sandbox.mvc.Collection({
 
         // Reference to this collection's model.
         model: Todo,
@@ -31,5 +31,6 @@ define(['sandbox', '../models/todo'], function(sandbox, Todo){
         }
 
     });
+    return new TodosCollection;
 
 });
