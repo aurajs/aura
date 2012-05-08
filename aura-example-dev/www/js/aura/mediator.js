@@ -136,7 +136,7 @@ define(['jquery', 'underscore'], function ($, _) {
         }
     };
 
-    obj.templates = {
+    obj.template = {
         parse: _.template
     };
 

@@ -1,11 +1,7 @@
-define(['../collections/todos', './todos', 'text!../templates/stats.html'],
-        function(TodosModule, TodoViewModule, statsTemplate) {
+define(['sandbox', '../collections/todos', './todos', 'text!../templates/stats.html'],
+        function(sandbox, Todos, TodoView, statsTemplate) {
 
-    function Module (sandbox, element) {
-
-        var Todos = new TodosModule(sandbox),
-            TodoView = new TodoViewModule(sandbox);
-
+    return function (element) {
         return new sandbox.mvc.View({
 
             // Instead of generating a new element, bind to the existing skeleton of
@@ -27,6 +23,7 @@ define(['../collections/todos', './todos', 'text!../templates/stats.html'],
             // collection, when items are added or changed. Kick things off by
             // loading any preexisting todos that might be saved in *localStorage*.
             initialize: function() {
+              console.log("init called");
               sandbox.events.bindAll(this, 'addOne', 'addAll', 'render', 'toggleAllComplete');
 
               this.input    = sandbox.dom.find("#new-todo", this.el);
@@ -91,12 +88,12 @@ define(['../collections/todos', './todos', 'text!../templates/stats.html'],
 
             // Lazily show the tooltip that tells you to press `enter` to save
             // a new todo item, after one second.
-            showTooltip: function(e) {
+            showTooltip: function() {
               var tooltip = sandbox.dom.find(".ui-tooltip-top", this.el);
               var val = this.input.val();
               tooltip.fadeOut();
               if (this.tooltipTimeout) clearTimeout(this.tooltipTimeout);
-              if (val == '' || val == this.input.attr('placeholder')) return;
+              if (val === '' || val === this.input.attr('placeholder')) return;
               var show = function(){ tooltip.show().fadeIn(); };
               this.tooltipTimeout = sandbox.util.delay(show, 1000);
             },
@@ -108,7 +105,5 @@ define(['../collections/todos', './todos', 'text!../templates/stats.html'],
             }
 
         });
-    }
-
-    return Module;
+    };
 });
