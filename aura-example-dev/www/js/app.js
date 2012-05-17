@@ -12,7 +12,9 @@ require.config({
         backbone: 'ext/lib/backbone',
         localstorage: 'ext/lib/localstorage',
         jquery: 'aura/lib/jquery',
-        underscore: 'aura/lib/underscore'
+        underscore: 'aura/lib/underscore',
+        fullcalendar: 'ext/lib/fullcalendar.min',
+        bootstrap_modal: 'ext/lib/bootstrap-modal'
     }
 });
 
@@ -28,6 +30,6 @@ if (typeof Object.create !== 'function') {
 // Publishing from core because that's the way that Nicholas did it...
 requirejs(['core'], function (core) {
     core.publish('todos', "#todoapp");
-    // core.publish('todos', "#stockapp");
+    core.publish('calendar', "#calendarapp");
     // core.publish('todos', "#weatherapp");
 });

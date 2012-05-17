@@ -70,7 +70,7 @@ define(['jquery', 'underscore'], function ($, _) {
             args = [].slice.call(arguments, 1),
             file = obj.util.decamelize(channel);
 
-        require(["modules/" + file + "/main"], function (module) {
+        require(["widgets/" + file + "/main"], function (module) {
             for (i = 0, l = channels[channel].length; i < l; i += 1) {
                 channels[channel][i].apply(obj, args);
             }
@@ -79,6 +79,7 @@ define(['jquery', 'underscore'], function ($, _) {
 
     obj.util = {
         each: _.each,
+        extend: _.extend,
         decamelize: function (camelCase, delimiter) {
             delimiter = (delimiter === undefined) ? "_" : delimiter;
             return camelCase.replace(/([A-Z])/g, delimiter + '$1').toLowerCase();

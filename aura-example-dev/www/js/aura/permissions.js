@@ -9,18 +9,26 @@
  * // Format for permissions:
  * {eventName: {moduleName:[true|false]}, ...}
  */
-define([], function () {
+define(["jquery"], function ($) {
 	
-	var permissions = {
-		rules: {}
-	};
+	var permissions = {},
+        rules = {};  
+    
+    permissions.extend = function (extended) {
+        if (window.aura && window.aura.permissions) {
+            rules = $.extend(true, {}, extended, window.aura.permissions);
+        } else {
+            rules = extended;
+        }
+        
+    };
 
 	/**
      * @param {string} subscriber Module name
      * @param {string} channel Event name
      */
 	permissions.validate = function(subscriber, channel){
-		var test = permissions.rules[channel][subscriber];
+		var test = rules[channel][subscriber];
 		return test === undefined ? false : test;
 	};
 

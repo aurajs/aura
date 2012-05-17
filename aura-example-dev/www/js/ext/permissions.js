@@ -3,7 +3,10 @@
  */
 define(["aura_perms"], function (permissions) {
     
-    permissions.rules.todos = {bootstrap:true};
+    permissions.extend({
+        todos: {bootstrap:true},
+        calendar: {bootstrap:true}
+    });
     
     return permissions;
 });

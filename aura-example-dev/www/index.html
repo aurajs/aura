@@ -3,11 +3,12 @@
 <head>
     <title>Backbone Aura Example Dev</title>
 	<link rel="stylesheet" href="css/todos.css">
+    <link rel="stylesheet" href="css/fullcalendar.css">
     <script data-main="js/app" src="js/require.js"></script>
 </head>
 <body>
 
-<div id="todoapp">
+    <div id="todoapp" class="widget">
 
       <div class="title">
         <h1>Todos</h1>
@@ -15,7 +16,7 @@
 
       <div class="content">
 
-        <div id="create-todo">
+        <div id="create-todo" class="create">
           <input id="new-todo" placeholder="What needs to be done?" type="text" />
           <span class="ui-tooltip-top" style="display:none;">Press Enter to save this task</span>
         </div>
@@ -30,6 +31,22 @@
 
       </div>
 
+    </div>
+
+    <div id="calendarapp" class="widget">
+        <div class="content"></div>
+        <div id="eventDialog">
+    		<form>
+				<div>
+					<input id="title" placeholder="What's coming up?" class="field" type="text"></input>
+                    <span class="ui-tooltip-top" style="display:none;">Press Enter to save this event</span>
+				</div>
+				<!--<div>
+					<label>Color:</label>
+					<input id='color' class="field" type="text"></input>
+				</div>-->
+			</form>
+		</div>
     </div>
 
     <div id="credits">

@@ -1,0 +1,68 @@
+define(['sandbox', './event'],
+        function(sandbox, EventView) {
+
+    var AppView = sandbox.mvc.View({
+        initialize: function(){
+            
+            this.calendar = sandbox.dom.find(".content", this.el);
+            
+            sandbox.events.bindAll(this); 
+
+            this.collection.bind('reset', this.addAll);
+            this.collection.bind('add', this.addOne);
+            this.collection.bind('change', this.change);            
+            this.collection.bind('destroy', this.destroy);
+            
+            this.eventView = new EventView();
+        },
+        render: function() {
+            this.calendar.fullCalendar({
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,basicWeek,basicDay'
+                },
+                selectable: true,
+                selectHelper: true,
+                editable: true,
+                ignoreTimezone: false,                
+                select: this.select,
+                eventClick: this.eventClick,
+                eventDrop: this.eventDropOrResize,        
+                eventResize: this.eventDropOrResize
+            });
+        },
+        addAll: function() {
+            this.calendar.fullCalendar('addEventSource', this.collection.toJSON());
+        },
+        addOne: function(event) {
+            this.calendar.fullCalendar('renderEvent', event.toJSON());
+        },        
+        select: function(startDate, endDate) {
+            this.eventView.collection = this.collection;
+            this.eventView.model = new Event({start: startDate, end: endDate});
+            this.eventView.render();            
+        },
+        eventClick: function(fcEvent) {
+            this.eventView.model = this.collection.get(fcEvent.id);
+            this.eventView.render();
+        },
+        change: function(event) {
+            // Look up the underlying event in the calendar and update its details from the model
+            var fcEvent = this.el.fullCalendar('clientEvents', event.get('id'))[0];
+            fcEvent.title = event.get('title');
+            fcEvent.color = event.get('color');
+            this.calendar.fullCalendar('updateEvent', fcEvent);           
+        },
+        eventDropOrResize: function(fcEvent) {
+            // Lookup the model that has the ID of the event and update its attributes
+            this.collection.get(fcEvent.id).save({start: fcEvent.start, end: fcEvent.end});            
+        },
+        destroy: function(event) {
+            this.calendar.fullCalendar('removeEvents', event.id);         
+        }        
+    });
+    
+    return AppView;
+
+});

@@ -39,17 +39,18 @@ body {
 	color: #333333;
 }
 
-#todoapp {
+.widget {
 	width: 480px;
-	margin: 0 auto 40px;
+	margin: 0 40px 40px;
 	background: white;
 	padding: 20px;
 	-moz-box-shadow: rgba(0, 0, 0, 0.2) 0 5px 6px 0;
 	-webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 5px 6px 0;
 	-o-box-shadow: rgba(0, 0, 0, 0.2) 0 5px 6px 0;
 	box-shadow: rgba(0, 0, 0, 0.2) 0 5px 6px 0;
+    float:left;
 }
-#todoapp h1 {
+.widget h1 {
 	font-size: 36px;
 	font-weight: bold;
 	text-align: center;
@@ -57,10 +58,10 @@ body {
 	line-height: 1;
 }
 
-#create-todo {
+.create {
 	position: relative;
 }
-#create-todo input {
+.create input {
 	width: 466px;
 	font-size: 24px;
 	font-family: inherit;
@@ -75,7 +76,7 @@ body {
 	box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
 }
 
-#create-todo span {
+.create span {
 	position: absolute;
 	z-index: 999;
 	width: 170px;
@@ -316,7 +317,7 @@ body {
 
 
 /* line 17 */
-#todoapp {
+.widget {
 	background: white;
 	-moz-box-shadow: rgba(0, 0, 0, 0.2) 0 2px 6px 0;
 	-webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 2px 6px 0;
@@ -339,11 +340,11 @@ body {
 
 
 /* line 32 */
-#todoapp .content #create-todo {
+.widget .content .create {
 	position: relative;
 }
 /* line 34 */
-#todoapp .content #create-todo input {
+.widget .content .create input {
 	font-size: 24px;
 	font-family: inherit;
 	line-height: 1.4em;
@@ -358,7 +359,7 @@ body {
 }
 
 /* line 47 */
-#todoapp .content #create-todo span {
+.widget .content .create span {
 	position: absolute;
 	z-index: 999;
 	width: 170px;
