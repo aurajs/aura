@@ -31,6 +31,6 @@ define(['sandbox', '../models/todo'], function(sandbox, Todo){
         }
 
     });
-    return new TodosCollection;
 
+    return new TodosCollection;
 });

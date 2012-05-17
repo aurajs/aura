@@ -20,15 +20,22 @@ define(['sandbox', 'text!../templates/todos.html'], function(sandbox, todosTempl
         // a one-to-one correspondence between a **Todo** and a **TodoView** in this
         // app, we set a direct reference on the model for convenience.
         initialize: function() {
-          sandbox.events.bindAll(this, 'render', 'close', 'remove');
-          this.model.bind('change', this.render);
-          this.model.bind('destroy', this.remove);
+          this.model.bind('change', this.render, this);
+          this.model.bind('destroy', this.remove, this);
         },
     
         // Re-render the contents of the todo item.
         render: function() {
-          sandbox.dom.find(this.el).html(this.template(this.model.toJSON()));
-          this.input = sandbox.dom.find('.todo-input'); // @todo
+          //we need to figure out whether it makes sense to relook this up
+          //when backbone is caching the reference for us
+          //sandbox.dom.find(this.el).html(this.template(this.model.toJSON()));
+          this.$el.html(this.template(this.model.toJSON()));
+
+         // sandbox.dom.find(this.$el).html(this.template(this.model.toJSON()));
+
+          //this.input = sandbox.dom.find('.todo-input'); // @todo
+          //this.input = this.$('.edit .todo-input');
+          this.input = sandbox.dom.find('.todo-input', this.$('.edit'));
           return this;
         },
     
@@ -39,14 +46,18 @@ define(['sandbox', 'text!../templates/todos.html'], function(sandbox, todosTempl
     
         // Switch this view into `"editing"` mode, displaying the input field.
         edit: function() {
-          sandbox.dom.find(this.el).addClass("editing");
+          //sandbox.dom.find(this.el).addClass("editing");
+          this.$el.addClass("editing");
           this.input.focus();
         },
     
         // Close the `"editing"` mode, saving changes to the todo.
         close: function() {
-          this.model.save({content: this.input.val()});
-          sandbox.dom.find(this.el).removeClass("editing");
+          var value = this.input.val();
+          if (!value) this.clear();
+          this.model.save({content: value});
+          this.$el.removeClass("editing");
+          //sandbox.dom.find(this.el).removeClass("editing");
         },
     
         // If you hit `enter`, we're through editing the item.

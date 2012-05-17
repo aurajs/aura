@@ -13,7 +13,6 @@ define(['sandbox', '../collections/todos', './todos', 'text!../templates/stats.h
         // Delegated events for creating new items, and clearing completed ones.
         events: {
           "keypress #new-todo":  "createOnEnter",
-          "keyup #new-todo":     "showTooltip",
           "click .todo-clear a": "clearCompleted",
           "click .mark-all-done": "toggleAllComplete"
         },
@@ -22,15 +21,13 @@ define(['sandbox', '../collections/todos', './todos', 'text!../templates/stats.h
         // collection, when items are added or changed. Kick things off by
         // loading any preexisting todos that might be saved in *localStorage*.
         initialize: function() {
-          console.log("init called");
-          sandbox.events.bindAll(this, 'addOne', 'addAll', 'render', 'toggleAllComplete');
-
+          
           this.input    = sandbox.dom.find("#new-todo", this.el);
           this.allCheckbox = sandbox.dom.find(".mark-all-done", this.el)[0];
 
-          Todos.bind('add',     this.addOne);
-          Todos.bind('reset',   this.addAll);
-          Todos.bind('all',     this.render);
+          Todos.bind('add', this.addOne, this);
+          Todos.bind('reset', this.addAll, this);
+          Todos.bind('all', this.render, this);
 
           Todos.fetch();
         },
@@ -63,6 +60,7 @@ define(['sandbox', '../collections/todos', './todos', 'text!../templates/stats.h
         },
 
         // Generate the attributes for a new Todo item.
+        
         newAttributes: function() {
           return {
             content: this.input.val(),
@@ -75,6 +73,7 @@ define(['sandbox', '../collections/todos', './todos', 'text!../templates/stats.h
         // persisting it to *localStorage*.
         createOnEnter: function(e) {
           if (e.keyCode != 13) return;
+          if (!this.input.val()) return;
           Todos.create(this.newAttributes());
           this.input.val('');
         },
@@ -83,18 +82,6 @@ define(['sandbox', '../collections/todos', './todos', 'text!../templates/stats.h
         clearCompleted: function() {
           sandbox.util.each(Todos.done(), function(todo){ todo.clear(); });
           return false;
-        },
-
-        // Lazily show the tooltip that tells you to press `enter` to save
-        // a new todo item, after one second.
-        showTooltip: function() {
-          var tooltip = sandbox.dom.find(".ui-tooltip-top", this.el);
-          var val = this.input.val();
-          tooltip.fadeOut();
-          if (this.tooltipTimeout) clearTimeout(this.tooltipTimeout);
-          if (val === '' || val === this.input.attr('placeholder')) return;
-          var show = function(){ tooltip.show().fadeIn(); };
-          this.tooltipTimeout = sandbox.util.delay(show, 1000);
         },
 
         // Change each todo so that it's `done` state matches the check all
