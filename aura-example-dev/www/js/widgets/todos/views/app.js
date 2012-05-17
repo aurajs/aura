@@ -5,7 +5,7 @@ define(['sandbox', '../collections/todos', './todos', 'text!../templates/stats.h
 
         // Instead of generating a new element, bind to the existing skeleton of
         // the App already present in the HTML.
-        el: sandbox.dom.find("#todoapp"),
+        // el: sandbox.dom.find("#todoapp"),
 
         // Our template for the line of statistics at the bottom of the app.
         statsTemplate: sandbox.template.parse(statsTemplate),

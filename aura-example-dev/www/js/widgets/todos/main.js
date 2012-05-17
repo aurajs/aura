@@ -2,6 +2,6 @@
 // Filename: main.js
 define(['sandbox', './views/app'], function(sandbox, AppView){
     return sandbox.subscribe('bootstrap', 'todos', function (element) {
-        var app_view = new AppView;
+        new AppView({el: sandbox.dom.find(element)});
     });
 });
