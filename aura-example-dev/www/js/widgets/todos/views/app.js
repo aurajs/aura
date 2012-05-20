@@ -21,9 +21,9 @@ define(['sandbox', '../collections/todos', './todos', 'text!../templates/stats.h
         // collection, when items are added or changed. Kick things off by
         // loading any preexisting todos that might be saved in *localStorage*.
         initialize: function() {
-          
-          this.input    = sandbox.dom.find("#new-todo", this.el);
-          this.allCheckbox = sandbox.dom.find(".mark-all-done", this.el)[0];
+         
+         this.input = this.$("#new-todo"); 
+         this.allCheckbox = this.$(".mark-all-done")[0]; 
 
           Todos.bind('add', this.addOne, this);
           Todos.bind('reset', this.addAll, this);
@@ -38,7 +38,7 @@ define(['sandbox', '../collections/todos', './todos', 'text!../templates/stats.h
           var done = Todos.done().length;
           var remaining = Todos.remaining().length;
 
-          sandbox.dom.find('#todo-stats', this.el).html(this.statsTemplate({
+          this.$('#todo-stats').html(this.statsTemplate({
             total:      Todos.length,
             done:       done,
             remaining:  remaining
@@ -51,7 +51,7 @@ define(['sandbox', '../collections/todos', './todos', 'text!../templates/stats.h
         // appending its element to the `<ul>`.
         addOne: function(todo) {
           var view = new TodoView({model: todo});
-          sandbox.dom.find("#todo-list", this.el).append(view.render().el);
+          this.$('#todo-list').append(view.render().el);
         },
 
         // Add all items in the **Todos** collection at once.
@@ -60,7 +60,6 @@ define(['sandbox', '../collections/todos', './todos', 'text!../templates/stats.h
         },
 
         // Generate the attributes for a new Todo item.
-        
         newAttributes: function() {
           return {
             content: this.input.val(),
