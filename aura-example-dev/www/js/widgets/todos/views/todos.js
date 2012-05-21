@@ -26,16 +26,8 @@ define(['sandbox', 'text!../templates/todos.html'], function(sandbox, todosTempl
     
         // Re-render the contents of the todo item.
         render: function() {
-          //we need to figure out whether it makes sense to relook this up
-          //when backbone is caching the reference for us
-          //sandbox.dom.find(this.el).html(this.template(this.model.toJSON()));
           this.$el.html(this.template(this.model.toJSON()));
-
-         // sandbox.dom.find(this.$el).html(this.template(this.model.toJSON()));
-
-          //this.input = sandbox.dom.find('.todo-input'); // @todo
-          //this.input = this.$('.edit .todo-input');
-          this.input = sandbox.dom.find('.todo-input', this.$('.edit'));
+          this.input = this.$('.edit .todo-input');
           return this;
         },
     
@@ -57,7 +49,6 @@ define(['sandbox', 'text!../templates/todos.html'], function(sandbox, todosTempl
           if (!value) this.clear();
           this.model.save({content: value});
           this.$el.removeClass("editing");
-          //sandbox.dom.find(this.el).removeClass("editing");
         },
     
         // If you hit `enter`, we're through editing the item.
