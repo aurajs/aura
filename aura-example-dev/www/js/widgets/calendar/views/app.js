@@ -4,7 +4,7 @@ define(['sandbox', './event'],
     var AppView = sandbox.mvc.View({
         initialize: function(){
             
-            this.calendar = sandbox.dom.find(".content", this.el);
+            this.calendar = sandbox.dom.find(".content", this.$el);
             
             sandbox.events.bindAll(this); 
 
@@ -13,7 +13,7 @@ define(['sandbox', './event'],
             this.collection.bind('change', this.change);            
             this.collection.bind('destroy', this.destroy);
             
-            this.eventView = new EventView();
+            this.eventView = new EventView({el: sandbox.dom.find('#eventDialog', this.$el)});
         },
         render: function() {
             this.calendar.fullCalendar({
@@ -49,7 +49,7 @@ define(['sandbox', './event'],
         },
         change: function(event) {
             // Look up the underlying event in the calendar and update its details from the model
-            var fcEvent = this.el.fullCalendar('clientEvents', event.get('id'))[0];
+            var fcEvent = this.$el.fullCalendar('clientEvents', event.get('id'))[0];
             fcEvent.title = event.get('title');
             fcEvent.color = event.get('color');
             this.calendar.fullCalendar('updateEvent', fcEvent);           

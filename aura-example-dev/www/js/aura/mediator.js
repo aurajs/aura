@@ -69,8 +69,10 @@ define(['jquery', 'underscore'], function ($, _) {
         var i, l,
             args = [].slice.call(arguments, 1),
             file = obj.util.decamelize(channel);
-
-        require(["widgets/" + file + "/main"], function (module) {
+        
+        // If a widget hasn't called subscribe this will fail because it wont
+        // be present in the channels object
+        require(["widgets/" + file + "/main"], function () {
             for (i = 0, l = channels[channel].length; i < l; i += 1) {
                 channels[channel][i].apply(obj, args);
             }

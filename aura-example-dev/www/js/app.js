@@ -1,3 +1,4 @@
+/*global require, requirejs*/
 // Require.js allows us to configure shortcut alias
 require.config({
     paths: {
