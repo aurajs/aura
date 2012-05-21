@@ -1,8 +1,9 @@
 /**
  * @fileOverview Extend the aura-core facade
+ * @todo This is a stupid place to include jquery ui
  */
 /*global define*/
-define(["aura_sandbox", "core", "perms"],
+define(["aura_sandbox", "core", "perms", 'jquery_ui'],
     function (sandbox, core, perms) {
 
         var facade = Object.create(sandbox);

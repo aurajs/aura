@@ -3,6 +3,7 @@
 <head>
     <title>Backbone Aura Example Dev</title>
 	<link rel="stylesheet" href="css/todos.css">
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.19/themes/base/jquery-ui.css" />
     <link rel="stylesheet" href="css/fullcalendar.css">
     <script data-main="js/app" src="js/require.js"></script>
 </head>
@@ -35,16 +36,18 @@
 
     <div id="calendarapp" class="widget">
         <div class="content"></div>
-        <div id="eventDialog">
+		<div id="event-dialog-form" class='dialog ui-helper-hidden'>
     		<form>
-				<div>
-					<input id="title" placeholder="What's coming up?" class="field" type="text"></input>
-                    <span class="ui-tooltip-top" style="display:none;">Press Enter to save this event</span>
-				</div>
-				<!--<div>
-					<label>Color:</label>
-					<input id='color' class="field" type="text"></input>
-				</div>-->
+                <fieldset>
+    				<div>
+    					<label>Title:</label>
+    					<input id='title' class="field" type="text" />
+    				</div>
+    				<div>
+    					<label>Color:</label>
+    					<input id='color' class="field" type="text" />
+    				</div>
+                </fieldset>
 			</form>
 		</div>
     </div>

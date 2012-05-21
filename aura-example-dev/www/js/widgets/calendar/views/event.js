@@ -1,8 +1,7 @@
 define(['sandbox'], function(sandbox){
-    return sandbox.mvc.View({
-        // el: sandbox.dom.find('#eventDialog'),
+    var EventView =  sandbox.mvc.View({
         initialize: function() {
-            sandbox.events.bindAll(this);           
+            sandbox.events.bindAll(this);
         },
         render: function() {
             var buttons = {'Ok': this.save};
@@ -11,14 +10,13 @@ define(['sandbox'], function(sandbox){
             }
             sandbox.util.extend(buttons, {'Cancel': this.close});            
             
-            // @todo replace with bootstrap-modal
-            // this.$el.dialog({
-            //    modal: true,
-            //    title: (this.model.isNew() ? 'New' : 'Edit') + ' Event',
-            //    buttons: buttons,
-            //    open: this.open
-            // });
-
+            this.$el.dialog({
+                modal: true,
+                title: (this.model.isNew() ? 'New' : 'Edit') + ' Event',
+                buttons: buttons,
+                open: this.open
+            });
+            
             return this;
         },        
         open: function() {
@@ -35,10 +33,12 @@ define(['sandbox'], function(sandbox){
             }
         },
         close: function() {
-            this.el.dialog('close');
+            this.$el.dialog('close');
         },
         destroy: function() {
             this.model.destroy({success: this.close});
         }        
     });
+    
+    return EventView;
 });

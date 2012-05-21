@@ -58,7 +58,8 @@ define(["aura_core", "aura_perms"], function (mediator, permissions) {
     facade.util = {
         each: mediator.util.each,
         rest: mediator.util.rest,
-        delay: mediator.util.delay
+        delay: mediator.util.delay,
+        extend: mediator.util.extend
     };
 
     facade.data = mediator.data;

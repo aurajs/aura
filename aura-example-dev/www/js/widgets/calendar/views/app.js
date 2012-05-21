@@ -1,10 +1,10 @@
-define(['sandbox', './event'],
-        function(sandbox, EventView) {
+define(['sandbox', './event', '../models/event'],
+        function(sandbox, EventView, Event) {
 
     var AppView = sandbox.mvc.View({
         initialize: function(){
             
-            this.calendar = sandbox.dom.find(".content", this.$el);
+            this.calendar = this.$(".content");
             
             sandbox.events.bindAll(this); 
 
@@ -13,7 +13,7 @@ define(['sandbox', './event'],
             this.collection.bind('change', this.change);            
             this.collection.bind('destroy', this.destroy);
             
-            this.eventView = new EventView({el: sandbox.dom.find('#eventDialog', this.$el)});
+            this.eventView = new EventView({el: this.$("#event-dialog-form")});
         },
         render: function() {
             this.calendar.fullCalendar({

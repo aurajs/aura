@@ -15,7 +15,7 @@ require.config({
         jquery: 'aura/lib/jquery',
         underscore: 'aura/lib/underscore',
         fullcalendar: 'ext/lib/fullcalendar.min',
-        bootstrap_modal: 'ext/lib/bootstrap-modal'
+        jquery_ui: 'ext/lib/jquery-ui.min'
     }
 });
 
