@@ -25,7 +25,7 @@ define(['sandbox', '../collections/todos', './todos', 'text!../templates/base.ht
         // loading any preexisting todos that might be saved in *localStorage*.
         initialize: function() {
 
-          this.$el.append(baseTemplate);
+          this.$el.html(baseTemplate);
          
           this.input = this.$("#new-todo"); 
           this.allCheckbox = this.$(".mark-all-done")[0]; 

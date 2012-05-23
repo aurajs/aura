@@ -7,12 +7,14 @@ define(['sandbox', 'text!../templates/controls.html'],
 
         events: {
           "click .stop-todos": "stopTodos",
-          "click .stop-calendar": "stopCalendar"
+          "click .stop-calendar": "stopCalendar",
+          "click .start-todos": "startTodos",
+          "click .start-calendar": "startCalendar"
         },
 
 
         initialize: function() {
-          this.$el.append(controlTemplate);
+          this.$el.html(controlTemplate);
         },
 
         render: function() {
@@ -20,12 +22,19 @@ define(['sandbox', 'text!../templates/controls.html'],
         },
 
         stopTodos: function(){
-          //console.log('clicker');
           sandbox.widgets.stop('todos', '#todoapp');
         },
 
         stopCalendar: function(){
           sandbox.widgets.stop('calendar', '#calendarapp');
+        },
+
+        startTodos: function(){
+          sandbox.widgets.start('todos', '#todoapp');
+        },
+
+        startCalendar: function(){
+          sandbox.widgets.start('calendar', '#calendarapp');
         }
 
     });

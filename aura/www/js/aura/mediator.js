@@ -91,7 +91,7 @@ define(['jquery', 'underscore'], function ($, _) {
     /**
     * Unload a widget (collection of modules) by passing in a named reference
     * to the channel/widget. This will both locate and reset the internal
-    * state of the modules in require.js and remove the widgets DOM element
+    * state of the modules in require.js and empty the widgets DOM element
     * @param {string} channel Event name
     */
     obj.stop = function(channel){
@@ -100,13 +100,11 @@ define(['jquery', 'underscore'], function ($, _) {
             el = args[0],
             file = obj.util.decamelize(channel);
 
-        console.log(args, el);
-
         // Remove all modules under a widget path (e.g widgets/todos)
         obj.unload("widgets/" + file);
 
-        // Remove markup associated with the module
-        $(el).remove();
+        // Empty markup associated with the module
+        $(el).html('');
 
     };
 

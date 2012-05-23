@@ -7,7 +7,7 @@ define(['sandbox', './event', '../models/event', 'text!../templates/base.html'],
 
         initialize: function(){
 
-            this.$el.append(baseTemplate);
+            this.$el.html(baseTemplate);
             
             this.calendar = this.$(".content");
             

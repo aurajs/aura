@@ -28,6 +28,10 @@ define(["aura_sandbox", "core", "perms", 'jquery_ui'],
             return sandbox.stop.apply(this, arguments);
         };
 
+        facade.widgets.start = function(channel, el){
+            return sandbox.start.apply(this, arguments);
+        };
+
 
         return facade;
 });

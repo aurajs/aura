@@ -38,6 +38,12 @@ define(["aura_core", "aura_perms"], function (mediator, permissions) {
         mediator.stop.apply(mediator, arguments);
     };
 
+    /**
+     * @param {string} channel Event name
+     */
+    facade.start = function(channel){
+        mediator.start.apply(mediator, arguments);
+    };
 
     facade.dom = {
         /**
