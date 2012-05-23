@@ -1,1 +1,0 @@
-Backbone-Aura (Dev) demonstrates the principles of modular, decoupled application development. We will write more about the process than went into creating this demo application (and Aura) once we are closer to something that can be released.
