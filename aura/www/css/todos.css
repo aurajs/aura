@@ -1,62 +1,4 @@
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, font, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td {
-    margin: 0;
-	padding: 0;
-	border: 0;
-	outline: 0;
-	font-weight: inherit;
-	font-style: inherit;
-	font-size: 100%;
-	font-family: inherit;
-	vertical-align: baseline;
-}
-body {
-	line-height: 1;
-	color: black;
-	background: white;
-}
-ol, ul {
-	list-style: none;
-}
-a img {
-	border: none;
-}
 
-html {
-	background: #eeeeee;
-}
-body {
-	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-	font-size: 14px;
-	line-height: 1.4em;
-	background: #eeeeee;
-	color: #333333;
-}
-
-.widget {
-	width: 480px;
-	margin: 0 40px 40px;
-	background: white;
-	padding: 20px;
-	-moz-box-shadow: rgba(0, 0, 0, 0.2) 0 5px 6px 0;
-	-webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 5px 6px 0;
-	-o-box-shadow: rgba(0, 0, 0, 0.2) 0 5px 6px 0;
-	box-shadow: rgba(0, 0, 0, 0.2) 0 5px 6px 0;
-    float:left;
-}
-.widget h1 {
-	font-size: 36px;
-	font-weight: bold;
-	text-align: center;
-	padding: 20px 0 30px 0;
-	line-height: 1;
-}
 
 .create {
 	position: relative;
@@ -202,7 +144,7 @@ body {
 
 #credits {
 	width: 520px;
-	margin: 30px auto;
+	margin: 0px auto;
 	color: #999;
 	text-shadow: rgba(255, 255, 255, 0.8) 0 1px 0;
 	text-align: right;
@@ -378,7 +320,7 @@ body {
 	font-size: 24px;
 	border-bottom: 1px solid #cccccc;
 	*zoom: 1;
-	cursor: move;
+	
 }
 /* line 22, /opt/ree/lib/ruby/gems/1.8/gems/compass-0.10.5/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
 #todoapp .content ul#todo-list li:after {
