@@ -35,6 +35,7 @@ define(['jquery', 'underscore'], function ($, _) {
         }
     };
 
+
     /**
      * Subscribe to an event
      * @param {string} channel Event name
@@ -88,9 +89,9 @@ define(['jquery', 'underscore'], function ($, _) {
 
 
     /**
-    * Undefine/unload a module, resetting the internal state of it in require.js
-    * to act like it wasn't loaded. By default require won't cleanup any markup
-    * associated with this
+    * Unload a widget (collection of modules) by passing in a named reference
+    * to the channel/widget. This will both locate and reset the internal
+    * state of the modules in require.js and remove the widgets DOM element
     * @param {string} channel Event name
     */
     obj.stop = function(channel){
@@ -98,24 +99,43 @@ define(['jquery', 'underscore'], function ($, _) {
             el = args[0],
             file = obj.util.decamelize(channel);
 
-            console.log(file, obj);
-
-        //what needs to be done later is make sure we 
-        //just undef anything matching widgets/todos ()
-
-        // Undefine a loaded module
-        require.undef("widgets/" + file + "/main");
+        // Remove all modules under a widget path (e.g widgets/todos)
+        obj.unload("widgets/" + file);
 
         // Remove markup associated with the module
         $(el).remove();
 
     };
 
+    /**
+    * Undefine/unload a module, resetting the internal state of it in require.js
+    * to act like it wasn't loaded. By default require won't cleanup any markup
+    * associated with this
+    * 
+    * The interesting challenge with .stop() is that in order to correctly clean-up
+    * one would need to maintain a custom track of dependencies loaded for each 
+    * possible channel, including that channels DOM elements per depdendency. 
+    *
+    * This issue with this is shared dependencies. E.g, say one loaded up a module
+    * containing jQuery, others also use jQuery and then the module was unloaded.
+    * This would cause jQuery to also be unloaded if the entire tree was being done
+    * so.
+    *
+    * A simpler solution is to just remove those modules that fall under the
+    * widget path as we know those dependencies (e.g models, views etc) should only
+    * belong to one part of the codebase and shouldn't be depended on by others.
+    *
+    * @param {string} channel Event name
+    */
+    obj.unload = function(channel){
+        var contextMap = requirejs.s.contexts._.urlMap;
+        for (key in contextMap) {
+            if (contextMap.hasOwnProperty(key) && key.indexOf(channel) !== -1) {
+                require.undef(key);
+            }
+        }
 
-    // Here for debug purposes only
-    window.teststop = function(channel, el){
-        obj.stop(channel, el);
-    }
+    };
 
 
     obj.util = {

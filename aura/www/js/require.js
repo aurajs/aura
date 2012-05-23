@@ -1374,15 +1374,12 @@ var requirejs, require, define;
                 var map = makeModuleMap(id, null, true),
                     mod = registry[id];
 
-                console.log(defined, urlMap,urlFetched);
-
                 delete defined[id];
                 delete urlMap[id];
                 delete urlFetched[map.url];
                 delete undefEvents[id];
 
                 if (mod) {
-                    console.log('mod');
                     //Hold on to listeners in case the
                     //module will be attempted to be reloaded
                     //using a different config.
@@ -1392,9 +1389,6 @@ var requirejs, require, define;
 
                     removeWaiting(id);
                 }
-
-                console.log(defined, urlMap,urlFetched);
-
             },
 
             /**

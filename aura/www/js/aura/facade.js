@@ -30,6 +30,15 @@ define(["aura_core", "aura_perms"], function (mediator, permissions) {
         mediator.publish.apply(mediator, arguments);
     };
 
+
+    /**
+     * @param {string} channel Event name
+     */
+    facade.stop = function(channel){
+        mediator.publish.apply(mediator, arguments);
+    };
+    
+
     facade.dom = {
         /**
          * @param {string} selector CSS selector for the element
