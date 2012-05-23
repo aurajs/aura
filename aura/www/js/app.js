@@ -32,5 +32,5 @@ if (typeof Object.create !== 'function') {
 requirejs(['core'], function (core) {
     core.publish('todos', "#todoapp");
     core.publish('calendar', "#calendarapp");
-    // core.publish('todos', "#weatherapp");
+    core.publish('controls', "#controlsapp");
 });

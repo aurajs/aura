@@ -1,8 +1,13 @@
-define(['sandbox', './event', '../models/event'],
-        function(sandbox, EventView, Event) {
+define(['sandbox', './event', '../models/event', 'text!../templates/base.html'],
+        function(sandbox, EventView, Event, baseTemplate) {
 
     var AppView = sandbox.mvc.View({
+
+        baseTemplate: sandbox.template.parse(baseTemplate),
+
         initialize: function(){
+
+            this.$el.append(baseTemplate);
             
             this.calendar = this.$(".content");
             

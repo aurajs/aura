@@ -12,63 +12,33 @@
 
   <div id="widget-container">
 
-    <header>
+  <header>
       <h1>Backbone Aura Demo</h1>
-    </header>
+  </header>
 
 
     <section>
-    <!--begin todos-->
-    <div id="todoapp" class="widget">
-
-      <div class="title">
-        <h1>Todos</h1>
+      <!--begin todos-->
+      <div id="todoapp" class="widget">
       </div>
+      <!--end todos-->
+    </section>
 
-      <div class="content">
-
-        <div id="create-todo" class="create">
-          <input id="new-todo" placeholder="What needs to be done?" type="text" />
-          <span class="ui-tooltip-top" style="display:none;">Press Enter to save this task</span>
-        </div>
-
-        <div id="todos">
-          <input class="check mark-all-done" type="checkbox"/>
-          <label for="check-all">Mark all as complete</label>
-          <ul id="todo-list"></ul>
-        </div>
-
-        <div id="todo-stats"></div>
-
+    <section>
+      <!--begin calendar-->
+      <div id="calendarapp" class="widget">
       </div>
+      <!--end calendar-->
+    </section>
 
-    </div>
-    <!--end todos-->
-  </section>
+    
+    <section>
+      <!--begin controls-->
+        <div id="controlsapp" class="controls">
+        </div>
+      <!--end controls-->
+    </section>
 
-  <section>
-    <!--begin calendar-->
-    <div id="calendarapp" class="widget">
-        <div class="content"></div>
-		<div id="event-dialog-form" class='dialog ui-helper-hidden'>
-    		<form>
-                <fieldset>
-    				<div>
-    					<label>Title:</label>
-    					<input id='title' class="field" type="text" />
-    				</div>
-    				<div>
-    					<label>Color:</label>
-    					<input id='color' class="field" type="text" />
-    				</div>
-                </fieldset>
-			</form>
-		</div>
-    </div>
-    <!--end calendar-->
-  </section>
-
-  
 
   <footer>
     <div id="credits">

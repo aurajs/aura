@@ -6,10 +6,14 @@
 define(["aura_sandbox", "core", "perms", 'jquery_ui'],
     function (sandbox, core, perms) {
 
+
+
         var facade = Object.create(sandbox);
 
         facade.data.Store = core.data.Store;
         facade.mvc = {};
+
+        facade.widgets = {};
         facade.mvc.View = function (view) {
             return core.mvc.View.extend(view);
         };
@@ -18,7 +22,12 @@ define(["aura_sandbox", "core", "perms", 'jquery_ui'],
         };
         facade.mvc.Collection = function (collection) {
             return core.mvc.Collection.extend(collection);
-        };        
+        };
+
+        facade.widgets.stop = function(channel, el){
+            return sandbox.stop.apply(this, arguments);
+        };
+
 
         return facade;
 });

@@ -1,11 +1,14 @@
-define(['sandbox', '../collections/todos', './todos', 'text!../templates/stats.html'],
-        function(sandbox, Todos, TodoView, statsTemplate) {
+define(['sandbox', '../collections/todos', './todos', 'text!../templates/base.html',  'text!../templates/stats.html'],
+        function(sandbox, Todos, TodoView, baseTemplate, statsTemplate) {
 
     var AppView = sandbox.mvc.View({
 
         // Instead of generating a new element, bind to the existing skeleton of
         // the App already present in the HTML.
         // el: sandbox.dom.find("#todoapp"),
+
+        // Our base for the rest of the Todos widget
+        baseTemplate: sandbox.template.parse(baseTemplate),
 
         // Our template for the line of statistics at the bottom of the app.
         statsTemplate: sandbox.template.parse(statsTemplate),
@@ -21,9 +24,11 @@ define(['sandbox', '../collections/todos', './todos', 'text!../templates/stats.h
         // collection, when items are added or changed. Kick things off by
         // loading any preexisting todos that might be saved in *localStorage*.
         initialize: function() {
+
+          this.$el.append(baseTemplate);
          
-         this.input = this.$("#new-todo"); 
-         this.allCheckbox = this.$(".mark-all-done")[0]; 
+          this.input = this.$("#new-todo"); 
+          this.allCheckbox = this.$(".mark-all-done")[0]; 
 
           Todos.bind('add', this.addOne, this);
           Todos.bind('reset', this.addAll, this);

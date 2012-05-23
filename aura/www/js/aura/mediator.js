@@ -95,9 +95,12 @@ define(['jquery', 'underscore'], function ($, _) {
     * @param {string} channel Event name
     */
     obj.stop = function(channel){
+
         var args = [].slice.call(arguments, 1),
             el = args[0],
             file = obj.util.decamelize(channel);
+
+        console.log(args, el);
 
         // Remove all modules under a widget path (e.g widgets/todos)
         obj.unload("widgets/" + file);
