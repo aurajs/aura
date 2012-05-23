@@ -11,6 +11,7 @@ define(["aura_core", "aura_perms"], function (mediator, permissions) {
 
     var facade = {};
 
+
     /**
      * @param {string} subscriber Module name
      * @param {string} channel Event name

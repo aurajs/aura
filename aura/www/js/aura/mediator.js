@@ -25,6 +25,12 @@ define(['jquery', 'underscore'], function ($, _) {
         if (err.requireType === 'timeout') {
             console.warn('Could not load module ' + err.requireModules);
         } else {
+
+            // If a timeout hasn't occurred and there was another module 
+            // related error, unload the module then throw an error
+            var failedId = err.requireModules && err.requireModules[0];
+            requirejs.undef(failedId);
+
             throw err;
         }
     };
@@ -43,14 +49,14 @@ define(['jquery', 'underscore'], function ($, _) {
 
     /**
      * Publish an event, passing arguments to subscribers. Will
-     * call autoload if the channel is not already registered.
+     * call start if the channel is not already registered.
      * @param {string} channel Event name
      */
     obj.publish = function (channel) {
         // console.log("obj.publish", channel);
         var i, l, args = [].slice.call(arguments, 1);
         if (!channels[channel]) {
-            obj.autoload.apply(this, arguments);
+            obj.start.apply(this, arguments);
             return;
         }
 
@@ -65,7 +71,8 @@ define(['jquery', 'underscore'], function ($, _) {
      * delimited by default.
      * @param {string} channel Event name
      */
-    obj.autoload = function (channel) {
+    obj.start = function (channel){
+
         var i, l,
             args = [].slice.call(arguments, 1),
             file = obj.util.decamelize(channel);
@@ -78,6 +85,38 @@ define(['jquery', 'underscore'], function ($, _) {
             }
         });
     };
+
+
+    /**
+    * Undefine/unload a module, resetting the internal state of it in require.js
+    * to act like it wasn't loaded. By default require won't cleanup any markup
+    * associated with this
+    * @param {string} channel Event name
+    */
+    obj.stop = function(channel){
+        var args = [].slice.call(arguments, 1),
+            el = args[0],
+            file = obj.util.decamelize(channel);
+
+            console.log(file, obj);
+
+        //what needs to be done later is make sure we 
+        //just undef anything matching widgets/todos ()
+
+        // Undefine a loaded module
+        require.undef("widgets/" + file + "/main");
+
+        // Remove markup associated with the module
+        $(el).remove();
+
+    };
+
+
+    // Here for debug purposes only
+    window.teststop = function(channel, el){
+        obj.stop(channel, el);
+    }
+
 
     obj.util = {
         each: _.each,

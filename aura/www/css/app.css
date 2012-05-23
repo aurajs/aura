@@ -56,3 +56,6 @@ body {
 }
 
 #widget-container{ width:95%; margin:30px auto;}
+
+header{ margin:0 auto; width:600px;}
+header h1{ text-align: center; font-size:2em; padding:20px;}

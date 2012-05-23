@@ -1325,6 +1325,7 @@ var requirejs, require, define;
                     map = makeModuleMap(moduleName, relMap);
                     id = map.id;
 
+
                     if (!defined.hasOwnProperty(id)) {
                         return onError(makeError('notloaded', 'Module name "' +
                                     id +
@@ -1369,8 +1370,11 @@ var requirejs, require, define;
             },
 
             undef: function (id) {
+
                 var map = makeModuleMap(id, null, true),
                     mod = registry[id];
+
+                console.log(defined, urlMap,urlFetched);
 
                 delete defined[id];
                 delete urlMap[id];
@@ -1378,6 +1382,7 @@ var requirejs, require, define;
                 delete undefEvents[id];
 
                 if (mod) {
+                    console.log('mod');
                     //Hold on to listeners in case the
                     //module will be attempted to be reloaded
                     //using a different config.
@@ -1387,6 +1392,9 @@ var requirejs, require, define;
 
                     removeWaiting(id);
                 }
+
+                console.log(defined, urlMap,urlFetched);
+
             },
 
             /**
