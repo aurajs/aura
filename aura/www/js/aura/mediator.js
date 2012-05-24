@@ -43,7 +43,6 @@ define(['jquery', 'underscore'], function ($, _) {
      * @param {object} context Context in which to execute the module
      */
     obj.subscribe = function (channel, callback, context) {
-        // console.log("obj.subscribe", channel, subscription);
         channels[channel] = (!channels[channel]) ? [] : channels[channel];
         channels[channel].push(this.util.method(callback, context));
     };
@@ -54,7 +53,6 @@ define(['jquery', 'underscore'], function ($, _) {
      * @param {string} channel Event name
      */
     obj.publish = function (channel) {
-        // console.log("obj.publish", channel);
         var i, l, args = [].slice.call(arguments, 1);
         if (!channels[channel]) {
             obj.start.apply(this, arguments);
