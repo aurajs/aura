@@ -67,8 +67,8 @@ define(['jquery', 'underscore'], function ($, _) {
     };
 
     /**
-     * Automatically load a module and initialize it. File name of the
-     * module will be derived from the channel, decamelized and underscore
+     * Automatically load a widget and initialize it. File name of the
+     * widget will be derived from the channel, decamelized and underscore
      * delimited by default.
      * @param {string} channel Event name
      */
