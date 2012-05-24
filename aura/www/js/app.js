@@ -1,6 +1,17 @@
 /*global require, requirejs*/
 // Require.js allows us to configure shortcut alias
 require.config({
+    shim: {
+        'underscore': {
+            exports: '_'
+        },
+
+        'backbone': {
+            deps: ['underscore', 'jquery'],
+            exports: 'Backbone'
+        }
+    },
+
     paths: {
         core: 'ext/mediator',
         perms: 'ext/permissions',
@@ -18,6 +29,9 @@ require.config({
         jquery_ui: 'ext/lib/jquery-ui.min'
     }
 });
+
+
+
 
 if (typeof Object.create !== 'function') {
     Object.create = function (o) {
