@@ -4,8 +4,28 @@ Backbone Aura is a decoupled, event-driven architecture on top of Backbone.js fo
 
 Aura contains a multi-tiered architecture, consistening of:
 
-* An application core (mediator) for utilities and aliases to parts of a library that might be required
-* A sandbox (facade) that both protects the application from allowing unsafe widgets from loading but also provides the simplest API possible to interact with the mediator layer
+* An Application Core (using the mediator pattern) for utilities and aliases to parts of a library that might be required
+* A Sandbox (facade pattern) that both protects the application from allowing unsafe widgets from loading but also provides the simplest API possible to interact with the mediator layer
 * AMD modules which with RequireJS 2.0 can be easily loaded, unloaded and used to build decoupled modules as needed
 
-The new primary version of Aura is written by Addy Osmani and Dustin Boston, with our older alternative takes on these ideas being available in another directory of the same repo (for reference).
+ Backbone Aura is written by Addy Osmani and Dustin Boston, with our older alternative takes on these ideas being available in another directory of the same repo (for reference). 
+
+
+## Directory Structure
+
+*-- js/aura*
+
+Contains the core implementation of the Application Core (mediator.js), Sandbox (facade.js) and base for widget Permissions validation (permissions.js). 
+
+*-- js/ext*
+
+Extensions to the Application Core, Sandbox and Permissions can be found here. These contain example specific extensions such as support for Backbone.js and bootstrap/load permissions for the example's widgets.
+
+*-- js/widgets*
+
+The three sample widgets for the example: Calendar, Todos and Controls. Both the Calendar and Todos persist using localStorage whilst the Controls widget is there to just demonstrate how one could control the start and stop of widgets through the UI. Normally this process would be handled by modules.
+
+*app.js*
+
+RequireJS 2.0 configuration, including `shim` config to allow the loading of non AMD-patched versions of libraries such as Underscore.js and Backbone.js. This is the initial point of starting up the widgets for an application. 
+
