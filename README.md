@@ -4,9 +4,9 @@ Backbone Aura is a decoupled, event-driven architecture on top of Backbone.js fo
 
 Aura contains a multi-tiered architecture, consistening of:
 
-* An Application Core (using the mediator pattern) for utilities and aliases to parts of a library that might be required
-* A Sandbox (facade pattern) that both protects the application from allowing unsafe widgets from loading but also provides the simplest API possible to interact with the mediator layer
-* AMD modules which with RequireJS 2.0 can be easily loaded, unloaded and used to build decoupled modules as needed
+* An Application Core (using the mediator pattern) for utilities and aliases to parts of a library that might be required. As you communicate through Aura instead of directly with libraries, decisions about which ones to use can be switched out behind the scenes. 
+* A Sandbox (facade pattern) that both protects the application from allowing unsafe widgets from loading but also provides the simplest API possible to interact with the mediator layer. Permissions cab be expanded as much as needed.
+* AMD modules which with RequireJS 2.0 can be easily loaded, unloaded and used to build decoupled widgets. I've expanded on top of RequireJS's new module unloading capabilities to work around the limitation of not being able to resolve a module's dependencies. This allows you to easily undefine all the modules for a widget (removing them from Require's caches, lowering memory and cleaning up the DOM)
 
  Backbone Aura is written by Addy Osmani and Dustin Boston, with our older alternative takes on these ideas being available in another directory of the same repo (for reference). 
 
