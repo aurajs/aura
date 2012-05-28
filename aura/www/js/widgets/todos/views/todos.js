@@ -9,11 +9,11 @@ define(['sandbox', 'text!../templates/todos.html'], function(sandbox, todosTempl
     
         // The DOM events specific to an item.
         events: {
-          "click .check"              : "toggleDone",
-          "dblclick div.todo-content" : "edit",
-          "click span.todo-destroy"   : "clear",
-          "keypress .todo-input"      : "updateOnEnter",
-          "blur .todo-input"          : "close"
+          "click .toggle"              : "toggleCompleted",
+          "dblclick .view" : "edit",
+          "click .destroy"   : "clear",
+          "keypress .edit"      : "updateOnEnter",
+          "blur .edit"          : "close"
         },
     
         // The TodoView listens for changes to its model, re-rendering. Since there's
@@ -27,12 +27,12 @@ define(['sandbox', 'text!../templates/todos.html'], function(sandbox, todosTempl
         // Re-render the contents of the todo item.
         render: function() {
           this.$el.html(this.template(this.model.toJSON()));
-          this.input = this.$('.edit .todo-input');
+          this.input = this.$('.edit');
           return this;
         },
     
-        // Toggle the `"done"` state of the model.
-        toggleDone: function() {
+        // Toggle the `"completed"` state of the model.
+        toggleCompleted: function() {
           this.model.toggle();
         },
     
@@ -47,7 +47,7 @@ define(['sandbox', 'text!../templates/todos.html'], function(sandbox, todosTempl
         close: function() {
           var value = this.input.val();
           if (!value) this.clear();
-          this.model.save({content: value});
+          this.model.save({title: value});
           this.$el.removeClass("editing");
         },
     

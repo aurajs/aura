@@ -9,13 +9,13 @@ define(['sandbox', '../models/todo'], function(sandbox, Todo){
         localStorage: new sandbox.data.Store("todos-backbone-require"),
 
         // Filter down the list of all todo items that are finished.
-        done: function() {
-          return this.filter(function(todo){ return todo.get('done'); });
+        completed: function() {
+          return this.filter(function(todo){ return todo.get('completed'); });
         },
 
         // Filter down the list to only todo items that are still not finished.
         remaining: function() {
-          return this.without.apply(this, this.done());
+          return this.without.apply(this, this.completed());
         },
 
         // We keep the Todos in sequential order, despite being saved by unordered

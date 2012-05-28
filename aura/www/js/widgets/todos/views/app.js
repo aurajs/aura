@@ -16,8 +16,8 @@ define(['sandbox', '../collections/todos', './todos', 'text!../templates/base.ht
         // Delegated events for creating new items, and clearing completed ones.
         events: {
           "keypress #new-todo":  "createOnEnter",
-          "click .todo-clear a": "clearCompleted",
-          "click .mark-all-done": "toggleAllComplete"
+          "click #clear-completed": "clearCompleted",
+          "click #toggle-all": "toggleAllComplete"
         },
 
         // At initialization we bind to the relevant events on the `Todos`
@@ -26,9 +26,11 @@ define(['sandbox', '../collections/todos', './todos', 'text!../templates/base.ht
         initialize: function() {
 
           this.$el.html(baseTemplate);
-         
-          this.input = this.$("#new-todo"); 
-          this.allCheckbox = this.$(".mark-all-done")[0]; 
+
+          this.input = this.$("#new-todo");
+          this.allCheckbox = this.$("#toggle-all")[0];
+
+          console.log(this);
 
           Todos.bind('add', this.addOne, this);
           Todos.bind('reset', this.addAll, this);
@@ -40,12 +42,12 @@ define(['sandbox', '../collections/todos', './todos', 'text!../templates/base.ht
         // Re-rendering the App just means refreshing the statistics -- the rest
         // of the app doesn't change.
         render: function() {
-          var done = Todos.done().length;
+          var completed = Todos.completed().length;
           var remaining = Todos.remaining().length;
 
-          this.$('#todo-stats').html(this.statsTemplate({
+          this.$('#footer').html(this.statsTemplate({
             total:      Todos.length,
-            done:       done,
+            completed:       completed,
             remaining:  remaining
           }));
 
@@ -67,9 +69,9 @@ define(['sandbox', '../collections/todos', './todos', 'text!../templates/base.ht
         // Generate the attributes for a new Todo item.
         newAttributes: function() {
           return {
-            content: this.input.val(),
+            title: this.input.val(),
             order:   Todos.nextOrder(),
-            done:    false
+            completed:    false
           };
         },
 
@@ -82,16 +84,16 @@ define(['sandbox', '../collections/todos', './todos', 'text!../templates/base.ht
           this.input.val('');
         },
 
-        // Clear all done todo items, destroying their models.
+        // Clear all compelted todo items, destroying their models.
         clearCompleted: function() {
-          sandbox.util.each(Todos.done(), function(todo){ todo.clear(); });
+          sandbox.util.each(Todos.completed(), function(todo){ todo.clear(); });
           return false;
         },
 
-        // Change each todo so that it's `done` state matches the check all
+        // Change each todo so that it's `completed` state matches the check all
         toggleAllComplete: function () {
-          var done = this.allCheckbox.checked;
-          Todos.each(function (todo) { todo.save({'done': done}); });
+          var completed = this.allCheckbox.checked;
+          Todos.each(function (todo) { todo.save({'completed': completed}); });
         }
 
     });
