@@ -30,8 +30,6 @@ define(['sandbox', '../collections/todos', './todos', 'text!../templates/base.ht
           this.input = this.$("#new-todo");
           this.allCheckbox = this.$("#toggle-all")[0];
 
-          console.log(this);
-
           Todos.bind('add', this.addOne, this);
           Todos.bind('reset', this.addAll, this);
           Todos.bind('all', this.render, this);
