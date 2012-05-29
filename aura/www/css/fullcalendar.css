@@ -616,3 +616,14 @@ table.fc-border-separate {
 	}
 	
 	
+
+/* Custom */
+#calendarapp .widget {
+	width: 480px;
+	background: white;
+	padding: 20px;
+	-moz-box-shadow: rgba(0, 0, 0, 0.2) 0 5px 6px 0;
+	-webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 5px 6px 0;
+	-o-box-shadow: rgba(0, 0, 0, 0.2) 0 5px 6px 0;
+	box-shadow: rgba(0, 0, 0, 0.2) 0 5px 6px 0;
+}
