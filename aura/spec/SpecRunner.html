@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+    "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Jasmine Spec Runner</title>
+
+    <link rel="shortcut icon" type="image/png" href="lib/jasmine-1.2.0/jasmine_favicon.png">
+    <link rel="stylesheet" type="text/css" href="lib/jasmine-1.2.0/jasmine.css">
+    <script type="text/javascript" src="lib/jasmine-1.2.0/jasmine.js"></script>
+    <script type="text/javascript" src="lib/jasmine-1.2.0/jasmine-html.js"></script>
+
+    <script type="text/javascript" src="../www/js/require.js"></script>
+
+    <!-- include source files here... -->
+    <script type="text/javascript" src="spec/SpecHelper.js"></script>
+    <script type="text/javascript" src="spec/MediatorSpec.js"></script>
+
+    <script type="text/javascript">
+        require.config({
+            baseUrl: "../www/js",
+
+            shim: {
+                'underscore': {
+                    exports: '_'
+                },
+
+                'backbone': {
+                    deps: ['underscore', 'jquery'],
+                    exports: 'Backbone'
+                }
+            },
+
+            paths: {
+                core: 'ext/mediator',
+                perms: 'ext/permissions',
+                sandbox: 'ext/facade',
+
+                aura_core: 'aura/mediator',
+                aura_perms: 'aura/permissions',
+                aura_sandbox: 'aura/facade',
+
+                backbone: 'ext/lib/backbone',
+                localstorage: 'ext/lib/localstorage',
+                jquery: 'aura/lib/jquery',
+                underscore: 'aura/lib/underscore',
+                fullcalendar: 'ext/lib/fullcalendar.min',
+                jquery_ui: 'ext/lib/jquery-ui.min'
+            }
+        });
+
+        requirejs(['core'], function (core) {
+            window.core = core;
+            var jasmineEnv = jasmine.getEnv();
+            jasmineEnv.updateInterval = 1000;
+
+            var htmlReporter = new jasmine.HtmlReporter();
+
+            jasmineEnv.addReporter(htmlReporter);
+
+            jasmineEnv.specFilter = function (spec) {
+                return htmlReporter.specFilter(spec);
+            };
+
+            var currentWindowOnload = window.onload;
+
+            window.onload = function () {
+                if (currentWindowOnload) {
+                    currentWindowOnload();
+                }
+                execJasmine();
+            };
+
+            function execJasmine() {
+                jasmineEnv.execute();
+            }
+        });
+
+    </script>
+</head>
+
+<body>
+</body>
+</html>
