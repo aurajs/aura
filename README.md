@@ -1,6 +1,6 @@
 ##Backbone-Aura 0.8 Preview
 
-Backbone Aura is a decoupled, event-driven architecture on top of Backbone.js for developing scalable applications. It provides complete control of a widget's lifecycle, allowing developers to dynamically start, stop, reload and clean-up modules as needed.
+Backbone Aura is a decoupled, event-driven architecture on top of Backbone.js for developing widget-based applications. It provides complete control of a widget's lifecycle, allowing developers to dynamically start, stop, reload and clean-up modules as needed.
 
 Aura contains a multi-tiered architecture, consistening of:
 
