@@ -39,7 +39,7 @@ define(['jquery', 'underscore'], function ($, _) {
     /**
      * Subscribe to an event
      * @param {string} channel Event name
-     * @param {object} subscription Module callback
+     * @param {object} callback Module callback
      * @param {object} context Context in which to execute the module
      */
     obj.subscribe = function (channel, callback, context) {
@@ -204,6 +204,10 @@ define(['jquery', 'underscore'], function ($, _) {
     // Placeholder for things like ajax and local storage
     obj.data = {
         deferred: $.Deferred
+    };
+
+    obj._getChannels = function() {
+        return channels;
     };
 
     return obj;
