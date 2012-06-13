@@ -1,15 +1,15 @@
 
-/**
- * Application core. Implements the mediator pattern and
- * encapsulates the core functionality for this application.
- * Based on the work by Addy Osmani and Nicholas Zakas.
- *
- * @link <a href="http://addyosmani.com/largescalejavascript/">Patterns For Large-Scale JavaScript Application Architecture</a>
- * @link <a href="http://speakerdeck.com/u/addyosmani/p/large-scale-javascript-application-architecture">Large-scale JavaScript Application Architecture Slides</a>
- * @link <a href="http://addyosmani.com/blog/large-scale-jquery/">Building Large-Scale jQuery Applications</a>
- * @link <a href="http://www.youtube.com/watch?v=vXjVFPosQHw&feature=youtube_gdata_player">Nicholas Zakas: Scalable JavaScript Application Architecture</a>
- * @link <a href="http://net.tutsplus.com/tutorials/javascript-ajax/writing-modular-javascript-new-premium-tutorial/">Writing Modular JavaScript: New Premium Tutorial</a>
- */
+// ## Core
+// Implements the mediator pattern and
+// encapsulates the core functionality for this application.
+// Based on the work by Addy Osmani and Nicholas Zakas.
+//
+// * [Patterns For Large-Scale JavaScript Application Architecture](http://addyosmani.com/largescalejavascript/)
+// * [Large-scale JavaScript Application Architecture Slides](http://speakerdeck.com/u/addyosmani/p/large-scale-javascript-application-architecture)
+// * [Building Large-Scale jQuery Applications](http://addyosmani.com/blog/large-scale-jquery/)
+// * [Nicholas Zakas: Scalable JavaScript Application Architecture](http://www.youtube.com/watch?v=vXjVFPosQHw&feature=youtube_gdata_player)
+// * [Writing Modular JavaScript: New Premium Tutorial](http://net.tutsplus.com/tutorials/javascript-ajax/writing-modular-javascript-new-premium-tutorial/)
+
 /*jslint nomen:true, sloppy:true, browser:true*/
 /*global define, require, _*/
 define('aura_core',['jquery', 'underscore'], function ($, _) {
@@ -17,11 +17,12 @@ define('aura_core',['jquery', 'underscore'], function ($, _) {
     var channels = {},  // Loaded modules and their callbacks
         obj = {};       // Mediator object
 
-    /**
-     * Override the default error handling for requirejs
-     * @todo When error messages become part of core, use them instead
-     * @link <a href="http://requirejs.org/docs/api.html#errors">Handling Errors</a>
-     */
+    
+    // Override the default error handling for requirejs
+    //
+    // TODO: Replace this with the new errbacks
+    //
+    // * [Handling Errors](http://requirejs.org/docs/api.html#errors)
     requirejs.onError = function (err) {
         if (err.requireType === 'timeout') {
             console.warn('Could not load module ' + err.requireModules);
@@ -37,22 +38,22 @@ define('aura_core',['jquery', 'underscore'], function ($, _) {
     };
 
 
-    /**
-     * Subscribe to an event
-     * @param {string} channel Event name
-     * @param {object} callback Module callback
-     * @param {object} context Context in which to execute the module
-     */
+    
+    // Subscribe to an event
+    //
+    // * **param:** {string} channel Event name
+    // * **param:** {object} callback Module callback
+    // * **param:** {object} context Context in which to execute the module
     obj.subscribe = function (channel, callback, context) {
         channels[channel] = (!channels[channel]) ? [] : channels[channel];
         channels[channel].push(this.util.method(callback, context));
     };
 
-    /**
-     * Publish an event, passing arguments to subscribers. Will
-     * call start if the channel is not already registered.
-     * @param {string} channel Event name
-     */
+    
+    // Publish an event, passing arguments to subscribers. Will
+    // call start if the channel is not already registered.
+    //
+    // * **param:** {string} channel Event name
     obj.publish = function (channel) {
         var i, l, args = [].slice.call(arguments, 1);
         if (!channels[channel]) {
@@ -65,12 +66,12 @@ define('aura_core',['jquery', 'underscore'], function ($, _) {
         }
     };
 
-    /**
-     * Automatically load a widget and initialize it. File name of the
-     * widget will be derived from the channel, decamelized and underscore
-     * delimited by default.
-     * @param {string} channel Event name
-     */
+    
+    // Automatically load a widget and initialize it. File name of the
+    // widget will be derived from the channel, decamelized and underscore
+    // delimited by default.
+    //
+    // * **param:** {string} channel Event name
     obj.start = function (channel){
 
         var i, l,
@@ -87,12 +88,12 @@ define('aura_core',['jquery', 'underscore'], function ($, _) {
     };
 
 
-    /**
-    * Unload a widget (collection of modules) by passing in a named reference
-    * to the channel/widget. This will both locate and reset the internal
-    * state of the modules in require.js and empty the widgets DOM element
-    * @param {string} channel Event name
-    */
+    
+   // Unload a widget (collection of modules) by passing in a named reference
+   // to the channel/widget. This will both locate and reset the internal
+   // state of the modules in require.js and empty the widgets DOM element
+   //
+   // * **param:** {string} channel Event name
     obj.stop = function(channel){
 
         var args = [].slice.call(arguments, 1),
@@ -107,26 +108,25 @@ define('aura_core',['jquery', 'underscore'], function ($, _) {
 
     };
 
-    /**
-    * Undefine/unload a module, resetting the internal state of it in require.js
-    * to act like it wasn't loaded. By default require won't cleanup any markup
-    * associated with this
-    * 
-    * The interesting challenge with .stop() is that in order to correctly clean-up
-    * one would need to maintain a custom track of dependencies loaded for each 
-    * possible channel, including that channels DOM elements per depdendency. 
-    *
-    * This issue with this is shared dependencies. E.g, say one loaded up a module
-    * containing jQuery, others also use jQuery and then the module was unloaded.
-    * This would cause jQuery to also be unloaded if the entire tree was being done
-    * so.
-    *
-    * A simpler solution is to just remove those modules that fall under the
-    * widget path as we know those dependencies (e.g models, views etc) should only
-    * belong to one part of the codebase and shouldn't be depended on by others.
-    *
-    * @param {string} channel Event name
-    */
+    
+   // Undefine/unload a module, resetting the internal state of it in require.js
+   // to act like it wasn't loaded. By default require won't cleanup any markup
+   // associated with this
+   // 
+   // The interesting challenge with .stop() is that in order to correctly clean-up
+   // one would need to maintain a custom track of dependencies loaded for each 
+   // possible channel, including that channels DOM elements per depdendency. 
+   //
+   // This issue with this is shared dependencies. E.g, say one loaded up a module
+   // containing jQuery, others also use jQuery and then the module was unloaded.
+   // This would cause jQuery to also be unloaded if the entire tree was being done
+   // so.
+   //
+   // A simpler solution is to just remove those modules that fall under the
+   // widget path as we know those dependencies (e.g models, views etc) should only
+   // belong to one part of the codebase and shouldn't be depended on by others.
+   //
+   // * **param:** {string} channel Event name
     obj.unload = function(channel){
         var contextMap = requirejs.s.contexts._.urlMap;
         for (key in contextMap) {
@@ -145,32 +145,34 @@ define('aura_core',['jquery', 'underscore'], function ($, _) {
             delimiter = (delimiter === undefined) ? "_" : delimiter;
             return camelCase.replace(/([A-Z])/g, delimiter + '$1').toLowerCase();
         },
-        /**
-         * @link <a href="https://gist.github.com/827679">camelize.js</a>
-         * @param {string} str String to make camelCase
-         */
+        
+        // Camelize a string
+        //
+        // * [https://gist.github.com/827679](camelize.js)
+        //
+        // * **param:** {string} str String to make camelCase
         camelize: function (str) {
             return str.replace(/(?:^|[\-_])(\w)/g, function (delimiter, c) {
                 return c ? c.toUpperCase() : '';
             });
         },
-        /**
-         * Always returns the fn within the context
-         * @param {object} fn Method to call
-         * @param {object} context Context in which to call method
-         * @returns {object} Fn with the correct context
-         */
+        
+        // Always returns the fn within the context
+        //
+        // * **param:** {object} fn Method to call
+        // * **param:** {object} context Context in which to call method
+        // * **returns:** {object} Fn with the correct context
         method: function (fn, context) {
             return $.proxy(fn, context);
         },
         parseJson: function (json) {
             return $.parseJSON(json);
         },
-        /**
-         * Get the rest of the elements from an index in an array
-         * @param {array} arr The array or arguments object
-         * @param {integer} [index=0] The index at which to start
-         */
+        
+        // Get the rest of the elements from an index in an array
+        //
+        // * **param:** {array} arr The array or arguments object
+        // * **param:** {integer} [index=0] The index at which to start
         rest: function (arr, index) {
             return _.rest(arr, index);
         },
@@ -215,17 +217,13 @@ define('aura_core',['jquery', 'underscore'], function ($, _) {
 
 });
 
-/**
- * Permissions
- * A permissions structure can support checking
- * against subscriptions prior to allowing them
- * to clear. This enforces a flexible security
- * layer for your application.
- *
- * @example
- * // Format for permissions:
- * {eventName: {moduleName:[true|false]}, ...}
- */
+// ## Permissions
+// A permissions structure can support checking
+// against subscriptions prior to allowing them
+// to clear. This enforces a flexible security
+// layer for your application.
+//
+//     {eventName: {moduleName:[true|false]}, ...}
 define('aura_perms',["jquery"], function ($) {
 	
 	var permissions = {},
@@ -240,10 +238,8 @@ define('aura_perms',["jquery"], function ($) {
         
     };
 
-	/**
-     * @param {string} subscriber Module name
-     * @param {string} channel Event name
-     */
+  // * **param:** {string} subscriber Module name
+  // * **param:** {string} channel Event name
 	permissions.validate = function(subscriber, channel){
 		var test = rules[channel][subscriber];
 		return test === undefined ? false : test;
@@ -251,49 +247,46 @@ define('aura_perms',["jquery"], function ($) {
 
 	return permissions;
 });
-/**
- * Set up an standard interface for modules. This is a
- * subset of the mediator functionality.
- *
- * Note: Handling permissions/security is optional here
- * The permissions check can be removed
- * to just use the mediator directly.
- */
+
+// ## Sandbox
+// Set up an standard interface for modules. This is a
+// subset of the mediator functionality.
+//
+// Note: Handling permissions/security is optional here
+// The permissions check can be removed
+// to just use the mediator directly.
+ 
 /*global define*/
 define('facade',["aura_core", "aura_perms"], function (mediator, permissions) {
 
     var facade = {};
 
 
-    /**
-     * @param {string} subscriber Module name
-     * @param {string} channel Event name
-     * @param {object} callback Module
-     */
+    
+    // * **param:** {string} subscriber Module name
+    // * **param:** {string} channel Event name
+    // * **param:** {object} callback Module
     facade.subscribe = function (subscriber, channel, callback) {
         if (permissions.validate(subscriber, channel)) {
             mediator.subscribe(channel, callback, this);
         }
     };
 
-    /**
-     * @param {string} channel Event name
-     */
+    
+    // * **param:** {string} channel Event name
     facade.publish = function (channel) {
         mediator.publish.apply(mediator, arguments);
     };
 
 
-    /**
-     * @param {string} channel Event name
-     */
+    
+    // * **param:** {string} channel Event name
     facade.start = function(channel){
         mediator.start.apply(mediator, arguments);
     };
 
-    /**
-     * @param {string} channel Event name
-     */
+    
+    // * **param:** {string} channel Event name
     facade.stop = function(channel){
         mediator.stop.apply(mediator, arguments);
     };
@@ -301,25 +294,23 @@ define('facade',["aura_core", "aura_perms"], function (mediator, permissions) {
 
 
     facade.dom = {
-        /**
-         * @param {string} selector CSS selector for the element
-         * @param {string} context CSS selector for the context in which to
-         * search for selector
-         * @returns {object} Found elements or empty array
-         */
+        
+        // * **param:** {string} selector CSS selector for the element
+        // * **param:** {string} context CSS selector for the context in which 
+        // to search for selector
+        // * **returns:** {object} Found elements or empty array
         find: function (selector, context) {
             return mediator.dom.find(selector, context);
         }
     };
 
     facade.events = {
-        /**
-         * @param {object} context Element to listen on
-         * @param {string} events Events to trigger, e.g. click, focus, etc.
-         * @param {string} selector Items to listen for
-         * @param {object} data
-         * @param {object} callback
-         */
+        
+        // * **param:** {object} context Element to listen on
+        // * **param:** {string} events Events to trigger, e.g. click, focus, etc.
+        // * **param:** {string} selector Items to listen for
+        // * **param:** {object} data
+        // * **param:** {object} callback
         listen: function (context, events, selector, callback) {
             mediator.events.listen(context, events, selector, callback);
         },
