@@ -1,0 +1,327 @@
+<!DOCTYPE html>  <html> <head>   <title>aura.js</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link rel="stylesheet" media="all" href="docco.css" /> </head> <body>   <div id="container">     <div id="background"></div>          <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h1>               aura.js             </h1>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>                            </td>             <td class="code">               <div class="highlight"><pre><span class="cm">/**</span>
+<span class="cm"> * Application core. Implements the mediator pattern and</span>
+<span class="cm"> * encapsulates the core functionality for this application.</span>
+<span class="cm"> * Based on the work by Addy Osmani and Nicholas Zakas.</span>
+<span class="cm"> *</span>
+<span class="cm"> * @link &lt;a href=&quot;http://addyosmani.com/largescalejavascript/&quot;&gt;Patterns For Large-Scale JavaScript Application Architecture&lt;/a&gt;</span>
+<span class="cm"> * @link &lt;a href=&quot;http://speakerdeck.com/u/addyosmani/p/large-scale-javascript-application-architecture&quot;&gt;Large-scale JavaScript Application Architecture Slides&lt;/a&gt;</span>
+<span class="cm"> * @link &lt;a href=&quot;http://addyosmani.com/blog/large-scale-jquery/&quot;&gt;Building Large-Scale jQuery Applications&lt;/a&gt;</span>
+<span class="cm"> * @link &lt;a href=&quot;http://www.youtube.com/watch?v=vXjVFPosQHw&amp;feature=youtube_gdata_player&quot;&gt;Nicholas Zakas: Scalable JavaScript Application Architecture&lt;/a&gt;</span>
+<span class="cm"> * @link &lt;a href=&quot;http://net.tutsplus.com/tutorials/javascript-ajax/writing-modular-javascript-new-premium-tutorial/&quot;&gt;Writing Modular JavaScript: New Premium Tutorial&lt;/a&gt;</span>
+<span class="cm"> */</span>
+<span class="cm">/*jslint nomen:true, sloppy:true, browser:true*/</span>
+<span class="cm">/*global define, require, _*/</span>
+<span class="nx">define</span><span class="p">(</span><span class="s1">&#39;aura_core&#39;</span><span class="p">,[</span><span class="s1">&#39;jquery&#39;</span><span class="p">,</span> <span class="s1">&#39;underscore&#39;</span><span class="p">],</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">$</span><span class="p">,</span> <span class="nx">_</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="kd">var</span> <span class="nx">channels</span> <span class="o">=</span> <span class="p">{},</span>  <span class="c1">// Loaded modules and their callbacks</span>
+        <span class="nx">obj</span> <span class="o">=</span> <span class="p">{};</span>       <span class="c1">// Mediator object</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Override the default error handling for requirejs</span>
+<span class="cm">     * @todo When error messages become part of core, use them instead</span>
+<span class="cm">     * @link &lt;a href=&quot;http://requirejs.org/docs/api.html#errors&quot;&gt;Handling Errors&lt;/a&gt;</span>
+<span class="cm">     */</span>
+    <span class="nx">requirejs</span><span class="p">.</span><span class="nx">onError</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nx">requireType</span> <span class="o">===</span> <span class="s1">&#39;timeout&#39;</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">warn</span><span class="p">(</span><span class="s1">&#39;Could not load module &#39;</span> <span class="o">+</span> <span class="nx">err</span><span class="p">.</span><span class="nx">requireModules</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span></pre></div>             </td>           </tr>                               <tr id="section-2">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-2">&#182;</a>               </div>               <p>If a timeout hasn't occurred and there was another module 
+related error, unload the module then throw an error</p>             </td>             <td class="code">               <div class="highlight"><pre>            <span class="kd">var</span> <span class="nx">failedId</span> <span class="o">=</span> <span class="nx">err</span><span class="p">.</span><span class="nx">requireModules</span> <span class="o">&amp;&amp;</span> <span class="nx">err</span><span class="p">.</span><span class="nx">requireModules</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+            <span class="nx">requirejs</span><span class="p">.</span><span class="nx">undef</span><span class="p">(</span><span class="nx">failedId</span><span class="p">);</span>
+
+            <span class="k">throw</span> <span class="nx">err</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">};</span>
+
+
+    <span class="cm">/**</span>
+<span class="cm">     * Subscribe to an event</span>
+<span class="cm">     * @param {string} channel Event name</span>
+<span class="cm">     * @param {object} callback Module callback</span>
+<span class="cm">     * @param {object} context Context in which to execute the module</span>
+<span class="cm">     */</span>
+    <span class="nx">obj</span><span class="p">.</span><span class="nx">subscribe</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">channel</span><span class="p">,</span> <span class="nx">callback</span><span class="p">,</span> <span class="nx">context</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">channels</span><span class="p">[</span><span class="nx">channel</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="o">!</span><span class="nx">channels</span><span class="p">[</span><span class="nx">channel</span><span class="p">])</span> <span class="o">?</span> <span class="p">[]</span> <span class="o">:</span> <span class="nx">channels</span><span class="p">[</span><span class="nx">channel</span><span class="p">];</span>
+        <span class="nx">channels</span><span class="p">[</span><span class="nx">channel</span><span class="p">].</span><span class="nx">push</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">method</span><span class="p">(</span><span class="nx">callback</span><span class="p">,</span> <span class="nx">context</span><span class="p">));</span>
+    <span class="p">};</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Publish an event, passing arguments to subscribers. Will</span>
+<span class="cm">     * call start if the channel is not already registered.</span>
+<span class="cm">     * @param {string} channel Event name</span>
+<span class="cm">     */</span>
+    <span class="nx">obj</span><span class="p">.</span><span class="nx">publish</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">channel</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">l</span><span class="p">,</span> <span class="nx">args</span> <span class="o">=</span> <span class="p">[].</span><span class="nx">slice</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">arguments</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">channels</span><span class="p">[</span><span class="nx">channel</span><span class="p">])</span> <span class="p">{</span>
+            <span class="nx">obj</span><span class="p">.</span><span class="nx">start</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
+            <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">l</span> <span class="o">=</span> <span class="nx">channels</span><span class="p">[</span><span class="nx">channel</span><span class="p">].</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">l</span><span class="p">;</span> <span class="nx">i</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">channels</span><span class="p">[</span><span class="nx">channel</span><span class="p">][</span><span class="nx">i</span><span class="p">].</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">args</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">};</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Automatically load a widget and initialize it. File name of the</span>
+<span class="cm">     * widget will be derived from the channel, decamelized and underscore</span>
+<span class="cm">     * delimited by default.</span>
+<span class="cm">     * @param {string} channel Event name</span>
+<span class="cm">     */</span>
+    <span class="nx">obj</span><span class="p">.</span><span class="nx">start</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">channel</span><span class="p">){</span>
+
+        <span class="kd">var</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">l</span><span class="p">,</span>
+            <span class="nx">args</span> <span class="o">=</span> <span class="p">[].</span><span class="nx">slice</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">arguments</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+            <span class="nx">file</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">decamelize</span><span class="p">(</span><span class="nx">channel</span><span class="p">);</span>
+        </pre></div>             </td>           </tr>                               <tr id="section-3">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-3">&#182;</a>               </div>               <p>If a widget hasn't called subscribe this will fail because it wont
+be present in the channels object</p>             </td>             <td class="code">               <div class="highlight"><pre>        <span class="nx">require</span><span class="p">([</span><span class="s2">&quot;widgets/&quot;</span> <span class="o">+</span> <span class="nx">file</span> <span class="o">+</span> <span class="s2">&quot;/main&quot;</span><span class="p">],</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">l</span> <span class="o">=</span> <span class="nx">channels</span><span class="p">[</span><span class="nx">channel</span><span class="p">].</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">l</span><span class="p">;</span> <span class="nx">i</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">channels</span><span class="p">[</span><span class="nx">channel</span><span class="p">][</span><span class="nx">i</span><span class="p">].</span><span class="nx">apply</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="nx">args</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">});</span>
+    <span class="p">};</span>
+
+
+    <span class="cm">/**</span>
+<span class="cm">    * Unload a widget (collection of modules) by passing in a named reference</span>
+<span class="cm">    * to the channel/widget. This will both locate and reset the internal</span>
+<span class="cm">    * state of the modules in require.js and empty the widgets DOM element</span>
+<span class="cm">    * @param {string} channel Event name</span>
+<span class="cm">    */</span>
+    <span class="nx">obj</span><span class="p">.</span><span class="nx">stop</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">channel</span><span class="p">){</span>
+
+        <span class="kd">var</span> <span class="nx">args</span> <span class="o">=</span> <span class="p">[].</span><span class="nx">slice</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">arguments</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+            <span class="nx">el</span> <span class="o">=</span> <span class="nx">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="nx">file</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">decamelize</span><span class="p">(</span><span class="nx">channel</span><span class="p">);</span></pre></div>             </td>           </tr>                               <tr id="section-4">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-4">&#182;</a>               </div>               <p>Remove all modules under a widget path (e.g widgets/todos)</p>             </td>             <td class="code">               <div class="highlight"><pre>        <span class="nx">obj</span><span class="p">.</span><span class="nx">unload</span><span class="p">(</span><span class="s2">&quot;widgets/&quot;</span> <span class="o">+</span> <span class="nx">file</span><span class="p">);</span></pre></div>             </td>           </tr>                               <tr id="section-5">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-5">&#182;</a>               </div>               <p>Empty markup associated with the module</p>             </td>             <td class="code">               <div class="highlight"><pre>        <span class="nx">$</span><span class="p">(</span><span class="nx">el</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+
+    <span class="p">};</span>
+
+    <span class="cm">/**</span>
+<span class="cm">    * Undefine/unload a module, resetting the internal state of it in require.js</span>
+<span class="cm">    * to act like it wasn&#39;t loaded. By default require won&#39;t cleanup any markup</span>
+<span class="cm">    * associated with this</span>
+<span class="cm">    * </span>
+<span class="cm">    * The interesting challenge with .stop() is that in order to correctly clean-up</span>
+<span class="cm">    * one would need to maintain a custom track of dependencies loaded for each </span>
+<span class="cm">    * possible channel, including that channels DOM elements per depdendency. </span>
+<span class="cm">    *</span>
+<span class="cm">    * This issue with this is shared dependencies. E.g, say one loaded up a module</span>
+<span class="cm">    * containing jQuery, others also use jQuery and then the module was unloaded.</span>
+<span class="cm">    * This would cause jQuery to also be unloaded if the entire tree was being done</span>
+<span class="cm">    * so.</span>
+<span class="cm">    *</span>
+<span class="cm">    * A simpler solution is to just remove those modules that fall under the</span>
+<span class="cm">    * widget path as we know those dependencies (e.g models, views etc) should only</span>
+<span class="cm">    * belong to one part of the codebase and shouldn&#39;t be depended on by others.</span>
+<span class="cm">    *</span>
+<span class="cm">    * @param {string} channel Event name</span>
+<span class="cm">    */</span>
+    <span class="nx">obj</span><span class="p">.</span><span class="nx">unload</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">channel</span><span class="p">){</span>
+        <span class="kd">var</span> <span class="nx">contextMap</span> <span class="o">=</span> <span class="nx">requirejs</span><span class="p">.</span><span class="nx">s</span><span class="p">.</span><span class="nx">contexts</span><span class="p">.</span><span class="nx">_</span><span class="p">.</span><span class="nx">urlMap</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="nx">key</span> <span class="k">in</span> <span class="nx">contextMap</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">contextMap</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">key</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">channel</span><span class="p">)</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">require</span><span class="p">.</span><span class="nx">undef</span><span class="p">(</span><span class="nx">key</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+    <span class="p">};</span>
+
+
+    <span class="nx">obj</span><span class="p">.</span><span class="nx">util</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="nx">each</span><span class="o">:</span> <span class="nx">_</span><span class="p">.</span><span class="nx">each</span><span class="p">,</span>
+        <span class="nx">extend</span><span class="o">:</span> <span class="nx">_</span><span class="p">.</span><span class="nx">extend</span><span class="p">,</span>
+        <span class="nx">decamelize</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">camelCase</span><span class="p">,</span> <span class="nx">delimiter</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">delimiter</span> <span class="o">=</span> <span class="p">(</span><span class="nx">delimiter</span> <span class="o">===</span> <span class="kc">undefined</span><span class="p">)</span> <span class="o">?</span> <span class="s2">&quot;_&quot;</span> <span class="o">:</span> <span class="nx">delimiter</span><span class="p">;</span>
+            <span class="k">return</span> <span class="nx">camelCase</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/([A-Z])/g</span><span class="p">,</span> <span class="nx">delimiter</span> <span class="o">+</span> <span class="s1">&#39;$1&#39;</span><span class="p">).</span><span class="nx">toLowerCase</span><span class="p">();</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * @link &lt;a href=&quot;https://gist.github.com/827679&quot;&gt;camelize.js&lt;/a&gt;</span>
+<span class="cm">         * @param {string} str String to make camelCase</span>
+<span class="cm">         */</span>
+        <span class="nx">camelize</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">str</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">str</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/(?:^|[\-_])(\w)/g</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">delimiter</span><span class="p">,</span> <span class="nx">c</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="nx">c</span> <span class="o">?</span> <span class="nx">c</span><span class="p">.</span><span class="nx">toUpperCase</span><span class="p">()</span> <span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+            <span class="p">});</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * Always returns the fn within the context</span>
+<span class="cm">         * @param {object} fn Method to call</span>
+<span class="cm">         * @param {object} context Context in which to call method</span>
+<span class="cm">         * @returns {object} Fn with the correct context</span>
+<span class="cm">         */</span>
+        <span class="nx">method</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">fn</span><span class="p">,</span> <span class="nx">context</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">$</span><span class="p">.</span><span class="nx">proxy</span><span class="p">(</span><span class="nx">fn</span><span class="p">,</span> <span class="nx">context</span><span class="p">);</span>
+        <span class="p">},</span>
+        <span class="nx">parseJson</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">json</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">$</span><span class="p">.</span><span class="nx">parseJSON</span><span class="p">(</span><span class="nx">json</span><span class="p">);</span>
+        <span class="p">},</span>
+        <span class="cm">/**</span>
+<span class="cm">         * Get the rest of the elements from an index in an array</span>
+<span class="cm">         * @param {array} arr The array or arguments object</span>
+<span class="cm">         * @param {integer} [index=0] The index at which to start</span>
+<span class="cm">         */</span>
+        <span class="nx">rest</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">arr</span><span class="p">,</span> <span class="nx">index</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">_</span><span class="p">.</span><span class="nx">rest</span><span class="p">(</span><span class="nx">arr</span><span class="p">,</span> <span class="nx">index</span><span class="p">);</span>
+        <span class="p">},</span>
+        <span class="nx">delay</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">_</span><span class="p">.</span><span class="nx">delay</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">};</span>
+
+    <span class="nx">obj</span><span class="p">.</span><span class="nx">dom</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="nx">find</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">selector</span><span class="p">,</span> <span class="nx">context</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">context</span> <span class="o">=</span> <span class="nx">context</span> <span class="o">||</span> <span class="nb">document</span><span class="p">;</span>
+            <span class="k">return</span> <span class="nx">$</span><span class="p">(</span><span class="nx">context</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="nx">selector</span><span class="p">);</span>
+        <span class="p">},</span>
+        <span class="nx">data</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">selector</span><span class="p">,</span> <span class="nx">attribute</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">$</span><span class="p">(</span><span class="nx">selector</span><span class="p">).</span><span class="nx">data</span><span class="p">(</span><span class="nx">attribute</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">};</span>
+
+    <span class="nx">obj</span><span class="p">.</span><span class="nx">events</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="nx">listen</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">context</span><span class="p">,</span> <span class="nx">events</span><span class="p">,</span> <span class="nx">selector</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">$</span><span class="p">(</span><span class="nx">context</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="nx">events</span><span class="p">,</span> <span class="nx">selector</span><span class="p">,</span> <span class="nx">callback</span><span class="p">);</span>
+        <span class="p">},</span>
+        <span class="nx">bindAll</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">_</span><span class="p">.</span><span class="nx">bindAll</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">};</span>
+
+    <span class="nx">obj</span><span class="p">.</span><span class="nx">template</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="nx">parse</span><span class="o">:</span> <span class="nx">_</span><span class="p">.</span><span class="nx">template</span>
+    <span class="p">};</span></pre></div>             </td>           </tr>                               <tr id="section-6">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-6">&#182;</a>               </div>               <p>Placeholder for things like ajax and local storage</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="nx">obj</span><span class="p">.</span><span class="nx">data</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="nx">deferred</span><span class="o">:</span> <span class="nx">$</span><span class="p">.</span><span class="nx">Deferred</span>
+    <span class="p">};</span>
+
+    <span class="nx">obj</span><span class="p">.</span><span class="nx">_getChannels</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">channels</span><span class="p">;</span>
+    <span class="p">};</span>
+
+    <span class="k">return</span> <span class="nx">obj</span><span class="p">;</span>
+
+<span class="p">});</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * Permissions</span>
+<span class="cm"> * A permissions structure can support checking</span>
+<span class="cm"> * against subscriptions prior to allowing them</span>
+<span class="cm"> * to clear. This enforces a flexible security</span>
+<span class="cm"> * layer for your application.</span>
+<span class="cm"> *</span>
+<span class="cm"> * @example</span>
+<span class="cm"> * // Format for permissions:</span>
+<span class="cm"> * {eventName: {moduleName:[true|false]}, ...}</span>
+<span class="cm"> */</span>
+<span class="nx">define</span><span class="p">(</span><span class="s1">&#39;aura_perms&#39;</span><span class="p">,[</span><span class="s2">&quot;jquery&quot;</span><span class="p">],</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">$</span><span class="p">)</span> <span class="p">{</span>
+	
+	<span class="kd">var</span> <span class="nx">permissions</span> <span class="o">=</span> <span class="p">{},</span>
+        <span class="nx">rules</span> <span class="o">=</span> <span class="p">{};</span>  
+    
+    <span class="nx">permissions</span><span class="p">.</span><span class="nx">extend</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">extended</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">aura</span> <span class="o">&amp;&amp;</span> <span class="nb">window</span><span class="p">.</span><span class="nx">aura</span><span class="p">.</span><span class="nx">permissions</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">rules</span> <span class="o">=</span> <span class="nx">$</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="kc">true</span><span class="p">,</span> <span class="p">{},</span> <span class="nx">extended</span><span class="p">,</span> <span class="nb">window</span><span class="p">.</span><span class="nx">aura</span><span class="p">.</span><span class="nx">permissions</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nx">rules</span> <span class="o">=</span> <span class="nx">extended</span><span class="p">;</span>
+        <span class="p">}</span>
+        
+    <span class="p">};</span>
+
+	<span class="cm">/**</span>
+<span class="cm">     * @param {string} subscriber Module name</span>
+<span class="cm">     * @param {string} channel Event name</span>
+<span class="cm">     */</span>
+	<span class="nx">permissions</span><span class="p">.</span><span class="nx">validate</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">subscriber</span><span class="p">,</span> <span class="nx">channel</span><span class="p">){</span>
+		<span class="kd">var</span> <span class="nx">test</span> <span class="o">=</span> <span class="nx">rules</span><span class="p">[</span><span class="nx">channel</span><span class="p">][</span><span class="nx">subscriber</span><span class="p">];</span>
+		<span class="k">return</span> <span class="nx">test</span> <span class="o">===</span> <span class="kc">undefined</span> <span class="o">?</span> <span class="kc">false</span> <span class="o">:</span> <span class="nx">test</span><span class="p">;</span>
+	<span class="p">};</span>
+
+	<span class="k">return</span> <span class="nx">permissions</span><span class="p">;</span>
+<span class="p">});</span>
+<span class="cm">/**</span>
+<span class="cm"> * Set up an standard interface for modules. This is a</span>
+<span class="cm"> * subset of the mediator functionality.</span>
+<span class="cm"> *</span>
+<span class="cm"> * Note: Handling permissions/security is optional here</span>
+<span class="cm"> * The permissions check can be removed</span>
+<span class="cm"> * to just use the mediator directly.</span>
+<span class="cm"> */</span>
+<span class="cm">/*global define*/</span>
+<span class="nx">define</span><span class="p">(</span><span class="s1">&#39;facade&#39;</span><span class="p">,[</span><span class="s2">&quot;aura_core&quot;</span><span class="p">,</span> <span class="s2">&quot;aura_perms&quot;</span><span class="p">],</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">mediator</span><span class="p">,</span> <span class="nx">permissions</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="kd">var</span> <span class="nx">facade</span> <span class="o">=</span> <span class="p">{};</span>
+
+
+    <span class="cm">/**</span>
+<span class="cm">     * @param {string} subscriber Module name</span>
+<span class="cm">     * @param {string} channel Event name</span>
+<span class="cm">     * @param {object} callback Module</span>
+<span class="cm">     */</span>
+    <span class="nx">facade</span><span class="p">.</span><span class="nx">subscribe</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">subscriber</span><span class="p">,</span> <span class="nx">channel</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">permissions</span><span class="p">.</span><span class="nx">validate</span><span class="p">(</span><span class="nx">subscriber</span><span class="p">,</span> <span class="nx">channel</span><span class="p">))</span> <span class="p">{</span>
+            <span class="nx">mediator</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="nx">channel</span><span class="p">,</span> <span class="nx">callback</span><span class="p">,</span> <span class="k">this</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">};</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * @param {string} channel Event name</span>
+<span class="cm">     */</span>
+    <span class="nx">facade</span><span class="p">.</span><span class="nx">publish</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">channel</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">mediator</span><span class="p">.</span><span class="nx">publish</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="nx">mediator</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
+    <span class="p">};</span>
+
+
+    <span class="cm">/**</span>
+<span class="cm">     * @param {string} channel Event name</span>
+<span class="cm">     */</span>
+    <span class="nx">facade</span><span class="p">.</span><span class="nx">start</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">channel</span><span class="p">){</span>
+        <span class="nx">mediator</span><span class="p">.</span><span class="nx">start</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="nx">mediator</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
+    <span class="p">};</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * @param {string} channel Event name</span>
+<span class="cm">     */</span>
+    <span class="nx">facade</span><span class="p">.</span><span class="nx">stop</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">channel</span><span class="p">){</span>
+        <span class="nx">mediator</span><span class="p">.</span><span class="nx">stop</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="nx">mediator</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
+    <span class="p">};</span>
+
+
+
+    <span class="nx">facade</span><span class="p">.</span><span class="nx">dom</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="cm">/**</span>
+<span class="cm">         * @param {string} selector CSS selector for the element</span>
+<span class="cm">         * @param {string} context CSS selector for the context in which to</span>
+<span class="cm">         * search for selector</span>
+<span class="cm">         * @returns {object} Found elements or empty array</span>
+<span class="cm">         */</span>
+        <span class="nx">find</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">selector</span><span class="p">,</span> <span class="nx">context</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">mediator</span><span class="p">.</span><span class="nx">dom</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="nx">selector</span><span class="p">,</span> <span class="nx">context</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">};</span>
+
+    <span class="nx">facade</span><span class="p">.</span><span class="nx">events</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="cm">/**</span>
+<span class="cm">         * @param {object} context Element to listen on</span>
+<span class="cm">         * @param {string} events Events to trigger, e.g. click, focus, etc.</span>
+<span class="cm">         * @param {string} selector Items to listen for</span>
+<span class="cm">         * @param {object} data</span>
+<span class="cm">         * @param {object} callback</span>
+<span class="cm">         */</span>
+        <span class="nx">listen</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">context</span><span class="p">,</span> <span class="nx">events</span><span class="p">,</span> <span class="nx">selector</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">mediator</span><span class="p">.</span><span class="nx">events</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="nx">context</span><span class="p">,</span> <span class="nx">events</span><span class="p">,</span> <span class="nx">selector</span><span class="p">,</span> <span class="nx">callback</span><span class="p">);</span>
+        <span class="p">},</span>
+        <span class="nx">bindAll</span><span class="o">:</span> <span class="nx">mediator</span><span class="p">.</span><span class="nx">events</span><span class="p">.</span><span class="nx">bindAll</span>
+    <span class="p">};</span>
+
+    <span class="nx">facade</span><span class="p">.</span><span class="nx">util</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="nx">each</span><span class="o">:</span> <span class="nx">mediator</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">each</span><span class="p">,</span>
+        <span class="nx">rest</span><span class="o">:</span> <span class="nx">mediator</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">rest</span><span class="p">,</span>
+        <span class="nx">delay</span><span class="o">:</span> <span class="nx">mediator</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">delay</span><span class="p">,</span>
+        <span class="nx">extend</span><span class="o">:</span> <span class="nx">mediator</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">extend</span>
+    <span class="p">};</span>
+
+    <span class="nx">facade</span><span class="p">.</span><span class="nx">data</span> <span class="o">=</span> <span class="nx">mediator</span><span class="p">.</span><span class="nx">data</span><span class="p">;</span>
+    <span class="nx">facade</span><span class="p">.</span><span class="nx">template</span> <span class="o">=</span> <span class="nx">mediator</span><span class="p">.</span><span class="nx">template</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="nx">facade</span><span class="p">;</span>
+<span class="p">});</span>
+
+</pre></div>             </td>           </tr>                </tbody>     </table>   </div> </body> </html> 
