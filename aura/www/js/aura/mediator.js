@@ -35,8 +35,6 @@ define(['jquery', 'underscore'], function ($, _) {
             throw err;
         }
     };
-
-
     
     // Subscribe to an event
     //
@@ -44,6 +42,9 @@ define(['jquery', 'underscore'], function ($, _) {
     // * **param:** {object} callback Module callback
     // * **param:** {object} context Context in which to execute the module
     obj.subscribe = function (channel, callback, context) {
+        if (channel === undefined || callback === undefined || context === undefined) {
+            throw new Error("Channel, callback, and context must be defined");
+        }
         channels[channel] = (!channels[channel]) ? [] : channels[channel];
         channels[channel].push(this.util.method(callback, context));
     };
