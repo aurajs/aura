@@ -4,17 +4,20 @@
 <head>
     <title>Jasmine Spec Runner</title>
 
-    <link rel="shortcut icon" type="image/png" href="lib/jasmine-1.2.0/jasmine_favicon.png">
-    <link rel="stylesheet" type="text/css" href="lib/jasmine-1.2.0/jasmine.css">
-    <script type="text/javascript" src="lib/jasmine-1.2.0/jasmine.js"></script>
-    <script type="text/javascript" src="lib/jasmine-1.2.0/jasmine-html.js"></script>
+    <link rel="shortcut icon" type="image/png" href="libs/jasmine-1.2.0/jasmine_favicon.png">
+    <link rel="stylesheet" type="text/css" href="libs/jasmine-1.2.0/jasmine.css">
+    <script type="text/javascript" src="libs/jasmine-1.2.0/jasmine.js"></script>
+    <script type="text/javascript" src="libs/jasmine-1.2.0/jasmine-html.js"></script>
+    <script type="text/javascript" src="libs/sinon-1.3.4.js"></script>
+    <script type="text/javascript" src="libs/jasmine-sinon.js"></script>
 
     <script type="text/javascript" src="../www/js/require.js"></script>
 
     <!-- include source files here... -->
-    <script type="text/javascript" src="spec/MediatorSpec.js"></script>
+    <script type="text/javascript" src="js/mediator_spec.js"></script>
 
     <script type="text/javascript">
+
         require.config({
             baseUrl: "../www/js",
 
@@ -49,6 +52,7 @@
 
         requirejs(['core'], function (core) {
             window.core = core;
+
             var jasmineEnv = jasmine.getEnv();
             jasmineEnv.updateInterval = 1000;
 

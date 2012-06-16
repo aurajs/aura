@@ -209,7 +209,7 @@ define(['jquery', 'underscore'], function ($, _) {
         deferred: $.Deferred
     };
 
-    obj._getChannels = function() {
+    obj.getChannels = function() {
         return channels;
     };
 
