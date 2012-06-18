@@ -115,7 +115,7 @@ define(['jquery', 'underscore'], function ($, _) {
    // 
    // The interesting challenge with .stop() is that in order to correctly clean-up
    // one would need to maintain a custom track of dependencies loaded for each 
-   // possible channel, including that channels DOM elements per depdendency. 
+   // possible channel, including that channels DOM elements per dependency.
    //
    // This issue with this is shared dependencies. E.g, say one loaded up a module
    // containing jQuery, others also use jQuery and then the module was unloaded.
@@ -209,7 +209,7 @@ define(['jquery', 'underscore'], function ($, _) {
         deferred: $.Deferred
     };
 
-    obj._getChannels = function() {
+    obj.getChannels = function() {
         return channels;
     };
 
