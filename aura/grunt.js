@@ -1,8 +1,8 @@
 /*global module:false*/
 module.exports = function(grunt) {
-  grunt.loadNpmTasks('grunt-requirejs');
   grunt.loadNpmTasks('grunt-contrib');
-
+  grunt.loadNpmTasks('grunt-requirejs');
+  
   // Project configuration.
   grunt.initConfig({
 
@@ -82,7 +82,7 @@ module.exports = function(grunt) {
         // define our app model
         modules: [{name: 'app'}]
     },
-    
+
     // Configuration
     // -------------
 
