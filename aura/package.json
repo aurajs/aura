@@ -1,4 +1,6 @@
 {
+  "name": "backbone-aura",
+  "version": "0.0.1",
   "amd": {
     "baseUrl": "www/js"
   },
@@ -8,5 +10,10 @@
       "backbone": "github:amdjs/backbone/0.9.2",
       "jquery": "github:jquery/jquery/1.7.2"
     }
+  },
+  "devDependencies": {
+    "grunt": ">=0.3.9",
+    "grunt-requirejs": ">=0.2.8",
+    "grunt-contrib": ">=0.0.3"
   }
 }
