@@ -230,6 +230,29 @@ RequireJS 2.0 configuration, including `shim` config to allow the loading of non
 
 * Bootstrap permissions to display/render for specific widgets (e.g `permissions.todos: {bootstrap: true}`)
 
+### Install & Build
+
+Aura uses [grunt](https://github.com/cowboy/grunt) & [require.js](https://github.com/jrburke/requirejs) for linting & building.
+If you want to build Aura, you first have to install grunt:
+
+```shell
+npm install grunt -g
+```
+
+and then Auras own dependencies [grunt-contrib](https://github.com/gruntjs/grunt-contrib) and [grunt-requirejs](https://github.com/asciidisco/grunt-requirejs) like so:
+
+```shell
+cd /your/path/to/aura
+npm install
+```
+
+Now you´ve set up everything to start building Aura, to do so, just run
+
+```shell
+grunt build
+```
+in the same directory where the grunt.js file lies.
+
 ### Why A Developer Preview?
 
 Aura is currently missing two important items needed to help us get out a stable release. These are good unit tests and stronger documentation. When the project has these and we've confirmed everything works as expected, we'll announce it for others to check out. The developer preview is our way of letting developers play with some new toys early on and get community feedback on whether the project is useful or not. 
