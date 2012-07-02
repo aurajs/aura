@@ -105,6 +105,9 @@ define(['jquery', 'underscore'], function ($, _) {
 
         // Empty markup associated with the module
         $(el).html('');
+        
+        // Cleanup subscribers
+        delete channels[channel];
 
     };
 
