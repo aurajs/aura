@@ -10,20 +10,20 @@ module.exports = function(grunt) {
     // -----------
 
     // clean build directory
-    clean: ['www-build'],
+    clean: ['demo-build'],
 
     // js linting
     lint: {
       files: [
-        'www/js/widgets/calendar/collections/*.js',
-        'www/js/widgets/calendar/models/*.js',
-        'www/js/widgets/calendar/views/*.js',                
-        'www/js/widgets/todos/collections/*.js',
-        'www/js/widgets/todos/models/*.js',
-        'www/js/widgets/todos/views/*.js', 
-        'www/js/widgets/controls/**/*.js',
-        'www/js/widgets/**/main.js',             
-        'www/js/app.js'
+        'demo/js/widgets/calendar/collections/*.js',
+        'demo/js/widgets/calendar/models/*.js',
+        'demo/js/widgets/calendar/views/*.js',                
+        'demo/js/widgets/todos/collections/*.js',
+        'demo/js/widgets/todos/models/*.js',
+        'demo/js/widgets/todos/views/*.js', 
+        'demo/js/widgets/controls/**/*.js',
+        'demo/js/widgets/**/main.js',             
+        'demo/js/app.js'
       ],
     },
 
@@ -45,9 +45,9 @@ module.exports = function(grunt) {
     // require js
     requirejs: {
         // build directory path
-        dir: 'www-build',
+        dir: 'demo-build',
         // applicatioon directory
-        appDir: 'www',
+        appDir: 'demo',
         // base url for retrieving paths
         baseUrl: 'js',
         // shim underscore & backbone (cause we use the non AMD versions here)
@@ -61,22 +61,24 @@ module.exports = function(grunt) {
   	        }
   	    },
         // paths
-  	    paths: {
-  	        core: 'ext/mediator',
-  	        perms: 'ext/permissions',
-  	        sandbox: 'ext/facade',
+        paths: {
 
-  	        aura_core: 'aura/mediator',
-  	        aura_perms: 'aura/permissions',
-  	        aura_sandbox: 'aura/facade',
+            core: 'ext/mediator',
+            perms: 'ext/permissions',
+            sandbox: 'ext/facade',
 
-  	        backbone: 'ext/lib/backbone',
-  	        localstorage: 'ext/lib/localstorage',
-  	        jquery: 'aura/lib/jquery',
-  	        underscore: 'aura/lib/underscore',
-  	        fullcalendar: 'ext/lib/fullcalendar.min',
-  	        jquery_ui: 'ext/lib/jquery-ui.min'
-  	    },
+            aura_core: '../../aura/mediator',
+            aura_perms: '../../aura/permissions',
+            aura_sandbox: '../../aura/facade',
+
+            text: 'ext/lib/text',
+            backbone: 'ext/lib/backbone',
+            localstorage: 'ext/lib/localstorage',
+            jquery: '../../aura/lib/jquery',
+            underscore: '../../aura/lib/underscore',
+            fullcalendar: 'ext/lib/fullcalendar.min',
+            jquery_ui: 'ext/lib/jquery-ui.min'
+        },
         // optimize javascript files with uglifyjs
         optimize: 'uglify',
         // define our app model

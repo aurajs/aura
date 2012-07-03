@@ -1,5 +1,5 @@
 #!/bin/sh
-#rm -rf ../www-built
+#rm -rf ../demo-built
 #node r.js -o build.js
 
 # Build the docs

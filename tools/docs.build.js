@@ -1,5 +1,5 @@
 ({
-    baseUrl: "../www/js/aura",
+    baseUrl: "demo/js/aura",
     paths: {
         aura_core: 'mediator',
         aura_perms: 'permissions',
@@ -9,6 +9,6 @@
     name: "facade",
     include: ["aura_core", "aura_perms"],
     exclude: ["jquery", "underscore"],
-    out: "../docs/aura.js",
+    out: "docs/aura.js",
     optimize: "none"
 })

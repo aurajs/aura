@@ -2,7 +2,7 @@
   "name": "backbone-aura",
   "version": "0.0.1",
   "amd": {
-    "baseUrl": "www/js"
+    "baseUrl": "demo/js"
   },
   "volo": {
     "dependencies": {
