@@ -5,11 +5,6 @@ require.config({
     shim: {
         'underscore': {
             exports: '_'
-        },
-
-        'backbone': {
-            deps: ['underscore', 'jquery'],
-            exports: 'Backbone'
         }
     },
 
@@ -24,12 +19,9 @@ require.config({
         aura_sandbox: '../aura/facade',
 
         text: 'ext/lib/text',
-        backbone: 'ext/lib/backbone',
-        localstorage: 'ext/lib/localstorage',
+      
         jquery: '../aura/lib/jquery',
         underscore: '../aura/lib/underscore',
-        jquery_ui: 'ext/lib/jquery-ui.min'
-
     }
 });
 
