@@ -46,7 +46,7 @@ if (typeof Object.create !== 'function') {
 // Starts main modules
 // Publishing from core because that's the way that Nicholas did it...
 requirejs(['core'], function (core) {
-    core.publish('todos', "#todoapp");
-    core.publish('calendar', "#calendarapp");
-    core.publish('controls', "#controlsapp");
+    core.start('todos', "#todoapp");
+    core.start('calendar', "#calendarapp");
+    core.start('controls', "#controlsapp");
 });
