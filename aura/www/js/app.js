@@ -13,6 +13,7 @@ require.config({
     },
 
     paths: {
+
         core: 'ext/mediator',
         perms: 'ext/permissions',
         sandbox: 'ext/facade',
@@ -21,6 +22,7 @@ require.config({
         aura_perms: 'aura/permissions',
         aura_sandbox: 'aura/facade',
 
+        text: 'ext/lib/text',
         backbone: 'ext/lib/backbone',
         localstorage: 'ext/lib/localstorage',
         jquery: 'aura/lib/jquery',
