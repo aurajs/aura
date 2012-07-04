@@ -7,12 +7,23 @@ require.config({
         },
 
         'backbone': {
-            deps: ['underscore', 'jquery'],
+            deps: ['underscore', 'dom'],
             exports: 'Backbone'
+        },
+
+        'deferred':{
+            deps: ['dom']
         }
     },
 
     paths: {
+
+        // jQuery
+        dom: '../../aura/lib/jquery/jquery',
+
+        // Zepto
+        // dom: '../../aura/lib/zepto/zepto',
+        // deferred: '../../aura/lib/zepto/deferred',
 
         core: 'ext/mediator',
         perms: 'ext/permissions',
@@ -25,7 +36,7 @@ require.config({
         text: 'ext/lib/text',
         backbone: 'ext/lib/backbone',
         localstorage: 'ext/lib/localstorage',
-        jquery: '../../aura/lib/jquery',
+
         underscore: '../../aura/lib/underscore',
         fullcalendar: 'ext/lib/fullcalendar.min',
         jquery_ui: 'ext/lib/jquery-ui.min'

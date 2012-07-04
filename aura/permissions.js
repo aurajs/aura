@@ -5,7 +5,7 @@
 // layer for your application.
 //
 //     {eventName: {moduleName:[true|false]}, ...}
-define(["jquery"], function ($) {
+define(["dom"], function ($) {
 	
 	var permissions = {},
         rules = {};  

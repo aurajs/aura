@@ -10,10 +10,15 @@
 // * [Writing Modular JavaScript: New Premium Tutorial](http://net.tutsplus.com/tutorials/javascript-ajax/writing-modular-javascript-new-premium-tutorial/)
 /*jslint nomen:true, sloppy:true, browser:true*/
 /*global define, require, _*/
-define(['jquery', 'underscore'], function ($, _) {
+// include 'deferred' if using zepto
+define(['dom', 'underscore'], function ($, _) {
   var channels = {},
     // Loaded modules and their callbacks
     obj = {}; // Mediator object
+
+  // Uncomment if using zepto
+  // Deferred.installInto($);
+
   // Override the default error handling for requirejs
   //
   // TODO: Replace this with the new errbacks
@@ -47,7 +52,6 @@ define(['jquery', 'underscore'], function ($, _) {
     }
     channels[channel] = (!channels[channel]) ? [] : channels[channel];
     channels[channel].push(this.util.method(callback, context));
-    console.log(channels);
   };
   // Publish an event, passing arguments to subscribers. Will
   // call start if the channel is not already registered.
@@ -197,6 +201,7 @@ define(['jquery', 'underscore'], function ($, _) {
   obj.template = {
     parse: _.template
   };
+
   // Placeholder for things like ajax and local storage
   obj.data = {
     deferred: $.Deferred

@@ -6,8 +6,6 @@
 define(["aura_sandbox", "core", "perms", 'jquery_ui'],
     function (sandbox, core, perms) {
 
-
-
         var facade = Object.create(sandbox);
 
         facade.data.Store = core.data.Store;

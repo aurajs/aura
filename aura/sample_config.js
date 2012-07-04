@@ -20,7 +20,7 @@ require.config({
 
         text: 'ext/lib/text',
       
-        jquery: '../aura/lib/jquery',
+        dom: '../aura/lib/jquery',
         underscore: '../aura/lib/underscore',
     }
 });
