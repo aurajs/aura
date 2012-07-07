@@ -25,21 +25,21 @@ require.config({
         // dom: '../../aura/lib/zepto/zepto',
         // deferred: '../../aura/lib/zepto/deferred',
 
-        core: 'ext/mediator',
-        perms: 'ext/permissions',
-        sandbox: 'ext/facade',
+        core: '../../backbone-aura/mediator',
+        perms: '../../backbone-aura/permissions',
+        sandbox: '../../backbone-aura/facade',
 
         aura_core: '../../aura/mediator',
         aura_perms: '../../aura/permissions',
         aura_sandbox: '../../aura/facade',
 
-        text: 'ext/lib/text',
-        backbone: 'ext/lib/backbone',
-        localstorage: 'ext/lib/localstorage',
+        text: '../../backbone-aura/lib/text',
+        backbone: '../../backbone-aura/lib/backbone',
+        localstorage: '../../backbone-aura/lib/localstorage',
 
         underscore: '../../aura/lib/underscore',
-        fullcalendar: 'ext/lib/fullcalendar.min',
-        jquery_ui: 'ext/lib/jquery-ui.min'
+        fullcalendar: '../../backbone-aura/lib/fullcalendar.min',
+        jquery_ui: '../../backbone-aura/lib/jquery-ui.min'
     }
 });
 
