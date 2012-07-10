@@ -105,7 +105,8 @@ module.exports = function(grunt) {
       },
       globals: {
         require: true,
-        define: true
+        define: true,
+        $: true
       }
     }
 

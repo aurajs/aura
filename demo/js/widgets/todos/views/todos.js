@@ -38,7 +38,9 @@ define(['sandbox', 'text!../templates/todos.html'], function (sandbox, todosTemp
     // Close the `"editing"` mode, saving changes to the todo.
     close: function () {
       var value = this.input.val();
-      if (!value) this.clear();
+      if (!value) {
+        this.clear();
+      }
       this.model.save({
         title: value
       });
@@ -46,7 +48,9 @@ define(['sandbox', 'text!../templates/todos.html'], function (sandbox, todosTemp
     },
     // If you hit `enter`, we're through editing the item.
     updateOnEnter: function (e) {
-      if (e.keyCode == 13) this.close();
+      if (e.keyCode === 13) {
+        this.close();
+      }
     },
     // Remove the item, destroy the model.
     clear: function () {
