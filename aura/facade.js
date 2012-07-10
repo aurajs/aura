@@ -13,7 +13,7 @@ define(["aura_core", "aura_perms"], function (mediator, permissions) {
   // * **param:** {object} callback Module
   facade.subscribe = function (channel, subscriber, callback, context) {
     if (permissions.validate(channel, subscriber)) {
-      mediator.subscribe(channel, callback, context || this);
+      mediator.subscribe(channel, subscriber, callback, context || this);
     }
   };
   // * **param:** {string} channel Event name
@@ -30,7 +30,7 @@ define(["aura_core", "aura_perms"], function (mediator, permissions) {
   };
   facade.dom = {
     // * **param:** {string} selector CSS selector for the element
-    // * **param:** {string} context CSS selector for the context in which 
+    // * **param:** {string} context CSS selector for the context in which
     // to search for selector
     // * **returns:** {object} Found elements or empty array
     find: function (selector, context) {

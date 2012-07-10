@@ -28,7 +28,7 @@ define(['dom', 'underscore'], function ($, _) {
     if (err.requireType === 'timeout') {
       console.warn('Could not load module ' + err.requireModules);
     } else {
-      // If a timeout hasn't occurred and there was another module 
+      // If a timeout hasn't occurred and there was another module
       // related error, unload the module then throw an error
       var failedId = err.requireModules && err.requireModules[0];
       requirejs.undef(failedId);
@@ -38,20 +38,28 @@ define(['dom', 'underscore'], function ($, _) {
   // Subscribe to an event
   //
   // * **param:** {string} channel Event name
+  // * **param:** {string} subscriber Subscriber name
   // * **param:** {function} callback Module callback
   // * **param:** {object} context Context in which to execute the module
-  obj.subscribe = function (channel, callback, context) {
+  obj.subscribe = function (channel, subscriber, callback, context) {
     if (channel === undefined || callback === undefined || context === undefined) {
       throw new Error("Channel, callback, and context must be defined");
     }
     if (typeof channel !== "string") {
       throw new Error("Channel must be a string");
     }
+    if (typeof subscriber !== "string") {
+      throw new Error("Subscriber must be a string");
+    }
     if (typeof callback !== "function") {
       throw new Error("Callback must be a function");
     }
+
     channels[channel] = (!channels[channel]) ? [] : channels[channel];
-    channels[channel].push(this.util.method(callback, context));
+    channels[channel].push({
+      subscriber: subscriber,
+      callback: this.util.method(callback, context)
+    });
   };
   // Publish an event, passing arguments to subscribers. Will
   // call start if the channel is not already registered.
@@ -70,9 +78,9 @@ define(['dom', 'underscore'], function ($, _) {
     }
     for (i = 0, l = channels[channel].length; i < l; i += 1) {
       try {
-        channels[channel][i].apply(this, args);
+        channels[channel][i]['callback'].apply(this, args);
       } catch (e) {
-        console.log(e.message);
+        console.error(e.message);
       }
     }
   };
@@ -94,11 +102,11 @@ define(['dom', 'underscore'], function ($, _) {
     // be present in the channels object
 
     require(["widgets/" + file + "/main"], function (main) {
-        try{
-             main(element);
-         }catch(e){
-            console.log(e);
-         }
+      try {
+        main(element);
+      } catch(e) {
+        console.error(e);
+      }
     });
 
   };
@@ -111,6 +119,17 @@ define(['dom', 'underscore'], function ($, _) {
     var args = [].slice.call(arguments, 1),
       el = args[0],
       file = obj.util.decamelize(channel);
+
+    for (var ch in channels) {
+      if (channels.hasOwnProperty(ch)) {
+        for (var i = 0; i < channels[ch].length; i++) {
+          if (channels[ch][i].subscriber === channel) {
+            channels[ch].splice(i);
+          }
+        }
+      }
+    }
+
     // Remove all modules under a widget path (e.g widgets/todos)
     obj.unload("widgets/" + file);
     // Empty markup associated with the module
@@ -119,9 +138,9 @@ define(['dom', 'underscore'], function ($, _) {
   // Undefine/unload a module, resetting the internal state of it in require.js
   // to act like it wasn't loaded. By default require won't cleanup any markup
   // associated with this
-  // 
+  //
   // The interesting challenge with .stop() is that in order to correctly clean-up
-  // one would need to maintain a custom track of dependencies loaded for each 
+  // one would need to maintain a custom track of dependencies loaded for each
   // possible channel, including that channels DOM elements per dependency.
   //
   // This issue with this is shared dependencies. E.g, say one loaded up a module
