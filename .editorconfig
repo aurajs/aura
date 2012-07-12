@@ -1,0 +1,19 @@
+; This file is for unifying the coding style for different editors and IDEs.
+; More information at http://EditorConfig.org
+
+root = true
+
+; All JavaScript files should use tabs unless specified otherwise
+[**.js]
+indent_style = tab
+tab_width = 4
+
+; All HTML files should use tabs unless specified otherwise
+[**.html]
+indent_style = tab
+tab_width = 4
+
+; All CSS files should use tabs unless specified otherwise
+[**.css]
+indent_style = tab
+tab_width = 4
