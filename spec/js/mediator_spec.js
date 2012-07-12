@@ -27,21 +27,21 @@ describe("Mediator", function () {
         it("Should throw an error if all the params aren't specified", function () {
             expect(function() {
                 mediator.subscribe();
-            }).toThrow(new Error("Channel, callback, and context must be defined"))
+            }).toThrow(new Error("Channel, callback, and context must be defined"));
         });
 
         // TODO: Type checking, validation
 
         it("should allow an event to be subscribed", function() {
-            mediator.subscribe(TEST_CHANNEL, function() {}, this);
+            mediator.subscribe(TEST_CHANNEL, 'spec', function() {}, this);
             expect(channels[TEST_CHANNEL]).toBeDefined();
         });
 
         it("should be able assign a specific callback for subscribed event", function() {
             var callback,
                 callbackResult = "callback";
-            mediator.subscribe(TEST_CHANNEL, function() { return callbackResult }, this);
-            callback = channels[TEST_CHANNEL][0];
+            mediator.subscribe(TEST_CHANNEL, 'spec', function() { return callbackResult; }, this);
+            callback = channels[TEST_CHANNEL][0].callback;
             expect(callback()).toBe(callbackResult);
         });
 
@@ -49,10 +49,11 @@ describe("Mediator", function () {
             var callback1 = function() {};
             var callback2 = function() {};
 
-            mediator.subscribe(TEST_CHANNEL, callback1, this);
-            mediator.subscribe(TEST_CHANNEL, callback2, this);
+            mediator.subscribe(TEST_CHANNEL, 'spec', callback1, this);
+            mediator.subscribe(TEST_CHANNEL, 'spec', callback2, this);
 
-            expect(channels[TEST_CHANNEL]).toContain(callback1, callback2);
+            //expect(channels[TEST_CHANNEL]).toContain(callback1, callback2);
+            expect(channels[TEST_CHANNEL].length).toBe(2);
         });
     });
 
