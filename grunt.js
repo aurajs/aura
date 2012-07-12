@@ -3,6 +3,7 @@ module.exports = function(grunt) {
 
 	grunt.loadNpmTasks('grunt-contrib');
 	grunt.loadNpmTasks('grunt-requirejs');
+	grunt.loadNpmTasks('grunt-jasmine-task');
 
 	// Project configuration.
 	grunt.initConfig({
@@ -28,9 +29,9 @@ module.exports = function(grunt) {
 			]
 		},
 
-		// qunit testsuites
-		qunit: {
-			files: ['test/**/*.html']
+		// jasmine testsuites
+		jasmine: {
+			files: ['spec/SpecRunner.html']
 		},
 
 		// tasks to be executed and files
@@ -119,6 +120,6 @@ module.exports = function(grunt) {
 	});
 
 	// build task
-	grunt.registerTask('build', 'clean lint requirejs');
+	grunt.registerTask('build', 'clean lint jasmine requirejs');
 
 };
