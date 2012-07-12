@@ -2,6 +2,11 @@
 // Require.js allows us to configure shortcut alias
 require.config({
     shim: {
+        'dom': {
+            exports: '$',
+            deps: ['jquery']
+        },
+
         'underscore': {
             exports: '_'
         },
@@ -12,18 +17,20 @@ require.config({
         },
 
         'deferred':{
+            exports: 'Deferred',
             deps: ['dom']
         }
     },
 
     paths: {
-
         // jQuery
-        dom: '../../aura/lib/jquery/jquery',
+        jquery: '../../aura/lib/jquery/jquery',
 
         // Zepto
-        // dom: '../../aura/lib/zepto/zepto',
-        // deferred: '../../aura/lib/zepto/deferred',
+        zepto: '../../aura/lib/zepto/zepto',
+        deferred: '../../aura/lib/zepto/deferred',
+
+        dom: '../../aura/lib/dom',
 
         core: '../../backbone-aura/mediator',
         perms: '../../backbone-aura/permissions',
