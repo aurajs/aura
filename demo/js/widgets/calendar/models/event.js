@@ -1,12 +1,15 @@
 define(['sandbox'], function(sandbox) {
-    var Event = sandbox.mvc.Model({
-        // Default attributes for the todo if needed
-        defaults: {
-          start: $.fullCalendar.formatDate(new Date(), 'u'),
-          end: false,
-          title: "New Event",
-          color: "#33A1DE"
-        }
-    });
-    return Event;
+
+	var Event = sandbox.mvc.Model({
+		// Default attributes for the todo if needed
+		defaults: {
+			start: $.fullCalendar.formatDate(new Date(), 'u'),
+			end: false,
+			title: "New Event",
+			color: "#33A1DE"
+		}
+	});
+
+	return Event;
+
 });

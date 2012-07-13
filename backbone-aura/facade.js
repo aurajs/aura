@@ -1,35 +1,35 @@
-/**
- * @fileOverview Extend the aura-core facade
- * @todo This is a stupid place to include jquery ui
- */
-/*global define*/
-define(["aura_sandbox", "core", "perms", 'jquery_ui'],
-    function (sandbox, core, perms) {
+/* global define */
 
-        var facade = Object.create(sandbox);
+// ## Sandbox Extension
+// @fileOverview Extend the aura-core facade
+// @todo This is a stupid place to include jquery ui
+define(["aura_sandbox", "core", "perms", 'jquery_ui'], function (sandbox, core, perms) {
 
-        facade.data.Store = core.data.Store;
-        facade.mvc = {};
+	var facade = Object.create(sandbox);
+	facade.data.Store = core.data.Store;
+	facade.mvc = {};
+	facade.widgets = {};
 
-        facade.widgets = {};
-        facade.mvc.View = function (view) {
-            return core.mvc.View.extend(view);
-        };
-        facade.mvc.Model = function (model) {
-            return core.mvc.Model.extend(model);
-        };
-        facade.mvc.Collection = function (collection) {
-            return core.mvc.Collection.extend(collection);
-        };
+	facade.mvc.View = function (view) {
+		return core.mvc.View.extend(view);
+	};
 
-        facade.widgets.stop = function(channel, el){
-            return sandbox.stop.apply(this, arguments);
-        };
+	facade.mvc.Model = function (model) {
+		return core.mvc.Model.extend(model);
+	};
 
-        facade.widgets.start = function(channel, el){
-            return sandbox.start.apply(this, arguments);
-        };
+	facade.mvc.Collection = function (collection) {
+		return core.mvc.Collection.extend(collection);
+	};
 
+	facade.widgets.stop = function(channel, el){
+		return sandbox.stop.apply(this, arguments);
+	};
 
-        return facade;
+	facade.widgets.start = function(channel, el){
+		return sandbox.start.apply(this, arguments);
+	};
+
+	return facade;
+
 });

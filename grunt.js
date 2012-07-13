@@ -84,9 +84,9 @@ module.exports = function(grunt) {
 			}
 		},
 
-    	server: {
-      		port: 8888
-    	},		
+		server: {
+			port: 8888
+		}
 
 	});
 
@@ -96,6 +96,7 @@ module.exports = function(grunt) {
 	// default build task
 	grunt.registerTask('default', 'build');
 
+	// launch node server to viiew the projct
 	grunt.registerTask('launch', 'server watch');
 
 };
