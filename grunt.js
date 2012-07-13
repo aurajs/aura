@@ -50,42 +50,9 @@ module.exports = function(grunt) {
 			dir: 'demo-build',
 			// applicatioon directory
 			appDir: 'demo',
+			mainConfigFile: 'config.js',
 			// base url for retrieving paths
 			baseUrl: 'js',
-			// shim underscore & backbone (cause we use the non AMD versions here)
-			shim: {
-				'underscore': {
-					exports: '_'
-				},
-				'backbone': {
-					deps: ['underscore', 'dom'],
-					exports: 'Backbone'
-				},
-				'deferred':{
-					deps: ['dom']
-				}
-			},
-			// paths
-			paths: {
-				// jQuery
-				dom: '../../aura/lib/jquery/jquery',
-
-				core: '../../backbone-aura/mediator',
-				perms: '../../backbone-aura/permissions',
-				sandbox: '../../backbone-aura/facade',
-
-				aura_core: '../../aura/mediator',
-				aura_perms: '../../aura/permissions',
-				aura_sandbox: '../../aura/facade',
-
-				text: '../../backbone-aura/lib/text',
-				backbone: '../../backbone-aura/lib/backbone',
-				localstorage: '../../backbone-aura/lib/localstorage',
-				jquery: '../../aura/lib/jquery',
-				underscore: '../../aura/lib/underscore',
-				fullcalendar: '../../backbone-aura/lib/fullcalendar.min',
-				jquery_ui: '../../backbone-aura/lib/jquery-ui.min'
-			},
 			// optimize javascript files with uglifyjs
 			optimize: 'uglify',
 			// define our app model
@@ -115,11 +82,20 @@ module.exports = function(grunt) {
 				define: true,
 				$: true
 			}
-		}
+		},
+
+    	server: {
+      		port: 8888
+    	},		
 
 	});
 
 	// build task
 	grunt.registerTask('build', 'clean lint jasmine requirejs');
+
+	// default build task
+	grunt.registerTask('default', 'build');
+
+	grunt.registerTask('launch', 'server watch');
 
 };
