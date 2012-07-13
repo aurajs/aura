@@ -1,15 +1,15 @@
-##Backbone Aura 0.8 Developer Preview
+##Aura 0.8 Developer Preview
 
-Backbone Aura is a decoupled, event-driven architecture on top of Backbone.js for developing widget-based applications. It takes advantage of patterns and best practices for developing maintainable applications and gives you greater control over widget-based development. Aura gives you complete control of a widget's lifecycle, allowing developers to dynamically start, stop, reload and clean-up parts of their application as needed.
+Aura is a decoupled, event-driven architecture for developing widget-based applications. It takes advantage of patterns and best practices for developing maintainable applications and gives you greater control over widget-based development. Aura gives you complete control of a widget's lifecycle, allowing developers to dynamically start, stop, reload and clean-up parts of their application as needed.
 
-Written by Addy Osmani and Dustin Boston, the project is based on concepts discussed by Nicholas Zakas in [Scalable Application Architecture](http://www.slideshare.net/nzakas/scalable-javascript-application-architecture) and by Addy  in [Large-scale Application Development](http://addyosmani.com/largescalejavascript/). 
+Written by Addy Osmani and Dustin Boston, the project is based on concepts discussed by Nicholas Zakas in [Scalable Application Architecture](http://www.slideshare.net/nzakas/scalable-javascript-application-architecture) and by Addy in [Large-scale Application Development](http://addyosmani.com/largescalejavascript/).
 
 Aura contains a multi-tiered architecture, consistening of:
 
-* **An Application Core**
-* **A Sandbox**
-* **Widgets**
+* **Application Core**
+* **Sandbox**
 * **Modules**
+  * **Widgets**
 
 ### Application Core
 
@@ -19,25 +19,25 @@ The Core has a number of responsibilities. Powered by the Mediator pattern, it:
 * **Implements aliases for DOM manipulation, templating and other lower-level utilities that pipe back to a library of choice**. The idea here is that rather than interfacing with the libraries directly, accessing the Core aliases (through the Sandbox) allow developers to switch out the libraries they use at a later date with minimum impact to their application.
 * **Exposes Publish/Subscribe functionality that can be used for decoupled communication between parts of an application**. Similar to the concept above, our Pub/Sub implementation can be easily replaced with that of another library and it should still work fine.
 
-### The Sandbox
+### Sandbox
 
 Powered by the Facade pattern, the Sandbox:
 
 * **Provides a limited, lightweight API layer on top of the Core for the rest of an application to communicate through**. Rather than exposing say, the entire API for a JavaScript library, we instead only expose those parts that developers in the project will need or are safe to use. This is particularly useful when working in teams.
 * The Sandbox includes a permissions layer, allowing you to configure permissions for widgets such as whether a specific widget has the right to render to the page etc.
 
-### Widgets
-
-* Widgets represent a complete *unit* of a page. They could be a calendar, a news block, a todo list or anything else. 
-* **In Backbone.js terms, widgets are composed of Models, Views, Collections and Routers as well as any templates needed for the widget to rendered.**
-* Widgets should be developed such that any number of instances of them could exist on a page in harmony. 
-* **Publish/Subscribe can be used to communicate between widgets**. Alternatively, direct communication (as demonstrated by the `controls` widget in our examples) may be, however this is discouraged where Pub/Sub can be used instead.
-
 ### Modules
 
 * **All of the files and demo widgets in Aura use AMD as their module format of choice**
 * These can of course be used with r.js for compilation and optimization if concerned about too many script files (compilation should always be used for production-level apps if using AMD in any situation)
 * Whilst not an Aura feature, we also take advantage of RequireJS 2.0's `shim` capability to avoid the need to use patched versions of Backbone.js and Underscore.js (a concern with earlier versions of the project).
+
+ ### Widgets
+
+* Widgets represent a complete *unit* of a page. They could be a calendar, a news block, a todo list or anything else. 
+* **In Backbone.js terms, widgets are composed of Models, Views, Collections and Routers as well as any templates needed for the widget to rendered.**
+* Widgets should be developed such that any number of instances of them could exist on a page in harmony. 
+* **Publish/Subscribe can be used to communicate between widgets**. Alternatively, direct communication (as demonstrated by the `controls` widget in our examples) may be, however this is discouraged where Pub/Sub can be used instead.
 
 ## Sample Application
 
@@ -151,19 +151,19 @@ define(["aura_sandbox", "core", "perms", 'jquery_ui'],
 
 ### Aura Directory Structure
 
-*-- js/aura*
+*-- /aura*
 
 Contains the core implementation of the Application Core (mediator.js), Sandbox (facade.js) and base for widget Permissions validation (permissions.js). 
 
-*-- js/ext*
+*-- /backbone-aura*
 
 Extensions to the Application Core, Sandbox and Permissions can be found here. These contain example specific extensions such as support for Backbone.js and bootstrap/load permissions for the example's widgets.
 
-*-- js/widgets*
+*-- /demo*
 
-The three sample widgets for the example: Calendar, Todos and Controls. Both the Calendar and Todos persist using localStorage whilst the Controls widget is there to just demonstrate how one could control the start and stop of widgets through the UI. Normally this process would be handled by modules.
+The demo/example application containing three sample widgets: Calendar, Todos and Controls. Both the Calendar and Todos persist using localStorage whilst the Controls widget is there to just demonstrate how one could control the start and stop of widgets through the UI. Normally this process would be handled by modules.
 
-*app.js*
+*-- /config.js*
 
 RequireJS 2.0 configuration, including `shim` config to allow the loading of non AMD-patched versions of libraries such as Underscore.js and Backbone.js. This is the initial point of starting up the widgets for an application. 
 
@@ -238,13 +238,25 @@ If you want to build Aura, you first have to install grunt:
 ```shell
 npm install grunt -g
 ```
-
-and then Auras own dependencies [grunt-contrib](https://github.com/gruntjs/grunt-contrib) and [grunt-requirejs](https://github.com/asciidisco/grunt-requirejs) like so:
+then Auras own dependencies [grunt-contrib](https://github.com/gruntjs/grunt-contrib), [grunt-requirejs](https://github.com/asciidisco/grunt-requirejs) and [grunt-jasmine-task](https://github.com/creynders/grunt-jasmine-task) like so:
 
 ```shell
 cd /your/path/to/aura
 npm install
 ```
+
+also, in order for the [grunt-jasmine-task](https://github.com/creynders/grunt-jasmine-task) to work properly, [PhantomJS](http://www.phantomjs.org/) must be installed and in the system PATH (if you can run "phantomjs" at the command line, this task should work).
+
+Unfortunately, PhantomJS cannot be installed automatically via npm or grunt, so you need to install it yourself. There are a number of ways to install PhantomJS.
+
+* [PhantomJS and Mac OS X](http://ariya.ofilabs.com/2012/02/phantomjs-and-mac-os-x.html)
+* [PhantomJS Installation](http://code.google.com/p/phantomjs/wiki/Installation) (PhantomJS wiki)
+
+Note that the `phantomjs` executable needs to be in the system `PATH` for grunt to see it.
+
+* [How to set the path and environment variables in Windows](http://www.computerhope.com/issues/ch000549.htm)
+* [Where does $PATH get set in OS X 10.6 Snow Leopard?](http://superuser.com/questions/69130/where-does-path-get-set-in-os-x-10-6-snow-leopard)
+* [How do I change the PATH variable in Linux](https://www.google.com/search?q=How+do+I+change+the+PATH+variable+in+Linux)
 
 Now you´ve set up everything to start building Aura, to do so, just run
 
