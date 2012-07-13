@@ -115,11 +115,20 @@ module.exports = function(grunt) {
 				define: true,
 				$: true
 			}
-		}
+		},
+
+    	server: {
+      		port: 8888
+    	},		
 
 	});
 
 	// build task
 	grunt.registerTask('build', 'clean lint jasmine requirejs');
+
+	// default build task
+	grunt.registerTask('default', 'build');
+
+	grunt.registerTask('launch', 'server watch');
 
 };
