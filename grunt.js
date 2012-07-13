@@ -85,7 +85,9 @@ module.exports = function(grunt) {
 		},
 
 		server: {
-			port: 8888
+			port: 8888,
+			//base dir
+			base: './'
 		}
 
 	});
