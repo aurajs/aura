@@ -3,17 +3,8 @@
 
 root = true
 
-; All JavaScript files should use tabs unless specified otherwise
-[**.js]
-indent_style = tab
-tab_width = 4
+; All files should use tabs unless specified otherwise
 
-; All HTML files should use tabs unless specified otherwise
-[**.html]
+[*]
 indent_style = tab
-tab_width = 4
-
-; All CSS files should use tabs unless specified otherwise
-[**.css]
-indent_style = tab
-tab_width = 4
+end_of_line = LF

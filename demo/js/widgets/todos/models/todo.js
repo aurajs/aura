@@ -1,29 +1,32 @@
 define(['sandbox'], function(sandbox) {
-    var TodoModel = sandbox.mvc.Model({
 
-        // Default attributes for the todo.
-        defaults: {
-          title: "",
-          completed: false
-        },
+	var TodoModel = sandbox.mvc.Model({
 
-        // Ensure that each todo created has `title`.
-        initialize: function() {
-          if (!this.get("title")) {
-            this.set({"title": this.defaults.title});
-          }
-        },
+		// Default attributes for the todo.
+		defaults: {
+			title: "",
+			completed: false
+		},
 
-        // Toggle the `completed` state of this todo item.
-        toggle: function() {
-          this.save({completed: !this.get("completed")});
-        },
+		// Ensure that each todo created has `title`.
+		initialize: function() {
+			if (!this.get("title")) {
+				this.set({"title": this.defaults.title});
+			}
+		},
 
-        // Remove this Todo from *localStorage*.
-        clear: function() {
-          this.destroy();
-        }
+		// Toggle the `completed` state of this todo item.
+		toggle: function() {
+			this.save({completed: !this.get("completed")});
+		},
 
-    });
-    return TodoModel;
+		// Remove this Todo from *localStorage*.
+		clear: function() {
+			this.destroy();
+		}
+
+	});
+
+	return TodoModel;
+
 });
