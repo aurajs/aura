@@ -4,7 +4,7 @@ Aura is a decoupled, event-driven architecture for developing widget-based appli
 
 Written by Addy Osmani and Dustin Boston, the project is based on concepts discussed by Nicholas Zakas in [Scalable Application Architecture](http://www.slideshare.net/nzakas/scalable-javascript-application-architecture) and by Addy in [Large-scale Application Development](http://addyosmani.com/largescalejavascript/).
 
-Aura contains a multi-tiered architecture, consistening of:
+Aura contains a multi-tiered architecture, consisting of:
 
 * **Application Core**
 * **Sandbox**
@@ -41,7 +41,7 @@ Powered by the Facade pattern, the Sandbox:
 
 ## Sample Application
 
-A demo application using Aura is included in the download featuring Calendar, Todo list and control widgets. Run `aura/www` on a local HTTP server to try it out.
+A demo application using Aura is included in the download featuring Calendar, Todo list and control widgets. After you complete **Install & Build section** (see bellow), run `grunt launch` to launch web server on `http://localhost:8888` and go to `demo` directory to try the demo app out.
 
 ![Screenshot](http://i.imgur.com/wAff1.png)
 
@@ -249,7 +249,8 @@ also, in order for the [grunt-jasmine-task](https://github.com/creynders/grunt-j
 
 Unfortunately, PhantomJS cannot be installed automatically via npm or grunt, so you need to install it yourself. The easiest way to install PhantomJs is using [Homebrew](https://github.com/mxcl/homebrew) with its [updated formula](https://github.com/mxcl/homebrew/pull/11225) for PhantomJS:
 
-```brew update
+```shell
+brew update
 brew install phantomjs
 ```
 
@@ -264,7 +265,7 @@ Note that the `phantomjs` executable needs to be in the system `PATH` for grunt 
 * [Where does $PATH get set in OS X 10.6 Snow Leopard?](http://superuser.com/questions/69130/where-does-path-get-set-in-os-x-10-6-snow-leopard)
 * [How do I change the PATH variable in Linux](https://www.google.com/search?q=How+do+I+change+the+PATH+variable+in+Linux)
 
-Now you´ve set up everything to start building Aura, to do so, just run
+Now you've set up everything to start building Aura, to do so, just run
 
 ```shell
 grunt build
