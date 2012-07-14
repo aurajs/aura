@@ -247,7 +247,13 @@ npm install
 
 also, in order for the [grunt-jasmine-task](https://github.com/creynders/grunt-jasmine-task) to work properly, [PhantomJS](http://www.phantomjs.org/) must be installed and in the system PATH (if you can run "phantomjs" at the command line, this task should work).
 
-Unfortunately, PhantomJS cannot be installed automatically via npm or grunt, so you need to install it yourself. There are a number of ways to install PhantomJS.
+Unfortunately, PhantomJS cannot be installed automatically via npm or grunt, so you need to install it yourself. The easiest way to install PhantomJs is using [Homebrew](https://github.com/mxcl/homebrew) with its [updated formula](https://github.com/mxcl/homebrew/pull/11225) for PhantomJS:
+
+```brew update
+brew install phantomjs
+```
+
+In case you can't or don't want to use [Homebrew](https://github.com/mxcl/homebrew) there are a number of other ways to install PhantomJS.
 
 * [PhantomJS and Mac OS X](http://ariya.ofilabs.com/2012/02/phantomjs-and-mac-os-x.html)
 * [PhantomJS Installation](http://code.google.com/p/phantomjs/wiki/Installation) (PhantomJS wiki)
