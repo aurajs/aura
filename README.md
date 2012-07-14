@@ -272,8 +272,7 @@ grunt build
 ```
 in the same directory where the grunt.js file lies.
 
-== Build Status {<img src="https://secure.travis-ci.org/addyosmani/backbone-aura.png"/>}[http://travis-ci.org/addyosmani/backbone-aura]
-== Build Status robertd {<img src="https://secure.travis-ci.org/robertd/backbone-aura.png"/>}[http://travis-ci.org/robertd/backbone-aura]
+### Build Status {<img src="https://secure.travis-ci.org/addyosmani/backbone-aura.png"/>}[http://travis-ci.org/addyosmani/backbone-aura]
 
 ### Why A Developer Preview?
 
