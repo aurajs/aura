@@ -2,7 +2,7 @@
  
 Aura is a decoupled, event-driven architecture for developing widget-based applications. It takes advantage of patterns and best practices for developing maintainable applications and gives you greater control over widget-based development. Aura gives you complete control of a widget's lifecycle, allowing developers to dynamically start, stop, reload and clean-up parts of their application as needed.
 
-Written by Addy Osmani and Dustin Boston, the project is based on concepts discussed by Nicholas Zakas in [Scalable Application Architecture](http://www.slideshare.net/nzakas/scalable-javascript-application-architecture) and by Addy in [Large-scale Application Development](http://addyosmani.com/largescalejavascript/).
+The project is based on concepts discussed by Nicholas Zakas in [Scalable Application Architecture](http://www.slideshare.net/nzakas/scalable-javascript-application-architecture) and by Addy in [Large-scale Application Development](http://addyosmani.com/largescalejavascript/).
 
 Aura contains a multi-tiered architecture, consisting of:
 
@@ -277,6 +277,14 @@ in the same directory where the grunt.js file lies.
 Aura is currently missing two important items needed to help us get out a stable release. These are good unit tests and stronger documentation. When the project has these and we've confirmed everything works as expected, we'll announce it for others to check out. The developer preview is our way of letting developers play with some new toys early on and get community feedback on whether the project is useful or not. 
 
 At minimum it offers a reference application for some of the ideas Nicholas and Addy have spoken and written about in the past. We welcome your thoughts and any feedback on the project. Thanks!
+
+### Team
+
+* [Addy Osmani](http://github.com/addyosmani)
+* [Dustin Boston](http://github.com/dustinboston)
+* [Gerson Goulart](http://github.com/gersongoulart)
+* [Peter Rudolfsen](http://github.com/rudolfrck)
+* [Robert Djurasaj](http://github.com/robertd)
 
 ### License
 
