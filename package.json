@@ -16,5 +16,8 @@
 		"grunt-requirejs": ">=0.2.8",
 		"grunt-contrib": ">=0.0.3",
 		"grunt-jasmine-task": ">=0.2.0"
+	},
+	"scripts":{
+		"test": "grunt build"
 	}
 }
