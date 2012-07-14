@@ -272,6 +272,9 @@ grunt build
 ```
 in the same directory where the grunt.js file lies.
 
+== Build Status {<img src="https://secure.travis-ci.org/addyosmani/backbone-aura.png"/>}[http://travis-ci.org/addyosmani/backbone-aura]
+== Build Status robertd {<img src="https://secure.travis-ci.org/robertd/backbone-aura.png"/>}[http://travis-ci.org/robertd/backbone-aura]
+
 ### Why A Developer Preview?
 
 Aura is currently missing two important items needed to help us get out a stable release. These are good unit tests and stronger documentation. When the project has these and we've confirmed everything works as expected, we'll announce it for others to check out. The developer preview is our way of letting developers play with some new toys early on and get community feedback on whether the project is useful or not. 
