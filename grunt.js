@@ -38,7 +38,7 @@ module.exports = function(grunt) {
 		// to be watched for changes
 		watch: {
 			files: ['<config:lint.files>'],
-			tasks: ['lint qunit']
+			tasks: ['lint','jasmine']
 		},
 
 		// SINGLE TASKS
@@ -96,7 +96,7 @@ module.exports = function(grunt) {
 	// default build task
 	grunt.registerTask('default', 'build');
 
-	// launch node server to viiew the projct
+	// launch node server to view the projct
 	grunt.registerTask('launch', 'server watch');
 
 };
