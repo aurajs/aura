@@ -249,7 +249,8 @@ also, in order for the [grunt-jasmine-task](https://github.com/creynders/grunt-j
 
 Unfortunately, PhantomJS cannot be installed automatically via npm or grunt, so you need to install it yourself. The easiest way to install PhantomJs is using [Homebrew](https://github.com/mxcl/homebrew) with its [updated formula](https://github.com/mxcl/homebrew/pull/11225) for PhantomJS:
 
-```brew update
+```shell
+brew update
 brew install phantomjs
 ```
 
