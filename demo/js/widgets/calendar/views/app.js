@@ -7,12 +7,13 @@ define(['sandbox', './event', '../models/event', 'text!../templates/base.html'],
 			this.calendar = this.$(".content");
 			sandbox.events.bindAll(this);
 			this.collection.bind('reset', this.addAll);
-			this.collection.bind('add', this.addOne);
-			this.collection.bind('change', this.change);
+			this.collection.bind('event-added', this.addOne);
+			this.collection.bind('event-modified', this.change);
 			this.collection.bind('destroy', this.destroy);
 			this.eventView = new EventView({
 				el: this.$("#event-dialog-form")
 			});
+			this.eventView.collection = this.collection;
 		},
 		render: function () {
 			this.calendar.fullCalendar({
@@ -52,7 +53,7 @@ define(['sandbox', './event', '../models/event', 'text!../templates/base.html'],
 		},
 		change: function (event) {
 			// Look up the underlying event in the calendar and update its details from the model
-			var fcEvent = this.$el.fullCalendar('clientEvents', event.get('id'))[0];
+			var fcEvent = this.calendar.fullCalendar('clientEvents', event.get('id'))[0];
 			fcEvent.title = event.get('title');
 			fcEvent.color = event.get('color');
 			this.calendar.fullCalendar('updateEvent', fcEvent);
