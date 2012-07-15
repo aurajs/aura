@@ -1,4 +1,4 @@
-##Aura 0.8 Developer Preview ![GruntBuild](https://secure.travis-ci.org/addyosmani/backbone-aura.png?branch=master) - [TravisCI Build Info](https://secure.travis-ci.org/addyosmani/backbone-aura)
+##Aura 0.8 Developer Preview ![GruntBuild](https://secure.travis-ci.org/addyosmani/backbone-aura.png?branch=master) - [TravisCI Build Info](https://secure.travis-ci.org/addyosmani/backbone-aura?branch=master)
  
 Aura is a decoupled, event-driven architecture for developing widget-based applications. It takes advantage of patterns and best practices for developing maintainable applications and gives you greater control over widget-based development. Aura gives you complete control of a widget's lifecycle, allowing developers to dynamically start, stop, reload and clean-up parts of their application as needed.
 
