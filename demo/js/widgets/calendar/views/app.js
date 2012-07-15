@@ -40,7 +40,6 @@ define(['sandbox', './event', '../models/event', 'text!../templates/base.html'],
 			sandbox.publish('new-event', event.toJSON());
 		},
 		select: function (startDate, endDate) {
-			this.eventView.collection = this.collection;
 			this.eventView.model = new Event({
 				start: startDate,
 				end: endDate
