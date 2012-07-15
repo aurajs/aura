@@ -3,9 +3,12 @@
 // ## Sandbox Extension
 // @fileOverview Extend the aura-core facade
 // @todo This is a stupid place to include jquery ui
-define(["aura_sandbox", "core", "perms", 'jquery_ui'], function (sandbox, core, perms) {
+define(["aura", "perms", 'jquery_ui'], function (Aura, perms) {
 
-	var facade = Object.create(sandbox);
+     var core = Aura.Core;
+     var sandbox = Aura.Sandbox;
+     var facade = Object.create(sandbox);
+
 	facade.data.Store = core.data.Store;
 	facade.mvc = {};
 	facade.widgets = {};
@@ -24,11 +27,14 @@ define(["aura_sandbox", "core", "perms", 'jquery_ui'], function (sandbox, core, 
 
 	facade.widgets.stop = function(channel, el){
 		return sandbox.stop.apply(this, arguments);
+		//return core.stop.apply(this, arguments);
 	};
 
 	facade.widgets.start = function(channel, el){
 		return sandbox.start.apply(this, arguments);
+		//return core.stop.start(this, arguments);
 	};
+
 
 	return facade;
 

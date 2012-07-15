@@ -1,6 +1,15 @@
 require.config({
     // shim underscore & backbone (cause we use the non AMD versions here)
     shim: {
+        'aura':{
+            exports:'Aura',
+            deps:['underscore','jquery']
+        },
+
+        'sandbox':{
+            deps:['core']
+        },
+
         'dom': {
             exports: '$',
             deps: ['jquery'] // switch to the DOM-lib of your choice
@@ -32,9 +41,7 @@ require.config({
         perms: '../../backbone-aura/permissions',
         sandbox: '../../backbone-aura/facade',
 
-        aura_core: '../../aura/mediator',
-        aura_perms: '../../aura/permissions',
-        aura_sandbox: '../../aura/facade',
+        aura: '../../aura/aura',
 
         text: '../../backbone-aura/lib/text',
         backbone: '../../backbone-aura/lib/backbone',

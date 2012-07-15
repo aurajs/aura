@@ -3,9 +3,9 @@
 
 // ## Core Extension
 // @fileOverview Extend the aura-core mediator
-define(["aura_core", "backbone", "localstorage"], function (core, Backbone, Store) {
+define(["aura", "backbone", "localstorage"], function (Aura, Backbone, Store) {
 
-	var mediator = Object.create(core);
+	var mediator = Aura.Core;
 	mediator.data.Store = Store;
 	mediator.mvc = Backbone;
 

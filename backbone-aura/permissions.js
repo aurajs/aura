@@ -1,6 +1,8 @@
 // ## Permissions Extension
 // @fileOverview Extend the aura-core permissions
-define(["aura_perms"], function (permissions) {
+define(["aura"], function (Aura) {
+
+	var permissions = Aura.Permissions;
 
 	permissions.extend({
 		todos: {
