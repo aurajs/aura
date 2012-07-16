@@ -25,12 +25,21 @@ define(['sandbox'], function(sandbox){
 		save: function() {
 			this.model.set({'title': this.$('#title').val(), 'color': this.$('#color').val()});
 			if (this.model.isNew()) {
-				this.collection.create(this.model, {success: this.close});
+				this.collection.create(this.model, {success: this.saved});
 			} else {
-				this.model.save({}, {success: this.close});
+				this.model.save({}, {success: this.modelSaved});
 			}
 		},
-		close: function() {
+		modelSaved: function (event) {
+			this.collection.trigger('event-modified', event);
+			this.close();
+		},
+		saved: function (event) {
+			this.collection._byId[event.id] = event;
+			this.collection.trigger('event-added', event);
+			this.close();
+		},
+		close: function(event) {
 			this.$el.dialog('close');
 		},
 		destroy: function() {
