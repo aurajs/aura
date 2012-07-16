@@ -1,4 +1,4 @@
-/* global define */
+/*global define*/
 
 // ## Sandbox
 // Set up an standard interface for modules. This is a

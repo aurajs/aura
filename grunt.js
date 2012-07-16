@@ -5,27 +5,52 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-requirejs');
 	grunt.loadNpmTasks('grunt-jasmine-task');
 
-	// Project configuration.
+	// ==========================================================================
+	// TASKS
+	// ==========================================================================
+
+	grunt.registerMultiTask('auraCopy', 'Copy files.', function() {
+		var fs = require('fs'),
+			files = grunt.file.expandFiles(this.file.src);
+		// Copy specified files.
+		for (var i=0; i<files.length; i++){
+			var src = files[i],
+				dest = this.file.dest || files[i].replace('src/', 'dist/'),
+				isDirective = src.match(/^<(.*)>$/);
+			//grunt.log.writeln('Copying file '+ src +' to '+ dest);
+			if(isDirective){
+				grunt.file.write(dest, grunt.task.directive(src, grunt.file.read));
+			}
+			else {
+				grunt.file.copy(src, dest);
+			}
+		}
+		// Fail task if errors were logged.
+		if (this.errorCount) { return false; }
+		// Otherwise, print a success message.
+		//grunt.log.writeln('File "' + this.file.dest + '" copied.');
+		grunt.log.writeln('Total of '+ files.length +' files copied.');
+	});
+
+	// ==========================================================================
+	// Project configuration
+	// ==========================================================================
+
 	grunt.initConfig({
 
 		// MULTI TASKS
 		// -----------
 
 		// clean build directory
-		clean: ['demo-build'],
+		clean: ['dist'],
 
 		// js linting
 		lint: {
 			files: [
-				'demo/js/widgets/calendar/collections/*.js',
-				'demo/js/widgets/calendar/models/*.js',
-				'demo/js/widgets/calendar/views/*.js',
-				'demo/js/widgets/todos/collections/*.js',
-				'demo/js/widgets/todos/models/*.js',
-				'demo/js/widgets/todos/views/*.js',
-				'demo/js/widgets/controls/**/*.js',
-				'demo/js/widgets/**/main.js',
-				'demo/js/app.js'
+				//'src/aura/*.js',
+				'src/apps/**/*.js',
+				'src/widgets/**/*.js',
+				'src/extensions/*/*.js'
 			]
 		},
 
@@ -41,16 +66,41 @@ module.exports = function(grunt) {
 			tasks: ['lint','jasmine']
 		},
 
+		// copy: {
+		// 	dist: {
+		// 		options: {
+		// 			flatten: true
+		// 		},
+		// 		files: {
+		// 			'dist': ['src/config.js', 'src/index.html'],
+		// 			'dist/extensions': 'src/extensions/**'
+		// 		}
+		// 	}
+		// },
+
+		auraCopy: {
+			dist: {
+				src: [
+					'src/config.js',
+					'src/index.html',
+					// TODO: These files below should also be combined and minified by requirejs.
+					'src/aura/**',
+					'src/widgets/**',
+					'src/extensions/**'
+				]
+			}
+		},
+
 		// SINGLE TASKS
 		// ----------------------
 
 		// require js
 		requirejs: {
 			// build directory path
-			dir: 'demo-build',
-			// applicatioon directory
-			appDir: 'demo',
-			mainConfigFile: 'config.js',
+			dir: 'dist/apps/demo',
+			// application directory
+			appDir: 'src/apps/demo',
+			mainConfigFile: 'src/config.js',
 			// base url for retrieving paths
 			baseUrl: 'js',
 			// optimize javascript files with uglifyjs
@@ -93,7 +143,7 @@ module.exports = function(grunt) {
 	});
 
 	// build task
-	grunt.registerTask('build', 'clean lint jasmine requirejs');
+	grunt.registerTask('build', 'clean lint jasmine requirejs auraCopy');
 
 	// default build task
 	grunt.registerTask('default', 'build');

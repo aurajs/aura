@@ -20,27 +20,27 @@ require.config({
     // paths
     paths: {
         // jQuery
-        jquery: '../../aura/lib/jquery/jquery',
+        jquery: '../../../aura/lib/jquery/jquery',
 
         // Zepto
-        zepto: '../../aura/lib/zepto/zepto',
-        deferred: '../../aura/lib/zepto/deferred',
+        zepto: '../../../aura/lib/zepto/zepto',
+        deferred: '../../../aura/lib/zepto/deferred',
 
-        dom: '../../aura/lib/dom',
+        dom: '../../../aura/lib/dom',
 
-        core: '../../backbone-aura/mediator',
-        perms: '../../backbone-aura/permissions',
-        sandbox: '../../backbone-aura/facade',
+        core: '../../../extensions/backbone/mediator',
+        perms: '../../../extensions/backbone/permissions',
+        sandbox: '../../../extensions/backbone/facade',
 
-        aura_core: '../../aura/mediator',
-        aura_perms: '../../aura/permissions',
-        aura_sandbox: '../../aura/facade',
+        aura_core: '../../../aura/mediator',
+        aura_perms: '../../../aura/permissions',
+        aura_sandbox: '../../../aura/facade',
 
-        text: '../../backbone-aura/lib/text',
-        backbone: '../../backbone-aura/lib/backbone',
-        localstorage: '../../backbone-aura/lib/localstorage',
-        underscore: '../../aura/lib/underscore',
-        fullcalendar: '../../backbone-aura/lib/fullcalendar.min',
-        jquery_ui: '../../backbone-aura/lib/jquery-ui.min'
+        text: '../../../extensions/backbone/lib/text',
+        backbone: '../../../extensions/backbone/lib/backbone',
+        localstorage: '../../../extensions/backbone/lib/localstorage',
+        underscore: '../../../aura/lib/underscore',
+        fullcalendar: '../../../extensions/backbone/lib/fullcalendar.min',
+        jquery_ui: '../../../extensions/backbone/lib/jquery-ui.min'
     }
-})
+});
