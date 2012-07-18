@@ -1,3 +1,5 @@
+/*global define*/
+
 // ## Permissions
 // A permissions structure can support checking
 // against subscriptions prior to allowing them

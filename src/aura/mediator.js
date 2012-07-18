@@ -1,5 +1,5 @@
-/* jslint nomen:true, sloppy:true, browser:true */
-/* global define, require, _ */
+/*jshint nomen:true, sloppy:true, browser:true*/
+/*global define, require, console*/
 
 // ## Core
 // Implements the mediator pattern and
@@ -26,14 +26,14 @@ define(['dom', 'underscore'], function ($, _) {
 	// TODO: Replace this with the new errbacks
 	//
 	// * [Handling Errors](http://requirejs.org/docs/api.html#errors)
-	requirejs.onError = function (err) {
+	require.onError = function (err) {
 		if (err.requireType === 'timeout') {
 			console.warn('Could not load module ' + err.requireModules);
 		} else {
 			// If a timeout hasn't occurred and there was another module
 			// related error, unload the module then throw an error
 			var failedId = err.requireModules && err.requireModules[0];
-			requirejs.undef(failedId);
+			require.undef(failedId);
 			throw err;
 		}
 	};
@@ -106,7 +106,7 @@ define(['dom', 'underscore'], function ($, _) {
 		// If a widget hasn't called subscribe this will fail because it wont
 		// be present in the channels object
 
-		require(["widgets/" + file + "/main"], function (main) {
+		require(["../../../widgets/" + file + "/main"], function (main) {
 			try {
 				main(element);
 			} catch(e) {
@@ -160,7 +160,8 @@ define(['dom', 'underscore'], function ($, _) {
 	//
 	// * **param:** {string} channel Event name
 	obj.unload = function (channel) {
-		var contextMap = requirejs.s.contexts._.urlMap;
+		var contextMap = require.s.contexts._.urlMap,
+			key;
 		for (key in contextMap) {
 			if (contextMap.hasOwnProperty(key) && key.indexOf(channel) !== -1) {
 				require.undef(key);
