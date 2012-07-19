@@ -25,8 +25,8 @@ define(["aura_core", "aura_perms"], function (mediator, permissions) {
 		mediator.publish.apply(mediator, arguments);
 	};
 
-	// * **param:** {string} channel Event name
-	facade.start = function (channel) {
+	// * **param:** {Object/Array} an array with objects or single object containing channel and element
+	facade.start = function (list) {
 		mediator.start.apply(mediator, arguments);
 	};
 

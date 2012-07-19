@@ -16,7 +16,9 @@ define(['dom', 'underscore'], function ($, _) {
 
 	var channels = {},
 		// Loaded modules and their callbacks
-		obj = {}; // Mediator object
+		obj = {}, // Mediator object
+		_publishQueue = [],
+		isWidgetLoading = false;
 
 	// Uncomment if using zepto
 	// Deferred.installInto($);
@@ -76,6 +78,11 @@ define(['dom', 'underscore'], function ($, _) {
 		if (typeof channel !== "string") {
 			throw new Error("Channel must be a string");
 		}
+    if (isWidgetLoading) { //Catch publish event!
+      _publishQueue.push( arguments );
+      return;
+    }
+		
 		var i, l, args = [].slice.call(arguments, 1);
 		if (!channels[channel]) {
 			return;
@@ -88,32 +95,59 @@ define(['dom', 'underscore'], function ($, _) {
 			}
 		}
 	};
+	
+	// Empty the list with all stored publish events.
+	obj.emptyPublishQueue = function () {
+	  isWidgetLoading = false;
+	  _.each(_publishQueue, function(args) {
+	    obj.publish.apply(this, args);
+	  });
+	  _publishQueue = [];
+	};
 
 	// Automatically load a widget and initialize it. File name of the
 	// widget will be derived from the channel, decamelized and underscore
 	// delimited by default.
 	//
-	// * **param:** {string} channel Event name
-	obj.start = function (channel, element) {
-		if (channel === undefined) {
-			throw new Error("Channel must be defined");
+	// * **param:** {Object/Array} an array with objects or single object containing channel and element
+	obj.start = function (list) {
+	  if ( _.isObject(list) && !_.isArray(list) ) {
+      list = [list];  //Allow a single object as param
+	  }
+		if ( !_.isArray(list) ) {
+			throw new Error("Channel must be defined as an array");
 		}
-		if (typeof channel !== "string") {
-			throw new Error("Channel must be a string");
-		}
-		var i, l, args = [].slice.call(arguments, 1),
-			file = obj.util.decamelize(channel);
-		// If a widget hasn't called subscribe this will fail because it wont
-		// be present in the channels object
 
-		require(["../../../widgets/" + file + "/main"], function (main) {
-			try {
-				main(element);
-			} catch(e) {
-				console.error(e);
-			}
-		});
+		var i = 0,
+		    l = list.length,
+		    promises = [];
+		    
+		function load (file, element) {
+      var dfd = obj.data.deferred();
 
+    	require(["../../../widgets/" + file + "/main"], function (main) {
+        try {
+          main(element);
+        } catch(e) {
+          console.error(e);
+        }
+        //Resolve
+        dfd.resolve();
+      });
+
+  	  return dfd.promise();		      
+    };
+    
+    isWidgetLoading = true;
+		    
+	  for (;i<l;i++) {
+	    var widget = list[i],
+          file = obj.util.decamelize(widget.channel);
+
+	    promises.push( load(file, widget.element) );
+	  }
+    
+    $.when.apply($, promises).done(obj.emptyPublishQueue);
 	};
 
 	// Unload a widget (collection of modules) by passing in a named reference

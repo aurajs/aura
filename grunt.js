@@ -128,6 +128,7 @@ module.exports = function(grunt) {
 				nomen: false
 			},
 			globals: {
+			  console: true,
 				require: true,
 				define: true,
 				$: true

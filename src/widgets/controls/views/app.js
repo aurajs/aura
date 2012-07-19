@@ -8,9 +8,9 @@ define(['sandbox', 'text!../templates/controls.html'], function(sandbox, control
 			"click .stop-todos": "stopTodos",
 			"click .stop-calendar": "stopCalendar",
 			"click .start-todos": "startTodos",
-			"click .start-calendar": "startCalendar"
+			"click .start-calendar": "startCalendar",
+			"click .start-all": 'startAll'
 		},
-
 
 		initialize: function() {
 			this.$el.html(controlTemplate);
@@ -18,6 +18,13 @@ define(['sandbox', 'text!../templates/controls.html'], function(sandbox, control
 
 		render: function() {
 			//...
+		},
+		
+		startAll: function(){
+      sandbox.widgets.start([
+        { channel: 'todos', element: '#todoapp' },
+        { channel: 'calendar', element: '#calendarapp' }
+      ]);
 		},
 
 		stopTodos: function(){
@@ -29,11 +36,11 @@ define(['sandbox', 'text!../templates/controls.html'], function(sandbox, control
 		},
 
 		startTodos: function(){
-			sandbox.widgets.start('todos', '#todoapp');
+			sandbox.widgets.start({ channel: 'todos', element: '#todoapp' });
 		},
 
 		startCalendar: function(){
-			sandbox.widgets.start('calendar', '#calendarapp');
+			sandbox.widgets.start({ channel: 'calendar', element: '#calendarapp' });
 		}
 
 	});
