@@ -7,7 +7,7 @@ define(['sandbox', './views/app'], function (sandbox, AppView) {
 		
 		sandbox.publish('bootstrap', 'todos');
 		sandbox.subscribe('bootstrap', 'todos', function (from) {
-		  console.log('Todos-bootstrap message from from: '+ from);
+			console.log('Todos-bootstrap message from from: '+ from);
 		});		
 	};
 
