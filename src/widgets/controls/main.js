@@ -8,7 +8,7 @@ define(['sandbox', './views/app'], function (sandbox, AppView) {
 		sandbox.publish('bootstrap', 'controls');
 		sandbox.subscribe('bootstrap', 'controls', function (from) {
 			console.log('Controls-bootstrap message from from: '+ from);
-		});		
+		});
 	};
 
 });

@@ -2,16 +2,16 @@ define(['sandbox', 'text!../templates/todos.html'], function (sandbox, todosTemp
 
 	return sandbox.mvc.View({
 		//... is a list tag.
-		tagName: "li",
+		tagName: 'li',
 		// Cache the template function for a single item.
 		template: sandbox.template.parse(todosTemplate),
 		// The DOM events specific to an item.
 		events: {
-			"click .toggle": "toggleCompleted",
-			"dblclick .view": "edit",
-			"click .destroy": "clear",
-			"keypress .edit": "updateOnEnter",
-			"blur .edit": "close"
+			'click .toggle': 'toggleCompleted',
+			'dblclick .view': 'edit',
+			'click .destroy': 'clear',
+			'keypress .edit': 'updateOnEnter',
+			'blur .edit': 'close'
 		},
 		// The TodoView listens for changes to its model, re-rendering. Since there's
 		// a one-to-one correspondence between a **Todo** and a **TodoView** in this
@@ -26,17 +26,17 @@ define(['sandbox', 'text!../templates/todos.html'], function (sandbox, todosTemp
 			this.input = this.$('.edit');
 			return this;
 		},
-		// Toggle the `"completed"` state of the model.
+		// Toggle the `'completed'` state of the model.
 		toggleCompleted: function () {
 			this.model.toggle();
 		},
-		// Switch this view into `"editing"` mode, displaying the input field.
+		// Switch this view into `editing` mode, displaying the input field.
 		edit: function () {
-			// sandbox.dom.find(this.el).addClass("editing");
-			this.$el.addClass("editing");
+			// sandbox.dom.find(this.el).addClass('editing');
+			this.$el.addClass('editing');
 			this.input.focus();
 		},
-		// Close the `"editing"` mode, saving changes to the todo.
+		// Close the `editing` mode, saving changes to the todo.
 		close: function () {
 			var value = this.input.val();
 			if (!value) {
@@ -45,7 +45,7 @@ define(['sandbox', 'text!../templates/todos.html'], function (sandbox, todosTemp
 			this.model.save({
 				title: value
 			});
-			this.$el.removeClass("editing");
+			this.$el.removeClass('editing');
 		},
 		// If you hit `enter`, we're through editing the item.
 		updateOnEnter: function (e) {

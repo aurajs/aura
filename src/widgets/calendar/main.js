@@ -7,11 +7,11 @@ define(['sandbox', './views/app', './collections/events', 'fullcalendar'], funct
 			collection: events
 		}).render();
 		events.fetch();
-				
+
 		sandbox.publish('bootstrap', 'calendar');
 		sandbox.subscribe('bootstrap', 'calendar', function (from) {
 			console.log('Calendar-bootstrap message from from: '+ from);
-		});		
+		});
 		
 	};
 
