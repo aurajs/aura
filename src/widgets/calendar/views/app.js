@@ -4,14 +4,14 @@ define(['sandbox', './event', '../models/event', 'text!../templates/base.html'],
 		baseTemplate: sandbox.template.parse(baseTemplate),
 		initialize: function () {
 			this.$el.html(baseTemplate);
-			this.calendar = this.$(".content");
+			this.calendar = this.$('.content');
 			sandbox.events.bindAll(this);
 			this.collection.bind('reset', this.addAll);
 			this.collection.bind('event-added', this.addOne);
 			this.collection.bind('event-modified', this.change);
 			this.collection.bind('destroy', this.destroy);
 			this.eventView = new EventView({
-				el: this.$("#event-dialog-form")
+				el: this.$('#event-dialog-form')
 			});
 			this.eventView.collection = this.collection;
 		},

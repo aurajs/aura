@@ -48,16 +48,16 @@ define(['dom', 'underscore'], function ($, _) {
 	// * **param:** {object} context Context in which to execute the module
 	obj.subscribe = function (channel, subscriber, callback, context) {
 		if (channel === undefined || callback === undefined || context === undefined) {
-			throw new Error("Channel, callback, and context must be defined");
+			throw new Error('Channel, callback, and context must be defined');
 		}
-		if (typeof channel !== "string") {
-			throw new Error("Channel must be a string");
+		if (typeof channel !== 'string') {
+			throw new Error('Channel must be a string');
 		}
-		if (typeof subscriber !== "string") {
-			throw new Error("Subscriber must be a string");
+		if (typeof subscriber !== 'string') {
+			throw new Error('Subscriber must be a string');
 		}
-		if (typeof callback !== "function") {
-			throw new Error("Callback must be a function");
+		if (typeof callback !== 'function') {
+			throw new Error('Callback must be a function');
 		}
 
 		channels[channel] = (!channels[channel]) ? [] : channels[channel];
@@ -73,15 +73,15 @@ define(['dom', 'underscore'], function ($, _) {
 	// * **param:** {string} channel Event name
 	obj.publish = function (channel) {
 		if (channel === undefined) {
-			throw new Error("Channel must be defined");
+			throw new Error('Channel must be defined');
 		}
-		if (typeof channel !== "string") {
-			throw new Error("Channel must be a string");
+		if (typeof channel !== 'string') {
+			throw new Error('Channel must be a string');
 		}
-    if (isWidgetLoading) { //Catch publish event!
-      _publishQueue.push( arguments );
-      return;
-    }
+		if (isWidgetLoading) { //Catch publish event!
+			_publishQueue.push( arguments );
+			return;
+		}
 		
 		var i, l, args = [].slice.call(arguments, 1);
 		if (!channels[channel]) {
@@ -98,11 +98,11 @@ define(['dom', 'underscore'], function ($, _) {
 	
 	// Empty the list with all stored publish events.
 	obj.emptyPublishQueue = function () {
-	  isWidgetLoading = false;
-	  _.each(_publishQueue, function(args) {
-	    obj.publish.apply(this, args);
-	  });
-	  _publishQueue = [];
+		isWidgetLoading = false;
+		_.each(_publishQueue, function(args) {
+			obj.publish.apply(this, args);
+		});
+		_publishQueue = [];
 	};
 
 	// Automatically load a widget and initialize it. File name of the
@@ -111,43 +111,42 @@ define(['dom', 'underscore'], function ($, _) {
 	//
 	// * **param:** {Object/Array} an array with objects or single object containing channel and element
 	obj.start = function (list) {
-	  if ( _.isObject(list) && !_.isArray(list) ) {
-      list = [list];  //Allow a single object as param
-	  }
+		if ( _.isObject(list) && !_.isArray(list) ) {
+			list = [list];	//Allow a single object as param
+		}
 		if ( !_.isArray(list) ) {
-			throw new Error("Channel must be defined as an array");
+			throw new Error('Channel must be defined as an array');
 		}
 
 		var i = 0,
-		    l = list.length,
-		    promises = [];
-		    
+				l = list.length,
+				promises = [];
+				
 		function load (file, element) {
-      var dfd = obj.data.deferred();
+			var dfd = obj.data.deferred();
 
-    	require(["../../../widgets/" + file + "/main"], function (main) {
-        try {
-          main(element);
-        } catch(e) {
-          console.error(e);
-        }
-        //Resolve
-        dfd.resolve();
-      });
+			require(['../../../widgets/' + file + '/main'], function (main) {
+				try {
+					main(element);
+				} catch(e) {
+					console.error(e);
+				}
+				//Resolve
+				dfd.resolve();
+			});
 
-  	  return dfd.promise();		      
-    };
-    
-    isWidgetLoading = true;
-		    
-	  for (;i<l;i++) {
-	    var widget = list[i],
-          file = obj.util.decamelize(widget.channel);
+			return dfd.promise();
+		}
 
-	    promises.push( load(file, widget.element) );
-	  }
-    
-    $.when.apply($, promises).done(obj.emptyPublishQueue);
+		isWidgetLoading = true;
+
+		for (;i<l;i++) {
+			var widget = list[i],
+				file = obj.util.decamelize(widget.channel);
+			promises.push( load(file, widget.element) );
+		}
+
+		$.when.apply($, promises).done(obj.emptyPublishQueue);
 	};
 
 	// Unload a widget (collection of modules) by passing in a named reference
@@ -170,7 +169,7 @@ define(['dom', 'underscore'], function ($, _) {
 			}
 		}
 		// Remove all modules under a widget path (e.g widgets/todos)
-		obj.unload("widgets/" + file);
+		obj.unload('widgets/' + file);
 		// Empty markup associated with the module
 		$(el).html('');
 	};
@@ -207,7 +206,7 @@ define(['dom', 'underscore'], function ($, _) {
 		each: _.each,
 		extend: _.extend,
 		decamelize: function (camelCase, delimiter) {
-			delimiter = (delimiter === undefined) ? "_" : delimiter;
+			delimiter = (delimiter === undefined) ? '_' : delimiter;
 			return camelCase.replace(/([A-Z])/g, delimiter + '$1').toLowerCase();
 		},
 		// Camelize a string

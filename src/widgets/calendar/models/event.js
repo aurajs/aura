@@ -5,8 +5,8 @@ define(['sandbox'], function(sandbox) {
 		defaults: {
 			start: $.fullCalendar.formatDate(new Date(), 'u'),
 			end: false,
-			title: "New Event",
-			color: "#33A1DE"
+			title: 'New Event',
+			color: '#33a1de'
 		}
 	});
 

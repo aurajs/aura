@@ -6,5 +6,3 @@
 node r.js -o docs.build.js
 cd ..
 docco docs/aura.js
-
-

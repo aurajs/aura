@@ -5,8 +5,8 @@ define(['sandbox', '../models/todo'], function(sandbox, Todo){
 		// Reference to this collection's model.
 		model: Todo,
 
-		// Save all of the todo items under the `"todos"` namespace.
-		localStorage: new sandbox.data.Store("todos-backbone-require"),
+		// Save all of the todo items under the `'todos'` namespace.
+		localStorage: new sandbox.data.Store('todos-backbone-require'),
 
 		// Filter down the list of all todo items that are finished.
 		completed: function() {

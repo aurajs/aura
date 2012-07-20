@@ -3,24 +3,24 @@ define(['sandbox', '../collections/todos', './todos', 'text!../templates/base.ht
 	var AppView = sandbox.mvc.View({
 		// Instead of generating a new element, bind to the existing skeleton of
 		// the App already present in the HTML.
-		// el: sandbox.dom.find("#todoapp"),
+		// el: sandbox.dom.find('#todoapp'),
 		// Our base for the rest of the Todos widget
 		baseTemplate: sandbox.template.parse(baseTemplate),
 		// Our template for the line of statistics at the bottom of the app.
 		statsTemplate: sandbox.template.parse(statsTemplate),
 		// Delegated events for creating new items, and clearing completed ones.
 		events: {
-			"keypress #new-todo": "createOnEnter",
-			"click #clear-completed": "clearCompleted",
-			"click #toggle-all": "toggleAllComplete"
+			'keypress #new-todo': 'createOnEnter',
+			'click #clear-completed': 'clearCompleted',
+			'click #toggle-all': 'toggleAllComplete'
 		},
 		// At initialization we bind to the relevant events on the `Todos`
 		// collection, when items are added or changed. Kick things off by
 		// loading any preexisting todos that might be saved in *localStorage*.
 		initialize: function () {
 			this.$el.html(baseTemplate);
-			this.input = this.$("#new-todo");
-			this.allCheckbox = this.$("#toggle-all")[0];
+			this.input = this.$('#new-todo');
+			this.allCheckbox = this.$('#toggle-all')[0];
 			Todos.bind('add', this.addOne, this);
 			Todos.bind('reset', this.addAll, this);
 			Todos.bind('all', this.render, this);

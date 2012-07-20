@@ -5,11 +5,11 @@ define(['sandbox', 'text!../templates/controls.html'], function(sandbox, control
 		controlTemplate: sandbox.template.parse(controlTemplate),
 
 		events: {
-			"click .stop-todos": "stopTodos",
-			"click .stop-calendar": "stopCalendar",
-			"click .start-todos": "startTodos",
-			"click .start-calendar": "startCalendar",
-			"click .start-all": 'startAll'
+			'click .stop-todos': 'stopTodos',
+			'click .stop-calendar': 'stopCalendar',
+			'click .start-todos': 'startTodos',
+			'click .start-calendar': 'startCalendar',
+			'click .start-all': 'startAll'
 		},
 
 		initialize: function() {
@@ -19,12 +19,12 @@ define(['sandbox', 'text!../templates/controls.html'], function(sandbox, control
 		render: function() {
 			//...
 		},
-		
+
 		startAll: function(){
-      sandbox.widgets.start([
-        { channel: 'todos', element: '#todoapp' },
-        { channel: 'calendar', element: '#calendarapp' }
-      ]);
+			sandbox.widgets.start([
+				{ channel: 'todos', element: '#todoapp' },
+				{ channel: 'calendar', element: '#calendarapp' }
+			]);
 		},
 
 		stopTodos: function(){

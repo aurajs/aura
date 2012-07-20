@@ -66,18 +66,6 @@ module.exports = function(grunt) {
 			tasks: ['lint','jasmine']
 		},
 
-		// copy: {
-		// 	dist: {
-		// 		options: {
-		// 			flatten: true
-		// 		},
-		// 		files: {
-		// 			'dist': ['src/config.js', 'src/index.html'],
-		// 			'dist/extensions': 'src/extensions/**'
-		// 		}
-		// 	}
-		// },
-
 		auraCopy: {
 			dist: {
 				src: [
@@ -128,7 +116,7 @@ module.exports = function(grunt) {
 				nomen: false
 			},
 			globals: {
-			  console: true,
+				console: true,
 				require: true,
 				define: true,
 				$: true
@@ -137,7 +125,6 @@ module.exports = function(grunt) {
 
 		server: {
 			port: 8888,
-			//base dir
 			base: './'
 		}
 
