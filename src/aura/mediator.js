@@ -193,7 +193,7 @@ define(['dom', 'underscore'], function ($, _) {
 	//
 	// * **param:** {string} channel Event name
 	obj.unload = function (channel) {
-		var contextMap = require.s.contexts._.urlMap,
+		var contextMap = require.s.contexts._.defined,
 			key;
 		for (key in contextMap) {
 			if (contextMap.hasOwnProperty(key) && key.indexOf(channel) !== -1) {
