@@ -144,7 +144,13 @@ define(['dom', 'underscore'], function ($, _) {
 		function load (file, element) {
 			var dfd = obj.data.deferred();
 
-			require(['../../../widgets/' + file + '/main'], function (main) {
+            var widgetsPath = '../../../widgets';
+            var requireConfig = require.s.contexts._.config;
+            if (requireConfig.paths && _.has(requireConfig.paths, 'widgets')) {
+                widgetsPath = requireConfig.paths.widgets;
+            }
+
+			require([widgetsPath + '/' + file + '/main'], function (main) {
 				try {
 					main(element);
 				} catch(e) {
