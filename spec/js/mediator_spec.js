@@ -119,11 +119,10 @@ describe('Mediator', function () {
         });
 
         it('should add to publish queue if widget is loading', function() {
-            var callback = sinon.spy();
             channels[TEST_CHANNEL] = [
-                {callback:callback}
+                {callback:function() {}}
             ];
-            mediator.setIsWidgetLoading(true);
+            mediator.start({ channel:TEST_CHANNEL, element:'#nothing' });
 
             mediator.publish(TEST_CHANNEL);
 

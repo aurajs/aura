@@ -67,19 +67,6 @@ define(['dom', 'underscore'], function ($, _) {
 		});
 	};
 
-    // The following methods are added to add visibility for testing.
-    // The publish method, in particular, has some behavior that is
-    // variable based on the current isWidgetLoading value, and will
-    // add to the publish queue when true.
-    // TODO (review) add visibility/seams without exposing messing API as needed
-    obj.setIsWidgetLoading = function (isLoading) {
-        isWidgetLoading = isLoading;
-    };
-
-    obj.getIsWidgetLoading = function () {
-        return isWidgetLoading;
-    };
-
     obj.getPublishQueueLength = function () {
         return _publishQueue.length;
     };
