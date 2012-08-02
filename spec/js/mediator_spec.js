@@ -24,6 +24,26 @@ describe('Mediator', function () {
 			};
 		});
 
+        describe('type checking:', function() {
+            it("should throw an error if typeof channel is NOT string", function() {
+                expect(function() {
+                    mediator.subscribe({}, 'subscriber', function () {}, {})
+                }).toThrow(new Error('Channel must be a string'));
+            });
+
+            it("should throw an error if typeof subscriber is NOT string", function() {
+                expect(function() {
+                    mediator.subscribe('channel', {}, function(){}, {})
+                }).toThrow(new Error('Subscriber must be a string'));
+            })
+
+            it("should throw an error if typeof callback is NOT a function", function() {
+                expect(function() {
+                    mediator.subscribe('channel', 'subscriber', 'callback', {})
+                }).toThrow(new Error('Callback must be a function'));
+            });
+        });
+
 		it('Should throw an error if all the params are not specified', function () {
 			expect(function() {
 				mediator.subscribe();
