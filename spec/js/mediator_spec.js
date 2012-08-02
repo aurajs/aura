@@ -8,6 +8,13 @@ describe('Mediator', function () {
 		mediator = window.core;
 		channels = mediator.getChannels();
 
+        //override method util as it uses jQuery proxy and doesn't
+        //allow comparison of actual callback function object.
+        mediator.util.method = function (fn, context) {
+            return fn;
+        };
+
+        //verify setup
 		expect(mediator).toBeDefined();
 		expect(channels).toBeDefined();
 
@@ -16,21 +23,31 @@ describe('Mediator', function () {
 
 	describe('subscribe', function() {
 
-		beforeEach(function() {
-			//override method util as it uses jQuery proxy and doesn't
-			//allow comparison of actual callback function object.
-			mediator.util.method = function(fn, context) {
-					return fn;
-			};
-		});
+        describe('verification of parameters', function() {
+            it('should throw an error if all the params are not specified', function () {
+                expect(function () {
+                    mediator.subscribe();
+                }).toThrow(new Error('Channel, callback, and context must be defined'));
+            });
 
-		it('Should throw an error if all the params are not specified', function () {
-			expect(function() {
-				mediator.subscribe();
-			}).toThrow(new Error('Channel, callback, and context must be defined'));
-		});
+            it("should throw an error if typeof channel is NOT string", function() {
+                expect(function() {
+                    mediator.subscribe({}, 'subscriber', function () {}, {})
+                }).toThrow(new Error('Channel must be a string'));
+            });
 
-		// TODO: Type checking, validation
+            it("should throw an error if typeof subscriber is NOT string", function() {
+                expect(function() {
+                    mediator.subscribe('channel', {}, function(){}, {})
+                }).toThrow(new Error('Subscriber must be a string'));
+            })
+
+            it("should throw an error if typeof callback is NOT a function", function() {
+                expect(function() {
+                    mediator.subscribe('channel', 'subscriber', 'callback', {})
+                }).toThrow(new Error('Callback must be a function'));
+            });
+        });
 
 		it('should allow an event to be subscribed', function() {
 			mediator.subscribe(TEST_CHANNEL, 'spec', function() {}, this);
@@ -58,33 +75,82 @@ describe('Mediator', function () {
 	});
 
 	describe('publish', function() {
-		it('Should throw an error if all the params are not specified', function () {});
-		it('Should throw an error if all the params are not the correct type', function () {});
-		it('Should call every callback for a channel, within the correct context', function () {});
-		it('Should pass additional arguments to every call callback for a channel', function () {});
-		it('Should call the start method if the channel has not been defined', function () {});
+
+        describe('verification of parameters', function() {
+            it('should throw an error if all the params are not specified', function () {
+                expect(function () {
+                    mediator.publish();
+                }).toThrow(new Error('Channel must be defined'));
+            });
+
+            it('should throw an error if typeof channel param is not string', function () {
+                expect(function () {
+                    mediator.publish({});
+                }).toThrow(new Error('Channel must be a string'));
+            });
+        });
+
+		it('should call every callback for a channel, within the correct context', function () {
+            var callback = sinon.spy();
+            channels[TEST_CHANNEL] = [
+                {callback:callback}
+            ];
+
+            mediator.publish(TEST_CHANNEL);
+
+            expect(callback).toHaveBeenCalled();
+        });
+
+		it('should pass additional arguments to every call callback for a channel', function () {
+            var callback = sinon.spy();
+            var argument = {};
+            channels[TEST_CHANNEL] = [
+                {callback:callback}
+            ];
+
+            mediator.publish(TEST_CHANNEL, argument);
+
+            expect(callback).toHaveBeenCalledWith(argument);
+        });
+
+		it('should return false if channel has not been defined', function () {
+            var called = mediator.publish(TEST_CHANNEL);
+            expect(called).toBe(false);
+        });
+
+        it('should add to publish queue if widget is loading', function() {
+            var callback = sinon.spy();
+            channels[TEST_CHANNEL] = [
+                {callback:callback}
+            ];
+            mediator.setIsWidgetLoading(true);
+
+            mediator.publish(TEST_CHANNEL);
+
+            expect(mediator.getPublishQueueLength()).toBe(1);
+        })
 	});
 
-	describe('start', function() {
-		it('Should throw an error if all the params are not specified', function () {});
-		it('Should throw an error if all the params are not the correct type', function () {});
-		it('Should load (require) a widget that corresponds with a channel', function () {});
-		it('Should call every callback for the channel, within the correct context', function () {});
-		it('Should trigger a requirejs error if the widget does not exist', function (){});
+	xdescribe('start', function() {
+		it('should throw an error if all the params are not specified', function () {});
+		it('should throw an error if all the params are not the correct type', function () {});
+		it('should load (require) a widget that corresponds with a channel', function () {});
+		it('should call every callback for the channel, within the correct context', function () {});
+		it('should trigger a requirejs error if the widget does not exist', function (){});
 	});
 
-	describe('stop', function() {
-		it('Should throw an error if all the params are not specified', function () {});
-		it('Should throw an error if all the params are not the correct type', function () {});
-		it('Should call unload with the correct widget to unload from the app', function () {});
-		it('Should empty the contents of a specific widget\'s container div', function () {});
+	xdescribe('stop', function() {
+		it('should throw an error if all the params are not specified', function () {});
+		it('should throw an error if all the params are not the correct type', function () {});
+		it('should call unload with the correct widget to unload from the app', function () {});
+		it('should empty the contents of a specific widget\'s container div', function () {});
 	});
 
 	// This one will need to be researched a little more to determine exactly what require does
-	describe('unload', function () {
-		it('Should throw an error if all the params are not specified', function () {});
-		it('Should throw an error if all the params are not the correct type', function () {});
-		it('Should unload a module and all modules under its widget path', function () {});
+	xdescribe('unload', function () {
+		it('should throw an error if all the params are not specified', function () {});
+		it('should throw an error if all the params are not the correct type', function () {});
+		it('should unload a module and all modules under its widget path', function () {});
 	});
 
 });

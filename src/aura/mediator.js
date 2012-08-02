@@ -67,6 +67,23 @@ define(['dom', 'underscore'], function ($, _) {
 		});
 	};
 
+    // The following methods are added to add visibility for testing.
+    // The publish method, in particular, has some behavior that is
+    // variable based on the current isWidgetLoading value, and will
+    // add to the publish queue when true.
+    // TODO (review) add visibility/seams without exposing messing API as needed
+    obj.setIsWidgetLoading = function (isLoading) {
+        isWidgetLoading = isLoading;
+    };
+
+    obj.getIsWidgetLoading = function () {
+        return isWidgetLoading;
+    };
+
+    obj.getPublishQueueLength = function () {
+        return _publishQueue.length;
+    };
+
 	// Publish an event, passing arguments to subscribers. Will
 	// call start if the channel is not already registered.
 	//
@@ -80,12 +97,12 @@ define(['dom', 'underscore'], function ($, _) {
 		}
 		if (isWidgetLoading) { //Catch publish event!
 			_publishQueue.push( arguments );
-			return;
+			return false;
 		}
 		
 		var i, l, args = [].slice.call(arguments, 1);
 		if (!channels[channel]) {
-			return;
+			return false;
 		}
 		for (i = 0, l = channels[channel].length; i < l; i += 1) {
 			try {
@@ -94,6 +111,8 @@ define(['dom', 'underscore'], function ($, _) {
 				console.error(e.message);
 			}
 		}
+
+        return true;
 	};
 	
 	// Empty the list with all stored publish events.
