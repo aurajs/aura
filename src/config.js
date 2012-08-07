@@ -1,4 +1,4 @@
-require.config({
+var require = {
 	// shim underscore & backbone (cause we use the non AMD versions here)
 	shim: {
 		'dom': {
@@ -45,4 +45,4 @@ require.config({
 		// Demo App
 		perms: '../../../apps/demo/js/permissions'
 	}
-});
+};
