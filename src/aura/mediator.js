@@ -161,25 +161,6 @@ define(['dom', 'underscore'], function ($, _) {
 		$.when.apply($, promises).done(obj.emptyPublishQueue);
 	};
 
-
-    obj.cache = {
-    	// Events cache
-    	events: []
-    };
-
-	// Override bind with a version supporting caching
-	// event handlers we can more easily remove later
-	$.fn.bind = function (types, data, fn) {
-	   obj.cache.events.push(arguments);
-	   return this.on( types, null, data, fn );
-	};
-
-	$.fn.unbind = function (types, fn) {
-	   return this.off( types, null, fn );
-	};
-
-	//
-
 	// Unload a widget (collection of modules) by passing in a named reference
 	// to the channel/widget. This will both locate and reset the internal
 	// state of the modules in require.js and empty the widgets DOM element
@@ -188,7 +169,6 @@ define(['dom', 'underscore'], function ($, _) {
 	obj.stop = function (channel) {
 		var args = [].slice.call(arguments, 1),
 			el = args[0],
-			$el = $(el),
 			file = obj.util.decamelize(channel);
 
 		for (var ch in channels) {
@@ -203,12 +183,9 @@ define(['dom', 'underscore'], function ($, _) {
 		// Remove all modules under a widget path (e.g widgets/todos)
 		obj.unload('widgets/' + file);
 
-		// Unbind all event handlers associated with the elements
-		// in the widget
-
-
-		// Empty markup associated with the module
-		$el.html('');
+		// Remove widget descendents, unbinding any event handlers
+		// attached to children within the widget. 
+		$(el).children.remove();
 	};
 
 	// Undefine/unload a module, resetting the internal state of it in require.js
@@ -230,9 +207,6 @@ define(['dom', 'underscore'], function ($, _) {
 	//
 	// * **param:** {string} channel Event name
 	obj.unload = function (channel) {
-		//
-		console.log('cache', obj.cache.events);
-		//
 		var contextMap = require.s.contexts._.defined,
 			key;
 		for (key in contextMap) {
@@ -293,23 +267,17 @@ define(['dom', 'underscore'], function ($, _) {
 	};
 
 	obj.events = {
-
 		listen: function (context, events, selector, callback) {
 			return $(context).on(events, selector, callback);
 		},
-
 		bindAll: function () {
 			return _.bindAll.apply(this, arguments);
 		},
-
-		unbindAll: function () {
-            _.each(this.bindings, function(binding) {
+		unbindAll: function() {
+			_.each(this.bindings, function(binding){
                 binding.obj.off(binding.eventName, binding.callback);
-            });
-
-            this.bindings = [];
-        }
-
+			});
+		}
 	};
 
 	obj.template = {
