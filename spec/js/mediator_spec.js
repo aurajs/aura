@@ -4,9 +4,10 @@ describe('Mediator', function () {
 		channels,
 		TEST_CHANNEL = 'test';
 
+
 	beforeEach(function() {
 		mediator = window.core;
-		channels = mediator.getChannels();
+        channels = mediator.getChannels();
 
         //override method util as it uses jQuery proxy and doesn't
         //allow comparison of actual callback function object.

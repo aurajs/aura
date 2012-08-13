@@ -17,6 +17,7 @@
 		<script type="text/javascript">
 			require.config({
 				baseUrl: '../',
+                enforceDefine: true,
 				shim: {
 					'dom': {
 						deps: ['jquery'],
@@ -34,6 +35,7 @@
 					jquery: 'src/aura/lib/jquery/jquery',
 					dom: 'src/aura/lib/dom',
 
+                    base: 'src/aura/base/jquery',
 					core: 'src/extensions/backbone/mediator',
 					perms: 'src/extensions/backbone/permissions',
 					sandbox: 'src/extensions/backbone/facade',
@@ -50,7 +52,8 @@
 					jquery_ui: 'src/extensions/backbone/lib/jquery-ui.min'
 				}
 			});
-			requirejs(['core'], function (core) {
+			require(['core'], function (core) {
+
 				window.core = core;
 
 				var jasmineEnv = jasmine.getEnv();
