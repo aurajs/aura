@@ -7,6 +7,7 @@ The project is based on concepts discussed by Nicholas Zakas in [Scalable Applic
 Aura contains a multi-tiered architecture, consisting of:
 
 * **Application Core**
+  * **Base Library**
 * **Sandbox**
 * **Modules**
   * **Widgets**
@@ -16,7 +17,7 @@ Aura contains a multi-tiered architecture, consisting of:
 The Core has a number of responsibilities. Powered by the Mediator pattern, it:
 
 * **Provides the ability to manage a widget's lifecycle (start, stop, cleanup)**. This is powered by work we've done to expand on top of RequireJS 2.0's `undef` feature for unloading modules. Aura works around RequireJS's limitation of not being able to resolve a modules dependencies to allow the easy unloading of an entire widget. Unloading a widget equates to removing it from the RequireJS caches, deleting instance references to them (which can lower memory) and of course, cleaning up any DOM elements the widget was using.
-* **Implements aliases for DOM manipulation, templating and other lower-level utilities that pipe back to a library of choice**. The idea here is that rather than interfacing with the libraries directly, accessing the Core aliases (through the Sandbox) allow developers to switch out the libraries they use at a later date with minimum impact to their application.
+* **Implements aliases for DOM manipulation, templating and other lower-level utilities that pipe back to a library of choice**. The idea here is that rather than interfacing with the libraries directly, accessing the Core aliases (through the Sandbox) allow developers to switch out the libraries they use at a later date with minimum impact to their application. We currently provide a bare-bones implementation of the jQuery library.
 * **Exposes Publish/Subscribe functionality that can be used for decoupled communication between parts of an application**. Similar to the concept above, our Pub/Sub implementation can be easily replaced with that of another library and it should still work fine.
 
 ### Sandbox
@@ -177,19 +178,18 @@ RequireJS 2.0 configuration, including `shim` config to allow the loading of non
 * `mediator.unload(channel)` e.g mediator.unload('calendar')
 * `mediator.publish(channel)` 
 * `mediator.subscribe(channel, callback, context)`
-* `mediator.util.each()` => _.each()
-* `mediator.util.extend()` => _.extend()
-* `mediator.util.method(fn, context)`
-* `mediator.util.parseJSON()`
-* `mediator.util.rest(arr, index)`
-* `mediator.util.delay()`
-* `mediator.dom.find(selector, context)` => $(..)
-* `mediator.dom.data(selector, attribute)` => $(..).data()
-* `mediator.events.listen(context, events, selector, callback)`
-* `mediator.events.bindAll()`
-* `mediator.data.deferred()` => $.Deferred
-* `mediator.template.parse()` => _.template() (can be switched out)
 
+**Base Library (jQuery)**
+
+* `mediator.util.each()` => $.each(collection, callback(indexInArray, valueOfElement))
+* `mediator.util.extend()` => $.extend(target [, object1] [, objectN])
+* `mediator.dom.find(selector, context)` => $(selector)
+* `mediator.dom.data(selector, attribute)` => $(selector).data()
+* `mediator.events.listen(context, events, selector, callback)` => $(context).on(events, selector, callbacks)
+* `mediator.events.bindAll()` => _.bindAll(object [, method1] [, methodN])
+* `mediator.data.deferred()` => $.Deferred()
+* `mediator.data.when()` => $.when(deferreds)
+* `mediator.template.parse()` => _.template(templateString [, data] [, settings]) (can be switched out)
 
 **Sandbox**
 
@@ -201,8 +201,6 @@ RequireJS 2.0 configuration, including `shim` config to allow the loading of non
 * `facade.events.listen(context,events,selector,callback)`
 * `facade.events.bindAll()`
 * `facade.util.each(..)`
-* `facade.util.rest(..)`
-* `facade.util.delay(..)`
 * `facade.util.extend(..)`
 * `facade.template(..)`
 
