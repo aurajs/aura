@@ -1,5 +1,11 @@
+// Ermahgerd confliggerashun!
 require.config({
-	// shim underscore & backbone (cause we use the non AMD versions here)
+    // [RequireJS](http://requirejs.org/) 2.0+ plus has error callbacks (errbacks)
+    // which provide per-require error handling. To utilize this feature
+    // enforceDefine must be enabled and non-AMD dependencies must be shimmed.
+    enforceDefine: true,
+
+    // shim underscore & backbone (cause we use the non AMD versions here)
 	shim: {
 		'dom': {
 			exports: '$',
@@ -15,7 +21,15 @@ require.config({
 		'deferred': {
 			exports: 'Deferred',
 			deps: ['dom']
-		}
+		},
+        'fullcalendar': {
+            deps: ['jquery'],
+            exports: '$.fullCalendar'
+        },
+        'jquery_ui': {
+            deps: ['jquery'],
+            exports: '$.ui'
+        }
 	},
 	// paths
 	paths: {
@@ -26,9 +40,14 @@ require.config({
 		zepto: '../../../aura/lib/zepto/zepto',
 		deferred: '../../../aura/lib/zepto/deferred',
 
-		// Aura
-		dom: '../../../aura/lib/dom',
+		// Underscore
 		underscore: '../../../aura/lib/underscore',
+
+		// Set the base library
+		dom: '../../../aura/lib/dom',
+		base: '../../../aura/base/jquery',
+
+		// Aura
 		aura_core: '../../../aura/mediator',
 		aura_perms: '../../../aura/permissions',
 		aura_sandbox: '../../../aura/facade',
