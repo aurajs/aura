@@ -97,25 +97,8 @@ define(['base'], function (base) {
 	// Uncomment if using zepto
 	// Deferred.installInto($);
 
-	// Override the default error handling for requirejs
-	//
-	// TODO: Replace this with the new errbacks
-	//
-	// * [Handling Errors](http://requirejs.org/docs/api.html#errors)
-    /*
-	require.onError = function (err) {
-		if (err.requireType === 'timeout') {
-			console.warn('Could not load module ' + err.requireModules);
-		} else {
-			// If a timeout hasn't occurred and there was another module
-			// related error, unload the module then throw an error
-			var failedId = err.requireModules && err.requireModules[0];
-			require.undef(failedId);
-			throw err;
-		}
-	};
-    */
-
+    // Decamelize a string and add a delimeter before any
+    // previously capitalized letters
 	function decamelize (camelCase, delimiter) {
 		delimiter = (delimiter === undefined) ? '_' : delimiter;
 		return camelCase.replace(/([A-Z])/g, delimiter + '$1').toLowerCase();
@@ -126,6 +109,7 @@ define(['base'], function (base) {
 		return obj === Object(obj);
 	};
 
+    // Get the widgets path
     obj.getWidgetsPath = function () {
         return WIDGETS_PATH;
     };
@@ -240,18 +224,6 @@ define(['base'], function (base) {
                 widgetsPath = requireConfig.paths.widgets;
             }
 
-            /*
-			require([widgetsPath + '/' + file + '/main'], function (main) {
-				try {
-					main(element);
-				} catch(e) {
-					console.error(e);
-				}
-				//Resolve
-				dfd.resolve();
-
-			});
-            */
             require([widgetsPath + '/' + file + '/main'], function (main) {
                 try {
                     main(element);
@@ -283,7 +255,6 @@ define(['base'], function (base) {
 			promises.push( load(file, widget.element) );
 		}
 
-		// $.when.apply($, promises).done(obj.emptyPublishQueue);
 		obj.data.when.apply($, promises).done(obj.emptyPublishQueue);
 	};
 
