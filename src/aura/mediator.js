@@ -12,13 +12,87 @@
 // * [Nicholas Zakas: Scalable JavaScript Application Architecture](http://www.youtube.com/watch?v=vXjVFPosQHw&feature=youtube_gdata_player)
 // * [Writing Modular JavaScript: New Premium Tutorial](http://net.tutsplus.com/tutorials/javascript-ajax/writing-modular-javascript-new-premium-tutorial/)
 // include 'deferred' if using zepto
-define(['dom', 'underscore'], function ($, _) {
+define(['base'], function (base) {
 
-	var channels = {},
-		// Loaded modules and their callbacks
+	var channels = {}, // Loaded modules and their callbacks
 		obj = {}, // Mediator object
 		_publishQueue = [],
-		isWidgetLoading = false;
+		isWidgetLoading = false,
+        WIDGETS_PATH = '../../../widgets'; // Path to widgets
+
+
+    // Load in the base library, such as Zepto or jQuery. the following are
+    // required for Aura to run:
+    //
+    // * base.data.deferred
+    // * base.data.when
+    // * base.data.dom.find
+    (function () {
+        if (typeof base === undefined) {
+            throw new Error('Base library is required');
+        }
+
+		if (!(base.data != null)) {
+			throw new Error('Base library must include the data property');
+		}
+
+		if (!(base.data.deferred != null)) {
+			throw new Error('Base library must include data.deferred');
+		}
+
+		if (!(base.data.when != null)) {
+			throw new Error('Base library must include data.when');
+		}
+
+		if (!(base.dom != null)) {
+			throw new Error('Base library must include the dom property');
+		}
+
+		if (!(base.dom.find != null)) {
+			throw new Error('Base library must include dom.find');
+		}
+
+		obj = base;
+
+    })();
+
+
+    // The bind method is used for callbacks.
+    //
+    // * (bind)[https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Function/bind]
+    // * (You don't need to use $.proxy)[http://www.aaron-powell.com/javascript/you-dont-need-jquery-proxy]
+    if (!Function.prototype.bind) {
+      Function.prototype.bind = function (oThis) {
+        if (typeof this !== "function") {
+          // closest thing possible to the ECMAScript 5 internal IsCallable function
+          throw new TypeError("Function.prototype.bind - what is trying to be bound is not callable");
+        }
+
+        var aArgs = Array.prototype.slice.call(arguments, 1),
+            fToBind = this,
+            fNOP = function () {},
+            fBound = function () {
+              return fToBind.apply(this instanceof fNOP && oThis
+                 ? this
+                 : oThis,
+               aArgs.concat(Array.prototype.slice.call(arguments)));
+            };
+
+        fNOP.prototype = this.prototype;
+        fBound.prototype = new fNOP();
+
+        return fBound;
+      };
+    }
+
+	// Returns true if an object is an array, false if it is not.
+	//
+	// * (isArray)[https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/isArray]
+	if(!Array.isArray) {
+		Array.isArray = function (vArg) {
+		  return Object.prototype.toString.call(vArg) === "[object Array]";
+		};
+	}
 
 	// Uncomment if using zepto
 	// Deferred.installInto($);
@@ -28,6 +102,7 @@ define(['dom', 'underscore'], function ($, _) {
 	// TODO: Replace this with the new errbacks
 	//
 	// * [Handling Errors](http://requirejs.org/docs/api.html#errors)
+    /*
 	require.onError = function (err) {
 		if (err.requireType === 'timeout') {
 			console.warn('Could not load module ' + err.requireModules);
@@ -39,8 +114,23 @@ define(['dom', 'underscore'], function ($, _) {
 			throw err;
 		}
 	};
+    */
 
-	// Subscribe to an event
+	function decamelize (camelCase, delimiter) {
+		delimiter = (delimiter === undefined) ? '_' : delimiter;
+		return camelCase.replace(/([A-Z])/g, delimiter + '$1').toLowerCase();
+	}
+
+	// Is a given variable an object? (via Underscore)
+	function isObject(obj) {
+		return obj === Object(obj);
+	};
+
+    obj.getWidgetsPath = function () {
+        return WIDGETS_PATH;
+    };
+
+    // Subscribe to an event
 	//
 	// * **param:** {string} channel Event name
 	// * **param:** {string} subscriber Subscriber name
@@ -63,7 +153,8 @@ define(['dom', 'underscore'], function ($, _) {
 		channels[channel] = (!channels[channel]) ? [] : channels[channel];
 		channels[channel].push({
 			subscriber: subscriber,
-			callback: this.util.method(callback, context)
+            callback: callback.bind(context)
+			//callback: this.util.method(callback, context)
 		});
 	};
 
@@ -86,7 +177,7 @@ define(['dom', 'underscore'], function ($, _) {
 			_publishQueue.push( arguments );
 			return false;
 		}
-		
+
 		var i, l, args = [].slice.call(arguments, 1);
 		if (!channels[channel]) {
 			return false;
@@ -101,13 +192,20 @@ define(['dom', 'underscore'], function ($, _) {
 
         return true;
 	};
-	
+
 	// Empty the list with all stored publish events.
 	obj.emptyPublishQueue = function () {
+		var args, i, len;
 		isWidgetLoading = false;
-		_.each(_publishQueue, function(args) {
-			obj.publish.apply(this, args);
-		});
+
+		for (i = 0, len = _publishQueue.length; i < len; i++) {
+		  obj.publish.apply(this, _publishQueue[i]);
+		}
+
+		// _.each(_publishQueue, function(args) {
+		// 	obj.publish.apply(this, args);
+		// });
+
 		_publishQueue = [];
 	};
 
@@ -117,26 +215,32 @@ define(['dom', 'underscore'], function ($, _) {
 	//
 	// * **param:** {Object/Array} an array with objects or single object containing channel and element
 	obj.start = function (list) {
-		if ( _.isObject(list) && !_.isArray(list) ) {
-			list = [list];	//Allow a single object as param
+
+		// if ( _.isObject(list) && !_.isArray(list) ) {
+
+		//Allow a single object as param
+		if (isObject(list) && !Array.isArray(list)) {
+			list = [list];
 		}
-		if ( !_.isArray(list) ) {
+
+		if ( !Array.isArray(list) ) {
 			throw new Error('Channel must be defined as an array');
 		}
 
 		var i = 0,
-				l = list.length,
-				promises = [];
-				
-		function load (file, element) {
-			var dfd = obj.data.deferred();
+			l = list.length,
+			promises = [];
 
-            var widgetsPath = '../../../widgets';
-            var requireConfig = require.s.contexts._.config;
-            if (requireConfig.paths && _.has(requireConfig.paths, 'widgets')) {
+		function load (file, element) {
+			var dfd = obj.data.deferred(),
+                widgetsPath = obj.getWidgetsPath(),
+                requireConfig = require.s.contexts._.config;
+
+            if (requireConfig.paths && hasOwnProperty.call(requireConfig.paths, 'widgets')) {
                 widgetsPath = requireConfig.paths.widgets;
             }
 
+            /*
 			require([widgetsPath + '/' + file + '/main'], function (main) {
 				try {
 					main(element);
@@ -145,7 +249,28 @@ define(['dom', 'underscore'], function ($, _) {
 				}
 				//Resolve
 				dfd.resolve();
+
 			});
+            */
+            require([widgetsPath + '/' + file + '/main'], function (main) {
+                try {
+                    main(element);
+                } catch(e) {
+                    console.error(e);
+                }
+                dfd.resolve();
+             }, function(err) {
+                if (err.requireType === 'timeout') {
+                    console.warn('Could not load module ' + err.requireModules);
+                } else {
+                    // If a timeout hasn't occurred and there was another module
+                    // related error, unload the module then throw an error
+                    var failedId = err.requireModules && err.requireModules[0];
+                    require.undef(failedId);
+                    throw err;
+                }
+                dfd.reject();
+            });
 
 			return dfd.promise();
 		}
@@ -154,11 +279,12 @@ define(['dom', 'underscore'], function ($, _) {
 
 		for (;i<l;i++) {
 			var widget = list[i],
-				file = obj.util.decamelize(widget.channel);
+				file = decamelize(widget.channel);
 			promises.push( load(file, widget.element) );
 		}
 
-		$.when.apply($, promises).done(obj.emptyPublishQueue);
+		// $.when.apply($, promises).done(obj.emptyPublishQueue);
+		obj.data.when.apply($, promises).done(obj.emptyPublishQueue);
 	};
 
 	// Unload a widget (collection of modules) by passing in a named reference
@@ -169,7 +295,7 @@ define(['dom', 'underscore'], function ($, _) {
 	obj.stop = function (channel) {
 		var args = [].slice.call(arguments, 1),
 			el = args[0],
-			file = obj.util.decamelize(channel);
+			file = decamelize(channel);
 
 		for (var ch in channels) {
 			if (channels.hasOwnProperty(ch)) {
@@ -184,8 +310,8 @@ define(['dom', 'underscore'], function ($, _) {
 		obj.unload('widgets/' + file);
 
 		// Remove widget descendents, unbinding any event handlers
-		// attached to children within the widget. 
-		$(el).children.remove();
+		// attached to children within the widget.
+		obj.dom.find(el).children().remove();
 	};
 
 	// Undefine/unload a module, resetting the internal state of it in require.js
@@ -216,78 +342,6 @@ define(['dom', 'underscore'], function ($, _) {
 		}
 	};
 
-	obj.util = {
-		each: _.each,
-		extend: _.extend,
-		decamelize: function (camelCase, delimiter) {
-			delimiter = (delimiter === undefined) ? '_' : delimiter;
-			return camelCase.replace(/([A-Z])/g, delimiter + '$1').toLowerCase();
-		},
-		// Camelize a string
-		//
-		// * [https://gist.github.com/827679](camelize.js)
-		//
-		// * **param:** {string} str String to make camelCase
-		camelize: function (str) {
-			return str.replace(/(?:^|[\-_])(\w)/g, function (delimiter, c) {
-				return c ? c.toUpperCase() : '';
-			});
-		},
-		// Always returns the fn within the context
-		//
-		// * **param:** {object} fn Method to call
-		// * **param:** {object} context Context in which to call method
-		// * **returns:** {object} Fn with the correct context
-		method: function (fn, context) {
-			return $.proxy(fn, context);
-		},
-		parseJson: function (json) {
-			return $.parseJSON(json);
-		},
-		// Get the rest of the elements from an index in an array
-		//
-		// * **param:** {array} arr The array or arguments object
-		// * **param:** {integer} [index=0] The index at which to start
-		rest: function (arr, index) {
-			return _.rest(arr, index);
-		},
-		delay: function () {
-			return _.delay.apply(this, arguments);
-		}
-	};
-
-	obj.dom = {
-		find: function (selector, context) {
-			context = context || document;
-			return $(context).find(selector);
-		},
-		data: function (selector, attribute) {
-			return $(selector).data(attribute);
-		}
-	};
-
-	obj.events = {
-		listen: function (context, events, selector, callback) {
-			return $(context).on(events, selector, callback);
-		},
-		bindAll: function () {
-			return _.bindAll.apply(this, arguments);
-		},
-		unbindAll: function() {
-			_.each(this.bindings, function(binding){
-                binding.obj.off(binding.eventName, binding.callback);
-			});
-		}
-	};
-
-	obj.template = {
-		parse: _.template
-	};
-
-	// Placeholder for things like ajax and local storage
-	obj.data = {
-		deferred: $.Deferred
-	};
 
 	obj.getChannels = function () {
 		return channels;
