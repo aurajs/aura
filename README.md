@@ -152,17 +152,21 @@ define(["aura_sandbox", "core", "perms", 'jquery_ui'],
 
 ### Aura Directory Structure
 
+*-- /apps/demo*
+
+The demo/example application containing three sample widgets: Calendar, Todos and Controls.
+
 *-- /aura*
 
 Contains the core implementation of the Application Core (mediator.js), Sandbox (facade.js) and base for widget Permissions validation (permissions.js). 
 
-*-- /backbone-aura*
+*-- /extensions*
 
 Extensions to the Application Core, Sandbox and Permissions can be found here. These contain example specific extensions such as support for Backbone.js and bootstrap/load permissions for the example's widgets.
 
-*-- /demo*
+*-- /widgets*
 
-The demo/example application containing three sample widgets: Calendar, Todos and Controls. Both the Calendar and Todos persist using localStorage whilst the Controls widget is there to just demonstrate how one could control the start and stop of widgets through the UI. Normally this process would be handled by modules.
+Standard place to put widgets code. Contains sample widgets: Calendar, Todos and Controls. Both the Calendar and Todos persist using localStorage whilst the Controls widget is there to just demonstrate how one could control the start and stop of widgets through the UI. Normally this process would be handled by modules.
 
 *-- /config.js*
 
