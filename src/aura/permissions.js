@@ -24,7 +24,7 @@ define(['dom'], function ($) {
 	// * **param:** {string} channel Event name
 	permissions.validate = function(subscriber, channel){
 		var channelRules = rules[channel] || {},
-		    test = channelRules[subscriber];
+            test = channelRules[subscriber];
 		return test === undefined ? false : test;
 	};
 
