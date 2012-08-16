@@ -48,13 +48,13 @@ require.config({
 		base: '../../../aura/base/jquery',
 
 		// Aura
-		aura_core: '../../../aura/mediator',
+		aura_core: '../../../aura/core',
 		aura_perms: '../../../aura/permissions',
-		aura_sandbox: '../../../aura/facade',
+		aura_sandbox: '../../../aura/sandbox',
 
 		// Backbone Extension
-		core: '../../../extensions/backbone/mediator',
-		sandbox: '../../../extensions/backbone/facade',
+		core: '../../../extensions/backbone/core',
+		sandbox: '../../../extensions/backbone/sandbox',
 		text: '../../../extensions/backbone/lib/text',
 		backbone: '../../../extensions/backbone/lib/backbone',
 		localstorage: '../../../extensions/backbone/lib/localstorage',
