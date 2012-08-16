@@ -9,7 +9,8 @@ define(['sandbox', 'text!../templates/controls.html'], function(sandbox, control
 			'click .stop-calendar': 'stopCalendar',
 			'click .start-todos': 'startTodos',
 			'click .start-calendar': 'startCalendar',
-			'click .start-all': 'startAll'
+			'click .start-all': 'startAll',
+            'click .publish-data': 'publishData'
 		},
 
 		initialize: function() {
@@ -41,10 +42,14 @@ define(['sandbox', 'text!../templates/controls.html'], function(sandbox, control
 
 		startCalendar: function(){
 			sandbox.widgets.start({ channel: 'calendar', element: '#calendarapp' });
-		}
+		},
+
+        publishData: function () {
+            sandbox.publish('bootstrap', 'calendar', 'ohai');
+        }
 
 	});
-	
+
 	return AppView;
 
 });
