@@ -58,26 +58,26 @@ define(['base'], function (base) {
 	// * (bind)[https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Function/bind]
 	// * (You don't need to use $.proxy)[http://www.aaron-powell.com/javascript/you-dont-need-jquery-proxy]
 	if (!Function.prototype.bind) {
-	  Function.prototype.bind = function (oThis) {
-		if (typeof this !== "function") {
-		  // closest thing possible to the ECMAScript 5 internal IsCallable function
-		  throw new TypeError("Function.prototype.bind - what is trying to be bound is not callable");
-		}
+        Function.prototype.bind = function (oThis) {
+            if (typeof this !== "function") {
+                // closest thing possible to the ECMAScript 5 internal IsCallable function
+                throw new TypeError("Function.prototype.bind - what is trying to be bound is not callable");
+            }
 
-		var aArgs = Array.prototype.slice.call(arguments, 1),
-			fToBind = this,
-			FNOP = function () {},
-			FBound = function () {
-			  return fToBind.apply(this instanceof fNOP && oThis ? this : oThis,
-                aArgs.concat(Array.prototype.slice.call(arguments))
-              );
-			};
+            var aArgs = Array.prototype.slice.call(arguments, 1),
+                fToBind = this,
+                FNOP = function () {},
+                FBound = function () {
+                    return fToBind.apply(this instanceof FNOP && oThis ? this : oThis,
+                        aArgs.concat(Array.prototype.slice.call(arguments))
+                    );
+                };
 
-		FNOP.prototype = this.prototype;
-		FBound.prototype = new FNOP();
+            FNOP.prototype = this.prototype;
+            FBound.prototype = new FNOP();
 
-		return FBound;
-	  };
+            return FBound;
+        };
 	}
 
 	// Returns true if an object is an array, false if it is not.
