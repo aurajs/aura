@@ -14,113 +14,110 @@
 // include 'deferred' if using zepto
 define(['base'], function (base) {
 
-	var channels = {}, // Loaded modules and their callbacks
-		obj = {}, // Mediator object
-		_publishQueue = [],
+	var core = {}, // Mediator object
+		channels = {}, // Loaded modules and their callbacks
+		publishQueue = [],
 		isWidgetLoading = false,
-        WIDGETS_PATH = '../../../widgets'; // Path to widgets
+		WIDGETS_PATH = '../../../widgets'; // Path to widgets
 
 
-    // Load in the base library, such as Zepto or jQuery. the following are
-    // required for Aura to run:
-    //
-    // * base.data.deferred
-    // * base.data.when
-    // * base.data.dom.find
-    (function () {
-        if (typeof base === undefined) {
-            throw new Error('Base library is required');
-        }
+	// Load in the base library, such as Zepto or jQuery. the following are
+	// required for Aura to run:
+	//
+	// * base.data.deferred
+	// * base.data.when
+	// * base.data.dom.find
+	(function () {
+		if (typeof base === undefined) {
+			throw new Error('Base library is required');
+		}
 
-		if (!(base.data != null)) {
+		if (!base.data) {
 			throw new Error('Base library must include the data property');
 		}
 
-		if (!(base.data.deferred != null)) {
+		if (!base.data.deferred) {
 			throw new Error('Base library must include data.deferred');
 		}
 
-		if (!(base.data.when != null)) {
+		if (!base.data.when) {
 			throw new Error('Base library must include data.when');
 		}
 
-		if (!(base.dom != null)) {
+		if (!base.dom) {
 			throw new Error('Base library must include the dom property');
 		}
 
-		if (!(base.dom.find != null)) {
+		if (!base.dom.find) {
 			throw new Error('Base library must include dom.find');
 		}
 
-		obj = base;
+		core = base;
 
-    })();
+	})();
 
 
-    // The bind method is used for callbacks.
-    //
-    // * (bind)[https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Function/bind]
-    // * (You don't need to use $.proxy)[http://www.aaron-powell.com/javascript/you-dont-need-jquery-proxy]
-    if (!Function.prototype.bind) {
-      Function.prototype.bind = function (oThis) {
-        if (typeof this !== "function") {
-          // closest thing possible to the ECMAScript 5 internal IsCallable function
-          throw new TypeError("Function.prototype.bind - what is trying to be bound is not callable");
-        }
+	// The bind method is used for callbacks.
+	//
+	// * (bind)[https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Function/bind]
+	// * (You don't need to use $.proxy)[http://www.aaron-powell.com/javascript/you-dont-need-jquery-proxy]
+	if (!Function.prototype.bind) {
+	  Function.prototype.bind = function (oThis) {
+		if (typeof this !== "function") {
+		  // closest thing possible to the ECMAScript 5 internal IsCallable function
+		  throw new TypeError("Function.prototype.bind - what is trying to be bound is not callable");
+		}
 
-        var aArgs = Array.prototype.slice.call(arguments, 1),
-            fToBind = this,
-            fNOP = function () {},
-            fBound = function () {
-              return fToBind.apply(this instanceof fNOP && oThis
-                 ? this
-                 : oThis,
-               aArgs.concat(Array.prototype.slice.call(arguments)));
-            };
+		var aArgs = Array.prototype.slice.call(arguments, 1),
+			fToBind = this,
+			fNOP = function () {},
+			fBound = function () {
+			  return fToBind.apply(this instanceof fNOP && oThis ? this : oThis, aArgs.concat(Array.prototype.slice.call(arguments)));
+			};
 
-        fNOP.prototype = this.prototype;
-        fBound.prototype = new fNOP();
+		fNOP.prototype = this.prototype;
+		fBound.prototype = new fNOP();
 
-        return fBound;
-      };
-    }
+		return fBound;
+	  };
+	}
 
 	// Returns true if an object is an array, false if it is not.
 	//
 	// * (isArray)[https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/isArray]
 	if(!Array.isArray) {
 		Array.isArray = function (vArg) {
-		  return Object.prototype.toString.call(vArg) === "[object Array]";
+			return Object.prototype.toString.call(vArg) === "[object Array]";
 		};
 	}
 
 	// Uncomment if using zepto
 	// Deferred.installInto($);
 
-    // Decamelize a string and add a delimeter before any
-    // previously capitalized letters
+	// Decamelize a string and add a delimeter before any
+	// previously capitalized letters
 	function decamelize (camelCase, delimiter) {
 		delimiter = (delimiter === undefined) ? '_' : delimiter;
 		return camelCase.replace(/([A-Z])/g, delimiter + '$1').toLowerCase();
 	}
 
 	// Is a given variable an object? (via Underscore)
-	function isObject(obj) {
-		return obj === Object(obj);
+	function isObject(core) {
+		return core === Object(core);
+	}
+
+	// Get the widgets path
+	core.getWidgetsPath = function () {
+		return WIDGETS_PATH;
 	};
 
-    // Get the widgets path
-    obj.getWidgetsPath = function () {
-        return WIDGETS_PATH;
-    };
-
-    // Subscribe to an event
+	// Subscribe to an event
 	//
 	// * **param:** {string} channel Event name
 	// * **param:** {string} subscriber Subscriber name
 	// * **param:** {function} callback Module callback
 	// * **param:** {object} context Context in which to execute the module
-	obj.subscribe = function (channel, subscriber, callback, context) {
+	core.subscribe = function (channel, subscriber, callback, context) {
 		if (channel === undefined || callback === undefined || context === undefined) {
 			throw new Error('Channel, callback, and context must be defined');
 		}
@@ -137,20 +134,20 @@ define(['base'], function (base) {
 		channels[channel] = (!channels[channel]) ? [] : channels[channel];
 		channels[channel].push({
 			subscriber: subscriber,
-            callback: callback.bind(context)
+			callback: callback.bind(context)
 			//callback: this.util.method(callback, context)
 		});
 	};
 
-    obj.getPublishQueueLength = function () {
-        return _publishQueue.length;
-    };
+	core.getPublishQueueLength = function () {
+		return publishQueue.length;
+	};
 
 	// Publish an event, passing arguments to subscribers. Will
 	// call start if the channel is not already registered.
 	//
 	// * **param:** {string} channel Event name
-	obj.publish = function (channel) {
+	core.publish = function (channel) {
 		if (channel === undefined) {
 			throw new Error('Channel must be defined');
 		}
@@ -158,7 +155,7 @@ define(['base'], function (base) {
 			throw new Error('Channel must be a string');
 		}
 		if (isWidgetLoading) { //Catch publish event!
-			_publishQueue.push( arguments );
+			publishQueue.push( arguments );
 			return false;
 		}
 
@@ -174,23 +171,23 @@ define(['base'], function (base) {
 			}
 		}
 
-        return true;
+		return true;
 	};
 
 	// Empty the list with all stored publish events.
-	obj.emptyPublishQueue = function () {
+	core.emptyPublishQueue = function () {
 		var args, i, len;
 		isWidgetLoading = false;
 
-		for (i = 0, len = _publishQueue.length; i < len; i++) {
-		  obj.publish.apply(this, _publishQueue[i]);
+		for (i = 0, len = publishQueue.length; i < len; i++) {
+			core.publish.apply(this, publishQueue[i]);
 		}
 
-		// _.each(_publishQueue, function(args) {
-		// 	obj.publish.apply(this, args);
-		// });
+		//_.each(publishQueue, function(args) {
+		//	core.publish.apply(this, args);
+		//});
 
-		_publishQueue = [];
+		publishQueue = [];
 	};
 
 	// Automatically load a widget and initialize it. File name of the
@@ -198,7 +195,7 @@ define(['base'], function (base) {
 	// delimited by default.
 	//
 	// * **param:** {Object/Array} an array with objects or single object containing channel and element
-	obj.start = function (list) {
+	core.start = function (list) {
 
 		// if ( _.isObject(list) && !_.isArray(list) ) {
 
@@ -216,33 +213,33 @@ define(['base'], function (base) {
 			promises = [];
 
 		function load (file, element) {
-			var dfd = obj.data.deferred(),
-                widgetsPath = obj.getWidgetsPath(),
-                requireConfig = require.s.contexts._.config;
+			var dfd = core.data.deferred(),
+				widgetsPath = core.getWidgetsPath(),
+				requireConfig = require.s.contexts._.config;
 
-            if (requireConfig.paths && hasOwnProperty.call(requireConfig.paths, 'widgets')) {
-                widgetsPath = requireConfig.paths.widgets;
-            }
+			if (requireConfig.paths && hasOwnProperty.call(requireConfig.paths, 'widgets')) {
+				widgetsPath = requireConfig.paths.widgets;
+			}
 
-            require([widgetsPath + '/' + file + '/main'], function (main) {
-                try {
-                    main(element);
-                } catch(e) {
-                    console.error(e);
-                }
-                dfd.resolve();
-             }, function(err) {
-                if (err.requireType === 'timeout') {
-                    console.warn('Could not load module ' + err.requireModules);
-                } else {
-                    // If a timeout hasn't occurred and there was another module
-                    // related error, unload the module then throw an error
-                    var failedId = err.requireModules && err.requireModules[0];
-                    require.undef(failedId);
-                    throw err;
-                }
-                dfd.reject();
-            });
+			require([widgetsPath + '/' + file + '/main'], function (main) {
+				try {
+					main(element);
+				} catch(e) {
+					console.error(e);
+				}
+				dfd.resolve();
+			}, function(err) {
+				if (err.requireType === 'timeout') {
+					console.warn('Could not load module ' + err.requireModules);
+				} else {
+					// If a timeout hasn't occurred and there was another module
+					// related error, unload the module then throw an error
+					var failedId = err.requireModules && err.requireModules[0];
+					require.undef(failedId);
+					throw err;
+				}
+				dfd.reject();
+			});
 
 			return dfd.promise();
 		}
@@ -255,7 +252,7 @@ define(['base'], function (base) {
 			promises.push( load(file, widget.element) );
 		}
 
-		obj.data.when.apply($, promises).done(obj.emptyPublishQueue);
+		core.data.when.apply($, promises).done(core.emptyPublishQueue);
 	};
 
 	// Unload a widget (collection of modules) by passing in a named reference
@@ -263,7 +260,7 @@ define(['base'], function (base) {
 	// state of the modules in require.js and empty the widgets DOM element
 	//
 	// * **param:** {string} channel Event name
-	obj.stop = function (channel) {
+	core.stop = function (channel) {
 		var args = [].slice.call(arguments, 1),
 			el = args[0],
 			file = decamelize(channel);
@@ -278,11 +275,11 @@ define(['base'], function (base) {
 			}
 		}
 		// Remove all modules under a widget path (e.g widgets/todos)
-		obj.unload('widgets/' + file);
+		core.unload('widgets/' + file);
 
 		// Remove widget descendents, unbinding any event handlers
 		// attached to children within the widget.
-		obj.dom.find(el).children().remove();
+		core.dom.find(el).children().remove();
 	};
 
 	// Undefine/unload a module, resetting the internal state of it in require.js
@@ -303,7 +300,7 @@ define(['base'], function (base) {
 	// belong to one part of the codebase and shouldn't be depended on by others.
 	//
 	// * **param:** {string} channel Event name
-	obj.unload = function (channel) {
+	core.unload = function (channel) {
 		var contextMap = require.s.contexts._.defined,
 			key;
 		for (key in contextMap) {
@@ -313,11 +310,10 @@ define(['base'], function (base) {
 		}
 	};
 
-
-	obj.getChannels = function () {
+	core.getChannels = function () {
 		return channels;
 	};
 
-	return obj;
+	return core;
 
 });
