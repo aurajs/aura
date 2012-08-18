@@ -1,6 +1,3 @@
-/*jshint nomen:true, sloppy:true, browser:true*/
-/*global define, require, console*/
-
 // ## Core
 // Implements the mediator pattern and
 // encapsulates the core functionality for this application.
@@ -54,32 +51,33 @@ define(['base'], function (base) {
 
 		core = base;
 
-	})();
-
+    }());
 
 	// The bind method is used for callbacks.
 	//
 	// * (bind)[https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Function/bind]
 	// * (You don't need to use $.proxy)[http://www.aaron-powell.com/javascript/you-dont-need-jquery-proxy]
 	if (!Function.prototype.bind) {
-	  Function.prototype.bind = function (oThis) {
-		if (typeof this !== "function") {
-		  // closest thing possible to the ECMAScript 5 internal IsCallable function
-		  throw new TypeError("Function.prototype.bind - what is trying to be bound is not callable");
-		}
+        Function.prototype.bind = function (oThis) {
+            if (typeof this !== "function") {
+                // closest thing possible to the ECMAScript 5 internal IsCallable function
+                throw new TypeError("Function.prototype.bind - what is trying to be bound is not callable");
+            }
 
-		var aArgs = Array.prototype.slice.call(arguments, 1),
-			fToBind = this,
-			fNOP = function () {},
-			fBound = function () {
-			  return fToBind.apply(this instanceof fNOP && oThis ? this : oThis, aArgs.concat(Array.prototype.slice.call(arguments)));
-			};
+            var aArgs = Array.prototype.slice.call(arguments, 1),
+                fToBind = this,
+                FNOP = function () {},
+                FBound = function () {
+                    return fToBind.apply(this instanceof FNOP && oThis ? this : oThis,
+                        aArgs.concat(Array.prototype.slice.call(arguments))
+                    );
+                };
 
-		fNOP.prototype = this.prototype;
-		fBound.prototype = new fNOP();
+            FNOP.prototype = this.prototype;
+            FBound.prototype = new FNOP();
 
-		return fBound;
-	  };
+            return FBound;
+        };
 	}
 
 	// Returns true if an object is an array, false if it is not.
@@ -87,7 +85,7 @@ define(['base'], function (base) {
 	// * (isArray)[https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/isArray]
 	if(!Array.isArray) {
 		Array.isArray = function (vArg) {
-			return Object.prototype.toString.call(vArg) === "[object Array]";
+          return Object.prototype.toString.call(vArg) === "[object Array]";
 		};
 	}
 
@@ -101,9 +99,9 @@ define(['base'], function (base) {
 		return camelCase.replace(/([A-Z])/g, delimiter + '$1').toLowerCase();
 	}
 
-	// Is a given variable an object? (via Underscore)
-	function isObject(core) {
-		return core === Object(core);
+	// Is a given variable an object? (via zepto)
+	function isObject(obj) {
+		return obj instanceof Object;
 	}
 
 	// Get the widgets path
@@ -217,7 +215,7 @@ define(['base'], function (base) {
 				widgetsPath = core.getWidgetsPath(),
 				requireConfig = require.s.contexts._.config;
 
-			if (requireConfig.paths && hasOwnProperty.call(requireConfig.paths, 'widgets')) {
+            if (requireConfig.paths && requireConfig.paths.hasOwnProperty('widgets')) {
 				widgetsPath = requireConfig.paths.widgets;
 			}
 

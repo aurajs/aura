@@ -47,7 +47,7 @@ module.exports = function(grunt) {
 		// js linting
 		lint: {
 			files: [
-				//'src/aura/*.js',
+				'src/aura/*.js',
 				'src/apps/**/*.js',
 				'src/widgets/**/*.js',
 				'src/extensions/*/*.js'
