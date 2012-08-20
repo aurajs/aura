@@ -1,6 +1,9 @@
 define(['sandbox'], function(sandbox) {
 
+  "use strict";
+
   var EventView = sandbox.mvc.View({
+
     initialize: function() {
       sandbox.events.bindAll(this);
     },
@@ -8,6 +11,7 @@ define(['sandbox'], function(sandbox) {
       var buttons = {
         'Ok': this.save
       };
+
       if (!this.model.isNew()) {
         sandbox.util.extend(buttons, {
           'Delete': this.destroy

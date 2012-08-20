@@ -3,6 +3,8 @@
 // @todo This is a stupid place to include jquery ui
 define(['aura_sandbox', 'core', 'perms', 'jquery_ui'], function(sandbox, core, perms) {
 
+  "use strict";
+
   var auraSandbox = Object.create(sandbox);
   auraSandbox.data.Store = core.data.Store;
   auraSandbox.mvc = {};

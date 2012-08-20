@@ -1,5 +1,7 @@
 define(['sandbox'], function(sandbox) {
 
+  "use strict";
+
   var TodoModel = sandbox.mvc.Model({
 
     // Default attributes for the todo.

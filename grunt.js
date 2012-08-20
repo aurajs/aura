@@ -1,4 +1,5 @@
 module.exports = function(grunt) {
+	"use strict";
 
   grunt.loadNpmTasks('grunt-contrib');
   grunt.loadNpmTasks('grunt-requirejs');
@@ -11,24 +12,28 @@ module.exports = function(grunt) {
   grunt.registerMultiTask('auraCopy', 'Copy files.', function() {
     var fs = require('fs'),
       files = grunt.file.expandFiles(this.file.src);
+
     // Copy specified files.
     for (var i = 0; i < files.length; i++) {
       var src = files[i],
         dest = this.file.dest || files[i].replace('src/', 'dist/'),
         isDirective = src.match(/^<(.*)>$/);
-      //grunt.log.writeln('Copying file '+ src +' to '+ dest);
+
+      // grunt.log.writeln('Copying file ' + src + ' to ' + dest);
       if (isDirective) {
         grunt.file.write(dest, grunt.task.directive(src, grunt.file.read));
       } else {
         grunt.file.copy(src, dest);
       }
     }
+
     // Fail task if errors were logged.
     if (this.errorCount) {
       return false;
     }
+
     // Otherwise, print a success message.
-    //grunt.log.writeln('File "' + this.file.dest + '" copied.');
+    // grunt.log.writeln('File "' + this.file.dest + '" copied.');
     grunt.log.writeln('Total of ' + files.length + ' files copied.');
   });
 
@@ -37,7 +42,6 @@ module.exports = function(grunt) {
   // ==========================================================================
 
   grunt.initConfig({
-
     // MULTI TASKS
     // -----------
 

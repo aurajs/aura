@@ -1,6 +1,9 @@
 define(['sandbox'], function(sandbox) {
 
+  "use strict";
+
   var Event = sandbox.mvc.Model({
+
     // Default attributes for the todo if needed
     defaults: {
       start: $.fullCalendar.formatDate(new Date(), 'u'),

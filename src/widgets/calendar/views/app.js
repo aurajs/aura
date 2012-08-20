@@ -1,6 +1,9 @@
 define(['sandbox', './event', '../models/event', 'text!../templates/base.html'], function(sandbox, EventView, Event, baseTemplate) {
 
+  "use strict";
+
   var AppView = sandbox.mvc.View({
+
     baseTemplate: sandbox.template.parse(baseTemplate),
     initialize: function() {
       this.$el.html(baseTemplate);

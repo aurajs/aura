@@ -11,9 +11,11 @@
 // include 'deferred' if using zepto
 define(['base'], function(base) {
 
+  "use strict";
+
   var core = {}, // Mediator object
-  channels = {}, // Loaded modules and their callbacks
-  publishQueue = [],
+    channels = {}, // Loaded modules and their callbacks
+    publishQueue = [],
     isWidgetLoading = false,
     WIDGETS_PATH = '../../../widgets'; // Path to widgets
 
@@ -132,7 +134,7 @@ define(['base'], function(base) {
     channels[channel].push({
       subscriber: subscriber,
       callback: callback.bind(context)
-      //callback: this.util.method(callback, context)
+      // callback: this.util.method(callback, context)
     });
   };
 
@@ -151,7 +153,7 @@ define(['base'], function(base) {
     if (typeof channel !== 'string') {
       throw new Error('Channel must be a string');
     }
-    if (isWidgetLoading) { //Catch publish event!
+    if (isWidgetLoading) { // Catch publish event!
       publishQueue.push(arguments);
       return false;
     }
@@ -180,9 +182,9 @@ define(['base'], function(base) {
       core.publish.apply(this, publishQueue[i]);
     }
 
-    //_.each(publishQueue, function(args) {
+    // _.each(publishQueue, function(args) {
     //  core.publish.apply(this, args);
-    //});
+    // });
 
     publishQueue = [];
   };
@@ -196,7 +198,7 @@ define(['base'], function(base) {
 
     // if ( _.isObject(list) && !_.isArray(list) ) {
 
-    //Allow a single object as param
+    // Allow a single object as param
     if (isObject(list) && !Array.isArray(list)) {
       list = [list];
     }
@@ -299,7 +301,8 @@ define(['base'], function(base) {
   // * **param:** {string} channel Event name
   core.unload = function(channel) {
     var contextMap = require.s.contexts._.defined,
-      key;
+			key;
+
     for (key in contextMap) {
       if (contextMap.hasOwnProperty(key) && key.indexOf(channel) !== -1) {
         require.undef(key);

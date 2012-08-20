@@ -9,6 +9,9 @@ if (typeof Object.create !== 'function') {
 // Starts main modules
 // Publishing from core because that's the way that Nicholas did it...
 define(['core'], function(core) {
+
+  "use strict";
+
   core.start([{
     channel: 'todos',
     element: '#todoapp'
@@ -19,4 +22,5 @@ define(['core'], function(core) {
     channel: 'controls',
     element: '#controlsapp'
   }]);
+
 });

@@ -4,7 +4,10 @@
 // _.bindAll and _.template
 define(['dom', 'underscore'], function($, _) {
 
+  "use strict";
+
   var base = {};
+
   base.util = {
     each: $.each,
     extend: $.extend
