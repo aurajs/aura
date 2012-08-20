@@ -6,57 +6,57 @@ small, strike, strong, sub, sup, tt, var,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td {
-    margin: 0;
-	padding: 0;
-	border: 0;
-	outline: 0;
-	font-weight: inherit;
-	font-style: inherit;
-	font-size: 100%;
-	font-family: inherit;
-	vertical-align: baseline;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-weight: inherit;
+  font-style: inherit;
+  font-size: 100%;
+  font-family: inherit;
+  vertical-align: baseline;
 }
 
 ol, ul {
-	list-style: none;
+  list-style: none;
 }
 
 a img {
-	border: none;
+  border: none;
 }
 
 body {
-	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-	font-size: 14px;
-	line-height: 1.4em;
-	background: #eeeeee;
-	color: #333333;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.4em;
+  background: #eeeeee;
+  color: #333333;
 }
 
 #widget-container {
-	width: 95%;
-	margin: 30px auto;
+  width: 95%;
+  margin: 30px auto;
 }
 
 .widget {
-	margin: 30px;
-    float: left;
+  margin: 30px;
+  float: left;
 }
 .widget h1 {
-	font-size: 36px;
-	font-weight: bold;
-	text-align: center;
-	padding: 20px 0 30px 0;
-	line-height: 1;
+  font-size: 36px;
+  font-weight: bold;
+  text-align: center;
+  padding: 20px 0 30px 0;
+  line-height: 1;
 }
 
 header {
-	margin: 0 auto;
-	width: 600px;
+  margin: 0 auto;
+  width: 600px;
 }
 
 header h1 {
-	text-align: center;
-	font-size: 2em;
-	padding: 20px;
+  text-align: center;
+  font-size: 2em;
+  padding: 20px;
 }
