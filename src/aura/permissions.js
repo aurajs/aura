@@ -6,11 +6,10 @@
 //
 // {eventName: {moduleName:[true|false]}, ...}
 define(['dom'], function($) {
-
   "use strict";
 
-  var permissions = {},
-    rules = {};
+  var permissions = {};
+  var rules = {};
 
   permissions.extend = function(extended) {
     if (window.aura && window.aura.permissions) {
@@ -23,8 +22,8 @@ define(['dom'], function($) {
   // * **param:** {string} subscriber Module name
   // * **param:** {string} channel Event name
   permissions.validate = function(subscriber, channel) {
-    var channelRules = rules[channel] || {},
-      test = channelRules[subscriber];
+    var channelRules = rules[channel] || {};
+    var test = channelRules[subscriber];
 
     return test === undefined ? false : test;
   };

@@ -1,8 +1,8 @@
 define(['sandbox', 'text!../templates/todos.html'], function(sandbox, todosTemplate) {
-
   "use strict";
 
   return sandbox.mvc.View({
+
     //... is a list tag.
     tagName: 'li',
 
@@ -48,6 +48,7 @@ define(['sandbox', 'text!../templates/todos.html'], function(sandbox, todosTempl
     // Close the `editing` mode, saving changes to the todo.
     close: function() {
       var value = this.input.val();
+
       if (!value) {
         this.clear();
       }

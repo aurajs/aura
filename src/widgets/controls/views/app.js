@@ -1,9 +1,7 @@
 define(['sandbox', 'text!../templates/controls.html'], function(sandbox, controlTemplate) {
-
   "use strict";
 
   var AppView = sandbox.mvc.View({
-
     controlTemplate: sandbox.template.parse(controlTemplate),
 
     events: {
@@ -58,7 +56,6 @@ define(['sandbox', 'text!../templates/controls.html'], function(sandbox, control
     publishData: function() {
       sandbox.publish('bootstrap', 'calendar', 'ohai');
     }
-
   });
 
   return AppView;

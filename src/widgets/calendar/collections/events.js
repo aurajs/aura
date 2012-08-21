@@ -1,9 +1,9 @@
 define(['sandbox', '../models/event'], function(sandbox, Event) {
-
   "use strict";
 
   var Events = sandbox.mvc.Collection({
     model: Event,
+
     // url: 'events',
 
     // Save all of the calendar items under the `'events'` namespace.

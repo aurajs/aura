@@ -1,12 +1,11 @@
 define(['sandbox'], function(sandbox) {
-
   "use strict";
 
   var EventView = sandbox.mvc.View({
-
     initialize: function() {
       sandbox.events.bindAll(this);
     },
+
     render: function() {
       var buttons = {
         'Ok': this.save
@@ -28,10 +27,12 @@ define(['sandbox'], function(sandbox) {
       });
       return this;
     },
+
     open: function() {
       this.$('#title').val(this.model.get('title'));
       this.$('#color').val(this.model.get('color'));
     },
+
     save: function() {
       this.model.set({
         'title': this.$('#title').val(),
@@ -47,18 +48,22 @@ define(['sandbox'], function(sandbox) {
         });
       }
     },
+
     modelSaved: function(event) {
       this.collection.trigger('event-modified', event);
       this.close();
     },
+
     saved: function(event) {
       this.collection._byId[event.id] = event;
       this.collection.trigger('event-added', event);
       this.close();
     },
+
     close: function(event) {
       this.$el.dialog('close');
     },
+
     destroy: function() {
       this.model.destroy({
         success: this.close

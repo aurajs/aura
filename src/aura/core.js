@@ -10,15 +10,13 @@
 // * [Writing Modular JavaScript: New Premium Tutorial](http://net.tutsplus.com/tutorials/javascript-ajax/writing-modular-javascript-new-premium-tutorial/)
 // include 'deferred' if using zepto
 define(['base'], function(base) {
-
   "use strict";
 
-  var core = {}, // Mediator object
-    channels = {}, // Loaded modules and their callbacks
-    publishQueue = [],
-    isWidgetLoading = false,
-    WIDGETS_PATH = '../../../widgets'; // Path to widgets
-
+  var core = {}; // Mediator object
+  var channels = {}; // Loaded modules and their callbacks
+  var publishQueue = [];
+  var isWidgetLoading = false;
+  var WIDGETS_PATH = '../../../widgets'; // Path to widgets
 
   // Load in the base library, such as Zepto or jQuery. the following are
   // required for Aura to run:
@@ -66,10 +64,10 @@ define(['base'], function(base) {
         throw new TypeError("Function.prototype.bind - what is trying to be bound is not callable");
       }
 
-      var aArgs = Array.prototype.slice.call(arguments, 1),
-        fToBind = this,
-        FNOP = function() {},
-        FBound = function() {
+      var aArgs = Array.prototype.slice.call(arguments, 1);
+      var fToBind = this;
+      var FNOP = function() {};
+      var FBound = function() {
           return fToBind.apply(this instanceof FNOP && oThis ? this : oThis,
           aArgs.concat(Array.prototype.slice.call(arguments)));
         };
@@ -158,7 +156,8 @@ define(['base'], function(base) {
       return false;
     }
 
-    var i, l, args = [].slice.call(arguments, 1);
+    var i, l;
+    var args = [].slice.call(arguments, 1);
     if (!channels[channel]) {
       return false;
     }
@@ -207,14 +206,14 @@ define(['base'], function(base) {
       throw new Error('Channel must be defined as an array');
     }
 
-    var i = 0,
-      l = list.length,
-      promises = [];
+    var i = 0;
+    var l = list.length;
+    var promises = [];
 
     function load(file, element) {
-      var dfd = core.data.deferred(),
-        widgetsPath = core.getWidgetsPath(),
-        requireConfig = require.s.contexts._.config;
+      var dfd = core.data.deferred();
+      var widgetsPath = core.getWidgetsPath();
+      var requireConfig = require.s.contexts._.config;
 
       if (requireConfig.paths && requireConfig.paths.hasOwnProperty('widgets')) {
         widgetsPath = requireConfig.paths.widgets;
@@ -246,8 +245,9 @@ define(['base'], function(base) {
     isWidgetLoading = true;
 
     for (; i < l; i++) {
-      var widget = list[i],
-        file = decamelize(widget.channel);
+      var widget = list[i];
+      var file = decamelize(widget.channel);
+
       promises.push(load(file, widget.element));
     }
 
@@ -260,9 +260,9 @@ define(['base'], function(base) {
   //
   // * **param:** {string} channel Event name
   core.stop = function(channel) {
-    var args = [].slice.call(arguments, 1),
-      el = args[0],
-      file = decamelize(channel);
+    var args = [].slice.call(arguments, 1);
+    var el = args[0];
+    var file = decamelize(channel);
 
     for (var ch in channels) {
       if (channels.hasOwnProperty(ch)) {
@@ -300,8 +300,8 @@ define(['base'], function(base) {
   //
   // * **param:** {string} channel Event name
   core.unload = function(channel) {
-    var contextMap = require.s.contexts._.defined,
-			key;
+    var key;
+    var contextMap = require.s.contexts._.defined;
 
     for (key in contextMap) {
       if (contextMap.hasOwnProperty(key) && key.indexOf(channel) !== -1) {

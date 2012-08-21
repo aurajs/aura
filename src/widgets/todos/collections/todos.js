@@ -1,5 +1,4 @@
 define(['sandbox', '../models/todo'], function(sandbox, Todo) {
-
   "use strict";
 
   var TodosCollection = sandbox.mvc.Collection({
@@ -35,7 +34,6 @@ define(['sandbox', '../models/todo'], function(sandbox, Todo) {
     comparator: function(todo) {
       return todo.get('order');
     }
-
   });
 
   return new TodosCollection();

@@ -1,8 +1,8 @@
 define(['sandbox', '../collections/todos', './todos', 'text!../templates/base.html', 'text!../templates/stats.html'], function(sandbox, Todos, TodoView, baseTemplate, statsTemplate) {
-
   "use strict";
 
   var AppView = sandbox.mvc.View({
+
     // Instead of generating a new element, bind to the existing skeleton of
     // the App already present in the HTML.
     // el: sandbox.dom.find('#todoapp'),
@@ -26,10 +26,12 @@ define(['sandbox', '../collections/todos', './todos', 'text!../templates/base.ht
       this.$el.html(baseTemplate);
       this.input = this.$('#new-todo');
       this.allCheckbox = this.$('#toggle-all')[0];
+
       Todos.bind('add', this.addOne, this);
       Todos.bind('reset', this.addAll, this);
       Todos.bind('all', this.render, this);
       sandbox.subscribe('new-event', 'todos', this.addEvent);
+
       Todos.fetch();
     },
     addEvent: function(object) {
@@ -45,6 +47,7 @@ define(['sandbox', '../collections/todos', './todos', 'text!../templates/base.ht
     render: function() {
       var completed = Todos.completed().length;
       var remaining = Todos.remaining().length;
+
       this.$('#footer').html(this.statsTemplate({
         total: Todos.length,
         completed: completed,
@@ -59,6 +62,7 @@ define(['sandbox', '../collections/todos', './todos', 'text!../templates/base.ht
       var view = new TodoView({
         model: todo
       });
+
       this.$('#todo-list').append(view.render().el);
     },
 
@@ -85,6 +89,7 @@ define(['sandbox', '../collections/todos', './todos', 'text!../templates/base.ht
       if (!this.input.val()) {
         return;
       }
+
       Todos.create(this.newAttributes());
       this.input.val('');
     },
@@ -94,12 +99,14 @@ define(['sandbox', '../collections/todos', './todos', 'text!../templates/base.ht
       sandbox.util.each(Todos.completed(), function(todo) {
         todo.clear();
       });
+
       return false;
     },
 
     // Change each todo so that it's `completed` state matches the check all
     toggleAllComplete: function() {
       var completed = this.allCheckbox.checked;
+
       Todos.each(function(todo) {
         todo.save({
           'completed': completed
