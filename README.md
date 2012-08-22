@@ -1,5 +1,5 @@
 ##Aura 0.8 Developer Preview [![Build Status](https://secure.travis-ci.org/addyosmani/backbone-aura.png?branch=master)](http://travis-ci.org/addyosmani/backbone-aura)
- 
+
 Aura is a decoupled, event-driven architecture for developing widget-based applications. It takes advantage of patterns and best practices for developing maintainable applications and gives you greater control over widget-based development. Aura gives you complete control of a widget's lifecycle, allowing developers to dynamically start, stop, reload and clean-up parts of their application as needed.
 
 The project is based on concepts discussed by Nicholas Zakas in [Scalable Application Architecture](http://www.slideshare.net/nzakas/scalable-javascript-application-architecture) and by Addy in [Large-scale Application Development](http://addyosmani.com/largescalejavascript/).
@@ -35,9 +35,9 @@ Powered by the Facade pattern, the Sandbox:
 
  ### Widgets
 
-* Widgets represent a complete *unit* of a page. They could be a calendar, a news block, a todo list or anything else. 
+* Widgets represent a complete *unit* of a page. They could be a calendar, a news block, a todo list or anything else.
 * **In Backbone.js terms, widgets are composed of Models, Views, Collections and Routers as well as any templates needed for the widget to rendered.**
-* Widgets should be developed such that any number of instances of them could exist on a page in harmony. 
+* Widgets should be developed such that any number of instances of them could exist on a page in harmony.
 * **Publish/Subscribe can be used to communicate between widgets**. Alternatively, direct communication (as demonstrated by the `controls` widget in our examples) may be, however this is discouraged where Pub/Sub can be used instead.
 
 ## Sample Application
@@ -68,7 +68,7 @@ We plan on writing up a more complex application using Aura as soon as a stable 
 #### Pulling together a Widget
 
 ```javascript
-define(['sandbox', './views/app', './collections/events', 'fullcalendar'], 
+define(['sandbox', './views/app', './collections/events', 'fullcalendar'],
   function(sandbox, AppView, Events){
     return sandbox.subscribe('bootstrap', 'calendar', function (element) {
         var events = new Events();
@@ -88,8 +88,8 @@ define(['sandbox', '../models/event'], function(sandbox, Event){
         // url: 'events'
         // Save all of the calendar items under the `"events"` namespace.
         localStorage: new sandbox.data.Store("events-backbone-require")
-    }); 
-    
+    });
+
     return Events;
 });
 ```
@@ -107,13 +107,13 @@ define(['sandbox', './event', '../models/event', 'text!../templates/base.html'],
 
         initialize: function(){
 
-            // $el and $() are actually proxying 
+            // $el and $() are actually proxying
             // through to sandbox.dom.find()
             this.$el.html(baseTemplate);
-            
+
             this.calendar = this.$(".content");
-            
-            sandbox.events.bindAll(this); 
+
+            sandbox.events.bindAll(this);
 ```
 
 #### Sandbox Extension For Backbone
@@ -158,7 +158,7 @@ The demo/example application containing three sample widgets: Calendar, Todos an
 
 *-- /aura*
 
-Contains the core implementation of the Application Core (mediator.js), Sandbox (facade.js) and base for widget Permissions validation (permissions.js). 
+Contains the core implementation of the Application Core (mediator.js), Sandbox (facade.js) and base for widget Permissions validation (permissions.js).
 
 *-- /extensions*
 
@@ -170,7 +170,7 @@ Standard place to put widgets code. Contains sample widgets: Calendar, Todos and
 
 *-- /config.js*
 
-RequireJS 2.0 configuration, including `shim` config to allow the loading of non AMD-patched versions of libraries such as Underscore.js and Backbone.js. This is the initial point of starting up the widgets for an application. 
+RequireJS 2.0 configuration, including `shim` config to allow the loading of non AMD-patched versions of libraries such as Underscore.js and Backbone.js. This is the initial point of starting up the widgets for an application.
 
 
 ##API
@@ -180,7 +180,7 @@ RequireJS 2.0 configuration, including `shim` config to allow the loading of non
 * `mediator.start(channel, el)` e.g mediator.start('calendar', '#calendarapp')
 * `mediator.stop(channel, el)` e.g mediator.stop('calendar', #calendarapp')
 * `mediator.unload(channel)` e.g mediator.unload('calendar')
-* `mediator.publish(channel)` 
+* `mediator.publish(channel)`
 * `mediator.subscribe(channel, callback, context)`
 
 **Base Library (jQuery)**
@@ -276,7 +276,7 @@ in the same directory where the grunt.js file lies.
 
 ### Why A Developer Preview?
 
-Aura is currently missing two important items needed to help us get out a stable release. These are good unit tests and stronger documentation. When the project has these and we've confirmed everything works as expected, we'll announce it for others to check out. The developer preview is our way of letting developers play with some new toys early on and get community feedback on whether the project is useful or not. 
+Aura is currently missing two important items needed to help us get out a stable release. These are good unit tests and stronger documentation. When the project has these and we've confirmed everything works as expected, we'll announce it for others to check out. The developer preview is our way of letting developers play with some new toys early on and get community feedback on whether the project is useful or not.
 
 At minimum it offers a reference application for some of the ideas Nicholas and Addy have spoken and written about in the past. We welcome your thoughts and any feedback on the project. Thanks!
 

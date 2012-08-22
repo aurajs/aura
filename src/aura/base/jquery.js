@@ -1,6 +1,6 @@
-// Pass through the required jQuery methods to the mediator. 
+// Pass through the required jQuery methods to the mediator.
 //
-// TODO: Remove dependency on underscore. Will have to create an equivalent for 
+// TODO: Remove dependency on underscore. Will have to create an equivalent for
 // _.bindAll and _.template
 define(['dom', 'underscore'], function($, _) {
 

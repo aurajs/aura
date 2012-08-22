@@ -17,7 +17,7 @@ define('aura_core',['jquery', 'underscore'], function ($, _) {
     var channels = {},  // Loaded modules and their callbacks
         obj = {};       // Mediator object
 
-    
+
     // Override the default error handling for requirejs
     //
     // TODO: Replace this with the new errbacks
@@ -28,7 +28,7 @@ define('aura_core',['jquery', 'underscore'], function ($, _) {
             console.warn('Could not load module ' + err.requireModules);
         } else {
 
-            // If a timeout hasn't occurred and there was another module 
+            // If a timeout hasn't occurred and there was another module
             // related error, unload the module then throw an error
             var failedId = err.requireModules && err.requireModules[0];
             requirejs.undef(failedId);
@@ -38,7 +38,7 @@ define('aura_core',['jquery', 'underscore'], function ($, _) {
     };
 
 
-    
+
     // Subscribe to an event
     //
     // * **param:** {string} channel Event name
@@ -49,7 +49,7 @@ define('aura_core',['jquery', 'underscore'], function ($, _) {
         channels[channel].push(this.util.method(callback, context));
     };
 
-    
+
     // Publish an event, passing arguments to subscribers. Will
     // call start if the channel is not already registered.
     //
@@ -66,7 +66,7 @@ define('aura_core',['jquery', 'underscore'], function ($, _) {
         }
     };
 
-    
+
     // Automatically load a widget and initialize it. File name of the
     // widget will be derived from the channel, decamelized and underscore
     // delimited by default.
@@ -77,7 +77,7 @@ define('aura_core',['jquery', 'underscore'], function ($, _) {
         var i, l,
             args = [].slice.call(arguments, 1),
             file = obj.util.decamelize(channel);
-        
+
         // If a widget hasn't called subscribe this will fail because it wont
         // be present in the channels object
         require(["widgets/" + file + "/main"], function () {
@@ -88,7 +88,7 @@ define('aura_core',['jquery', 'underscore'], function ($, _) {
     };
 
 
-    
+
    // Unload a widget (collection of modules) by passing in a named reference
    // to the channel/widget. This will both locate and reset the internal
    // state of the modules in require.js and empty the widgets DOM element
@@ -108,14 +108,14 @@ define('aura_core',['jquery', 'underscore'], function ($, _) {
 
     };
 
-    
+
    // Undefine/unload a module, resetting the internal state of it in require.js
    // to act like it wasn't loaded. By default require won't cleanup any markup
    // associated with this
-   // 
+   //
    // The interesting challenge with .stop() is that in order to correctly clean-up
-   // one would need to maintain a custom track of dependencies loaded for each 
-   // possible channel, including that channels DOM elements per depdendency. 
+   // one would need to maintain a custom track of dependencies loaded for each
+   // possible channel, including that channels DOM elements per depdendency.
    //
    // This issue with this is shared dependencies. E.g, say one loaded up a module
    // containing jQuery, others also use jQuery and then the module was unloaded.
@@ -145,7 +145,7 @@ define('aura_core',['jquery', 'underscore'], function ($, _) {
             delimiter = (delimiter === undefined) ? "_" : delimiter;
             return camelCase.replace(/([A-Z])/g, delimiter + '$1').toLowerCase();
         },
-        
+
         // Camelize a string
         //
         // * [https://gist.github.com/827679](camelize.js)
@@ -156,7 +156,7 @@ define('aura_core',['jquery', 'underscore'], function ($, _) {
                 return c ? c.toUpperCase() : '';
             });
         },
-        
+
         // Always returns the fn within the context
         //
         // * **param:** {object} fn Method to call
@@ -168,7 +168,7 @@ define('aura_core',['jquery', 'underscore'], function ($, _) {
         parseJson: function (json) {
             return $.parseJSON(json);
         },
-        
+
         // Get the rest of the elements from an index in an array
         //
         // * **param:** {array} arr The array or arguments object
@@ -225,17 +225,17 @@ define('aura_core',['jquery', 'underscore'], function ($, _) {
 //
 //     {eventName: {moduleName:[true|false]}, ...}
 define('aura_perms',["jquery"], function ($) {
-	
+
 	var permissions = {},
-        rules = {};  
-    
+        rules = {};
+
     permissions.extend = function (extended) {
         if (window.aura && window.aura.permissions) {
             rules = $.extend(true, {}, extended, window.aura.permissions);
         } else {
             rules = extended;
         }
-        
+
     };
 
   // * **param:** {string} subscriber Module name
@@ -255,14 +255,14 @@ define('aura_perms',["jquery"], function ($) {
 // Note: Handling permissions/security is optional here
 // The permissions check can be removed
 // to just use the mediator directly.
- 
+
 /*global define*/
 define('facade',["aura_core", "aura_perms"], function (mediator, permissions) {
 
     var facade = {};
 
 
-    
+
     // * **param:** {string} subscriber Module name
     // * **param:** {string} channel Event name
     // * **param:** {object} callback Module
@@ -272,20 +272,20 @@ define('facade',["aura_core", "aura_perms"], function (mediator, permissions) {
         }
     };
 
-    
+
     // * **param:** {string} channel Event name
     facade.publish = function (channel) {
         mediator.publish.apply(mediator, arguments);
     };
 
 
-    
+
     // * **param:** {string} channel Event name
     facade.start = function(channel){
         mediator.start.apply(mediator, arguments);
     };
 
-    
+
     // * **param:** {string} channel Event name
     facade.stop = function(channel){
         mediator.stop.apply(mediator, arguments);
@@ -294,9 +294,9 @@ define('facade',["aura_core", "aura_perms"], function (mediator, permissions) {
 
 
     facade.dom = {
-        
+
         // * **param:** {string} selector CSS selector for the element
-        // * **param:** {string} context CSS selector for the context in which 
+        // * **param:** {string} context CSS selector for the context in which
         // to search for selector
         // * **returns:** {object} Found elements or empty array
         find: function (selector, context) {
@@ -305,7 +305,7 @@ define('facade',["aura_core", "aura_perms"], function (mediator, permissions) {
     };
 
     facade.events = {
-        
+
         // * **param:** {object} context Element to listen on
         // * **param:** {string} events Events to trigger, e.g. click, focus, etc.
         // * **param:** {string} selector Items to listen for
