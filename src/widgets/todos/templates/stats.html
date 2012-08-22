@@ -1,11 +1,12 @@
 <% if (total) { %>
-	<span id="todo-count">
-		<strong class="number"><%= remaining %></strong>
-		<span class="word"><%= remaining == 1 ? 'item' : 'items' %></span> left
-	</span>
+  <span id="todo-count">
+    <strong class="number"><%= remaining %></strong>
+    <span class="word"><%= remaining == 1 ? 'item' : 'items' %></span> left
+  </span>
 <% } %>
 <% if (completed) { %>
-	<button id="clear-completed">
-		Clear completed <span class="number-done">(<%= completed %>)</span>
-	</button>
+  <button id="clear-completed">
+    Clear completed <span class="number-done">(<%= completed %>)</span>
+  </button>
 <% } %>
+

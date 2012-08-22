@@ -1,142 +1,138 @@
-/* global module:false */
 module.exports = function(grunt) {
+	"use strict";
 
-	grunt.loadNpmTasks('grunt-contrib');
-	grunt.loadNpmTasks('grunt-requirejs');
-	grunt.loadNpmTasks('grunt-jasmine-task');
+  grunt.loadNpmTasks('grunt-contrib');
+  grunt.loadNpmTasks('grunt-requirejs');
+  grunt.loadNpmTasks('grunt-jasmine-task');
 
-	// ==========================================================================
-	// TASKS
-	// ==========================================================================
+  // ==========================================================================
+  // TASKS
+  // ==========================================================================
 
-	grunt.registerMultiTask('auraCopy', 'Copy files.', function() {
-		var fs = require('fs'),
-			files = grunt.file.expandFiles(this.file.src);
-		// Copy specified files.
-		for (var i=0; i<files.length; i++){
-			var src = files[i],
-				dest = this.file.dest || files[i].replace('src/', 'dist/'),
-				isDirective = src.match(/^<(.*)>$/);
-			//grunt.log.writeln('Copying file '+ src +' to '+ dest);
-			if(isDirective){
-				grunt.file.write(dest, grunt.task.directive(src, grunt.file.read));
-			}
-			else {
-				grunt.file.copy(src, dest);
-			}
-		}
-		// Fail task if errors were logged.
-		if (this.errorCount) { return false; }
-		// Otherwise, print a success message.
-		//grunt.log.writeln('File "' + this.file.dest + '" copied.');
-		grunt.log.writeln('Total of '+ files.length +' files copied.');
-	});
+  grunt.registerMultiTask('auraCopy', 'Copy files.', function() {
+    var fs = require('fs'),
+      files = grunt.file.expandFiles(this.file.src);
 
-	// ==========================================================================
-	// Project configuration
-	// ==========================================================================
+    // Copy specified files.
+    for (var i = 0; i < files.length; i++) {
+      var src = files[i],
+        dest = this.file.dest || files[i].replace('src/', 'dist/'),
+        isDirective = src.match(/^<(.*)>$/);
 
-	grunt.initConfig({
+      // grunt.log.writeln('Copying file ' + src + ' to ' + dest);
+      if (isDirective) {
+        grunt.file.write(dest, grunt.task.directive(src, grunt.file.read));
+      } else {
+        grunt.file.copy(src, dest);
+      }
+    }
 
-		// MULTI TASKS
-		// -----------
+    // Fail task if errors were logged.
+    if (this.errorCount) {
+      return false;
+    }
 
-		// clean build directory
-		clean: ['dist'],
+    // Otherwise, print a success message.
+    // grunt.log.writeln('File "' + this.file.dest + '" copied.');
+    grunt.log.writeln('Total of ' + files.length + ' files copied.');
+  });
 
-		// js linting
-		lint: {
-			files: [
-				'src/aura/*.js',
-				'src/apps/**/*.js',
-				'src/widgets/**/*.js',
-				'src/extensions/*/*.js'
-			]
-		},
+  // ==========================================================================
+  // Project configuration
+  // ==========================================================================
 
-		// jasmine testsuites
-		jasmine: {
-			files: ['spec/SpecRunner.html']
-		},
+  grunt.initConfig({
+    // MULTI TASKS
+    // -----------
 
-		// tasks to be executed and files
-		// to be watched for changes
-		watch: {
-			files: ['<config:lint.files>'],
-			tasks: ['lint','jasmine']
-		},
+    // clean build directory
+    clean: ['dist'],
 
-		auraCopy: {
-			dist: {
-				src: [
-					'src/config.js',
-					'src/index.html',
-					// TODO: These files below should also be combined and minified by requirejs.
-					'src/aura/**',
-					'src/widgets/**',
-					'src/extensions/**'
-				]
-			}
-		},
+    // js linting
+    lint: {
+      files: ['src/aura/*.js', 'src/apps/**/*.js', 'src/widgets/**/*.js', 'src/extensions/*/*.js']
+    },
 
-		// SINGLE TASKS
-		// ----------------------
+    // jasmine testsuites
+    jasmine: {
+      files: ['spec/SpecRunner.html']
+    },
 
-		// require js
-		requirejs: {
-			// build directory path
-			dir: 'dist/apps/demo',
-			// application directory
-			appDir: 'src/apps/demo',
-			mainConfigFile: 'src/config.js',
-			// base url for retrieving paths
-			baseUrl: 'js',
-			// optimize javascript files with uglifyjs
-			optimize: 'uglify',
-			// define our app model
-			modules: [{ name: 'app' }]
-		},
+    // tasks to be executed and files
+    // to be watched for changes
+    watch: {
+      files: ['<config:lint.files>'],
+      tasks: ['lint', 'jasmine']
+    },
 
-		// Configuration
-		// -------------
+    auraCopy: {
+      dist: {
+        src: ['src/config.js', 'src/index.html',
+        // TODO: These files below should also be combined and minified by requirejs.
+        'src/aura/**', 'src/widgets/**', 'src/extensions/**']
+      }
+    },
 
-		// js linting options
-		jshint: {
-			options: {
-				curly: true,
-				eqeqeq: true,
-				immed: true,
-				latedef: true,
-				newcap: true,
-				noarg: true,
-				sub: true,
-				undef: true,
-				eqnull: true,
-				browser: true,
-				nomen: false
-			},
-			globals: {
-				console: true,
-				require: true,
-				define: true,
-				$: true
-			}
-		},
+    // SINGLE TASKS
+    // ----------------------
 
-		server: {
-			port: 8888,
-			base: './'
-		}
+    // require js
+    requirejs: {
+      // build directory path
+      dir: 'dist/apps/demo',
+      // application directory
+      appDir: 'src/apps/demo',
+      mainConfigFile: 'src/config.js',
+      // base url for retrieving paths
+      baseUrl: 'js',
+      // optimize javascript files with uglifyjs
+      optimize: 'uglify',
+      // define our app model
+      modules: [{
+        name: 'app'
+      }]
+    },
 
-	});
+    // Configuration
+    // -------------
 
-	// build task
-	grunt.registerTask('build', 'clean lint jasmine requirejs auraCopy');
+    // js linting options
+    jshint: {
+      options: {
+        curly: true,
+        eqeqeq: true,
+        immed: true,
+        latedef: true,
+        newcap: true,
+        noarg: true,
+        sub: true,
+        undef: true,
+        eqnull: true,
+        browser: true,
+        nomen: false
+      },
+      globals: {
+        console: true,
+        require: true,
+        define: true,
+        $: true
+      }
+    },
 
-	// default build task
-	grunt.registerTask('default', 'build');
+    server: {
+      port: 8888,
+      base: './'
+    }
 
-	// launch node server to view the projct
-	grunt.registerTask('launch', 'server watch');
+  });
+
+  // build task
+  grunt.registerTask('build', 'clean lint jasmine requirejs auraCopy');
+
+  // default build task
+  grunt.registerTask('default', 'build');
+
+  // launch node server to view the projct
+  grunt.registerTask('launch', 'server watch');
 
 };
