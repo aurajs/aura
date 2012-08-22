@@ -44,7 +44,7 @@ Powered by the Facade pattern, the Sandbox:
 
 ## Sample Application
 
-A demo application using Aura is included in the download featuring Calendar, Todo list and control widgets. After you complete **Install & Build section** (see bellow), run `grunt launch` to launch web server on `http://localhost:8888` and go to `demo` directory to try the demo app out.
+A demo application using Aura is included in the download featuring Calendar, Todo list and control widgets. After you complete **Install & Build section** (see below), run `grunt launch` to launch web server on `http://localhost:8888` and go to `demo` directory to try out the demo app.
 
 ![Screenshot](http://i.imgur.com/wAff1.png)
 
@@ -249,21 +249,18 @@ cd /your/path/to/aura
 npm install
 ```
 
-also, in order for the [grunt-jasmine-task](https://github.com/creynders/grunt-jasmine-task) to work properly, [PhantomJS](http://www.phantomjs.org/) must be installed and in the system PATH (if you can run "phantomjs" at the command line, this task should work).
+also, in order for the [grunt-jasmine-task](https://github.com/creynders/grunt-jasmine-task) to work properly, [PhantomJS](http://www.phantomjs.org/) must be installed.
 
-Unfortunately, PhantomJS cannot be installed automatically via npm or grunt, so you need to install it yourself. The easiest way to install PhantomJs is using [Homebrew](https://github.com/mxcl/homebrew) with its [updated formula](https://github.com/mxcl/homebrew/pull/11225) for PhantomJS:
+Unfortunately, PhantomJS cannot be installed automatically via npm or grunt, so you need to install it yourself. The easiest way to do so is using [Homebrew](https://github.com/mxcl/homebrew):
 
 ```shell
 brew update
 brew install phantomjs
 ```
 
-In case you can't or don't want to use [Homebrew](https://github.com/mxcl/homebrew) there are a number of other ways to install PhantomJS.
+In case you can't or don't want to use [Homebrew](https://github.com/mxcl/homebrew) you can get it on the PhantomJS [download page](http://phantomjs.org/download.html).
 
-* [PhantomJS and Mac OS X](http://ariya.ofilabs.com/2012/02/phantomjs-and-mac-os-x.html)
-* [PhantomJS Installation](http://code.google.com/p/phantomjs/wiki/Installation) (PhantomJS wiki)
-
-Note that the `phantomjs` executable needs to be in the system `PATH` for grunt to see it.
+Note that the `phantomjs` executable needs to be in the system `PATH` for grunt to see it. Try running `phantomjs` in your Terminal to see if it already is.
 
 * [How to set the path and environment variables in Windows](http://www.computerhope.com/issues/ch000549.htm)
 * [Where does $PATH get set in OS X 10.6 Snow Leopard?](http://superuser.com/questions/69130/where-does-path-get-set-in-os-x-10-6-snow-leopard)
@@ -274,7 +271,7 @@ Now you've set up everything to start building Aura, to do so, just run
 ```shell
 grunt build
 ```
-in the same directory where the grunt.js file lies.
+somewhere in the project directory.
 
 ### Why A Developer Preview?
 
