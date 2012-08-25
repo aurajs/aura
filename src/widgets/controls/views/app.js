@@ -40,10 +40,7 @@ define(['sandbox', 'text!../templates/controls.html'], function(sandbox, control
     },
 
     startTodos: function() {
-      sandbox.widgets.start({
-        channel: 'todos',
-        element: '#todoapp'
-      });
+      sandbox.widgets.start('todos', '#todoapp');
     },
 
     startCalendar: function() {

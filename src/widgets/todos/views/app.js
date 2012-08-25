@@ -62,13 +62,12 @@ define(['sandbox', '../collections/todos', './todos', 'text!../templates/base.ht
       var view = new TodoView({
         model: todo
       });
-
       this.$('#todo-list').append(view.render().el);
     },
 
     // Add all items in the **Todos** collection at once.
     addAll: function() {
-      Todos.each(this.addOne);
+      Todos.each(this.addOne.bind(this));
     },
 
     // Generate the attributes for a new Todo item.
