@@ -194,9 +194,16 @@ define(['base'], function(base) {
   //
   // * **param:** {Object/Array} an array with objects or single object containing channel and element
   core.start = function(list) {
-
-    // if ( _.isObject(list) && !_.isArray(list) ) {
-
+    var args = [].slice.call(arguments, 1);
+    
+    // Allow pair channel & element as params 
+    if (typeof list === 'string' && args[0] !== undefined) {
+      list = [{
+        channel : list,
+        element : args[0]
+      }];
+    }
+    
     // Allow a single object as param
     if (isObject(list) && !Array.isArray(list)) {
       list = [list];
@@ -259,9 +266,8 @@ define(['base'], function(base) {
   // state of the modules in require.js and empty the widgets DOM element
   //
   // * **param:** {string} channel Event name
-  core.stop = function(channel) {
-    var args = [].slice.call(arguments, 1);
-    var el = args[0];
+  // * **param:** {string} el Element name
+  core.stop = function(channel, el) {
     var file = decamelize(channel);
 
     for (var ch in channels) {

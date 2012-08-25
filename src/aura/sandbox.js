@@ -30,7 +30,8 @@ define(['aura_core', 'aura_perms'], function(mediator, permissions) {
   };
 
   // * **param:** {string} channel Event name
-  sandbox.stop = function(channel) {
+  // * **param:** {string} el Element name
+  sandbox.stop = function(channel, el) {
     mediator.stop.apply(mediator, arguments);
   };
 
