@@ -284,10 +284,11 @@ At minimum it offers a reference application for some of the ideas Nicholas and 
 * [Addy Osmani](http://github.com/addyosmani)
 * [Dustin Boston](http://github.com/dustinboston)
 * [Gerson Goulart](http://github.com/gersongoulart)
+* [Sindre Sorhus](http://github.com/sindresorhus)
 * [Peter Rudolfsen](http://github.com/rudolfrck)
 * [Robert Djurasaj](http://github.com/robertd)
 * [Joel Hooks](http://github.com/joelhooks)
 
 ### License
 
-Aura is released under a public domain license.
+Licensed under the [MIT](https://github.com/addyosmani/aura/tree/master/LICENSE.md) license.
