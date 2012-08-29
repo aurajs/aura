@@ -273,6 +273,137 @@ grunt build
 ```
 somewhere in the project directory.
 
+###Frequently Asked Questions
+
+**Q: Can you describe Aura’s architectural philosophy?**
+
+Aura’s design philosophy is predicated on the separation of components of js applications into separate pieces called modules. Initialization of modules can be controlled through a central interface. Communication between module is triggered through publishing and subscribing to interesting events.
+
+An example: A module for a calendar would be interested that there is a new entry on a to do list. However, by themselves, a calendar or a task list could work alone. Since it is a matter of simply sending signals, a module could be stopped at run time without breaking the application, they were never required dependencies of each other, instead they shared commonality of dealing with the same type of data (schedule information) and purpose (this todo list is meant to synchronize with a calendar). Indeed, a second to do list could be instantiated that doesn’t talk to the calendar.
+
+Aura’s sandbox should be used where it’s going to offer real benefits to your code architecture. It has a lot more than just that though - as a widget-based library, we also provide utilities for helping you with cross-module and cross-component communication, managing layouts (widgets), permissions and more.
+
+**Q: Is the Aura architecture restricted to working with Backbone.js? What if I wanted to use it with a different framework?**
+
+As of Aura 0.8.1 (edge) we have separated out the architecture part of the project from the Backbone.js layer. What this means is that if you’re a Backbone.js developer, you can simply use the Backbone.js extension provided in the repo to get everything that Backbone-Aura provided, however, if you would like to use Aura on it’s own you can now easily achieve this too. Our architecture should work well with most frameworks.
+
+**Q: If I don’t use Aura on my complex Backbone.js application, what am I missing out on? Can’t I just use Backbone.Marionette or Chaplin?**
+
+Backbone.Marionette provides a set of prefabricated Backbone.js views and collections with support for handling garbage collection and eliminating zombie views caused by undeleted references. Aura at the core level would not be 1.) biased toward backbone.js as a framework or 2.) specifics to handling views.
+
+Marionette, however, is comprised of components which are reusable in independently.
+
+**Q: How do you share a collection using Aura? e.g If I have a collection using many widgets, how do I correctly share this collection?**
+
+This can be achieved by calling .publish() from the sandbox with some extra data e.g
+
+```javascript
+// task list
+sandbox.publish('task', 'detail', id);
+
+// task detail
+sandbox.subscribe('task', 'detail', function (caller, id) {
+  // Do things with id
+});
+```
+
+If you check out the console when you run Aura you will see a bunch of messages like "Todos-bootstrap message from from: controls". Each of those messages are being published from one widget and subscribed by another widget. You just have to add the additional data to the call. 
+
+**Q: There are multiple models I would like to use that I’m placing in the sandbox. I would like to display paginated lists of my models using [Backbone.Paginator](https://github.com/addyosmani/backbone.paginator).**
+
+You could opt to structure your widgets as follows, assuming we have a model for users and a model for projects:
+
+```
+~apps/foo/app.js
+~widgets/paginatedUserList/
+    models/
+                (none - stored in the facade)
+    collections/ 
+                paginated-users.js
+    views/
+                user-item.js
+                user-list.js
+    templates/
+                user-item.html
+                user-list.html
+
+~widgets/paginatedProjectList/
+    models/
+                (none - stored in the facade)
+    collections/ 
+                paginated-projects.js
+    views/
+                project-item.js
+                project-list.js
+    templates/
+                project-item.html
+                project-list.html
+```
+
+
+And then from the core, pass the following configurations:
+
+```javascript
+ core.start([{
+    channel: 'paginatedProjectList',
+    element: '#project-list'
+  }, {
+    channel: 'paginatedUserList',
+    element: '#user-list'
+  }]);
+```
+
+You may also wonder what happens if there are two project lists, one for your own projects, and one for a favorite friend? Let's say they're in a script tag:
+
+```javascript
+var projectListIds={
+  myID:123,
+  friendID:456
+}
+```
+
+It seems like apps/foo/app.js would then contain:
+
+```javascript
+ core.start([{
+    channel: 'paginatedProjectList',
+    element: '#project-list1'
+  }, {
+    channel: 'paginatedProjectList',
+    element: '#project-list2'
+  }, {
+    channel: 'paginatedUserList',
+    element: '#user-list'
+  }]);
+```
+
+You might wonder:
+
+What needs to happen when loading the same widget multiple times in an app?
+At what point in the widget initialization configuration should occur
+How specific widgets should be.
+
+We would recommend:
+
+Creating a generic paginatedList component (maybe in a /components directory?)
+Creating the paginatedProjectList and paginatedUserList widgets and have them instantiate the paginatedList with configuration options
+
+It's a little more code, but much more reusable.
+
+
+**Q: Is the Aura Abstraction of Vendor JS Libraries Overkill?**
+
+This is a good question. When you first start using Aura, it’s easy to fall into the mindset of thinking that the abstractions within the architecture are too intense. Perhaps the most important tip benefiting from what Aura has to offer is understanding that each part of it is entirely flexible. 
+
+Should you wish to abstract away a library (a DOM library, such as jQuery is a good example) you can easily do this and it makes sense. It’s easier to define what specific parts of a library like that you’re likely to need and thus simpler to define an abstract API that supports swapping it out for say, a querySelector based implementation or Zepto should the need arise. We make that very easy.
+
+There are other situations where it’s important to review what you’re trying to achieve. 
+
+Imagine you are a Backbone.js developer wishing to use an Aura sandbox. You may wish for your collections to do some non-trivial filtering. If you had Underscore.js in them directly, you could easily chain a few methods but when your collections don’t know about Underscore (abstracted away), you instead need to achieve this using the sandbox (e.g sandbox.util). This is a case of where its important to make a sanity call on there being too much abstraction. 
+
+When trying to make a decision about whether or not to abstract a library, keep in mind how much of it you’re practically going to use. If you’re going to use 100% of its features (unlikely), this would involve writing a more detailed abstraction API and we wouldn’t recommend this as the investment to maintain would be too great. Only abstract when the resulting API is easy to read, easy to use and feasible to maintain.
+
+
 ### Why A Developer Preview?
 
 Aura is currently missing two important items needed to help us get out a stable release. These are good unit tests and stronger documentation. When the project has these and we've confirmed everything works as expected, we'll announce it for others to check out. The developer preview is our way of letting developers play with some new toys early on and get community feedback on whether the project is useful or not.
