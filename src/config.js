@@ -7,7 +7,7 @@ require.config({
   // enforceDefine must be enabled and non-AMD dependencies must be shimmed.
   enforceDefine: true,
 
-  // shim lodash & backbone (cause we use the non AMD versions here)
+  // shim underscore(lodash) & backbone (cause we use the non AMD versions here)
   shim: {
     'dom': {
       exports: '$',
