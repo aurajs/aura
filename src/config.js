@@ -6,6 +6,10 @@ require.config({
   // which provide per-require error handling. To utilize this feature
   // enforceDefine must be enabled and non-AMD dependencies must be shimmed.
   enforceDefine: true,
+  
+  baseUrl: 'apps/demo/js',
+  
+  deps: ['app'],
 
   // shim underscore & backbone (cause we use the non AMD versions here)
   shim: {
@@ -67,3 +71,6 @@ require.config({
     perms: '../../../apps/demo/js/permissions'
   }
 });
+
+// Define call just to make enforceDefine check happy
+define(function() {});
