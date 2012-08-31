@@ -7,7 +7,7 @@ require.config({
   // enforceDefine must be enabled and non-AMD dependencies must be shimmed.
   enforceDefine: true,
 
-  // shim underscore & backbone (cause we use the non AMD versions here)
+  // shim lodash & backbone (cause we use the non AMD versions here)
   shim: {
     'dom': {
       exports: '$',
@@ -42,8 +42,8 @@ require.config({
     zepto: '../../../aura/lib/zepto/zepto',
     deferred: '../../../aura/lib/zepto/deferred',
 
-    // Underscore
-    underscore: '../../../aura/lib/underscore',
+    // Underscore (Lo-Dash - http://lodash.com)
+    underscore: '../../../aura/lib/lodash',
 
     // Set the base library
     dom: '../../../aura/lib/dom',
