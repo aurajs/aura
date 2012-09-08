@@ -13,15 +13,15 @@ define(['aura_core', 'aura_perms'], function(mediator, permissions) {
   // * **param:** {string} subscriber Module name
   // * **param:** {string} channel Event name
   // * **param:** {object} callback Module
-  sandbox.subscribe = function(channel, subscriber, callback, context) {
+  sandbox.on = function(channel, subscriber, callback, context) {
     if (permissions.validate(channel, subscriber)) {
-      mediator.subscribe(channel, subscriber, callback, context || this);
+      mediator.on(channel, subscriber, callback, context || this);
     }
   };
 
   // * **param:** {string} channel Event name
-  sandbox.publish = function(channel) {
-    mediator.publish.apply(mediator, arguments);
+  sandbox.emit = function(channel) {
+    mediator.emit.apply(mediator, arguments);
   };
 
   // * **param:** {Object/Array} an array with objects or single object containing channel and element

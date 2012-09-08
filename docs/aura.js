@@ -44,7 +44,7 @@ define('aura_core',['jquery', 'underscore'], function ($, _) {
     // * **param:** {string} channel Event name
     // * **param:** {object} callback Module callback
     // * **param:** {object} context Context in which to execute the module
-    obj.subscribe = function (channel, callback, context) {
+    obj.on = function (channel, callback, context) {
         channels[channel] = (!channels[channel]) ? [] : channels[channel];
         channels[channel].push(this.util.method(callback, context));
     };
@@ -54,7 +54,7 @@ define('aura_core',['jquery', 'underscore'], function ($, _) {
     // call start if the channel is not already registered.
     //
     // * **param:** {string} channel Event name
-    obj.publish = function (channel) {
+    obj.emit = function (channel) {
         var i, l, args = [].slice.call(arguments, 1);
         if (!channels[channel]) {
             obj.start.apply(this, arguments);
@@ -266,16 +266,16 @@ define('facade',["aura_core", "aura_perms"], function (mediator, permissions) {
     // * **param:** {string} subscriber Module name
     // * **param:** {string} channel Event name
     // * **param:** {object} callback Module
-    facade.subscribe = function (subscriber, channel, callback) {
+    facade.on = function (subscriber, channel, callback) {
         if (permissions.validate(subscriber, channel)) {
-            mediator.subscribe(channel, callback, this);
+            mediator.on(channel, callback, this);
         }
     };
 
 
     // * **param:** {string} channel Event name
-    facade.publish = function (channel) {
-        mediator.publish.apply(mediator, arguments);
+    facade.emit = function (channel) {
+        mediator.emit.apply(mediator, arguments);
     };
 
 

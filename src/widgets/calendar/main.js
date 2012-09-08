@@ -11,8 +11,8 @@ define(['sandbox', './views/app', './collections/events', 'fullcalendar'], funct
 
     events.fetch();
 
-    sandbox.publish('bootstrap', 'calendar');
-    sandbox.subscribe('bootstrap', 'calendar', function(from, data) {
+    sandbox.emit('bootstrap', 'calendar');
+    sandbox.on('bootstrap', 'calendar', function(from, data) {
       console.log('Calendar-bootstrap message from from: ' + from);
       console.log('Additional data:', data);
     });

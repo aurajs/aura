@@ -51,7 +51,7 @@ define(['sandbox', 'text!../templates/controls.html'], function(sandbox, control
     },
 
     publishData: function() {
-      sandbox.publish('bootstrap', 'calendar', 'ohai');
+      sandbox.emit('bootstrap', 'calendar', 'ohai');
     }
   });
 
