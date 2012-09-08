@@ -129,11 +129,24 @@ define(['base'], function(base) {
     }
 
     channels[channel] = (!channels[channel]) ? [] : channels[channel];
-    channels[channel].push({
-      subscriber: subscriber,
-      callback: callback.bind(context)
-      // callback: this.util.method(callback, context)
-    });
+
+    if(channel === '*'){
+      for (var key in channels) {
+        if (channels.hasOwnProperty(key)) {
+            channels[key].push({
+               subscriber: subscriber,
+               callback: callback.bind(context)
+            });
+        }
+      }
+    }else{
+      channels[channel].push({
+        subscriber: subscriber,
+        callback: callback.bind(context)
+        // callback: this.util.method(callback, context)
+      });
+    }
+
   };
 
   core.getPublishQueueLength = function() {
