@@ -161,9 +161,18 @@ define(['base'], function(base) {
     if (!channels[channel]) {
       return false;
     }
-    for (i = 0, l = channels[channel].length; i < l; i += 1) {
+    for (i = 0; i < channels[channel].length;) {
       try {
-        channels[channel][i]['callback'].apply(this, args);
+      		// if the callback has been nulled by core.stop, remove this subscriber
+      		// and pick up again at the same i
+      		if (channels[channel][i].callback == null) {
+      			channels[channel].splice(i, 1);
+
+      		// otherwise proceed normally: try the callback and iterate
+      		} else {
+	        	channels[channel][i].callback.apply(this, args);
+  					i++;
+      		}
       } catch (e) {
         console.error(e.message);
       }
@@ -195,15 +204,15 @@ define(['base'], function(base) {
   // * **param:** {Object/Array} an array with objects or single object containing channel and element
   core.start = function(list) {
     var args = [].slice.call(arguments, 1);
-    
-    // Allow pair channel & element as params 
+
+    // Allow pair channel & element as params
     if (typeof list === 'string' && args[0] !== undefined) {
       list = [{
         channel : list,
         element : args[0]
       }];
     }
-    
+
     // Allow a single object as param
     if (isObject(list) && !Array.isArray(list)) {
       list = [list];
@@ -272,9 +281,14 @@ define(['base'], function(base) {
 
     for (var ch in channels) {
       if (channels.hasOwnProperty(ch)) {
-        for (var i = 0; i < channels[ch].length; i++) {
+        for (var i = 0, l = channels[ch].length; i < l; i++) {
           if (channels[ch][i].subscriber === channel) {
-            channels[ch].splice(i);
+
+          	// If core.stop is being called as a callback to core.publish,
+          	// removing the subscriber at this point can cause an error with
+          	// publish's iterator going longer than the changed array length.
+          	// Set the callback to null and have core.publish check this.
+          	channels[ch][i].callback = null;
           }
         }
       }
