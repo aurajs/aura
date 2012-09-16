@@ -163,16 +163,16 @@ define(['base'], function(base) {
     }
     for (i = 0; i < channels[channel].length;) {
       try {
-      		// if the callback has been nulled by core.stop, remove this subscriber
-      		// and pick up again at the same i
-      		if (channels[channel][i].callback == null) {
-      			channels[channel].splice(i, 1);
+        // if the callback has been nulled by core.stop, remove this subscriber
+        // and pick up again at the same i
+        if (channels[channel][i].callback == null) {
+          channels[channel].splice(i, 1);
 
-      		// otherwise proceed normally: try the callback and iterate
-      		} else {
-	        	channels[channel][i].callback.apply(this, args);
-  					i++;
-      		}
+        // otherwise proceed normally: try the callback and iterate
+        } else {
+          channels[channel][i].callback.apply(this, args);
+          i++;
+        }
       } catch (e) {
         console.error(e.message);
       }
@@ -284,11 +284,11 @@ define(['base'], function(base) {
         for (var i = 0, l = channels[ch].length; i < l; i++) {
           if (channels[ch][i].subscriber === channel) {
 
-          	// If core.stop is being called as a callback to core.publish,
-          	// removing the subscriber at this point can cause an error with
-          	// publish's iterator going longer than the changed array length.
-          	// Set the callback to null and have core.publish check this.
-          	channels[ch][i].callback = null;
+            // If core.stop is being called as a callback to core.publish,
+            // removing the subscriber at this point can cause an error with
+            // publish's iterator going longer than the changed array length.
+            // Set the callback to null and have core.publish check this.
+            channels[ch][i].callback = null;
           }
         }
       }
