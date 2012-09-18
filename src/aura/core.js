@@ -161,20 +161,24 @@ define(['base'], function(base) {
     if (!channels[channel]) {
       return false;
     }
-    for (i = 0; i < channels[channel].length;) {
-      try {
-        // if the callback has been nulled by core.stop, remove this subscriber
-        // and pick up again at the same i
-        if (channels[channel][i].callback == null) {
-          channels[channel].splice(i, 1);
+    for (i = 0; i < channels[channel].length; i++) {
 
-        // otherwise proceed normally: try the callback and iterate
-        } else {
+      // if the callback has been nulled by core.stop, remove this subscriber
+      if (channels[channel][i].callback == null) {
+        channels[channel].splice(i, 1);
+
+        // since we are removing the subscriber at this index, set the iterator
+        // back, so we try this index again
+        i--;
+
+      // otherwise proceed normally: try the callback and iterate
+      } else {
+        try {
           channels[channel][i].callback.apply(this, args);
-          i++;
         }
-      } catch (e) {
-        console.error(e.message);
+        catch (e) {
+          console.error(e.message);
+        }
       }
     }
 
