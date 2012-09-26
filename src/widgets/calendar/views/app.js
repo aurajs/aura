@@ -16,6 +16,35 @@ define(['sandbox', './event', '../models/event', 'text!../templates/base.html'],
         el: this.$('#event-dialog-form')
       });
       this.eventView.collection = this.collection;
+
+      // subscribe to routing events
+      sandbox.on('calendar', 'router', this.calendarController, this);
+    },
+
+    calendarController: function() {
+      var args = arguments;
+      var action = args[0]; // such as 'changeView'
+
+      if (action === 'gotoDate') {
+        // ex: #calendar/gotoDate/2012/2/2
+        if (args[3] != null) { // day entered
+          this.calendar.fullCalendar('changeView', 'agendaDay');
+        } else { // if not, month view
+          this.calendar.fullCalendar('changeView', 'month');
+        }
+        var current = new Date(); // current date
+        var year = args[1] || current.getYear(),
+          month = args[2] - 1 || current.getMonth(), // months are 0-indexed
+          day = args[3] || current.getDay();
+        var date = new Date(year, month, day);
+
+        this.calendar.fullCalendar.call(this.calendar, 'gotoDate', date);
+      } else {
+        // #calendar/changeView/agendaDay or
+        // #calendar/changeView/month
+        this.calendar.fullCalendar('changeView', args[1]);
+      }
+
     },
 
     render: function() {
@@ -34,6 +63,7 @@ define(['sandbox', './event', '../models/event', 'text!../templates/base.html'],
         eventDrop: this.eventDropOrResize,
         eventResize: this.eventDropOrResize
       });
+      window.calendar = this.calendar;
     },
 
     addAll: function() {

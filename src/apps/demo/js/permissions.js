@@ -16,6 +16,13 @@ define(['aura_perms'], function(permissions) {
     controls: {
       bootstrap: true,
       '*': true
+    },
+    router: {
+      bootstrap: true,
+      router: true,
+      calendar: true,
+      todos: true,
+      '*': true
     }
   });
 

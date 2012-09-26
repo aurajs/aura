@@ -27,10 +27,15 @@ define(['core'], function(core) {
     options: {
       element: '#controlsapp'
     }
-  },{
+  }, {
     channel: 'boilerplate',
     options: {
       element: '#boilerplateapp'
+    }
+  }, {
+    channel: 'router',
+    options: {
+      element: '#router'
     }
   }]);
 });

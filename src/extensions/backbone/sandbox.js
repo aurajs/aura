@@ -21,6 +21,10 @@ define(['aura_sandbox', 'core', 'perms', 'jquery_ui'], function(sandbox, core, p
     return core.mvc.Collection.extend(collection);
   };
 
+  auraSandbox.mvc.Router = function(router) {
+    return core.mvc.Router.extend(router);
+  };
+
   auraSandbox.widgets.stop = function(channel, el) {
     return sandbox.stop.apply(this, arguments);
   };
