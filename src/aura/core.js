@@ -205,15 +205,15 @@ define(['base'], function(base) {
   // widget will be derived from the channel, decamelized and underscore
   // delimited by default.
   //
-  // * **param:** {Object/Array} an array with objects or single object containing channel and element
+  // * **param:** {Object/Array} an array with objects or single object containing channel and options
   core.start = function(list) {
     var args = [].slice.call(arguments, 1);
 
-    // Allow pair channel & element as params
+    // Allow pair channel & options as params
     if (typeof list === 'string' && args[0] !== undefined) {
       list = [{
         channel : list,
-        element : args[0]
+        options : args[0]
       }];
     }
 
@@ -230,7 +230,7 @@ define(['base'], function(base) {
     var l = list.length;
     var promises = [];
 
-    function load(file, element) {
+    function load(file, options) {
       var dfd = core.data.deferred();
       var widgetsPath = core.getWidgetsPath();
       var requireConfig = require.s.contexts._.config;
@@ -241,7 +241,7 @@ define(['base'], function(base) {
 
       require([widgetsPath + '/' + file + '/main'], function(main) {
         try {
-          main(element);
+          main(options);
         } catch (e) {
           console.error(e);
         }
@@ -268,7 +268,7 @@ define(['base'], function(base) {
       var widget = list[i];
       var file = decamelize(widget.channel);
 
-      promises.push(load(file, widget.element));
+      promises.push(load(file, widget.options));
     }
 
     core.data.when.apply($, promises).done(core.emptyPublishQueue);

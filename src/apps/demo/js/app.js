@@ -14,13 +14,19 @@ define(['core'], function(core) {
 
   core.start([{
     channel: 'todos',
-    element: '#todoapp'
+    options: {
+      element: '#todoapp'
+    }
   }, {
     channel: 'calendar',
-    element: '#calendarapp'
+    options: {
+      element: '#calendarapp'
+    }
   }, {
     channel: 'controls',
-    element: '#controlsapp'
+    options: {
+      element: '#controlsapp'
+    }
   }]);
 
 });

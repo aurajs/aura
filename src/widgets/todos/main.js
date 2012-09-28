@@ -1,9 +1,9 @@
 define(['sandbox', './views/app'], function(sandbox, AppView) {
   "use strict";
 
-  return function(element) {
+  return function(options) {
     new AppView({
-      el: sandbox.dom.find(element)
+      el: sandbox.dom.find(options.element)
     });
 
     sandbox.publish('bootstrap', 'todos');
