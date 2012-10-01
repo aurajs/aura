@@ -104,8 +104,10 @@ define('aura_core',['jquery', 'underscore'], function ($, _) {
         obj.unload("widgets/" + file);
 
         // Empty markup associated with the module
-        $(el).html('');
 
+        if(el) {
+            $(el).html('');
+        }
     };
 
 

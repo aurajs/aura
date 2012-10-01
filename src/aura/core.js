@@ -279,7 +279,7 @@ define(['base'], function(base) {
   // state of the modules in require.js and empty the widgets DOM element
   //
   // * **param:** {string} channel Event name
-  // * **param:** {string} el Element name
+  // * **param:** {string} el Element name (Optional)
   core.stop = function(channel, el) {
     var file = decamelize(channel);
 

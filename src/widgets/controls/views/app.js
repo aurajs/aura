@@ -44,7 +44,7 @@ define(['sandbox', 'text!../templates/controls.html'], function(sandbox, control
     },
 
     startTodos: function() {
-      sandbox.widgets.start('todos', {element:'#todoapp'});
+      sandbox.widgets.start('todos', { element: '#todoapp' });
     },
 
     startCalendar: function() {
