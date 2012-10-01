@@ -268,7 +268,7 @@ define(['base'], function(base) {
       var widget = list[i];
       var file = decamelize(widget.channel);
 
-      promises.push(load(file, widget.options));
+      promises.push(load(file, widget.options || {}));
     }
 
     core.data.when.apply($, promises).done(core.emptyPublishQueue);
@@ -302,7 +302,9 @@ define(['base'], function(base) {
 
     // Remove widget descendents, unbinding any event handlers
     // attached to children within the widget.
-    core.dom.find(el).children().remove();
+    if(el) {
+      core.dom.find(el).children().remove();
+    }
   };
 
   // Undefine/unload a module, resetting the internal state of it in require.js
