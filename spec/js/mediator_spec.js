@@ -27,38 +27,38 @@ describe('Mediator', function () {
         describe('verification of parameters', function() {
             it('should throw an error if all the params are not specified', function () {
                 expect(function () {
-                    mediator.subscribe();
+                    mediator.on();
                 }).toThrow(new Error('Channel, callback, and context must be defined'));
             });
 
             it("should throw an error if typeof channel is NOT string", function() {
                 expect(function() {
-                    mediator.subscribe({}, 'subscriber', function () {}, {})
+                    mediator.on({}, 'subscriber', function () {}, {})
                 }).toThrow(new Error('Channel must be a string'));
             });
 
             it("should throw an error if typeof subscriber is NOT string", function() {
                 expect(function() {
-                    mediator.subscribe('channel', {}, function(){}, {})
+                    mediator.on('channel', {}, function(){}, {})
                 }).toThrow(new Error('Subscriber must be a string'));
             })
 
             it("should throw an error if typeof callback is NOT a function", function() {
                 expect(function() {
-                    mediator.subscribe('channel', 'subscriber', 'callback', {})
+                    mediator.on('channel', 'subscriber', 'callback', {})
                 }).toThrow(new Error('Callback must be a function'));
             });
         });
 
 		it('should allow an event to be subscribed', function() {
-			mediator.subscribe(TEST_CHANNEL, 'spec', function() {}, this);
+			mediator.on(TEST_CHANNEL, 'spec', function() {}, this);
 			expect(channels[TEST_CHANNEL]).toBeDefined();
 		});
 
 		it('should be able assign a specific callback for subscribed event', function() {
 			var callback,
 					callbackResult = 'callback';
-			mediator.subscribe(TEST_CHANNEL, 'spec', function() { return callbackResult; }, this);
+			mediator.on(TEST_CHANNEL, 'spec', function() { return callbackResult; }, this);
 			callback = channels[TEST_CHANNEL][0].callback;
 			expect(callback()).toBe(callbackResult);
 		});
@@ -67,8 +67,8 @@ describe('Mediator', function () {
 			var callback1 = function() {};
 			var callback2 = function() {};
 
-			mediator.subscribe(TEST_CHANNEL, 'spec', callback1, this);
-			mediator.subscribe(TEST_CHANNEL, 'spec', callback2, this);
+			mediator.on(TEST_CHANNEL, 'spec', callback1, this);
+			mediator.on(TEST_CHANNEL, 'spec', callback2, this);
 
 			//expect(channels[TEST_CHANNEL]).toContain(callback1, callback2);
 			expect(channels[TEST_CHANNEL].length).toBe(2);
@@ -80,13 +80,13 @@ describe('Mediator', function () {
         describe('verification of parameters', function() {
             it('should throw an error if all the params are not specified', function () {
                 expect(function () {
-                    mediator.publish();
+                    mediator.emit();
                 }).toThrow(new Error('Channel must be defined'));
             });
 
             it('should throw an error if typeof channel param is not string', function () {
                 expect(function () {
-                    mediator.publish({});
+                    mediator.emit({});
                 }).toThrow(new Error('Channel must be a string'));
             });
         });
@@ -97,7 +97,7 @@ describe('Mediator', function () {
                 {callback:callback}
             ];
 
-            mediator.publish(TEST_CHANNEL);
+            mediator.emit(TEST_CHANNEL);
 
             expect(callback).toHaveBeenCalled();
         });
@@ -109,13 +109,13 @@ describe('Mediator', function () {
                 {callback:callback}
             ];
 
-            mediator.publish(TEST_CHANNEL, argument);
+            mediator.emit(TEST_CHANNEL, argument);
 
             expect(callback).toHaveBeenCalledWith(argument);
         });
 
 		it('should return false if channel has not been defined', function () {
-            var called = mediator.publish(TEST_CHANNEL);
+            var called = mediator.emit(TEST_CHANNEL);
             expect(called).toBe(false);
         });
 
@@ -125,7 +125,7 @@ describe('Mediator', function () {
             ];
             mediator.start({ channel:TEST_CHANNEL, options: { element: '#nothing' } });
 
-            mediator.publish(TEST_CHANNEL);
+            mediator.emit(TEST_CHANNEL);
 
             expect(mediator.getPublishQueueLength()).toBe(1);
         })

@@ -42,7 +42,7 @@ define(['sandbox', './event', '../models/event', 'text!../templates/base.html'],
 
     addOne: function(event) {
       this.calendar.fullCalendar('renderEvent', event.toJSON());
-      sandbox.publish('new-event', event.toJSON());
+      sandbox.emit('new-event', event.toJSON());
     },
 
     select: function(startDate, endDate) {

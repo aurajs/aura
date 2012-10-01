@@ -72,7 +72,7 @@ We plan on writing up a more complex application using Aura as soon as a stable 
 ```javascript
 define(['sandbox', './views/app', './collections/events', 'fullcalendar'],
   function(sandbox, AppView, Events){
-    return sandbox.subscribe('bootstrap', 'calendar', function (options) {
+    return sandbox.on('bootstrap', 'calendar', function (element) {
         var events = new Events();
         new AppView({el: sandbox.dom.find(options.element), collection: events}).render();
         events.fetch();
@@ -182,8 +182,8 @@ RequireJS 2.0 configuration, including `shim` config to allow the loading of non
 * `mediator.start(channel, el)` e.g mediator.start('calendar', '#calendarapp')
 * `mediator.stop(channel, el)` e.g mediator.stop('calendar', #calendarapp')
 * `mediator.unload(channel)` e.g mediator.unload('calendar')
-* `mediator.publish(channel)`
-* `mediator.subscribe(channel, callback, context)`
+* `mediator.emit(channel)`
+* `mediator.on(channel, callback, context)`
 
 **Base Library (jQuery)**
 
@@ -201,8 +201,8 @@ RequireJS 2.0 configuration, including `shim` config to allow the loading of non
 
 * `facade.start(channel, el)`
 * `facade.stop(channel, el)`
-* `facade.publish(channel)`
-* `facade.subscribe(subscriber, channel, callback)`
+* `facade.emit(channel)`
+* `facade.on(subscriber, channel, callback)`
 * `facade.dom.find(selector, context)`
 * `facade.events.listen(context,events,selector,callback)`
 * `facade.events.bindAll()`
@@ -295,14 +295,14 @@ Marionette, however, is comprised of components which are reusable in independen
 
 **Q: How do you share a collection using Aura? e.g If I have a collection using many widgets, how do I correctly share this collection?**
 
-This can be achieved by calling .publish() from the sandbox with some extra data e.g
+This can be achieved by calling .emit() from the sandbox with some extra data e.g
 
 ```javascript
 // task list
-sandbox.publish('task', 'detail', id);
+sandbox.emit('task', 'detail', id);
 
 // task detail
-sandbox.subscribe('task', 'detail', function (caller, id) {
+sandbox.on('task', 'detail', function (caller, id) {
   // Do things with id
 });
 ```

@@ -114,7 +114,7 @@ define(['base'], function(base) {
   // * **param:** {string} subscriber Subscriber name
   // * **param:** {function} callback Module callback
   // * **param:** {object} context Context in which to execute the module
-  core.subscribe = function(channel, subscriber, callback, context) {
+  core.on = function(channel, subscriber, callback, context) {
     if (channel === undefined || callback === undefined || context === undefined) {
       throw new Error('Channel, callback, and context must be defined');
     }
@@ -129,11 +129,24 @@ define(['base'], function(base) {
     }
 
     channels[channel] = (!channels[channel]) ? [] : channels[channel];
-    channels[channel].push({
-      subscriber: subscriber,
-      callback: callback.bind(context)
-      // callback: this.util.method(callback, context)
-    });
+
+    if(channel === '*'){
+      for (var key in channels) {
+        if (channels.hasOwnProperty(key)) {
+            channels[key].push({
+               subscriber: subscriber,
+               callback: callback.bind(context)
+            });
+        }
+      }
+    }else{
+      channels[channel].push({
+        subscriber: subscriber,
+        callback: callback.bind(context)
+        // callback: this.util.method(callback, context)
+      });
+    }
+
   };
 
   core.getPublishQueueLength = function() {
@@ -144,7 +157,7 @@ define(['base'], function(base) {
   // call start if the channel is not already registered.
   //
   // * **param:** {string} channel Event name
-  core.publish = function(channel) {
+  core.emit = function(channel) {
     if (channel === undefined) {
       throw new Error('Channel must be defined');
     }
@@ -191,11 +204,11 @@ define(['base'], function(base) {
     isWidgetLoading = false;
 
     for (i = 0, len = publishQueue.length; i < len; i++) {
-      core.publish.apply(this, publishQueue[i]);
+      core.emit.apply(this, publishQueue[i]);
     }
 
     // _.each(publishQueue, function(args) {
-    //  core.publish.apply(this, args);
+    //  core.emit.apply(this, args);
     // });
 
     publishQueue = [];
