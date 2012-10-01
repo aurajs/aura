@@ -1,0 +1,9 @@
+#controlsapp{
+	width:100px;
+	height:150px;
+	border:1px dotted black;
+	padding:5px;
+	margin:5px;
+	display:inline-block;
+	background:#fff;
+}

@@ -6,13 +6,14 @@ define(['sandbox', './views/app'], function(sandbox, AppView) {
       el: sandbox.dom.find(element)
     });
 
-    sandbox.emit('bootstrap', 'controls');
+    sandbox.emit('bootstrap', 'boilerplate');
 
-    sandbox.on('bootstrap', 'controls', function(from) {
-      console.log('Controls-bootstrap message from from: ' + from);
+    sandbox.on('bootstrap', 'boilerplate', function(from) {
+      console.log('Boilerplate-bootstrap message from from: ' + from);
     });
+
     sandbox.on('*', 'calendar', function(from){
-      console.log('A wildcard was caught from:', from);
+      console.log('Wildcard event from:', from);
     });
 
   };
