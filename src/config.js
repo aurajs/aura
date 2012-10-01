@@ -1,6 +1,5 @@
 "use strict";
 
-// Ermahgerd confliggerashun!
 require.config({
   // [RequireJS](http://requirejs.org/) 2.0+ plus has error callbacks (errbacks)
   // which provide per-require error handling. To utilize this feature
@@ -11,7 +10,7 @@ require.config({
   
   deps: ['app'],
 
-  // shim underscore & backbone (cause we use the non AMD versions here)
+  // shim underscore(lodash) & backbone (cause we use the non AMD versions here)
   shim: {
     'dom': {
       exports: '$',
@@ -46,8 +45,8 @@ require.config({
     zepto: '../../../aura/lib/zepto/zepto',
     deferred: '../../../aura/lib/zepto/deferred',
 
-    // Underscore
-    underscore: '../../../aura/lib/underscore',
+    // Underscore (Lo-Dash - http://lodash.com)
+    underscore: '../../../aura/lib/lodash',
 
     // Set the base library
     dom: '../../../aura/lib/dom',
