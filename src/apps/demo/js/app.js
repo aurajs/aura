@@ -26,9 +26,11 @@ define(['core'], function(core) {
     channel: 'controls',
     options: {
       element: '#controlsapp'
+    }
   },{
     channel: 'boilerplate',
-    element: '#boilerplateapp'
+    options: {
+      element: '#boilerplateapp'
+    }
   }]);
-
 });
