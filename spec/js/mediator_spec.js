@@ -123,7 +123,7 @@ describe('Mediator', function () {
             channels[TEST_CHANNEL] = [
                 {callback:function() {}}
             ];
-            mediator.start({ channel:TEST_CHANNEL, element:'#nothing' });
+            mediator.start({ channel:TEST_CHANNEL, options: { element: '#nothing' } });
 
             mediator.emit(TEST_CHANNEL);
 

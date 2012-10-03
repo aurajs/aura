@@ -58,11 +58,11 @@ We plan on writing up a more complex application using Aura as soon as a stable 
 
 ```javascript
     startCalendar: function(){
-      sandbox.widgets.start('calendar', '#calendarapp');
+      sandbox.widgets.start('calendar', { element: '#calendarapp' });
     },
 
     stopCalendar: function(){
-      sandbox.widgets.stop('calendar', '#calendarapp');
+      sandbox.widgets.stop('calendar', { element: '#calendarapp' });
     }
 ```
 
@@ -74,7 +74,7 @@ define(['sandbox', './views/app', './collections/events', 'fullcalendar'],
   function(sandbox, AppView, Events){
     return sandbox.on('bootstrap', 'calendar', function (element) {
         var events = new Events();
-        new AppView({el: sandbox.dom.find(element), collection: events}).render();
+        new AppView({el: sandbox.dom.find(options.element), collection: events}).render();
         events.fetch();
     });
 });
@@ -346,10 +346,14 @@ And then from the core, pass the following configurations:
 ```javascript
  core.start([{
     channel: 'paginatedProjectList',
-    element: '#project-list'
+    options: {
+        element: '#project-list'
+    }
   }, {
     channel: 'paginatedUserList',
-    element: '#user-list'
+    options: {
+        element: '#user-list'
+    }
   }]);
 ```
 
@@ -367,13 +371,19 @@ It seems like apps/foo/app.js would then contain:
 ```javascript
  core.start([{
     channel: 'paginatedProjectList',
-    element: '#project-list1'
+    options: {
+        element: '#project-list1'
+    }
   }, {
     channel: 'paginatedProjectList',
-    element: '#project-list2'
+    options: {
+        element: '#project-list2'
+    }
   }, {
     channel: 'paginatedUserList',
-    element: '#user-list'
+    options: {
+        element: '#user-list'
+    }
   }]);
 ```
 

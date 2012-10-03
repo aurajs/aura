@@ -1,11 +1,11 @@
 define(['sandbox', './views/app', './collections/events', 'fullcalendar'], function(sandbox, AppView, Events) {
   "use strict";
 
-  return function(element) {
+  return function(options) {
     var events = new Events();
 
     new AppView({
-      el: sandbox.dom.find(element),
+      el: sandbox.dom.find(options.element),
       collection: events
     }).render();
 

@@ -24,10 +24,14 @@ define(['sandbox', 'text!../templates/controls.html'], function(sandbox, control
     startAll: function() {
       sandbox.widgets.start([{
         channel: 'todos',
-        element: '#todoapp'
+        options: {
+          element: '#todoapp'
+        }
       }, {
         channel: 'calendar',
-        element: '#calendarapp'
+        options: {
+          element: '#calendarapp'
+        }
       }]);
     },
 
@@ -40,13 +44,15 @@ define(['sandbox', 'text!../templates/controls.html'], function(sandbox, control
     },
 
     startTodos: function() {
-      sandbox.widgets.start('todos', '#todoapp');
+      sandbox.widgets.start('todos', { element: '#todoapp' });
     },
 
     startCalendar: function() {
       sandbox.widgets.start({
         channel: 'calendar',
-        element: '#calendarapp'
+        options: {
+          element: '#calendarapp'
+        }
       });
     },
 
