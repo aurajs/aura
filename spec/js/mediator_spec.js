@@ -22,7 +22,7 @@ describe('Mediator', function () {
 		delete channels[TEST_CHANNEL]; //clean our test channel
 	});
 
-	describe('subscribe', function() {
+	describe('on', function() {
 
         describe('verification of parameters', function() {
             it('should throw an error if all the params are not specified', function () {
@@ -75,7 +75,7 @@ describe('Mediator', function () {
 		});
 	});
 
-	describe('publish', function() {
+	describe('emit', function() {
 
         describe('verification of parameters', function() {
             it('should throw an error if all the params are not specified', function () {
@@ -119,7 +119,7 @@ describe('Mediator', function () {
             expect(called).toBe(false);
         });
 
-        it('should add to publish queue if widget is loading', function() {
+        it('should add to emit queue if widget is loading', function() {
             channels[TEST_CHANNEL] = [
                 {callback:function() {}}
             ];
@@ -127,7 +127,7 @@ describe('Mediator', function () {
 
             mediator.emit(TEST_CHANNEL);
 
-            expect(mediator.getPublishQueueLength()).toBe(1);
+            expect(mediator.getEmitQueueLength()).toBe(1);
         })
 	});
 

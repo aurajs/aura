@@ -179,7 +179,7 @@ RequireJS 2.0 configuration, including `shim` config to allow the loading of non
 
 **Core**
 
-* `mediator.start(channel, el)` e.g mediator.start('calendar', '#calendarapp')
+* `mediator.start(channel, options)` e.g mediator.start('calendar', { element: '#calendarapp' })
 * `mediator.stop(channel, el)` e.g mediator.stop('calendar', #calendarapp')
 * `mediator.unload(channel)` e.g mediator.unload('calendar')
 * `mediator.emit(channel)`
@@ -199,7 +199,7 @@ RequireJS 2.0 configuration, including `shim` config to allow the loading of non
 
 **Sandbox**
 
-* `facade.start(channel, el)`
+* `facade.start(channel, options)`
 * `facade.stop(channel, el)`
 * `facade.emit(channel)`
 * `facade.on(subscriber, channel, callback)`
@@ -227,7 +227,7 @@ RequireJS 2.0 configuration, including `shim` config to allow the loading of non
 * `facade.mvc.View`
 * `facade.mvc.Model`
 * `facade.mvc.Collection`
-* `facade.widgets.start(channel, el)`
+* `facade.widgets.start(channel, options)`
 * `facade.widgets.stop(channel, el)`
 
 **Permissions**

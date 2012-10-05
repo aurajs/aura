@@ -1,5 +1,5 @@
 define(['sandbox', '../collections/todos', './todos', 'text!../templates/base.html', 'text!../templates/stats.html'], function(sandbox, Todos, TodoView, baseTemplate, statsTemplate) {
-  "use strict";
+  'use strict';
 
   var AppView = sandbox.mvc.View({
 
@@ -95,7 +95,7 @@ define(['sandbox', '../collections/todos', './todos', 'text!../templates/base.ht
 
     // Clear all compelted todo items, destroying their models.
     clearCompleted: function() {
-      sandbox.util.each(Todos.completed(), function(todo) {
+      sandbox.util.each(Todos.completed(), function(index, todo) {
         todo.clear();
       });
 

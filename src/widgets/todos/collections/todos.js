@@ -1,5 +1,5 @@
 define(['sandbox', '../models/todo'], function(sandbox, Todo) {
-  "use strict";
+  'use strict';
 
   var TodosCollection = sandbox.mvc.Collection({
 

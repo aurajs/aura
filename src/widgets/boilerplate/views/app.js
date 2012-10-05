@@ -1,5 +1,5 @@
 define(['sandbox', 'text!../templates/sample.html'], function(sandbox, sampleTemplate) {
-  "use strict";
+  'use strict';
 
   /*
     * Welcome to this boilerplate Aura widget
@@ -11,10 +11,10 @@ define(['sandbox', 'text!../templates/sample.html'], function(sandbox, sampleTem
     * sandbox.on(channel, widdget, callback)
     * e.g sandbox.on('bootstrap', 'todos', function(from) { ... }
     *
-    * sandbox.widgets.start(options)
-    * where options.channel is a widget and 
+    * sandbox.widgets.start(channel, options)
+    * where channel is a widget and 
     * options.element is a DOM element for a widget
-    * e.g sandbox.widgets.start({channel: 'calendar', element: '#cal'});
+    * e.g sandbox.widgets.start('calendar', { element: '#cal' });
     *
     * sandbox.widgets.stop(widget, el)
     * e.g sandbox.widgets.stop('calendar', '#cal');

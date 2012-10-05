@@ -1,5 +1,5 @@
 define(['sandbox', '../models/event'], function(sandbox, Event) {
-  "use strict";
+  'use strict';
 
   var Events = sandbox.mvc.Collection({
     model: Event,

@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 require.config({
   // [RequireJS](http://requirejs.org/) 2.0+ plus has error callbacks (errbacks)

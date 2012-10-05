@@ -1,5 +1,5 @@
 define(['sandbox', 'text!../templates/todos.html'], function(sandbox, todosTemplate) {
-  "use strict";
+  'use strict';
 
   return sandbox.mvc.View({
 

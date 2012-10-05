@@ -6,7 +6,7 @@
 // The permissions check can be removed
 // to just use the mediator directly.
 define(['aura_core', 'aura_perms'], function(mediator, permissions) {
-  "use strict";
+  'use strict';
 
   var sandbox = {};
 
