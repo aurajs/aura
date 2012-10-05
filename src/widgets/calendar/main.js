@@ -1,5 +1,5 @@
 define(['sandbox', './views/app', './collections/events', 'fullcalendar'], function(sandbox, AppView, Events) {
-  "use strict";
+  'use strict';
 
   return function(options) {
     var events = new Events();

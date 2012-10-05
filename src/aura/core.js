@@ -10,7 +10,7 @@
 // * [Writing Modular JavaScript: New Premium Tutorial](http://net.tutsplus.com/tutorials/javascript-ajax/writing-modular-javascript-new-premium-tutorial/)
 // include 'deferred' if using zepto
 define(['base'], function(base) {
-  "use strict";
+  'use strict';
 
   var core = {}; // Mediator object
   var channels = {}; // Loaded modules and their callbacks

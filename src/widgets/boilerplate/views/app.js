@@ -1,5 +1,5 @@
 define(['sandbox', 'text!../templates/sample.html'], function(sandbox, sampleTemplate) {
-  "use strict";
+  'use strict';
 
   /*
     * Welcome to this boilerplate Aura widget

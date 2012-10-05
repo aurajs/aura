@@ -6,7 +6,7 @@
 //
 // {eventName: {moduleName:[true|false]}, ...}
 define(['dom'], function($) {
-  "use strict";
+  'use strict';
 
   var permissions = {};
   var rules = {};

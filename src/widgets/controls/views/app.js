@@ -1,5 +1,5 @@
 define(['sandbox', 'text!../templates/controls.html'], function(sandbox, controlTemplate) {
-  "use strict";
+  'use strict';
 
   var AppView = sandbox.mvc.View({
     controlTemplate: sandbox.template.parse(controlTemplate),

@@ -1,5 +1,5 @@
 define(['sandbox', './event', '../models/event', 'text!../templates/base.html'], function(sandbox, EventView, Event, baseTemplate) {
-  "use strict";
+  'use strict';
 
   var AppView = sandbox.mvc.View({
     baseTemplate: sandbox.template.parse(baseTemplate),

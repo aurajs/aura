@@ -4,7 +4,7 @@
 // _.bindAll and _.template
 define(['dom', 'underscore'], function($, _) {
 
-  "use strict";
+  'use strict';
 
   var base = {};
 

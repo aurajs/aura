@@ -1,5 +1,5 @@
 define(['sandbox', './views/app'], function(sandbox, AppView) {
-  "use strict";
+  'use strict';
 
   return function(options) {
     new AppView({

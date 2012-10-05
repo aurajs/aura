@@ -1,5 +1,5 @@
 define(['sandbox'], function(sandbox) {
-  "use strict";
+  'use strict';
 
   var EventView = sandbox.mvc.View({
     initialize: function() {
