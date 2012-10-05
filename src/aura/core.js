@@ -14,7 +14,7 @@ define(['base'], function(base) {
 
   var core = {}; // Mediator object
   var channels = {}; // Loaded modules and their callbacks
-  var publishQueue = [];
+  var emitQueue = [];
   var isWidgetLoading = false;
   var WIDGETS_PATH = '../../../widgets'; // Path to widgets
 
@@ -149,8 +149,8 @@ define(['base'], function(base) {
 
   };
 
-  core.getPublishQueueLength = function() {
-    return publishQueue.length;
+  core.getEmitQueueLength = function() {
+    return emitQueue.length;
   };
 
   // Publish an event, passing arguments to subscribers. Will
@@ -164,8 +164,8 @@ define(['base'], function(base) {
     if (typeof channel !== 'string') {
       throw new Error('Channel must be a string');
     }
-    if (isWidgetLoading) { // Catch publish event!
-      publishQueue.push(arguments);
+    if (isWidgetLoading) { // Catch emit event!
+      emitQueue.push(arguments);
       return false;
     }
 
@@ -198,20 +198,20 @@ define(['base'], function(base) {
     return true;
   };
 
-  // Empty the list with all stored publish events.
-  core.emptyPublishQueue = function() {
+  // Empty the list with all stored emit events.
+  core.emptyEmitQueue = function() {
     var args, i, len;
     isWidgetLoading = false;
 
-    for (i = 0, len = publishQueue.length; i < len; i++) {
-      core.emit.apply(this, publishQueue[i]);
+    for (i = 0, len = emitQueue.length; i < len; i++) {
+      core.emit.apply(this, emitQueue[i]);
     }
 
-    // _.each(publishQueue, function(args) {
+    // _.each(emitQueue, function(args) {
     //  core.emit.apply(this, args);
     // });
 
-    publishQueue = [];
+    emitQueue = [];
   };
 
   // Automatically load a widget and initialize it. File name of the
@@ -284,7 +284,7 @@ define(['base'], function(base) {
       promises.push(load(file, widget.options || {}));
     }
 
-    core.data.when.apply($, promises).done(core.emptyPublishQueue);
+    core.data.when.apply($, promises).done(core.emptyEmitQueue);
   };
 
   // Unload a widget (collection of modules) by passing in a named reference
@@ -301,10 +301,10 @@ define(['base'], function(base) {
         for (var i = 0, l = channels[ch].length; i < l; i++) {
           if (channels[ch][i].subscriber === channel) {
 
-            // If core.stop is being called as a callback to core.publish,
+            // If core.stop is being called as a callback to core.emit,
             // removing the subscriber at this point can cause an error with
-            // publish's iterator going longer than the changed array length.
-            // Set the callback to null and have core.publish check this.
+            // emit's iterator going longer than the changed array length.
+            // Set the callback to null and have core.emit check this.
             channels[ch][i].callback = null;
           }
         }

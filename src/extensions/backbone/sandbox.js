@@ -25,7 +25,7 @@ define(['aura_sandbox', 'core', 'perms', 'jquery_ui'], function(sandbox, core, p
     return sandbox.stop.apply(this, arguments);
   };
 
-  auraSandbox.widgets.start = function(channel, el) {
+  auraSandbox.widgets.start = function(channel, options) {
     return sandbox.start.apply(this, arguments);
   };
 

@@ -10,7 +10,7 @@ define(['sandbox', 'text!../templates/controls.html'], function(sandbox, control
       'click .start-todos': 'startTodos',
       'click .start-calendar': 'startCalendar',
       'click .start-all': 'startAll',
-      'click .publish-data': 'publishData'
+      'click .emit-data': 'emitData'
     },
 
     initialize: function() {
@@ -56,7 +56,7 @@ define(['sandbox', 'text!../templates/controls.html'], function(sandbox, control
       });
     },
 
-    publishData: function() {
+    emitData: function() {
       sandbox.emit('bootstrap', 'calendar', 'ohai');
     }
   });
