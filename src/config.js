@@ -7,6 +7,9 @@ require.config({
   enforceDefine: true,
   
   baseUrl: 'apps/demo/js',
+
+  // Uncomment if you would like to support cache busting
+  // urlArgs: "bust=v2",
   
   deps: ['app'],
 
