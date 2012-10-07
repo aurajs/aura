@@ -154,7 +154,7 @@ define(["aura_sandbox", "core", "perms", 'jquery_ui'],
 
 ### Aura Directory Structure
 
-*-- /apps/demo*
+*-- /apps/dist*
 
 The demo/example application containing three sample widgets: Calendar, Todos and Controls.
 
