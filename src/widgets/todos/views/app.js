@@ -55,7 +55,7 @@ define(['sandbox', '../collections/todos', './todos', 'text!../templates/base.ht
     },
 
     toggleItemsComplete: function(string, append) {
-      if (!append) {
+      if (!append) { // if not appended, uncheck all via collection
         Todos.each(function(todo) {
           todo.save({
             'completed': false
@@ -63,8 +63,9 @@ define(['sandbox', '../collections/todos', './todos', 'text!../templates/base.ht
         });
       }
 
+      // Iterate through todo items matching filter string
       Todos.chain().filter(function(models) {
-        return models.get('title') == string;
+        return models.get('title') === string;
       }).each(function(todo) {
         todo.save({
           'completed': true
