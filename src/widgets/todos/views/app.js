@@ -16,7 +16,7 @@ define(['sandbox', '../collections/todos', './todos', 'text!../templates/base.ht
     events: {
       'keypress #new-todo': 'createOnEnter',
       'click #clear-completed': 'clearCompleted',
-      'click #toggle-all': 'toggleAllComplete'
+      'click #toggle-all': 'toggleComplete'
     },
 
     // At initialization we bind to the relevant events on the `Todos`
@@ -32,8 +32,47 @@ define(['sandbox', '../collections/todos', './todos', 'text!../templates/base.ht
       Todos.bind('all', this.render, this);
       sandbox.on('new-event', 'todos', this.addEvent);
 
+      sandbox.on('todos', 'router', this.todoController, this);
+
       Todos.fetch();
     },
+
+    todoController: function() {
+      var action = arguments[0];
+      if (action === 'filter') {
+        // #todos/filter/<string> to filter checkboxes to match todo item title
+        this.toggleItemsComplete(arguments[1], false);
+      } else if (action === 'select') {
+        // #todos/select/<string> to add checkboxes matching todo title
+        this.toggleItemsComplete(arguments[1], true);
+      } else if (action === 'checkAll') {
+        // #todos/checkAll
+        this.toggleComplete(true);
+      } else if (action === 'uncheckAll') {
+        // #todos/uncheckAll
+        this.toggleComplete(false);
+      }
+    },
+
+    toggleItemsComplete: function(string, append) {
+      if (!append) { // if not appended, uncheck all via collection
+        Todos.each(function(todo) {
+          todo.save({
+            'completed': false
+          });
+        });
+      }
+
+      // Iterate through todo items matching filter string
+      Todos.chain().filter(function(models) {
+        return models.get('title') === string;
+      }).each(function(todo) {
+        todo.save({
+          'completed': true
+        });
+      });
+    },
+
     addEvent: function(object) {
       Todos.create({
         title: object.title,
@@ -102,9 +141,11 @@ define(['sandbox', '../collections/todos', './todos', 'text!../templates/base.ht
       return false;
     },
 
-    // Change each todo so that it's `completed` state matches the check all
-    toggleAllComplete: function() {
-      var completed = this.allCheckbox.checked;
+    // Toggle todo so state matches the check all event, or stateVal
+    // passed in via argument.
+    toggleComplete: function(stateVal) {
+      // If boolean argument passed, use it. Or else it's event, check DOM (this.AllCheckbox) then.
+      var completed = ($.type(stateVal) === 'boolean') ? stateVal : this.allCheckbox.checked;
 
       Todos.each(function(todo) {
         todo.save({

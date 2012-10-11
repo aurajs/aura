@@ -31,6 +31,7 @@ body {
   line-height: 1.4em;
   background: #eeeeee;
   color: #333333;
+  margin-bottom:60px;
 }
 
 #widget-container {
@@ -60,4 +61,16 @@ header h1 {
   font-size: 3em;
   font-weight:bold;
   padding: 20px;
+}
+
+footer#info {
+  margin: 65px auto 0;
+  color: #a6a6a6;
+  clear:both;
+  font-size: 12px;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
+  text-align: center;
+}
+footer#info a {
+  color: inherit;
 }
