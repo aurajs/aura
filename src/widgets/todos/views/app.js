@@ -91,7 +91,9 @@ define(['sandbox', '../collections/todos', './todos', 'text!../templates/base.ht
         total: Todos.length,
         completed: completed,
         remaining: remaining,
-        clearCompleted: lang.clearCompleted,
+        clear: lang.clear,
+        completedSingular: lang.completedSingular,
+        completedPlural: lang.completedPlural,
         itemsLeft: lang.itemsLeft,
         itemSingular: lang.itemSingular,
         itemPlural: lang.itemPlural

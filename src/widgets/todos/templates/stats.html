@@ -1,12 +1,12 @@
 <% if (total) { %>
   <span id="todo-count">
     <strong class="number"><%= remaining %></strong>
-    <span class="word"><%= remaining == 1 ? itemSingular : itemPlural  %></span> <%= itemsLeft %>
+    <span class="word"><%= remaining <= 1 ? itemSingular : itemPlural %></span> <%= itemsLeft %>
   </span>
 <% } %>
 <% if (completed) { %>
   <button id="clear-completed">
-    <%= clearCompleted %> <span class="number-done">(<%= completed %>)</span>
+    <%= clear %> <%= completed <= 1 ? completedSingular : completedPlural %> <span class="number-done">(<%= completed %>)</span>
   </button>
 <% } %>
 
