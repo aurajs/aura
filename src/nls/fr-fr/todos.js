@@ -1,8 +1,10 @@
 define({
-    "placeholderText": "Que voulez-vous faire?",
-    "markAsComplete": "Marquer tous les éléments comme complet",
-    "clearCompleted": "Effacer terminée",
-     "itemsLeft": "à gauche",
-     "itemSingular": "article",
-     "itemPlural": "articles"
+    "placeholderText": "Que voulez-vous faire ?",
+    "markAsComplete": "Marquer tous comme terminés",
+    "clear": "Effacer",
+    "completedSingular": "terminé",
+    "completedPlural": "terminés",
+    "itemsLeft": "restant",
+    "itemSingular": "élément",
+    "itemPlural": "éléments"
 });
