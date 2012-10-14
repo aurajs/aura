@@ -1,7 +1,7 @@
 Aura Contributing Guidelines
 ============================
 
-Contributing to aura is generally the same as any other open source or github project.
+Contributing to Aura is generally the same as any other open source or github project.
 
 ### Guidelines for a pull requests:
 

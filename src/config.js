@@ -5,6 +5,10 @@ require.config({
   // which provide per-require error handling. To utilize this feature
   // enforceDefine must be enabled and non-AMD dependencies must be shimmed.
   enforceDefine: true,
+
+  // Override the config for the i18n module ID
+  // Uncomment to load the french i18n bundle for widgets
+  // locale:'fr-fr',
   
   baseUrl: 'apps/demo/js',
 
@@ -65,6 +69,7 @@ require.config({
     sandbox: '../../../extensions/backbone/sandbox',
     text: '../../../extensions/backbone/lib/text',
     backbone: '../../../extensions/backbone/lib/backbone',
+    i18n: '../../../i18n',
     localstorage: '../../../extensions/backbone/lib/localstorage',
     fullcalendar: '../../../extensions/backbone/lib/fullcalendar.min',
     jquery_ui: '../../../extensions/backbone/lib/jquery-ui.min',

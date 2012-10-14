@@ -1,4 +1,4 @@
-define(['sandbox', 'text!../templates/todos.html'], function(sandbox, todosTemplate) {
+define(['sandbox', 'text!../templates/todos.html', 'i18n!../../../nls/todos'], function(sandbox, todosTemplate, lang) {
   'use strict';
 
   return sandbox.mvc.View({

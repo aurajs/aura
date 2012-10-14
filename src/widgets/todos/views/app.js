@@ -1,4 +1,4 @@
-define(['sandbox', '../collections/todos', './todos', 'text!../templates/base.html', 'text!../templates/stats.html'], function(sandbox, Todos, TodoView, baseTemplate, statsTemplate) {
+define(['sandbox', '../collections/todos', './todos', 'text!../templates/base.html', 'text!../templates/stats.html', 'i18n!../../../nls/todos'], function(sandbox, Todos, TodoView, baseTemplate, statsTemplate, lang) {
   'use strict';
 
   var AppView = sandbox.mvc.View({
@@ -23,7 +23,7 @@ define(['sandbox', '../collections/todos', './todos', 'text!../templates/base.ht
     // collection, when items are added or changed. Kick things off by
     // loading any preexisting todos that might be saved in *localStorage*.
     initialize: function() {
-      this.$el.html(baseTemplate);
+      this.$el.html(this.baseTemplate(lang));
       this.input = this.$('#new-todo');
       this.allCheckbox = this.$('#toggle-all')[0];
 
@@ -90,7 +90,11 @@ define(['sandbox', '../collections/todos', './todos', 'text!../templates/base.ht
       this.$('#footer').html(this.statsTemplate({
         total: Todos.length,
         completed: completed,
-        remaining: remaining
+        remaining: remaining,
+        clearCompleted: lang.clearCompleted,
+        itemsLeft: lang.itemsLeft,
+        itemSingular: lang.itemSingular,
+        itemPlural: lang.itemPlural
       }));
       this.allCheckbox.checked = !remaining;
     },

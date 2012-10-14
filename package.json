@@ -1,6 +1,6 @@
 {
   "name": "aura",
-  "version": "0.9.0",
+  "version": "0.8.0",
   "amd": {
     "baseUrl": "demo/js"
   },
