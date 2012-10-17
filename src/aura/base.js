@@ -2,9 +2,14 @@
 //
 // TODO: Remove dependency on underscore. Will have to create an equivalent for
 // _.bindAll and _.template
-define(['dom', 'underscore'], function($, _) {
+define(( require.aura.domLibrary === 'zepto' ? ['dom', 'underscore', 'deferred'] : ['dom', 'underscore'] ), function ($, _, Deferred) {
 
   'use strict';
+
+  // Enable deferred for zepto
+  if(Deferred) {
+    Deferred.installInto($);
+  }
 
   var base = {};
 

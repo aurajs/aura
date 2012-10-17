@@ -1,27 +1,36 @@
-'use strict';
+(function(){
 
-require.config({
+  'use strict';
+
+  // Aura configuration object is separate from require.config so we can have
+  // access to it in src/aura/base.js
+  var ra = require.aura = {};
+
+  // switch to the DOM-lib of your choice
+  // Could be either 'jquery' or 'zepto';
+  ra.domLibrary = 'jquery';
+
   // [RequireJS](http://requirejs.org/) 2.0+ plus has error callbacks (errbacks)
   // which provide per-require error handling. To utilize this feature
   // enforceDefine must be enabled and non-AMD dependencies must be shimmed.
-  enforceDefine: true,
+  ra.enforceDefine= true;
 
   // Override the config for the i18n module ID
   // Uncomment to load the french i18n bundle for widgets
-  // locale:'fr-fr',
-  
-  baseUrl: 'apps/demo/js',
+  // ra.locale = 'fr-fr';
+
+  ra.baseUrl = 'apps/demo/js';
 
   // Uncomment if you would like to support cache busting
-  // urlArgs: "bust=v2",
-  
-  deps: ['app'],
+  // ra.urlArgs = "bust=v2";
 
-  // shim underscore(lodash) & backbone (cause we use the non AMD versions here)
-  shim: {
+  ra.deps = ['app'],
+
+    // shim underscore(lodash) & backbone (cause we use the non AMD versions here)
+  ra.shim = {
     'dom': {
       exports: '$',
-      deps: ['jquery'] // switch to the DOM-lib of your choice
+      deps: [ ra.domLibrary ]
     },
     'underscore': {
       exports: '_'
@@ -29,6 +38,9 @@ require.config({
     'backbone': {
       deps: ['underscore', 'dom'],
       exports: 'Backbone'
+    },
+    'zepto': {
+      exports: 'Zepto'
     },
     'deferred': {
       exports: 'Deferred',
@@ -42,9 +54,10 @@ require.config({
       deps: ['jquery'],
       exports: '$.ui'
     }
-  },
+  };
+
   // paths
-  paths: {
+  ra.paths = {
     // jQuery
     jquery: '../../../aura/lib/jquery/jquery',
 
@@ -57,9 +70,9 @@ require.config({
 
     // Set the base library
     dom: '../../../aura/lib/dom',
-    base: '../../../aura/base/jquery',
 
     // Aura
+    aura_base: '../../../aura/base',
     aura_core: '../../../aura/core',
     aura_perms: '../../../aura/permissions',
     aura_sandbox: '../../../aura/sandbox',
@@ -76,8 +89,11 @@ require.config({
 
     // Demo App
     perms: '../../../apps/demo/js/permissions'
-  }
-});
+  };
 
-// Define call just to make enforceDefine check happy
-define(function() {});
+  require.config( ra );
+
+  // Define call just to make enforceDefine check happy
+  define(function() {});
+
+})();
