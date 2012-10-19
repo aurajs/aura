@@ -2,7 +2,7 @@
 //
 // TODO: Remove dependency on underscore. Will have to create an equivalent for
 // _.bindAll and _.template
-define(( require.aura.domLibrary === 'zepto' ? ['dom', 'underscore', 'deferred'] : ['dom', 'underscore'] ), function ($, _, Deferred) {
+define(( require.aura.shim.dom.deps[0] === 'zepto' ? ['dom', 'underscore', 'deferred'] : ['dom', 'underscore'] ), function ($, _, Deferred) {
 
   'use strict';
 
