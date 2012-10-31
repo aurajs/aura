@@ -6,38 +6,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-jasmine-task');
 
   // ==========================================================================
-  // TASKS
-  // ==========================================================================
-
-  grunt.registerMultiTask('auraCopy', 'Copy files.', function() {
-    var fs = require('fs'),
-      files = grunt.file.expandFiles(this.file.src);
-
-    // Copy specified files.
-    for (var i = 0; i < files.length; i++) {
-      var src = files[i],
-        dest = this.file.dest || files[i].replace('src/', 'dist/'),
-        isDirective = src.match(/^<(.*)>$/);
-
-      // grunt.log.writeln('Copying file ' + src + ' to ' + dest);
-      if (isDirective) {
-        grunt.file.write(dest, grunt.task.directive(src, grunt.file.read));
-      } else {
-        grunt.file.copy(src, dest);
-      }
-    }
-
-    // Fail task if errors were logged.
-    if (this.errorCount) {
-      return false;
-    }
-
-    // Otherwise, print a success message.
-    // grunt.log.writeln('File "' + this.file.dest + '" copied.');
-    grunt.log.writeln('Total of ' + files.length + ' files copied.');
-  });
-
-  // ==========================================================================
   // Project configuration
   // ==========================================================================
 
@@ -65,32 +33,33 @@ module.exports = function(grunt) {
       tasks: ['lint', 'jasmine']
     },
 
-    auraCopy: {
-      dist: {
-        src: ['src/config.js', 'src/index.html',
-        // TODO: These files below should also be combined and minified by requirejs.
-        'src/aura/**', 'src/widgets/**', 'src/extensions/**']
-      }
-    },
-
     // SINGLE TASKS
     // ----------------------
 
     // require js
     requirejs: {
-      // build directory path
-      dir: 'dist/apps/demo',
-      // application directory
-      appDir: 'src/apps/demo',
-      mainConfigFile: 'src/config.js',
-      // base url for retrieving paths
-      baseUrl: 'js',
-      // optimize javascript files with uglifyjs
-      optimize: 'uglify',
-      // define our app model
-      modules: [{
-        name: 'app'
-      }]
+      std: {
+        // build directory path
+        dir: 'dist',
+        // application directory
+        appDir: 'src',
+
+        mainConfigFile: 'src/config.js',
+        // base url for retrieving paths
+        baseUrl: '.',
+        
+        // setup paths
+        // optimize javascript files with uglifyjs
+
+        optimize: 'uglify',
+        
+        // define our app model
+        modules: [{
+          name: 'config'
+        }]
+      },
+
+      include: 'std'
     },
 
     // Configuration
@@ -127,7 +96,7 @@ module.exports = function(grunt) {
   });
 
   // build task
-  grunt.registerTask('build', 'clean lint jasmine requirejs auraCopy');
+  grunt.registerTask('build', 'clean lint jasmine requirejs:std');
 
   // default build task
   grunt.registerTask('default', 'build');
