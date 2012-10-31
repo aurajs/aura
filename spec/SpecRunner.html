@@ -11,9 +11,6 @@
 
 	<script type="text/javascript" src="../src/extensions/backbone/lib/require.js"></script>
 
-	<!-- include source files here... -->
-	<script type="text/javascript" src="js/mediator_spec.js"></script>
-
 	<script type="text/javascript">
 
       // Aura configuration object is separate from require.config so we can have
@@ -83,10 +80,8 @@
     require.config( require.aura );
 
     /*****/
-
-		require(['aura_core'], function (core) {
-
-			window.core = core;
+  	<!-- require source files here... -->
+		require(['spec/js/mediator_spec'], function () {
 
       var htmlReporter = new jasmine.HtmlReporter();
       var jasmineEnv = jasmine.getEnv();
