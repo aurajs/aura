@@ -9,5 +9,6 @@ define({
         "itemSingular": "item",
         "itemPlural": "items"
     },
-    "fr-fr": true
+    "fr-fr": true,
+    "nb": true
 });
