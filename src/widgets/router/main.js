@@ -24,11 +24,11 @@ define(['sandbox', 'underscore'], function(sandbox, _) {
 
     sandbox.emit('bootstrap', 'router');
     sandbox.on('bootstrap', function(from) {
-      console.log('Router-bootstrap message from: ' + from);
+      sandbox.log('Router-bootstrap message from: ' + from);
     });
 
     sandbox.on('router', 'router', function() {
-      console.log('Route in router widget: ', Array.prototype.slice.call(arguments));
+      sandbox.log('Route in router widget: ', Array.prototype.slice.call(arguments));
     });
   };
 

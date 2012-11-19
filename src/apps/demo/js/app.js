@@ -9,8 +9,12 @@ if (typeof Object.create !== 'function') {
 
 // Starts main modules
 // Publishing from core because that's the way that Nicholas did it...
-define(['core'], function(core) {
+define(['aura_core', 'backboneSandbox'], function(core, backboneSandbox) {
   'use strict';
+
+  core.getSandbox = function (sandbox) {
+    return backboneSandbox.extend(sandbox);
+  };
 
   core.start([{
     channel: 'todos',

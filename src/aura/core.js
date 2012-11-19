@@ -9,7 +9,7 @@
 // * [Nicholas Zakas: Scalable JavaScript Application Architecture](http://www.youtube.com/watch?v=vXjVFPosQHw&feature=youtube_gdata_player)
 // * [Writing Modular JavaScript: New Premium Tutorial](http://net.tutsplus.com/tutorials/javascript-ajax/writing-modular-javascript-new-premium-tutorial/)
 // include 'deferred' if using zepto
-define(['aura_base'], function(base) {
+define(['aura_base', 'aura_sandbox'], function(base, sandbox) {
 
   'use strict';
 
@@ -18,6 +18,7 @@ define(['aura_base'], function(base) {
   var emitQueue = [];
   var isWidgetLoading = false;
   var WIDGETS_PATH = 'widgets'; // Path to widgets
+  var sandboxSerial = 0; // For unique widget sandbox module names
 
   // Load in the base library, such as Zepto or jQuery. the following are
   // required for Aura to run:
@@ -104,6 +105,13 @@ define(['aura_base'], function(base) {
   // Get the widgets path
   core.getWidgetsPath = function() {
     return WIDGETS_PATH;
+  };
+
+  // Handle logging request from channel
+  core.log = function(channel) {
+    var args = Array.prototype.slice.call(arguments, 0);
+    args[0] = '[' + channel + ']';
+    console.log.apply(console, args);
   };
 
   // Subscribe to an event
@@ -241,7 +249,8 @@ define(['aura_base'], function(base) {
     var l = list.length;
     var promises = [];
 
-    function load(file, options) {
+    function load(channel, options) {
+      var file = decamelize(channel);
       var dfd = core.data.deferred();
       var widgetsPath = core.getWidgetsPath();
       var requireConfig = require.s.contexts._.config;
@@ -250,7 +259,33 @@ define(['aura_base'], function(base) {
         widgetsPath = requireConfig.paths.widgets;
       }
 
-      require([widgetsPath + '/' + file + '/main'], function(main) {
+      var widgetPath = widgetsPath + '/' + file;
+      // Unique sandbox module to be used by this widget
+      var widgetSandboxPath = 'sandbox$' + sandboxSerial++;
+
+      // Construct RequireJS map configuration
+      var sandboxMap = {};
+      // Every module whose path prefix matches widgetSandbox will get the unique sandbox for this widget
+      sandboxMap[widgetPath] = {
+        sandbox: widgetSandboxPath
+      };
+
+      var req = require.config({
+        map: sandboxMap
+      });
+
+      // Instantiate unique sandbox
+      var widgetSandbox = sandbox.create(core, channel);
+
+      // Apply application extensions
+      if (core.getSandbox) {
+        widgetSandbox = core.getSandbox(widgetSandbox, channel);
+      }
+
+      // Define the unique sandbox
+      define(widgetSandboxPath, widgetSandbox);
+
+      req([widgetPath + '/main'], function(main) {
         try {
           main(options);
         } catch (e) {
@@ -277,9 +312,8 @@ define(['aura_base'], function(base) {
 
     for (; i < l; i++) {
       var widget = list[i];
-      var file = decamelize(widget.channel);
 
-      promises.push(load(file, widget.options || {}));
+      promises.push(load(widget.channel, widget.options || {}));
     }
 
     core.data.when.apply($, promises).done(core.emptyEmitQueue);
