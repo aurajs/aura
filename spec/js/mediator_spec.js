@@ -3,8 +3,12 @@ define(['aura_core'], function (core) {
 
     var mediator,
         getChannels,
-        TEST_CHANNEL = 'test';
+        TEST_CHANNEL = 'stub';
 
+    // Define stub widget main (to prevent RequireJS load errors)
+    define('spec/js/widgets/stub/main', function() {
+        return function () {};
+    });
 
     beforeEach(function() {
       mediator = core;
@@ -95,7 +99,7 @@ define(['aura_core'], function (core) {
 
       it('should call every callback for a channel, within the correct context', function () {
         var callback = sinon.spy();
-      
+
         channels[TEST_CHANNEL] = [
           {callback:callback}
         ];
@@ -120,7 +124,7 @@ define(['aura_core'], function (core) {
 
       it('should return false if channel has not been defined', function () {
         var called = mediator.emit(TEST_CHANNEL);
-        
+
         expect(called).toBe(false);
       });
 
@@ -128,7 +132,7 @@ define(['aura_core'], function (core) {
         channels[TEST_CHANNEL] = [
           {callback:function() {}}
         ];
-        
+
         mediator.start({ channel:TEST_CHANNEL, options: { element: '#nothing' } });
 
         mediator.emit(TEST_CHANNEL);

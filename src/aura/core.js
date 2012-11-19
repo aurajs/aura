@@ -17,7 +17,7 @@ define(['aura_base'], function(base) {
   var channels = {}; // Loaded modules and their callbacks
   var emitQueue = [];
   var isWidgetLoading = false;
-  var WIDGETS_PATH = '../../../widgets'; // Path to widgets
+  var WIDGETS_PATH = 'widgets'; // Path to widgets
 
   // Load in the base library, such as Zepto or jQuery. the following are
   // required for Aura to run:
