@@ -9,7 +9,7 @@
 // * [Nicholas Zakas: Scalable JavaScript Application Architecture](http://www.youtube.com/watch?v=vXjVFPosQHw&feature=youtube_gdata_player)
 // * [Writing Modular JavaScript: New Premium Tutorial](http://net.tutsplus.com/tutorials/javascript-ajax/writing-modular-javascript-new-premium-tutorial/)
 // include 'deferred' if using zepto
-define(['aura_base', 'aura_sandbox'], function(base, sandbox) {
+define(['aura_base', 'aura_sandbox', 'aura_perms'], function(base, sandbox, permissions) {
 
   'use strict';
 
@@ -119,7 +119,7 @@ define(['aura_base', 'aura_sandbox'], function(base, sandbox) {
   // * **param:** {string} channel Event name
   // * **param:** {string} subscriber Subscriber name
   // * **param:** {function} callback Module callback
-  // * **param:** {object} context Context in which to execute the module
+  // * **param:** {object} context Context in which to execute the callback
   core.on = function(channel, subscriber, callback, context) {
     if (channel === undefined || callback === undefined || context === undefined) {
       throw new Error('Channel, callback, and context must be defined');
@@ -132,6 +132,11 @@ define(['aura_base', 'aura_sandbox'], function(base, sandbox) {
     }
     if (typeof callback !== 'function') {
       throw new Error('Callback must be a function');
+    }
+
+    // Prevent subscription if no permission
+    if (!permissions.validate(channel, subscriber)) {
+      return;
     }
 
     channels[channel] = (!channels[channel]) ? [] : channels[channel];

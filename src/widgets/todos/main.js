@@ -7,7 +7,7 @@ define(['sandbox', './views/app'], function(sandbox, AppView) {
     });
 
     sandbox.emit('bootstrap', 'todos');
-    sandbox.on('bootstrap', 'todos', function(from) {
+    sandbox.on('bootstrap', function(from) {
       sandbox.log('Todos-bootstrap message from: ' + from);
     });
   };

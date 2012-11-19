@@ -1,11 +1,7 @@
 // ## Sandbox
 // Implements the sandbox pattern and set up an standard interface for modules.
 // This is a subset of the mediator functionality.
-//
-// Note: Handling permissions/security is optional here
-// The permissions check can be removed
-// to just use the mediator directly.
-define(['aura_perms'], function(permissions) {
+define(function() {
   'use strict';
 
   return {
@@ -17,13 +13,11 @@ define(['aura_perms'], function(permissions) {
         mediator.log.apply(mediator, args);
       };
 
-      // * **param:** {string} subscriber Module name
       // * **param:** {string} channel Event name
       // * **param:** {object} callback Module
-      sandbox.on = function(channel, subscriber, callback, context) {
-        if (permissions.validate(channel, subscriber)) {
-          mediator.on(channel, subscriber, callback, context || this);
-        }
+      // * **param:** {object} context Callback context
+      sandbox.on = function(fromChannel, callback, context) {
+        mediator.on(fromChannel, channel, callback, context || this);
       };
 
       // * **param:** {string} channel Event name
