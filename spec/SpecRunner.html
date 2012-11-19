@@ -1,22 +1,22 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<title>Jasmine Spec Runner</title>
-	<link rel="shortcut icon" type="image/png" href="libs/jasmine-1.2.0/jasmine_favicon.png">
-	<link rel="stylesheet" type="text/css" href="libs/jasmine-1.2.0/jasmine.css">
-	<script type="text/javascript" src="libs/jasmine-1.2.0/jasmine.js"></script>
-	<script type="text/javascript" src="libs/jasmine-1.2.0/jasmine-html.js"></script>
-	<script type="text/javascript" src="libs/sinon-1.3.4.js"></script>
-	<script type="text/javascript" src="libs/jasmine-sinon.js"></script>
+  <title>Jasmine Spec Runner</title>
+  <link rel="shortcut icon" type="image/png" href="libs/jasmine-1.2.0/jasmine_favicon.png">
+  <link rel="stylesheet" type="text/css" href="libs/jasmine-1.2.0/jasmine.css">
+  <script type="text/javascript" src="libs/jasmine-1.2.0/jasmine.js"></script>
+  <script type="text/javascript" src="libs/jasmine-1.2.0/jasmine-html.js"></script>
+  <script type="text/javascript" src="libs/sinon-1.3.4.js"></script>
+  <script type="text/javascript" src="libs/jasmine-sinon.js"></script>
 
-	<script type="text/javascript" src="../src/extensions/backbone/lib/require.js"></script>
+  <script type="text/javascript" src="../src/extensions/backbone/lib/require.js"></script>
 
-	<script type="text/javascript">
+  <script type="text/javascript">
 
       // Aura configuration object is separate from require.config so we can have
       // access to it in src/aura/base.js
       require.aura = {
-				baseUrl: '../',
+        baseUrl: '../',
 
         // [RequireJS](http://requirejs.org/) 2.0+ plus has error callbacks (errbacks)
         // which provide per-require error handling. To utilize this feature
@@ -24,20 +24,20 @@
         enforceDefine: true,
 
         // shim underscore(lodash) & backbone (cause we use the non AMD versions here)
-				shim: {
-					'dom': {
-						exports: '$',
+        shim: {
+          'dom': {
+            exports: '$',
             // switch to the DOM-lib of your choice
             // Could be either 'jquery' or 'zepto';
             deps: ['jquery']
-					},
-					'underscore': {
-						exports: '_'
-					},
-					'backbone': {
-						deps: ['underscore', 'dom'],
-						exports: 'Backbone'
-					},
+          },
+          'underscore': {
+            exports: '_'
+          },
+          'backbone': {
+            deps: ['underscore', 'dom'],
+            exports: 'Backbone'
+          },
           'zepto': {
             exports: 'Zepto'
           },
@@ -45,8 +45,8 @@
             exports: 'Deferred',
             deps: ['dom']
           }
-				},
-				paths: {
+        },
+        paths: {
           // jQuery
           jquery: 'src/aura/lib/jquery/jquery',
 
@@ -60,28 +60,31 @@
           // Set the base library
           dom: 'src/aura/lib/dom',
 
-					core: 'src/extensions/backbone/core',
-					perms: 'src/extensions/backbone/permissions',
-					sandbox: 'src/extensions/backbone/sandbox',
+          core: 'src/extensions/backbone/core',
+          perms: 'src/extensions/backbone/permissions',
+          sandbox: 'src/extensions/backbone/sandbox',
 
           aura_base: 'src/aura/base',
-					aura_core: 'src/aura/core',
-					aura_perms: 'src/aura/permissions',
-					aura_sandbox: 'src/aura/sandbox',
+          aura_core: 'src/aura/core',
+          aura_perms: 'src/aura/permissions',
+          aura_sandbox: 'src/aura/sandbox',
 
-					text: 'src/extensions/backbone/lib/text',
-					backbone: 'src/extensions/backbone/lib/backbone',
-					localstorage: 'src/extensions/backbone/lib/localstorage',
-					underscore: 'src/aura/lib/lodash',
-					fullcalendar: 'src/extensions/backbone/lib/fullcalendar.min',
-					jquery_ui: 'src/extensions/backbone/lib/jquery-ui.min'
-				}
-		};
+          // Widgets
+          widgets: 'spec/js/widgets',
+
+          text: 'src/extensions/backbone/lib/text',
+          backbone: 'src/extensions/backbone/lib/backbone',
+          localstorage: 'src/extensions/backbone/lib/localstorage',
+          underscore: 'src/aura/lib/lodash',
+          fullcalendar: 'src/extensions/backbone/lib/fullcalendar.min',
+          jquery_ui: 'src/extensions/backbone/lib/jquery-ui.min'
+        }
+    };
     require.config( require.aura );
 
     /*****/
-  	<!-- require source files here... -->
-		require(['spec/js/mediator_spec'], function () {
+    <!-- require source files here... -->
+    require(['spec/js/mediator_spec'], function () {
 
       var htmlReporter = new jasmine.HtmlReporter();
       var jasmineEnv = jasmine.getEnv();
@@ -94,9 +97,9 @@
 
       jasmineEnv.execute();
 
-		});
+    });
 
-	</script>
+  </script>
 </head>
 <body></body>
 </html>

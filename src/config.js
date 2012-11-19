@@ -76,6 +76,9 @@ define(function() {
       aura_perms: '../../../aura/permissions',
       aura_sandbox: '../../../aura/sandbox',
 
+      // Widgets
+      widgets: "../../../widgets",
+
       // Backbone Extension
       core: '../../../extensions/backbone/core',
       sandbox: '../../../extensions/backbone/sandbox',
