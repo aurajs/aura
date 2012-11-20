@@ -80,8 +80,7 @@ define(function() {
       widgets: "../../../widgets",
 
       // Backbone Extension
-      core: '../../../extensions/backbone/core',
-      sandbox: '../../../extensions/backbone/sandbox',
+      backboneSandbox: '../../../extensions/backbone/sandbox',
       text: '../../../extensions/backbone/lib/text',
       backbone: '../../../extensions/backbone/lib/backbone',
       i18n: '../../../i18n',

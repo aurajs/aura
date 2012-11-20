@@ -1,38 +1,40 @@
 // ## Sandbox Extension
 // @fileOverview Extend the aura-sandbox (facade pattern)
 // @todo This is a stupid place to include jquery ui
-define(['aura_sandbox', 'core', 'perms', 'jquery_ui'], function(sandbox, core, perms) {
+define(['perms', 'backbone', 'localstorage', 'jquery_ui'], function(perms, Backbone, Store) {
   'use strict';
 
-  var auraSandbox = Object.create(sandbox);
-  auraSandbox.data.Store = core.data.Store;
-  auraSandbox.mvc = {};
-  auraSandbox.widgets = {};
+  return {
+    extend: function(sandbox, channel) {
+      sandbox.data.Store = Store;
+      sandbox.mvc = {};
+      sandbox.widgets = {};
 
-  auraSandbox.mvc.View = function(view) {
-    return core.mvc.View.extend(view);
+      sandbox.mvc.View = function(view) {
+        return Backbone.View.extend(view);
+      };
+
+      sandbox.mvc.Model = function(model) {
+        return Backbone.Model.extend(model);
+      };
+
+      sandbox.mvc.Collection = function(collection) {
+        return Backbone.Collection.extend(collection);
+      };
+
+      sandbox.mvc.Router = function(router) {
+        return Backbone.Router.extend(router);
+      };
+
+      sandbox.widgets.stop = function(channel, el) {
+        return sandbox.stop.apply(this, arguments);
+      };
+
+      sandbox.widgets.start = function(channel, options) {
+        return sandbox.start.apply(this, arguments);
+      };
+
+      return sandbox;
+    }
   };
-
-  auraSandbox.mvc.Model = function(model) {
-    return core.mvc.Model.extend(model);
-  };
-
-  auraSandbox.mvc.Collection = function(collection) {
-    return core.mvc.Collection.extend(collection);
-  };
-
-  auraSandbox.mvc.Router = function(router) {
-    return core.mvc.Router.extend(router);
-  };
-
-  auraSandbox.widgets.stop = function(channel, el) {
-    return sandbox.stop.apply(this, arguments);
-  };
-
-  auraSandbox.widgets.start = function(channel, options) {
-    return sandbox.start.apply(this, arguments);
-  };
-
-  return auraSandbox;
-
 });
