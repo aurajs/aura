@@ -10,5 +10,5 @@ define({
         "itemPlural": "items"
     },
     "fr-fr": true,
-    "nb": true
+    "nb-no": true
 });

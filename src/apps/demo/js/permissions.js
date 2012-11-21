@@ -7,6 +7,7 @@ define(['aura_perms'], function(permissions) {
     todos: {
       bootstrap: true,
       'new-event': true,
+      'set-language': true,
       '*': true
     },
     calendar: {

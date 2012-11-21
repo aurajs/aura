@@ -12,9 +12,8 @@ define(function() {
     // enforceDefine must be enabled and non-AMD dependencies must be shimmed.
     enforceDefine: true,
 
-    // Override the config for the i18n module ID
-    // Uncomment to load the french i18n bundle for widgets
-    // locale: 'fr-fr',
+    // Set language stored in session cookie
+    locale: window.document.cookie.split(/<\/?lang>/)[1],
 
     baseUrl: 'apps/demo/js',
 
