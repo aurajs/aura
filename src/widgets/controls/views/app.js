@@ -10,11 +10,13 @@ define(['sandbox', 'text!../templates/controls.html'], function(sandbox, control
       'click .start-todos': 'startTodos',
       'click .start-calendar': 'startCalendar',
       'click .start-all': 'startAll',
-      'click .emit-data': 'emitData'
+      'click .emit-data': 'emitData',
+      'change .language': 'setLanguage'
     },
 
     initialize: function() {
       this.$el.html(controlTemplate);
+      this.$el.find('.language').val(require.aura.locale);
     },
 
     render: function() {
@@ -58,6 +60,11 @@ define(['sandbox', 'text!../templates/controls.html'], function(sandbox, control
 
     emitData: function() {
       sandbox.emit('bootstrap', 'calendar', 'ohai');
+    },
+
+    setLanguage: function() {
+      // Potentially widgets can listen to this event to re-render themselves without a browser refresh
+      sandbox.emit('set-language', this.$el.find(".language").val());
     }
   });
 
