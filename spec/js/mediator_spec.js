@@ -1,4 +1,4 @@
-define(['aura_core'], function (core) {
+define(['aura_core', 'aura_perms'], function (core, permissions) {
   describe('Mediator', function () {
 
     var mediator,
@@ -9,6 +9,11 @@ define(['aura_core'], function (core) {
     define('spec/js/widgets/stub/main', function() {
         return function () {};
     });
+
+    // Bypass permissions
+    permissions.validate = function () {
+      return true;
+    };
 
     beforeEach(function() {
       mediator = core;

@@ -8,10 +8,10 @@ define(['sandbox', './views/app'], function(sandbox, AppView) {
 
     sandbox.emit('bootstrap', 'controls');
 
-    sandbox.on('bootstrap', 'controls', function(from) {
+    sandbox.on('bootstrap', function(from) {
       sandbox.log('Controls-bootstrap message from: ' + from);
     });
-    sandbox.on('*', 'calendar', function(from){
+    sandbox.on('*', function(from){
       sandbox.log('A wildcard was caught from:', from);
     });
 

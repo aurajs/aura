@@ -30,9 +30,9 @@ define(['sandbox', '../collections/todos', './todos', 'text!../templates/base.ht
       Todos.bind('add', this.addOne, this);
       Todos.bind('reset', this.addAll, this);
       Todos.bind('all', this.render, this);
-      sandbox.on('new-event', 'todos', this.addEvent);
+      sandbox.on('new-event', this.addEvent);
 
-      sandbox.on('todos', 'router', this.todoController, this);
+      sandbox.on('todos', this.todoController, this);
 
       Todos.fetch();
     },

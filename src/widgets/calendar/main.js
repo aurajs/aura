@@ -15,7 +15,7 @@ define(['sandbox', './views/app', './collections/events', 'fullcalendar'], funct
 
     sandbox.emit('bootstrap', 'calendar');
     sandbox.emit('*', 'calendar', 'bubblegum');
-    sandbox.on('bootstrap', 'calendar', function(from, data) {
+    sandbox.on('bootstrap', function(from, data) {
       sandbox.log('Calendar-bootstrap message from: ' + from);
       sandbox.log('Additional data:', data);
       sandbox.emit('*','controls');

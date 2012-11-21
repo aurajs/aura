@@ -27,7 +27,7 @@ define(['sandbox', 'underscore'], function(sandbox, _) {
       sandbox.log('Router-bootstrap message from: ' + from);
     });
 
-    sandbox.on('router', 'router', function() {
+    sandbox.on('router', function() {
       sandbox.log('Route in router widget: ', Array.prototype.slice.call(arguments));
     });
   };

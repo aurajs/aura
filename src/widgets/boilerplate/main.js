@@ -8,11 +8,11 @@ define(['sandbox', './views/app'], function(sandbox, AppView) {
 
     sandbox.emit('bootstrap', 'boilerplate');
 
-    sandbox.on('bootstrap', 'boilerplate', function(from) {
+    sandbox.on('bootstrap', function(from) {
       sandbox.log('Boilerplate-bootstrap message from: ' + from);
     });
 
-    sandbox.on('*', 'calendar', function(from){
+    sandbox.on('*', function(from){
       sandbox.log('Wildcard event from:', from);
     });
 

@@ -18,7 +18,7 @@ define(['sandbox', './event', '../models/event', 'text!../templates/base.html'],
       this.eventView.collection = this.collection;
 
       // subscribe to routing events
-      sandbox.on('calendar', 'router', this.calendarController, this);
+      sandbox.on('calendar', this.calendarController, this);
     },
 
     calendarController: function() {
