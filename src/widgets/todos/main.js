@@ -11,7 +11,7 @@ define(['sandbox', './views/app'], function(sandbox, AppView) {
       sandbox.log('Todos-bootstrap message from: ' + from);
     });
 
-    sandbox.on('set-language', 'todos', function(lang) {
+    sandbox.on('set-language', function(lang) {
       sandbox.log('Language set to: ' + lang);
       // Enclose inside tags for easy parsing via split
       window.document.cookie = 'lang=<lang>' + lang + '</lang>';
