@@ -30,21 +30,28 @@ define(['sandbox', '../collections/todos', './todos', 'text!../templates/base.ht
       Todos.bind('add', this.addOne, this);
       Todos.bind('reset', this.addAll, this);
       Todos.bind('all', this.render, this);
-      sandbox.on('new-event', this.addEvent);
+      sandbox.on('schedule.new-event', this.addEvent, this);
 
-      sandbox.on('todos', this.todoController, this);
+      sandbox.on('route.todos.**', this.todoController, this);
 
       Todos.fetch();
     },
 
     todoController: function() {
-      var action = arguments[0];
+      var action;
+      var args = Array.prototype.slice.call(arguments, 1); // strip off 'calendar'
+
+      if (typeof(args) === 'string') {
+        action = args;
+      }
+      action = args[0];
+
       if (action === 'filter') {
         // #todos/filter/<string> to filter checkboxes to match todo item title
-        this.toggleItemsComplete(arguments[1], false);
+        this.toggleItemsComplete(args[1], false);
       } else if (action === 'select') {
         // #todos/select/<string> to add checkboxes matching todo title
-        this.toggleItemsComplete(arguments[1], true);
+        this.toggleItemsComplete(args[1], true);
       } else if (action === 'checkAll') {
         // #todos/checkAll
         this.toggleComplete(true);

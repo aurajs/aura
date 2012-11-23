@@ -11,15 +11,8 @@ define(['sandbox', './views/app', './collections/events', 'fullcalendar'], funct
 
     events.fetch();
 
-
-
-    sandbox.emit('bootstrap', 'calendar');
-    sandbox.emit('*', 'calendar', 'bubblegum');
-    sandbox.on('bootstrap', function(from, data) {
-      sandbox.log('Calendar-bootstrap message from: ' + from);
-      sandbox.log('Additional data:', data);
-      sandbox.emit('*','controls');
-    });
+    sandbox.emit('initialized', 'Initialized Calendar.');
+    sandbox.on.log('calendar.**');
   };
 
 });

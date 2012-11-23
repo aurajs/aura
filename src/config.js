@@ -28,7 +28,7 @@ define(function() {
         exports: '$',
         // switch to the DOM-lib of your choice
         // Could be either 'jquery' or 'zepto';
-        deps: [ 'jquery' ]
+        deps: ['jquery']
       },
       'underscore': {
         exports: '_'
@@ -66,6 +66,9 @@ define(function() {
       // Underscore (Lo-Dash - http://lodash.com)
       underscore: '../../../aura/lib/lodash',
 
+      // EventEmitter
+      eventemitter: '../../../aura/lib/eventemitter2',
+
       // Set the base library
       dom: '../../../aura/lib/dom',
 
@@ -93,6 +96,6 @@ define(function() {
 
   };
 
-  require.config( require.aura );
+  require.config(require.aura);
 
 });
