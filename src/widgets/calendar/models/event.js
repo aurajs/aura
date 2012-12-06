@@ -1,4 +1,4 @@
-define(['sandbox'], function(sandbox) {
+define(['sandbox', 'fullcalendar'], function(sandbox) {
   'use strict';
 
   var Event = sandbox.mvc.Model({
