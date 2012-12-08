@@ -1,4 +1,4 @@
-##Aura 0.8 Developer Preview [![Build Status](https://secure.travis-ci.org/addyosmani/aura.png?branch=master)](http://travis-ci.org/addyosmani/aura)
+##Aura 0.8.9 Developer Preview [![Build Status](https://secure.travis-ci.org/addyosmani/aura.png?branch=master)](http://travis-ci.org/addyosmani/aura)
 
 ![logo](https://github.com/addyosmani/aura/raw/master/media/logo.jpg)
 
