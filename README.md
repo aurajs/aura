@@ -44,7 +44,7 @@ Powered by the Facade pattern, the Sandbox:
 
 ## Sample Application
 
-A demo application using Aura is included in the download featuring Calendar, Todo list and control widgets. After you complete **Install & Build section** (see below), run `grunt launch` to launch web server on `http://localhost:8888` and go to the `demo` directory to try out the demo app.
+A demo application using Aura is included in the download featuring Calendar, Todo list and control widgets. After you complete **Install & Build section** (see below), run `grunt launch` to launch web server on `http://localhost:8888` and go to the `src` directory to try out the demo app.
 
 ![Screenshot](http://i.imgur.com/wAff1.png)
 
