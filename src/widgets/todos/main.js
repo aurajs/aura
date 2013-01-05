@@ -6,12 +6,11 @@ define(['sandbox', './views/app'], function(sandbox, AppView) {
       el: sandbox.dom.find(options.element)
     });
 
-    sandbox.emit('bootstrap', 'todos');
-    sandbox.on('bootstrap', function(from) {
-      sandbox.log('Todos-bootstrap message from: ' + from);
-    });
+    sandbox.emit('initialized', 'To Do Initialized.');
 
-    sandbox.on('set-language', function(lang) {
+    sandbox.on.log('todos');
+
+    sandbox.on('locale.set-language', function(lang) {
       sandbox.log('Language set to: ' + lang);
       // Enclose inside tags for easy parsing via split
       window.document.cookie = 'lang=<lang>' + lang + '</lang>';

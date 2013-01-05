@@ -6,15 +6,9 @@ define(['sandbox', './views/app'], function(sandbox, AppView) {
       el: sandbox.dom.find(options.element)
     });
 
-    sandbox.emit('bootstrap', 'boilerplate');
+    sandbox.emit('initialized', 'Initialized Boilerplate.');
 
-    sandbox.on('bootstrap', function(from) {
-      sandbox.log('Boilerplate-bootstrap message from: ' + from);
-    });
-
-    sandbox.on('*', function(from){
-      sandbox.log('Wildcard event from:', from);
-    });
+    sandbox.on.log('initialized');
 
   };
 

@@ -5,24 +5,19 @@ define(['aura_perms'], function(permissions) {
 
   permissions.extend({
     todos: {
-      bootstrap: true,
+      'bootstrap': true,
       'new-event': true,
       'set-language': true,
-      '*': true
+      'route': true
     },
     calendar: {
-      bootstrap: true,
-      '*': true
+      'bootstrap': true,
+      'route': true
     },
     controls: {
-      bootstrap: true,
       '*': true
     },
     router: {
-      bootstrap: true,
-      router: true,
-      calendar: true,
-      todos: true,
       '*': true
     }
   });

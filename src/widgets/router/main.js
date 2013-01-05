@@ -6,6 +6,8 @@ define(['sandbox', 'underscore'], function(sandbox, _) {
     var Router = sandbox.mvc.Router({
       initialize: function() {
         Backbone.history.start();
+
+        sandbox.emit('initialized', 'Initialized Router');
       },
       routes: {
         '*router': 'router'
@@ -13,23 +15,22 @@ define(['sandbox', 'underscore'], function(sandbox, _) {
 
       router: function(args) {
         var slice = Array.prototype.slice;
-        args = args.split('/');
+        var event, route;
+        args = args.split('/');   // split by slashes
+        event = slice.call(args,0);
+        event.unshift('route');   // prepend 'route' namespace
+        route = event.join('.');  // join into delimeter format
+        route = [route];          // wrap route in an array
 
-        sandbox.emit.apply(this, Array.prototype.slice.call(args));
+        // ['route.example', arg1, arg2, arg3]
+        sandbox.emit.apply(this, route.concat(args));
       }
 
     });
 
     var router = new Router();
 
-    sandbox.emit('bootstrap', 'router');
-    sandbox.on('bootstrap', function(from) {
-      sandbox.log('Router-bootstrap message from: ' + from);
-    });
-
-    sandbox.on('router', function() {
-      sandbox.log('Route in router widget: ', Array.prototype.slice.call(arguments));
-    });
+    sandbox.on.log('route.**'); // dump all routes to console.log
   };
 
 });

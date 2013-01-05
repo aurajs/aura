@@ -13,10 +13,10 @@
     }
   },
   "devDependencies": {
-    "grunt": "~0.3.12",
+    "grunt": "~0.3.17",
     "grunt-requirejs": "~0.2.9",
     "grunt-contrib": "~0.1.7",
-    "grunt-jasmine-task": "~0.2.2"
+    "grunt-jasmine-task": "~0.2.3"
   },
   "scripts":{
     "test": "grunt build"

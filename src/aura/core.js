@@ -9,16 +9,17 @@
 // * [Nicholas Zakas: Scalable JavaScript Application Architecture](http://www.youtube.com/watch?v=vXjVFPosQHw&feature=youtube_gdata_player)
 // * [Writing Modular JavaScript: New Premium Tutorial](http://net.tutsplus.com/tutorials/javascript-ajax/writing-modular-javascript-new-premium-tutorial/)
 // include 'deferred' if using zepto
-define(['aura_base', 'aura_sandbox', 'aura_perms'], function(base, sandbox, permissions) {
+define(['aura_base', 'aura_sandbox', 'aura_perms', 'eventemitter'], function(base, sandbox, permissions, EventEmitter) {
 
   'use strict';
 
   var core = {}; // Mediator object
-  var channels = {}; // Loaded modules and their callbacks
+  var pubsub;
   var emitQueue = [];
   var isWidgetLoading = false;
   var WIDGETS_PATH = 'widgets'; // Path to widgets
   var sandboxSerial = 0; // For unique widget sandbox module names
+
 
   // Load in the base library, such as Zepto or jQuery. the following are
   // required for Aura to run:
@@ -55,6 +56,17 @@ define(['aura_base', 'aura_sandbox', 'aura_perms'], function(base, sandbox, perm
 
   }());
 
+
+  // http://stackoverflow.com/q/11536177 
+  EventEmitter.prototype.emitArgs = function(event, args) {
+    this.emit.apply(this, [event].concat(args));
+  };
+
+  pubsub = new EventEmitter({
+    wildcard: true,
+    delimeter: '.'
+  }); // Pubsub
+
   // The bind method is used for callbacks.
   //
   // * (bind)[https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Function/bind]
@@ -70,8 +82,7 @@ define(['aura_base', 'aura_sandbox', 'aura_perms'], function(base, sandbox, perm
       var fToBind = this;
       var FNOP = function() {};
       var FBound = function() {
-          return fToBind.apply(this instanceof FNOP && oThis ? this : oThis,
-          aArgs.concat(Array.prototype.slice.call(arguments)));
+          return fToBind.apply(this instanceof FNOP && oThis ? this : oThis, aArgs.concat(Array.prototype.slice.call(arguments)));
         };
 
       FNOP.prototype = this.prototype;
@@ -116,93 +127,95 @@ define(['aura_base', 'aura_sandbox', 'aura_perms'], function(base, sandbox, perm
 
   // Subscribe to an event
   //
-  // * **param:** {string} channel Event name
-  // * **param:** {string} subscriber Subscriber name
+  // A facade to sandboxes' pubsub
+  //
+  // * **param:** {string} event Event name
   // * **param:** {function} callback Module callback
   // * **param:** {object} context Context in which to execute the callback
-  core.on = function(channel, subscriber, callback, context) {
-    if (channel === undefined || callback === undefined || context === undefined) {
-      throw new Error('Channel, callback, and context must be defined');
+  core.on = function(event, callback, context) {
+    if (event === undefined || callback === undefined || context === undefined) {
+      throw new Error('Event, callback, and context must be defined');
     }
-    if (typeof channel !== 'string') {
-      throw new Error('Channel must be a string');
+
+    if (typeof event !== 'string' & !Array.isArray(event)) {
+      throw new Error('Event must be an EventEmitter compatible argument (string or array)');
     }
-    if (typeof subscriber !== 'string') {
-      throw new Error('Subscriber must be a string');
-    }
+
+    event = core.normalizeEvent(event);
     if (typeof callback !== 'function') {
       throw new Error('Callback must be a function');
     }
 
-    // Prevent subscription if no permission
-    if (!permissions.validate(channel, subscriber)) {
-      return;
+    pubsub.on(event, callback.bind(context));
+  };
+
+  core.removeAllListeners = function() {
+    return pubsub.removeAllListeners.apply(pubsub, arguments);
+  };
+
+  core.removeSandboxListeners = function(sandbox) {
+    if (arguments.length !== 1) {
+      throw new Error('sandbox name must be defined');
     }
 
-    channels[channel] = (!channels[channel]) ? [] : channels[channel];
+    var event = sandbox + '.**';
+    pubsub.removeAllListeners.call(pubsub, event);
+  };
 
-    if(channel === '*'){
-      for (var key in channels) {
-        if (channels.hasOwnProperty(key)) {
-            channels[key].push({
-               subscriber: subscriber,
-               callback: callback.bind(context)
-            });
-        }
-      }
-    }else{
-      channels[channel].push({
-        subscriber: subscriber,
-        callback: callback.bind(context)
-        // callback: this.util.method(callback, context)
-      });
+  core.listeners = function(event) {
+    if (typeof event === 'undefined') {
+      throw new Error('Event must be defined');
+    }
+    if ((typeof event !== 'string') && (!Array.isArray(event))) {
+      throw new Error('Event must be an EventEmitter compatible argument (string or array)');
     }
 
+    event = core.normalizeEvent(event);
+    return pubsub.listeners.call(pubsub, event);
+  };
+
+  // Turn the event to an EventEmitter array if string
+  //
+  // 'namespace.ext.that' => ['namespace', 'ext', 'that']
+  //
+  //  * **param:** {string / array} EventEmitter compatible event
+  //  return keyed array
+  core.normalizeEvent = function(event) {
+    return typeof event === 'string' ? event.split('.') : event.slice();
   };
 
   core.getEmitQueueLength = function() {
     return emitQueue.length;
   };
 
-  // Publish an event, passing arguments to subscribers. Will
-  // call start if the channel is not already registered.
+  // Publish event to all sandbox pubsubs. Supports queued events.
   //
-  // * **param:** {string} channel Event name
-  core.emit = function(channel) {
-    if (channel === undefined) {
-      throw new Error('Channel must be defined');
-    }
-    if (typeof channel !== 'string') {
-      throw new Error('Channel must be a string');
-    }
+  // * **param:** {string} event Event
+  core.emit = function() {
+    var args;
+
     if (isWidgetLoading) { // Catch emit event!
       emitQueue.push(arguments);
       return false;
-    }
+    } else {
+      var event = arguments[0];
+      if (typeof event === 'undefined') {
+        throw new Error('Event must be defined');
+      }
 
-    var i, l;
-    var args = [].slice.call(arguments, 1);
-    if (!channels[channel]) {
-      return false;
-    }
-    for (i = 0; i < channels[channel].length; i++) {
+      if ((typeof event !== 'string') && (!Array.isArray(event))) {
+        throw new Error('Event must be an EventEmitter compatible argument (string or array)');
+      }
 
-      // if the callback has been nulled by core.stop, remove this subscriber
-      if (channels[channel][i].callback == null) {
-        channels[channel].splice(i, 1);
+      event = core.normalizeEvent(event);
 
-        // since we are removing the subscriber at this index, set the iterator
-        // back, so we try this index again
-        i--;
+      args = arguments[1];
+      args = (typeof args === 'string') ? [args] : args;
 
-      // otherwise proceed normally: try the callback and iterate
-      } else {
-        try {
-          channels[channel][i].callback.apply(this, args);
-        }
-        catch (e) {
-          console.error(e.message);
-        }
+      try {
+        pubsub.emitArgs(event, args);
+      } catch (e) {
+        console.error(e.message);
       }
     }
 
@@ -226,36 +239,23 @@ define(['aura_base', 'aura_sandbox', 'aura_perms'], function(base, sandbox, perm
   };
 
   // Automatically load a widget and initialize it. File name of the
-  // widget will be derived from the channel, decamelized and underscore
-  // delimited by default.
+  // widget will be derived from the sandbox name, decamelized and
+  // underscore delimited by default.
   //
   // * **param:** {Object/Array} an array with objects or single object containing channel and options
   core.start = function(list) {
     var args = [].slice.call(arguments, 1);
 
-    // Allow pair channel & options as params
-    if (typeof list === 'string' && args[0] !== undefined) {
-      list = [{
-        channel : list,
-        options : args[0]
-      }];
-    }
-
-    // Allow a single object as param
-    if (isObject(list) && !Array.isArray(list)) {
-      list = [list];
-    }
-
-    if (!Array.isArray(list)) {
-      throw new Error('Channel must be defined as an array');
+    if (typeof(list) !== 'object') {
+      throw new Error('Sandbox properties must be defined as an object');
     }
 
     var i = 0;
     var l = list.length;
     var promises = [];
 
-    function load(channel, options) {
-      var file = decamelize(channel);
+    function load(module, options) {
+      var file = decamelize(module);
       var dfd = core.data.deferred();
       var widgetsPath = core.getWidgetsPath();
       var requireConfig = require.s.contexts._.config;
@@ -280,11 +280,11 @@ define(['aura_base', 'aura_sandbox', 'aura_perms'], function(base, sandbox, perm
       });
 
       // Instantiate unique sandbox
-      var widgetSandbox = sandbox.create(core, channel);
+      var widgetSandbox = sandbox.create(core, module, permissions);
 
       // Apply application extensions
       if (core.getSandbox) {
-        widgetSandbox = core.getSandbox(widgetSandbox, channel);
+        widgetSandbox = core.getSandbox(widgetSandbox, module);
       }
 
       // Define the unique sandbox
@@ -314,11 +314,10 @@ define(['aura_base', 'aura_sandbox', 'aura_perms'], function(base, sandbox, perm
     }
 
     isWidgetLoading = true;
+    for (var module in list) {
+      var widget = list[module];
 
-    for (; i < l; i++) {
-      var widget = list[i];
-
-      promises.push(load(widget.channel, widget.options || {}));
+      promises.push(load(module, widget.options || {}));
     }
 
     core.data.when.apply($, promises).done(core.emptyEmitQueue);
@@ -328,31 +327,20 @@ define(['aura_base', 'aura_sandbox', 'aura_perms'], function(base, sandbox, perm
   // to the channel/widget. This will both locate and reset the internal
   // state of the modules in require.js and empty the widgets DOM element
   //
-  // * **param:** {string} channel Event name
+  // * **param:** {string} sandbox Sandbox name
   // * **param:** {string} el Element name (Optional)
-  core.stop = function(channel, el) {
-    var file = decamelize(channel);
+  core.stop = function(sandbox, el) {
+    var file = decamelize(sandbox);
 
-    for (var ch in channels) {
-      if (channels.hasOwnProperty(ch)) {
-        for (var i = 0, l = channels[ch].length; i < l; i++) {
-          if (channels[ch][i].subscriber === channel) {
+    // Remove all listeners for sandbox
+    core.removeSandboxListeners(sandbox);
 
-            // If core.stop is being called as a callback to core.emit,
-            // removing the subscriber at this point can cause an error with
-            // emit's iterator going longer than the changed array length.
-            // Set the callback to null and have core.emit check this.
-            channels[ch][i].callback = null;
-          }
-        }
-      }
-    }
     // Remove all modules under a widget path (e.g widgets/todos)
     core.unload('widgets/' + file);
 
     // Remove widget descendents, unbinding any event handlers
     // attached to children within the widget.
-    if(el) {
+    if (el) {
       core.dom.find(el).children().remove();
     }
   };
@@ -384,10 +372,6 @@ define(['aura_base', 'aura_sandbox', 'aura_perms'], function(base, sandbox, perm
         require.undef(key);
       }
     }
-  };
-
-  core.getChannels = function() {
-    return channels;
   };
 
   return core;

@@ -24,17 +24,18 @@ define(['sandbox', 'text!../templates/controls.html'], function(sandbox, control
     },
 
     startAll: function() {
-      sandbox.widgets.start([{
-        channel: 'todos',
-        options: {
-          element: '#todoapp'
+      sandbox.widgets.start({
+        todos: {
+          options: {
+            element: '#todoapp'
+          }
+        },
+        calendar: {
+          options: {
+            element: '#calendarapp'
+          }
         }
-      }, {
-        channel: 'calendar',
-        options: {
-          element: '#calendarapp'
-        }
-      }]);
+      });
     },
 
     stopTodos: function() {
@@ -46,25 +47,32 @@ define(['sandbox', 'text!../templates/controls.html'], function(sandbox, control
     },
 
     startTodos: function() {
-      sandbox.widgets.start('todos', { element: '#todoapp' });
+      sandbox.widgets.start({
+        'todos': {
+          options: {
+            element: '#todoapp'
+          }
+        }
+      });
     },
 
     startCalendar: function() {
       sandbox.widgets.start({
-        channel: 'calendar',
-        options: {
-          element: '#calendarapp'
+        'calendar': {
+          options: {
+            element: '#calendarapp'
+          }
         }
       });
     },
 
     emitData: function() {
-      sandbox.emit('bootstrap', 'calendar', 'ohai');
+      sandbox.emit('calendar', 'ohai');
     },
 
     setLanguage: function() {
       // Potentially widgets can listen to this event to re-render themselves without a browser refresh
-      sandbox.emit('set-language', this.$el.find(".language").val());
+      sandbox.emit('locale.set-language', this.$el.find(".language").val());
     }
   });
 
