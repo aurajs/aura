@@ -46,7 +46,7 @@ module.exports = function(grunt) {
 
         mainConfigFile: 'src/config.js',
         // base url for retrieving paths
-        baseUrl: '.',
+        baseUrl: 'apps/demo/js',
         
         // setup paths
         // optimize javascript files with uglifyjs
@@ -55,7 +55,7 @@ module.exports = function(grunt) {
         
         // define our app model
         modules: [{
-          name: 'config'
+          name: 'app'
         }]
       },
 
