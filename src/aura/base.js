@@ -2,14 +2,9 @@
 //
 // TODO: Remove dependency on underscore. Will have to create an equivalent for
 // _.bindAll and _.template
-define(( require.aura.shim.dom.deps[0] === 'zepto' ? ['dom', 'underscore', 'deferred'] : ['dom', 'underscore'] ), function ($, _, Deferred) {
+define(['dom', 'underscore'], function ($, _) {
 
   'use strict';
-
-  // Enable deferred for zepto
-  if(Deferred) {
-    Deferred.installInto($);
-  }
 
   var base = {};
 
