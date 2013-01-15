@@ -5,20 +5,17 @@ define(function() {
 
   // Aura configuration object is separate from require.config so we can have
   // access to it in src/aura/base.js
-  require.aura = {
+  require.config({
 
     // [RequireJS](http://requirejs.org/) 2.0+ plus has error callbacks (errbacks)
     // which provide per-require error handling. To utilize this feature
     // enforceDefine must be enabled and non-AMD dependencies must be shimmed.
     enforceDefine: true,
 
-    // Set language stored in session cookie
-    locale: window.document.cookie.split(/<\/?lang>/)[1],
-
     baseUrl: 'apps/demo/js',
 
     // Uncomment if you would like to support cache busting
-    // urlArgs: "bust=v2",
+    // urlArgs: "bust=" + (new Date()).getTime(),
 
     deps: ['app'],
 
@@ -38,11 +35,16 @@ define(function() {
         exports: 'Backbone'
       },
       'zepto': {
-        exports: 'Zepto'
+        deps: ['deferred'],
+        exports: 'Zepto',
+        init: function(Deferred) {
+          if (Deferred) {
+            Deferred.installInto($);
+          }
+        }
       },
       'deferred': {
-        exports: 'Deferred',
-        deps: ['dom']
+        exports: 'Deferred'
       },
       'fullcalendar': {
         deps: ['jquery'],
@@ -81,6 +83,9 @@ define(function() {
       // Widgets
       widgets: "../../../widgets",
 
+      // Translations
+      nls : "../../../nls",
+
       // Backbone Extension
       backboneSandbox: '../../../extensions/backbone/sandbox',
       text: '../../../extensions/backbone/lib/text',
@@ -94,8 +99,9 @@ define(function() {
       perms: '../../../apps/demo/js/permissions'
     }
 
-  };
+  });
 
-  require.config(require.aura);
+  require.aura = require.s.contexts._.config;
+  require.aura.locale = window.document.cookie.split(/<\/?lang>/)[1];
 
 });

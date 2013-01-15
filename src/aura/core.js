@@ -57,7 +57,7 @@ define(['aura_base', 'aura_sandbox', 'aura_perms', 'eventemitter'], function(bas
   }());
 
 
-  // http://stackoverflow.com/q/11536177 
+  // http://stackoverflow.com/q/11536177
   EventEmitter.prototype.emitArgs = function(event, args) {
     this.emit.apply(this, [event].concat(args));
   };
@@ -258,7 +258,7 @@ define(['aura_base', 'aura_sandbox', 'aura_perms', 'eventemitter'], function(bas
       var file = decamelize(module);
       var dfd = core.data.deferred();
       var widgetsPath = core.getWidgetsPath();
-      var requireConfig = require.s.contexts._.config;
+      var requireConfig = require.aura;
 
       if (requireConfig.paths && requireConfig.paths.hasOwnProperty('widgets')) {
         widgetsPath = requireConfig.paths.widgets;
