@@ -1,6 +1,6 @@
 ##Aura 0.8.9 Developer Preview [![Build Status](https://secure.travis-ci.org/aurajs/aura.png?branch=master)](http://travis-ci.org/aurajs/aura)
 
-![logo](https://github.com/aurajs/aura/raw/master/media/logo.jpg)
+<img width="350" src="https://raw.github.com/hull/aura-identity/master/logo/export/halo.png"/>
 
 Aura is a decoupled, event-driven architecture for developing widget-based applications. It takes advantage of patterns and best practices for developing maintainable applications and gives you greater control over widget-based development. Aura gives you complete control of a widget's lifecycle, allowing developers to dynamically start, stop, reload and clean-up parts of their application as needed.
 
