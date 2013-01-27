@@ -31,11 +31,11 @@ _.extend(Store.prototype, {
 
   // Add a model, giving it a (hopefully)-unique GUID, if it doesn't already
   // have an id of it's own.
-  create: function(model) {
-    if (!model.id) model.id = model.attributes.id = guid();
-    this.data[model.id] = model;
+  create: function(data, model) {
+    if (!model.id) data[model.idAttribute] = guid(); 
+    this.data[data[model.idAttribute]] = model;
     this.save();
-    return model;
+    return data;
   },
 
   // Update a model by replacing its copy in `this.data`.
@@ -72,10 +72,10 @@ Backbone.sync = function(method, model, options) {
   var store = model.localStorage || model.collection.localStorage;
 
   switch (method) {
-    case "read":    resp = model.id ? store.find(model) : store.findAll(); break;
-    case "create":  resp = store.create(model);                            break;
-    case "update":  resp = store.update(model);                            break;
-    case "delete":  resp = store.destroy(model);                           break;
+    case "read":    resp = model.id ? store.find(model.toJSON()) : store.findAll(); break;
+    case "create":  resp = store.create(model.toJSON(), model);                     break;
+    case "update":  resp = store.update(model.toJSON());                            break;
+    case "delete":  resp = store.destroy(model.toJSON());                           break;
   }
 
   if (resp) {
