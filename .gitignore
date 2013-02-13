@@ -1,4 +1,6 @@
-aura/.idea/
+.DS_Store
 node_modules
-dist
+components
 npm-debug.log
+dist
+/vendor/
