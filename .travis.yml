@@ -1,7 +1,6 @@
 language: node_js
 node_js:
   - 0.8
-script: "node_modules/.bin/mocha-phantomjs http://localhost:8899/spec/index.html"
 branches:
   only:
     - master
