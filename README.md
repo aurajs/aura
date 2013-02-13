@@ -16,7 +16,7 @@ Extensions are loaded in your application when it starts. They allow you to add 
 
 ### Core
 
-The `core` implements aliases for DOM manipulation, templating and other lower-level utilities that pipe back to a library of choice. Aliases allow to switch libraries with minimum impact on your application.
+The `core` implements aliases for DOM manipulation, templating and other lower-level utilities that pipe back to a library of choice. Aliases allow switching libraries with minimum impact on your application.
 
 ### Sandbox
 
@@ -26,7 +26,7 @@ When your app starts, it will create an instance of `sandbox` in each of your wi
 
 ### Widget
 
-A widget represents an unit of a page. Each widget is independant.
+A widget represents an unit of a page. Each widget is independent.
 This means that they know nothing about each other. To make them communicate, a [Publish/Subscribe (Mediator)](http://addyosmani.com/resources/essentialjsdesignpatterns/book/#mediatorpatternjavascript) pattern is used.
 
 
@@ -41,7 +41,7 @@ This means that they know nothing about each other. To make them communicate, a 
 
 #### Browser
 
-Start the developement server. Run `grunt`. Then visit `http://localhost:8899/spec/`.
+Start the development server. Run `grunt`. Then visit `http://localhost:8899/spec/`.
 
 #### CLI
 
@@ -63,7 +63,7 @@ This starts the app by saying that it should search for widgets anywhere in the 
 
 ### Creating a Widget
 
-By default widgets are retreived from a directory called `widgets/` that must be at the same level as your HTML document.
+By default widgets are retrieved from a directory called `widgets/` that must be at the same level as your HTML document.
 
 Let's say we want to create an "hello" widget. To do that we need to create a `widgets/hello/` directory
 
@@ -90,9 +90,9 @@ Aura will call the `initialize` method that we have defined in `widgets/hello/ma
 
 ### Creating extension
 
-Imagine that we need an helper to reverse string. To do that we need to create an extension.
+Imagine that we need a helper to reverse string. In order to accomplish that we'll need to create an extension.
 
-    define("extentions/reverse", {
+    define("extensions/reverse", {
       init: function(app) {
         app.core.util.reverse = function(string) {
           return string.split("").reverse().join("");
@@ -104,9 +104,9 @@ Imagine that we need an helper to reverse string. To do that we need to create a
 
 To make our `reserve` helper available in our app, run the following code:
 
-    app.use("extentions/reverse");
+    app.use("extensions/reverse");
 
 This will call the `init` function of our reserve extension.
 
-Calling `use` when your `app` is allready started will throw an error.
+Calling `use` when your `app` is already started will throw an error.
 
