@@ -1,6 +1,6 @@
 {
-  "name": "aura-express",
-  "version": "0.1.0",
+  "name": "aura",
+  "version": "0.9.0",
   "main": "./lib/aura.js",
   "dependencies": {
     "jquery": "*",
