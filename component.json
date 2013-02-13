@@ -1,0 +1,12 @@
+{
+  "name": "aura",
+  "version": "0.9.0",
+  "main": "./lib/aura.js",
+  "dependencies": {
+    "jquery": "*",
+    "underscore": "*",
+    "eventemitter2": "*",
+    "requirejs": "~2.1",
+    "requirejs-text": "*"
+  }
+}
