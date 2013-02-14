@@ -85,7 +85,15 @@ define(['aura/aura', 'aura/ext/widgets'], function(aura, ext) {
       });
 
       before(function(done) {
-        var container = buildAppMarkup("<div data-super-widget='alt_namespace' data-super-param-name='value'></div>");
+        var markup =  "<div " + 
+                      " data-super-widget='alt_namespace' " + 
+                      " data-super-param-name='value' " + 
+                      " data-super-sourceUrl='url' " + 
+                      " data-super-fuNNy-Case-PaRAm='yep' " + 
+                      " data-super-param_name-With-un_der_scores='underscore'" + 
+                      "></div>";
+
+        var container = buildAppMarkup(markup);
 
         app = aura({ namespace: "super" });
         app.start({ widgets: container }).done(function() {
@@ -98,7 +106,10 @@ define(['aura/aura', 'aura/ext/widgets'], function(aura, ext) {
       });
 
       it("It should take the right options too...", function() {
+        options.sourceurl.should.equal("url");
         options.paramName.should.equal("value");
+        options.funnyCaseParam.should.equal('yep');
+        options.param_nameWithUn_der_scores.should.equal('underscore');
       });
 
     });
