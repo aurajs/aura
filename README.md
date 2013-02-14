@@ -1,5 +1,7 @@
 # Aura
 
+[![Build Status](https://travis-ci.org/aurajs/aura.png?branch=master)](https://travis-ci.org/aurajs/aura)
+
 Aura is a decoupled, event-driven architecture for developing widget-based applications. It takes advantage of patterns and best practices for developing maintainable applications and gives you greater control over widget-based development. Aura gives you complete control of a widget's lifecycle, allowing developers to dynamically start, stop, reload and clean-up parts of their application as needed.
 
 ## Concepts
@@ -32,9 +34,13 @@ This means that they know nothing about each other. To make them communicate, a 
 
 ## Getting started
 
+### Requirements
+
+1. [bower](http://twitter.github.com/bower/): run `npm install -g bower` if needed
+
 ### Building Aura.js
 
-1. Run `npm install` and `bower install` to install Aura dependencies.
+1. Run `npm install` to install Aura dependencies. `Bower` dependencies will be automatically installed.
 2. Run `grunt build`. `aura.js` will be placed in `dist/`.
 
 ### How to run tests
@@ -45,7 +51,7 @@ Start the development server. Run `grunt`. Then visit `http://localhost:8899/spe
 
 #### CLI
 
-Run `grunt mocha`.
+Run `grunt mocha` or `npm test`.
 
 ### Creating an Application
 
