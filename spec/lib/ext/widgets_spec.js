@@ -76,17 +76,19 @@ define(['aura/aura', 'aura/ext/widgets'], function(aura, ext) {
 
     describe("Using alternate namespace for data-attributes...", function() {
 
-      var app, options, myAltWidget = makeSpyWidget('alt_namespace', {
+      var app, options;
+
+      var myAltWidget = makeSpyWidget('alt_namespace', {
         initialize: function() {
           options = this.options;
         }
       });
 
-
       before(function(done) {
-        app = aura({ namespace: 'super' });
-        var container = buildAppMarkup('<div data-super-widget="alt_namespace" data-super-genial="yep"></div>');
-        app.start({ widgets: container }).done(function() { 
+        var container = buildAppMarkup("<div data-super-widget='alt_namespace' data-super-param-name='value'></div>");
+
+        app = aura({ namespace: "super" });
+        app.start({ widgets: container }).done(function() {
           setTimeout(done, 0);
         });
       });
@@ -96,7 +98,7 @@ define(['aura/aura', 'aura/ext/widgets'], function(aura, ext) {
       });
 
       it("It should take the right options too...", function() {
-        options.genial.should.equal("yep");
+        options.paramName.should.equal("value");
       });
 
     });
