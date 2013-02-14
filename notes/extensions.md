@@ -93,7 +93,7 @@ Extensions can have multiple forms :
 
     var ext = {
       require: {},
-      init: function(app) {
+      initialize: function(app) {
         app.core.hello = function() {  alert("Hello World") };
       }
     }
@@ -119,7 +119,7 @@ here is an example of a very simple backbone extension:
             backbone: { exports: 'Backbone', deps: ['underscore'] }
           }
         },
-        init: function(app) {
+        initialize: function(app) {
           app.core.mvc = require('backbone');
           app.sandbox.View = function(view) { return app.core.mvc.View.extend(view); }
         },
@@ -141,7 +141,7 @@ Actually what it will do corresponds to (pseudo-code):
     function requireExtension(ext) {
       require.config({ paths: { ... }, shim: { ... } })
       require(['backbone', 'underscore'], function(Backbone, _) {
-        $.when(ext.init(app)).then( ... load next extension ... );
+        $.when(ext.initialize(app)).then( ... load next extension ... );
       })      
     }
 
@@ -155,7 +155,7 @@ When all the app's extensions are finally loaded, the extensions `ext.afterAppSt
 
 After `app.start` has been called, it is not possible to register new extensions.
 
-*Example of an extension with an init method that returns a promise*
+*Example of an extension with an initialize method that returns a promise*
 
 Let's wrap FB sdk as an aura extension : 
 
@@ -167,7 +167,7 @@ Let's wrap FB sdk as an aura extension :
         }
       },
 
-      init: function(app) {
+      initialize: function(app) {
         var status = app.core.data.deferred();
         app.sandbox.auth = {
           login: FB.login,
