@@ -20,6 +20,7 @@
     "mocha-phantomjs": ""
   },
   "scripts" : {
-    "test" : "grunt build"
+    "install": "bower install",
+    "test" : "grunt mocha"
   }
 }

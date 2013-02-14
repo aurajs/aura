@@ -1,10 +1,9 @@
-module.exports = function(grunt) {
+module.exports = function (grunt) {
   'use strict';
 
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-bower-task');
   grunt.loadNpmTasks('grunt-contrib-requirejs');
   grunt.loadNpmTasks('grunt-mocha');
   
@@ -32,7 +31,7 @@ module.exports = function(grunt) {
         options: {
           baseUrl: '.',
           optimize: 'none',
-          paths: { 
+          paths: {
             aura:         'lib',
             jquery:       'empty:',
             underscore:   'empty:',
@@ -88,6 +87,6 @@ module.exports = function(grunt) {
   // default build task
   grunt.registerTask('build', ['jshint', 'mocha', 'requirejs']);
   grunt.registerTask('default', ['connect', 'build', 'watch']);
-  grunt.registerTask('spec', ['bower', 'connect', 'build']);
+  grunt.registerTask('spec', ['connect', 'build']);
 
 };
