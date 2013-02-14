@@ -114,7 +114,7 @@ define(['aura/aura', 'aura/ext/widgets'], function(aura, ext) {
 
       // An extension to load it
       var ext = {
-        init: function(app) {
+        initialize: function(app) {
           app.core.registerWidgetType("NewWidgetType", NewWidgetType);
         }
       };
@@ -192,11 +192,11 @@ define(['aura/aura', 'aura/ext/widgets'], function(aura, ext) {
     describe("Adding new widgets source via an extension", function() {
 
       var anExternalWidget = makeSpyWidget('ext_widget@aSource');
-      
-      var app, ext = { 
-        init: function(app) {
+
+      var app, ext = {
+        initialize: function(app) {
           app.registerWidgetsSource('aSource', 'aUrl');
-        } 
+        }
       };
       before(function(done) {
         var container = buildAppMarkup('<div data-aura-widget="ext_widget@aSource"></div>');
