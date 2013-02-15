@@ -203,5 +203,6 @@ define(['aura/aura', 'aura/ext/widgets'], function (aura, ext) {
         anExternalWidget.should.have.been.called;
       });
     });
+
   });
 });
