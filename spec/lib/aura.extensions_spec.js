@@ -61,7 +61,7 @@ define(['aura/aura.extensions'], function(ExtManager) {
       it("Should ensure extensions are loaded sequentially", function(done) {
         var mgr = new ExtManager(),
             ctx = { foo: "Bar" },
-            ext1 = { initialize: function(c) {
+            ext1 = { initialize: function(c) { 
               var later = $.Deferred();
               _.delay(function() { 
                 c.ext1Loaded = true; 
@@ -94,13 +94,15 @@ define(['aura/aura.extensions'], function(ExtManager) {
 
     describe("Error handling", function() {
       
-      it("Should fail init if a ext ref is not found", function(done) {
-        new ExtManager().add({ ref: "nope" }).init().fail(function() {
+      it("Should fail init if a ext ref is not found", function (done) {
+        var mgr = new ExtManager();
+        mgr.add({ ref: "nope" }).init().fail(function (err) {
+          err.should.be.instanceOf(Error);
           done();
         });
       });
 
-      it("Should fail init if a dependency is not found", function(done) {
+      it("Should fail init if a dependency is not found", function (done) {
         var ext = { require: { paths: { not_here: 'not_here' } }, initialize: sinon.spy() },
             mgr = new ExtManager();
         mgr.add({ ref: ext });
@@ -109,6 +111,15 @@ define(['aura/aura.extensions'], function(ExtManager) {
         });
       });
 
+      it("Should fail if the initialization of an extension throws an Error", function (done) {
+        var ext = {initialize: function () { throw 'Get away!'; }},
+            mgr = new ExtManager();
+        mgr.add({ref: ext});
+
+        mgr.init().fail(function () {
+          done();
+        });
+      });
     });
 
     describe("Lifecycle", function() {
@@ -118,8 +129,8 @@ define(['aura/aura.extensions'], function(ExtManager) {
             ctx       = {},
             ready     = sinon.spy(),
             alsoReady = sinon.spy();
-        define("ext1", { initialize: function(c) { c.one = true; } });
-        define("ext2", { initialize: function(c) { c.two = true; } });
+        define("ext1", { init: function(c) { c.one = true; } });
+        define("ext2", { init: function(c) { c.two = true; } });
         mgr.add({ ref: "ext1", context: ctx });
         mgr.add({ ref: "ext2", context: ctx });
         mgr.onReady(ready);
@@ -132,18 +143,18 @@ define(['aura/aura.extensions'], function(ExtManager) {
         });
       });
 
-      it("Should call onFailure callbacks when initialize has failed", function(done) {
+      it("Should call onFailure callbacks when init has failed", function (done) {
         var onFail = sinon.spy(),
-            mgr    = new ExtManager().add({ ref: { initialize: function() { throw new Error('FAIL'); }} });
+            genErr = new Error('FAIL'), 
+            mgr    = new ExtManager().add({ ref: { initialize: function () { throw genErr; }} });
         mgr.onFailure(onFail);
-        mgr.init().always(function() {
+        mgr.init().always(function (err) {
+          err.should.be.equal(genErr);
           onFail.should.have.been.called;
           done();
         });
       });
     });
-
-
   });
-
 });
+
