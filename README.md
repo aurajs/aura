@@ -99,7 +99,7 @@ Aura will call the `initialize` method that we have defined in `widgets/hello/ma
 Imagine that we need a helper to reverse string. In order to accomplish that we'll need to create an extension.
 
     define("extensions/reverse", {
-      init: function(app) {
+      initialize: function(app) {
         app.core.util.reverse = function(string) {
           return string.split("").reverse().join("");
         };
@@ -112,7 +112,7 @@ To make our `reserve` helper available in our app, run the following code:
 
     app.use("extensions/reverse");
 
-This will call the `init` function of our reserve extension.
+This will call the `initialize` function of our reserve extension.
 
 Calling `use` when your `app` is already started will throw an error.
 

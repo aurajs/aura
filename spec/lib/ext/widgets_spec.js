@@ -76,17 +76,27 @@ define(['aura/aura', 'aura/ext/widgets'], function(aura, ext) {
 
     describe("Using alternate namespace for data-attributes...", function() {
 
-      var app, options, myAltWidget = makeSpyWidget('alt_namespace', {
+      var app, options;
+
+      var myAltWidget = makeSpyWidget('alt_namespace', {
         initialize: function() {
           options = this.options;
         }
       });
 
-
       before(function(done) {
-        app = aura({ namespace: 'super' });
-        var container = buildAppMarkup('<div data-super-widget="alt_namespace" data-super-genial="yep"></div>');
-        app.start({ widgets: container }).done(function() { 
+        var markup =  "<div " + 
+                      " data-super-widget='alt_namespace' " + 
+                      " data-super-param-name='value' " + 
+                      " data-super-sourceUrl='url' " + 
+                      " data-super-fuNNy-Case-PaRAm='yep' " + 
+                      " data-super-param_name-With-un_der_scores='underscore'" + 
+                      "></div>";
+
+        var container = buildAppMarkup(markup);
+
+        app = aura({ namespace: "super" });
+        app.start({ widgets: container }).done(function() {
           setTimeout(done, 0);
         });
       });
@@ -96,7 +106,10 @@ define(['aura/aura', 'aura/ext/widgets'], function(aura, ext) {
       });
 
       it("It should take the right options too...", function() {
-        options.genial.should.equal("yep");
+        options.sourceurl.should.equal("url");
+        options.paramName.should.equal("value");
+        options.funnyCaseParam.should.equal('yep');
+        options.param_nameWithUn_der_scores.should.equal('underscore');
       });
 
     });
@@ -114,7 +127,7 @@ define(['aura/aura', 'aura/ext/widgets'], function(aura, ext) {
 
       // An extension to load it
       var ext = {
-        init: function(app) {
+        initialize: function(app) {
           app.core.registerWidgetType("NewWidgetType", NewWidgetType);
         }
       };
@@ -192,11 +205,11 @@ define(['aura/aura', 'aura/ext/widgets'], function(aura, ext) {
     describe("Adding new widgets source via an extension", function() {
 
       var anExternalWidget = makeSpyWidget('ext_widget@aSource');
-      
-      var app, ext = { 
-        init: function(app) {
+
+      var app, ext = {
+        initialize: function(app) {
           app.registerWidgetsSource('aSource', 'aUrl');
-        } 
+        }
       };
       before(function(done) {
         var container = buildAppMarkup('<div data-aura-widget="ext_widget@aSource"></div>');

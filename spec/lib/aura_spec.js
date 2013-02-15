@@ -7,7 +7,7 @@ define(['aura/aura'], function(aura) {
     describe("App Public API", function() {
 
       var ext = {
-        init: sinon.spy(function(app) {
+        initialize: sinon.spy(function(app) {
           app.sandbox.foo = "bar";
         }),
         afterAppStart: sinon.spy()
@@ -38,8 +38,8 @@ define(['aura/aura'], function(aura) {
         App.stop.should.be.a('function');
       });
 
-      it("Should call init method on extension", function() {
-        ext.init.should.have.been.calledWith(App);
+      it("Should call initialize method on extension", function() {
+        ext.initialize.should.have.been.calledWith(App);
       });
 
       it("Should call afterAppStart method on extension", function() {
@@ -59,9 +59,9 @@ define(['aura/aura'], function(aura) {
     describe("Defining and loading extensions", function() {
 
       it("Should be able to use extensions defined as objects", function(done) {
-        var ext = { init: sinon.spy() };
+        var ext = { initialize: sinon.spy() };
         aura().use(ext).start({ widgets: [] }).done(function() {
-          ext.init.should.have.been.called;
+          ext.initialize.should.have.been.called;
           done();
         });
       });
@@ -94,10 +94,10 @@ define(['aura/aura'], function(aura) {
       });
 
       it("Should be able to use extensions defined as amd modules", function(done) {
-        var ext = { init: sinon.spy() };
+        var ext = { initialize: sinon.spy() };
         define("myExtensionModule", ext);
         aura().use("myExtensionModule").start().done(function() {
-          ext.init.should.have.been.called;
+          ext.initialize.should.have.been.called;
           done();
         });
       });
