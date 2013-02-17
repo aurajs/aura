@@ -1,6 +1,4 @@
-# Aura 1.0pre
-
-[![Build Status](https://travis-ci.org/aurajs/aura.png?branch=master)](https://travis-ci.org/aurajs/aura)
+# Aura 1.0pre [![Build Status](https://travis-ci.org/aurajs/aura.png?branch=master)](https://travis-ci.org/aurajs/aura)
 
 Aura is a decoupled, event-driven architecture for developing widget-based applications. It takes advantage of patterns and best practices for developing maintainable applications and gives you greater control over widget-based development. Aura gives you complete control of a widget's lifecycle, allowing developers to dynamically start, stop, reload and clean-up parts of their application as needed.
 
@@ -51,19 +49,23 @@ Start the development server. Run `grunt`. Then visit `http://localhost:8899/spe
 
 #### CLI
 
-Run `grunt mocha` or `npm test`.
+Run `npm test`.
 
 ### Creating an Application
 
 The first step in creating an Aura application is to make an instance of `Aura`.
 
-    var app = new Aura();
+```js
+var app = new Aura();
+```
 
 Now that we have your `app`, we can start it.
 
-	app.start({
-	  widget: "body"
-	});
+```js
+app.start({
+  widget: "body"
+});
+```
 
 This starts the app by saying that it should search for widgets anywhere in the `body` of your HTML document.
 
@@ -80,17 +82,21 @@ This directory must contain:
 
 For our "hello" widget the `main.js` will be:
 
-    define({
-      initialize: function() {
-        this.$el.html("<h1>Hello Aura</h1>");
-      }
-    });
+```js
+define({
+  initialize: function() {
+    this.$el.html("<h1>Hello Aura</h1>");
+  }
+});
+```
 
 ### Declaring a Widget
 
 Add the following code to your HTML document.
 
-    <div data-aura-widget="hello"></div>
+```html
+<div data-aura-widget="hello"></div>
+```
 
 Aura will call the `initialize` method that we have defined in `widgets/hello/main.js`.
 
@@ -98,19 +104,23 @@ Aura will call the `initialize` method that we have defined in `widgets/hello/ma
 
 Imagine that we need a helper to reverse string. In order to accomplish that we'll need to create an extension.
 
-    define("extensions/reverse", {
-      initialize: function(app) {
-        app.core.util.reverse = function(string) {
-          return string.split("").reverse().join("");
-        };
-      }
-    });
+```js
+define("extensions/reverse", {
+  initialize: function(app) {
+    app.core.util.reverse = function(string) {
+      return string.split("").reverse().join("");
+    };
+  }
+});
+```
 
 ### Using extension
 
 To make our `reserve` helper available in our app, run the following code:
 
-    app.use("extensions/reverse");
+```js
+app.use("extensions/reverse");
+```
 
 This will call the `initialize` function of our reserve extension.
 
