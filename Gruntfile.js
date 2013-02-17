@@ -48,31 +48,15 @@ module.exports = function (grunt) {
       }
     },
     jshint: {
-      files: {
-        src: [
-          'lib/**/*.js',
-          'spec/lib/**/*.js'
-        ]
-      },
-      options: {
-        curly: true,
-        eqeqeq: true,
-        immed: true,
-        latedef: true,
-        newcap: true,
-        noarg: true,
-        sub: true,
-        undef: true,
-        eqnull: true,
-        browser: true,
-        nomen: false,
-        expr: true,
-        globals: {
-          console: true,
-          require: true,
-          define: true,
-          _: true,
-          $: true,
+      all: {
+        options: {
+          jshintrc: '.jshintrc'
+        },
+        files: {
+          src: [
+            'lib/**/*.js',
+            'spec/lib/**/*.js'
+          ]
         }
       }
     },
