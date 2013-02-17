@@ -7,8 +7,7 @@
     "chai": "*",
     "sinon": "*",
     "sinon-chai": "*",
-    "grunt": "~0.4",
-    "grunt-cli": "~0.1",
+    "grunt": "~0.4.0",
     "grunt-lib-phantomjs": "~0.1",
     "grunt-contrib-clean": "~0.4.0rc6",
     "grunt-contrib-watch": "~0.2.0rc5",
@@ -16,8 +15,7 @@
     "grunt-contrib-requirejs": "~0.3",
     "grunt-contrib-jshint": "~0.1.1rc6",
     "grunt-mocha": "~0.2.x",
-    "grunt-dox": "*",
-    "mocha-phantomjs": ""
+    "grunt-dox": "*"
   },
   "scripts": {
     "test": "./node_modules/.bin/bower install; grunt build"
