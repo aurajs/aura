@@ -1,29 +1,35 @@
+/*global define mocha */
 var should;
-define(['chai', 'sinonChai'], function(chai, sinonChai) {
 
-  window.chai         = chai;
-  window.expect       = chai.expect;
-  window.assert       = chai.assert;
-  window.sinonChai    = sinonChai;
-  should              = chai.should();
-  chai.use(sinonChai);
-  
-  mocha.setup('bdd');
-  
-  console = window.console || function() {};
- 
-  // Don't track
+require.config({
+  baseUrl: '../',
+  waitSeconds: 1,
+  paths: {
+    components: 'components',
+    aura: 'lib',
+    widgets: 'spec/widgets',
+    chai: 'node_modules/chai/chai',
+    sinonChai:'node_modules/sinon-chai/lib/sinon-chai'
+  }
+});
+
+define(['chai', 'sinonChai'], function (chai, sinonChai) {
+  window.chai = chai;
+  window.expect = chai.expect;
+  window.assert = chai.assert;
+  window.should = chai.should();
+  window.sinonChai = sinonChai;
   window.notrack = true;
 
-  var specs = [
+  chai.use(sinonChai);
+  mocha.setup('bdd');
+
+  require([
     'spec/lib/aura_spec',
     //'spec/lib/aura.extensions_spec',
     'spec/lib/ext/widgets_spec',
     'spec/lib/ext/mediator_spec'
-  ]
-  require(specs, function () {
-    if (window.mochaPhantomJS) { mochaPhantomJS.run(); }
-    else { mocha.run(); }
+  ], function () {
+    mocha.run();
   });
- 
 });

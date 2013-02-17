@@ -1,25 +1,13 @@
+<!doctype html>
 <html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
     <link rel="stylesheet" href="/node_modules/mocha/mocha.css">
     <script src="../node_modules/mocha/mocha.js"></script>
     <script src="./support/sinon-1.5.2.js"></script>
-    <script>
-      var require = { 
-        baseUrl: '../',
-        waitSeconds: 1,
-        paths: { 
-          components:   'components',
-          aura:         'lib',
-          widgets:      'spec/widgets',
-          chai:         'node_modules/chai/chai',
-          sinonChai:    'node_modules/sinon-chai/lib/sinon-chai'
-        }
-      };
-    </script>
-    <script type="text/javascript" data-main="spec/runner" src="../components/requirejs/require.js"></script>
   </head>
   <body>
     <div id="mocha"></div>
+    <script data-main="runner" src="../components/requirejs/require.js"></script>
   </body>
 </html>
