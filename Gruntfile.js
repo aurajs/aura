@@ -6,22 +6,15 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-requirejs');
   grunt.loadNpmTasks('grunt-mocha');
-  
 
-  var port = 8899;
-
-  // ==========================================================================
-  // Project configuration
-  // ==========================================================================
+  var PORT = 8899;
 
   grunt.initConfig({
-
     pkg: grunt.file.readJSON('package.json'),
-    
     connect: {
       server: {
         options: {
-          port: port,
+          port: PORT,
           base: '.'
         }
       }
@@ -32,24 +25,34 @@ module.exports = function (grunt) {
           baseUrl: '.',
           optimize: 'none',
           paths: {
-            aura:         'lib',
-            jquery:       'empty:',
-            underscore:   'empty:',
+            aura: 'lib',
+            jquery: 'empty:',
+            underscore: 'empty:',
             eventemitter: 'components/eventemitter2/lib/eventemitter2'
           },
           shim: {
-            underscore: { exports: '_' }
+            underscore: {
+              exports: '_'
+            }
           },
-          include: ['aura/aura', 'aura/aura.extensions', 'aura/ext/debug', 'aura/ext/mediator', 'aura/ext/widgets'],
+          include: [
+            'aura/aura',
+            'aura/aura.extensions',
+            'aura/ext/debug',
+            'aura/ext/mediator',
+            'aura/ext/widgets'
+          ],
           exclude: ['jquery'],
           out: 'dist/aura.js'
         }
       }
     },
-
     jshint: {
       files: {
-        src: ['lib/**/*.js', 'spec/lib/**/*.js']
+        src: [
+          'lib/**/*.js',
+          'spec/lib/**/*.js'
+        ]
       },
       options: {
         curly: true,
@@ -73,20 +76,24 @@ module.exports = function (grunt) {
         }
       }
     },
-
     mocha: {
-      aura: ["spec/index.html"]
+      all: {
+          options: {
+              run: true,
+              urls: ['http://localhost:<%= connect.server.options.port %>/spec/index.html']
+          }
+      }
     },
-
     watch: {
-      files: ['lib/**/*.js', 'spec/lib/**/*.js'],
+      files: [
+        'lib/**/*.js',
+        'spec/lib/**/*.js'
+      ],
       tasks: ['build']
     }
-
   });
 
-  // default build task
   grunt.registerTask('build', ['jshint', 'mocha', 'requirejs']);
-  grunt.registerTask('default', ['connect', 'build', 'watch']);
   grunt.registerTask('spec', ['connect', 'build']);
+  grunt.registerTask('default', ['connect', 'build', 'watch']);
 };
