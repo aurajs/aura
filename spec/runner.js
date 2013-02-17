@@ -26,7 +26,7 @@ define(['chai', 'sinonChai'], function (chai, sinonChai) {
 
   require([
     'spec/lib/aura_spec',
-    //'spec/lib/aura.extensions_spec',
+    'spec/lib/aura.extensions_spec',
     'spec/lib/ext/widgets_spec',
     'spec/lib/ext/mediator_spec'
   ], function () {
