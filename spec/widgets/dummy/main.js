@@ -1,5 +1,5 @@
 define({
-  initialize: function() {
+  initialize: function () {
     this.html('dummy !');
   }
 });

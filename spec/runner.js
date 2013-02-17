@@ -3,7 +3,6 @@ var should;
 
 require.config({
   baseUrl: '../',
-  waitSeconds: 1,
   paths: {
     components: 'components',
     aura: 'lib',
