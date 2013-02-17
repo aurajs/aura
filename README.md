@@ -1,4 +1,4 @@
-# Aura
+# Aura 1.0pre
 
 [![Build Status](https://travis-ci.org/aurajs/aura.png?branch=master)](https://travis-ci.org/aurajs/aura)
 
@@ -116,3 +116,10 @@ This will call the `initialize` function of our reserve extension.
 
 Calling `use` when your `app` is already started will throw an error.
 
+## Project status
+
+Aura 0.9.x was well received by the developer community, but had regular requests for a few advanced capabilities. These included individual sandboxes, declarative widgets, support for Bower and a powerful Pub/Sub implementation amongst others.
+
+To cater for this, Aura has been getting a heavy re-write over the past few months and we anticipate releasing a beta that can be tested in April, 2013. This will be followed by detailed documentation and new demo applications.
+
+A version of Aura currently powers the [Hull.io](http://hull.io) widget platform and we are honored to have members of that team directly contributing to the next version of the project.
