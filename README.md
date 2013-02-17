@@ -20,7 +20,7 @@ The `core` implements aliases for DOM manipulation, templating and other lower-l
 
 ### Sandbox
 
-A `sandbox` is just way to implement the [facade](http://addyosmani.com/resources/essentialjsdesignpatterns/book/#facadepatternjavascript) pattern on top of features provided by `core`. It lets you to expose the parts of a JavaScript library that are safe to use instead of exposing the entire API. This is particularly useful when working in teams.
+A `sandbox` is just way to implement the [facade](http://addyosmani.com/resources/essentialjsdesignpatterns/book/#facadepatternjavascript) pattern on top of features provided by `core`. It lets you expose the parts of a JavaScript library that are safe to use instead of exposing the entire API. This is particularly useful when working in teams.
 
 When your app starts, it will create an instance of `sandbox` in each of your widgets.
 
@@ -45,7 +45,7 @@ This means that they know nothing about each other. To make them communicate, a 
 
 #### Browser
 
-Start the development server. Run `grunt`. Then visit `http://localhost:8899/spec/`.
+Run `grunt`. Then visit `http://localhost:8899/spec/`.
 
 #### CLI
 
@@ -59,7 +59,7 @@ The first step in creating an Aura application is to make an instance of `Aura`.
 var app = new Aura();
 ```
 
-Now that we have your `app`, we can start it.
+Now that we have our `app`, we can start it.
 
 ```js
 app.start({
@@ -84,8 +84,8 @@ For our "hello" widget the `main.js` will be:
 
 ```js
 define({
-  initialize: function() {
-    this.$el.html("<h1>Hello Aura</h1>");
+  initialize: function () {
+    this.$el.html('<h1>Hello Aura</h1>');
   }
 });
 ```
@@ -102,13 +102,13 @@ Aura will call the `initialize` method that we have defined in `widgets/hello/ma
 
 ### Creating extension
 
-Imagine that we need a helper to reverse string. In order to accomplish that we'll need to create an extension.
+Imagine that we need an helper to reverse a string. In order to accomplish that we'll need to create an extension.
 
 ```js
-define("extensions/reverse", {
-  initialize: function(app) {
-    app.core.util.reverse = function(string) {
-      return string.split("").reverse().join("");
+define('extensions/reverse', {
+  initialize: function (app) {
+    app.core.util.reverse = function (string) {
+      return string.split('').reverse().join('');
     };
   }
 });
@@ -119,7 +119,7 @@ define("extensions/reverse", {
 To make our `reserve` helper available in our app, run the following code:
 
 ```js
-app.use("extensions/reverse");
+app.use('extensions/reverse');
 ```
 
 This will call the `initialize` function of our reserve extension.
