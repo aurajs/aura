@@ -16,6 +16,6 @@
     "grunt-mocha": "~0.2.2"
   },
   "scripts": {
-    "test": "bower install; grunt build"
+    "test": "bower install; grunt test"
   }
 }

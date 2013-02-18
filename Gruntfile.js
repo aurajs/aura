@@ -76,6 +76,7 @@ module.exports = function (grunt) {
     }
   });
 
-  grunt.registerTask('build', ['jshint', 'connect', 'mocha', 'requirejs']);
-  grunt.registerTask('default', ['build', 'watch']);
+  grunt.registerTask('build', ['jshint', 'mocha', 'requirejs']);
+  grunt.registerTask('test', ['connect', 'build']);
+  grunt.registerTask('default', ['connect', 'build', 'watch']);
 };
