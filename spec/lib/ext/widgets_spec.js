@@ -227,11 +227,9 @@ define(['aura/aura', 'aura/ext/widgets'], function (aura, ext) {
       var mediator;
       before(function (done) {
         app = aura();
-        //app.use(ext);
         app.start().done(function () {
           mediator = app.core.mediator;
           sandbox = app.createSandbox();
-
           setTimeout(done, 0);
         });
       });
