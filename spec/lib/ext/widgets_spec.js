@@ -152,9 +152,25 @@ define(['aura/aura', 'aura/ext/widgets'], function (aura, ext) {
     });
 
     describe('Nesting Widgets', function () {
-      it('Should be possible to nest widgets...');
       // Nesting means that if a widget's markup contains data-aura-widget elements,
       // They should be started recursively
+      var container = buildAppMarkup('<div data-aura-widget="parent"></div>');
+      var childWidget = makeSpyWidget('child');
+      before(function(done) {
+        var parentWidget = makeSpyWidget('parent', {
+          initialize: function() {
+            this.html('<div data-aura-widget="child"></div>');
+            setTimeout(done, 0);
+          }
+        });
+
+        app = aura();
+        app.start({ widgets: container });
+      });
+
+      it('Should should auto start the child widget once parent is rendered', function() {
+        childWidget.should.have.been.called;
+      });
 
     });
 
