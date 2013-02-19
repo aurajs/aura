@@ -35,11 +35,13 @@ This means that they know nothing about each other. To make them communicate, a 
 ### Requirements
 
 1. [bower](http://twitter.github.com/bower/): run `npm install -g bower` if needed
+2. [grunt-cli](https://github.com/gruntjs/grunt-cli): run `npm install -g grunt-cli` if needed
 
 ### Building Aura.js
 
-1. Run `npm install` to install Aura dependencies. `Bower` dependencies will be automatically installed.
-2. Run `grunt build`. `aura.js` will be placed in `dist/`.
+1. Run `npm install` to install build dependencies.
+2. Run `bower install`. to install lib dependencies.
+3. Run `grunt build` `aura.js` will be placed in `dist/`.
 
 ### How to run tests
 
