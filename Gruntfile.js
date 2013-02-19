@@ -72,11 +72,11 @@ module.exports = function (grunt) {
         'lib/**/*.js',
         'spec/lib/**/*.js'
       ],
-      tasks: ['build']
+      tasks: ['spec']
     }
   });
 
-  grunt.registerTask('build', ['jshint', 'mocha', 'requirejs']);
-  grunt.registerTask('test', ['connect', 'build']);
-  grunt.registerTask('default', ['connect', 'build', 'watch']);
+  grunt.registerTask('spec', ['jshint', 'mocha']);
+  grunt.registerTask('build', ['connect', 'spec', 'requirejs']);
+  grunt.registerTask('default', ['connect', 'spec', 'watch']);
 };
