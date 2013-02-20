@@ -152,9 +152,26 @@ define(['aura/aura', 'aura/ext/widgets'], function (aura, ext) {
     });
 
     describe('Nesting Widgets', function () {
-      it('Should be possible to nest widgets...');
       // Nesting means that if a widget's markup contains data-aura-widget elements,
       // They should be started recursively
+      var container = buildAppMarkup('<div data-aura-widget="parent"></div>');
+      var childWidget = makeSpyWidget('child');
+      before(function(done) {
+        var parentWidget = makeSpyWidget('parent', {
+          initialize: function() {
+            this.html('<div data-aura-widget="child"></div>');
+            setTimeout(done, 0);
+          }
+        });
+
+        app = aura();
+        app.start({ widgets: container });
+      });
+
+      it('Should should auto start the child widget once parent is rendered', function() {
+        childWidget.should.have.been.called;
+      });
+
     });
 
     describe('Adding new widgets source locations...', function () {
@@ -201,6 +218,54 @@ define(['aura/aura', 'aura/ext/widgets'], function (aura, ext) {
 
       it('Should load the source via the extension', function () {
         anExternalWidget.should.have.been.called;
+      });
+    });
+
+    describe('sandbox', function () {
+      var app;
+      var sandbox;
+      var mediator;
+      before(function (done) {
+        app = aura();
+        app.start().done(function () {
+          mediator = app.core.mediator;
+          sandbox = app.createSandbox();
+          setTimeout(done, 0);
+        });
+      });
+
+      describe('#start', function () {
+        it('should augment sandbox', function () {
+          sandbox.start.should.be.a('function');
+        });
+
+        var spy;
+        before(function () {
+          spy = sinon.spy();
+          mediator.on('aura.sandbox.start', spy);
+          sandbox.start();
+        });
+
+        it('should emit aura.sandbox.start', function() {
+          spy.should.have.been.called;
+        });
+      });
+
+      describe('#stop', function () {
+        it('should augment sandbox', function () {
+          sandbox.stop.should.be.a('function');
+        });
+
+        var spy;
+        before(function () {
+          spy = sinon.spy();
+          mediator.on('aura.sandbox.stop', spy);
+          sandbox.stop();
+        });
+
+        it('should emit aura.sandbox.stop', function () {
+          spy.should.have.been.called;
+        });
       });
     });
   });
