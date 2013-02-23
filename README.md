@@ -135,3 +135,10 @@ Aura 0.9.x was well received by the developer community, but had regular request
 To cater for this, Aura has been getting a heavy re-write over the past few months and we anticipate releasing a beta that can be tested in April, 2013. This will be followed by detailed documentation and new demo applications.
 
 A version of Aura currently powers the [Hull.io](http://hull.io) widget platform and we are honored to have members of that team directly contributing to the next version of the project.
+
+## Older versions
+
+We have recently been receiving a number of requests from developers looking for the last stable version of Aura
+that demonstrated integration with Backbone. You can [view](https://github.com/aurajs/aura/tree/pre-express-lib-updates)
+the sources to this 0.9.x version or grab a [tarball](https://github.com/aurajs/aura/archive/pre-express-lib-updates.tar.gz) of it.
+We fully intend on showing how Aura 1.0pre works with Backbone as soon as possible.
