@@ -136,7 +136,7 @@ Calling `use` when your `app` is already started will throw an error.
 
 * [Hullagram](https://github.com/hull/hullagram) - demonstrating Aura + Hull
 * Aura [Todos app](https://github.com/sbellity/aura-todos/) and an [alternative take](https://github.com/alexanderbeletsky/todomvc-aura)
-* [GitHub app](https://github.com/hull/Github-Mobile/tree/with-hull) - also demonstrating Aura + Hull
+
 
 ### Yeoman generator
 
