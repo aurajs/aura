@@ -2,6 +2,8 @@
 
 Aura is a decoupled, event-driven architecture for developing widget-based applications. It takes advantage of patterns and best practices for developing maintainable applications and gives you greater control over widget-based development. Aura gives you complete control of a widget's lifecycle, allowing developers to dynamically start, stop, reload and clean-up parts of their application as needed.
 
+<img src="https://raw.github.com/hull/aura-identity/master/logo/export/halo.png" width="300px"/>
+
 ## Concepts
 
 ### The `Aura` object
