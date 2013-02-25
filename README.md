@@ -20,13 +20,13 @@ The `core` implements aliases for DOM manipulation, templating and other lower-l
 
 ### Sandbox
 
-A `sandbox` is just way to implement the [facade](http://addyosmani.com/resources/essentialjsdesignpatterns/book/#facadepatternjavascript) pattern on top of features provided by `core`. It lets you expose the parts of a JavaScript library that are safe to use instead of exposing the entire API. This is particularly useful when working in teams.
+A `sandbox` is just a way to implement the [facade](http://addyosmani.com/resources/essentialjsdesignpatterns/book/#facadepatternjavascript) pattern on top of features provided by `core`. It lets you expose the parts of a JavaScript library that are safe to use instead of exposing the entire API. This is particularly useful when working in teams.
 
 When your app starts, it will create an instance of `sandbox` in each of your widgets.
 
 ### Widget
 
-A widget represents an unit of a page. Each widget is independent.
+A widget represents a unit of a page. Each widget is independent.
 This means that they know nothing about each other. To make them communicate, a [Publish/Subscribe (Mediator)](http://addyosmani.com/resources/essentialjsdesignpatterns/book/#mediatorpatternjavascript) pattern is used.
 
 
