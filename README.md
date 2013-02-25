@@ -140,6 +140,11 @@ Calling `use` when your `app` is already started will throw an error.
 
 * [Aura generator](https://github.com/yeoman-aura/generator-aura)
 
+### Development docs
+
+* [Notes](https://github.com/aurajs/aura/tree/master/notes)
+* In-progress [docs](http://tony.github.com/aura-docs/index.html)
+
 ## Project status
 
 Aura 0.9.x was well received by the developer community, but had regular requests for a few advanced capabilities. These included individual sandboxes, declarative widgets, support for Bower and a powerful Pub/Sub implementation amongst others.
