@@ -128,6 +128,18 @@ This will call the `initialize` function of our reserve extension.
 
 Calling `use` when your `app` is already started will throw an error.
 
+## Resources
+
+### Sample apps
+
+* [Hullagram](https://github.com/hull/hullagram) - demonstrating Aura + Hull
+* Aura [Todos app](https://github.com/sbellity/aura-todos/) and an [alternative take](https://github.com/alexanderbeletsky/todomvc-aura)
+* [GitHub app](https://github.com/hull/Github-Mobile/tree/with-hull) - also demonstrating Aura + Hull
+
+### Yeoman generator
+
+* [Aura generator](https://github.com/yeoman-aura/generator-aura)
+
 ## Project status
 
 Aura 0.9.x was well received by the developer community, but had regular requests for a few advanced capabilities. These included individual sandboxes, declarative widgets, support for Bower and a powerful Pub/Sub implementation amongst others.
