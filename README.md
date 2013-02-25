@@ -40,8 +40,8 @@ This means that they know nothing about each other. To make them communicate, a 
 ### Building Aura.js
 
 1. Run `npm install` to install build dependencies.
-2. Run `bower install`. to install lib dependencies.
-3. Run `grunt build` `aura.js` will be placed in `dist/`.
+2. Run `bower install` to install lib dependencies.
+3. Run `grunt build` and `aura.js` will be placed in `dist/`.
 
 ### How to run tests
 
