@@ -101,5 +101,22 @@ define(['aura/aura'], function (aura) {
         });
       });
     });
+
+    describe('Logging', function() {
+
+      it('logger should be available on app', function() {
+        var App = aura();
+        App.logger.log.should.be.a('function');
+        App.logger.name.should.equal(App.ref);
+      });
+
+      it('logger should be available on sandboxes', function() {
+        var App = aura();
+        var sandbox = App.createSandbox();
+        sandbox.logger.log.should.be.a('function');
+        sandbox.logger.name.should.equal(sandbox.ref);
+      });
+    });
+
   });
 });
