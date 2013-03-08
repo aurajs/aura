@@ -68,6 +68,10 @@ define(['aura/aura', 'aura/ext/widgets'], function (aura, ext) {
       var app, options;
 
       var myAltWidget = makeSpyWidget('alt_namespace', {
+        options: {
+          foo: 'bar',
+          another: 'toutafait'
+        },
         initialize: function () {
           options = this.options;
         }
@@ -77,6 +81,7 @@ define(['aura/aura', 'aura/ext/widgets'], function (aura, ext) {
         var markup =  '<div ' +
                       ' data-super-widget="alt_namespace" ' +
                       ' data-super-param-name="value" ' +
+                      ' data-super-foo="notbar" ' +
                       ' data-super-sourceUrl="url" ' +
                       ' data-super-fuNNy-Case-PaRAm="yep" ' +
                       ' data-super-param_name-With-un_der_scores="underscore"' +
@@ -95,6 +100,8 @@ define(['aura/aura', 'aura/ext/widgets'], function (aura, ext) {
       });
 
       it('It should take the right options too...', function () {
+        options.another.should.equal('toutafait');
+        options.foo.should.equal('notbar');
         options.sourceurl.should.equal('url');
         options.paramName.should.equal('value');
         options.funnyCaseParam.should.equal('yep');
