@@ -103,6 +103,82 @@ define(['aura/aura', 'aura/ext/mediator'], function (aura, extension) {
       });
     });
 
+    describe('catch exceptions in listeners', function() {
+      var sandbox, first, second, troublemaker, spy1, spy2, spy3, spy4;
+
+      beforeEach(function() {
+        spy1 = sinon.spy();
+        spy2 = sinon.spy();
+        spy3 = sinon.spy();
+        spy4 = sinon.spy();
+        var calledFirst = false;
+        first = function() {
+          calledFirst = true;
+          spy1();
+        };
+        second = function() {
+          if (calledFirst) {
+            spy2();
+          }
+        };
+        troublemaker = function() {
+          spy3();
+          if (calledFirst) {
+            throw new Error('You die !');
+          } else {
+            throw new Error('You really die !');
+          }
+          spy4();
+        };
+        sandbox = app.createSandbox();
+      });
+
+      it('should call them in order', function() {
+        sandbox.on('test', first);
+        sandbox.on('test', second);
+        sandbox.emit('test');
+        spy2.should.have.been.called;
+      });
+
+      it('should really call them in order', function() {
+        sandbox.on('test', second);
+        sandbox.on('test', first);
+        sandbox.emit('test');
+        spy2.should.not.have.been.called;
+      });
+
+      it('should not calling callbacks if an exception is raised somewhere', function() {
+        sandbox.on('test', first);
+        sandbox.on('test', troublemaker);
+        sandbox.on('test', second);
+        sandbox.emit('test');
+        spy2.should.have.been.called;
+        spy3.should.have.been.called;
+        spy4.should.not.have.been.called;
+      });
+
+    });
+
+    describe('attaching context in listeners', function() {
+      it('the sandbox should be the default context', function() {
+        var context, sandbox = app.createSandbox();
+        sandbox.on('test', function() {
+          context = this;
+        });
+        sandbox.emit('test');
+        context.should.equal(sandbox);
+      });
+
+      it('should be possible to override the default context', function() {
+        var context, sandbox = app.createSandbox(), ctx = 'ctx';
+        sandbox.on('test', function() {
+          context = this;
+        }, ctx);
+        sandbox.emit('test');
+        context.should.equal(ctx);
+      });
+    });
+
     describe('events', function () {
       describe('aura.sandbox.stop', function () {
         var spy;
