@@ -126,7 +126,7 @@ To make our `reverse` helper available in our app, run the following code:
 app.use('extensions/reverse');
 ```
 
-This will call the `initialize` function of our reserve extension.
+This will call the `initialize` function of our `reverse` extension.
 
 Calling `use` when your `app` is already started will throw an error.
 
