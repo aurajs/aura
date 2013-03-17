@@ -104,7 +104,7 @@ Add the following code to your HTML document.
 
 Aura will call the `initialize` method that we have defined in `widgets/hello/main.js`.
 
-### Creating extension
+### Creating an extension
 
 Imagine that we need an helper to reverse a string. In order to accomplish that we'll need to create an extension.
 
@@ -118,9 +118,9 @@ define('extensions/reverse', {
 });
 ```
 
-### Using extension
+### Using extensions
 
-To make our `reserve` helper available in our app, run the following code:
+To make our `reverse` helper available in our app, run the following code:
 
 ```js
 app.use('extensions/reverse');
