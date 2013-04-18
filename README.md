@@ -173,11 +173,13 @@ window.attachDebugger = function(app){
 
 ### Sample apps
 
-* [Hullagram](https://github.com/hull/hullagram) - demonstrating Aura + Hull
+* [GitHub client](https://github.com/sbellity/aura-github)
 * Aura [Todos app](https://github.com/sbellity/aura-todos/) and an [alternative take](https://github.com/alexanderbeletsky/todomvc-aura)
-
+* [Hullagram](https://github.com/hull/hullagram) - demonstrating Aura + Hull
 
 ### Yeoman generator
+
+A scaffolding generator for Yeoman is also available:
 
 * [Aura generator](https://github.com/yeoman-aura/generator-aura)
 
