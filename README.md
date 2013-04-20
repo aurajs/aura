@@ -190,19 +190,77 @@ window.attachDebugger = function(app){
     };
 ```
 
-## Resources
 
+## Resources
 
 ### Yeoman generator
 
-A scaffolding generator for Yeoman is also available:
+An Aura scaffolding generator (for Yeoman) is also available at [Aura generator](https://github.com/yeoman-aura/generator-aura).
 
-* [Aura generator](https://github.com/yeoman-aura/generator-aura)
+### Usage
 
-### Development docs
+```bash
+# First make a new directory, and `cd` into it:
+mkdir my-awesome-project && cd $_
+
+# Then install `generator-aura`:
+npm install generator-aura
+
+# Run `yo aura`, optionally passing an app name:
+yo aura [app-name]
+
+# Finally, install npm and bower dependencies:
+npm install && bower install --dev
+```
+
+### Generators
+
+Available generators:
+
+* [aura:widget](#widget)
+* [aura:extension](#extension)
+* [aura:styles](#styles)
+
+#### Widget
+Generates a widget in `app/widgets`.
+
+Example:
+
+```bash
+yo aura:widget sample
+```
+
+Produces `app/widgets/sample/main.js`
+
+#### Extension
+Generates a extension in `app/extensions`.
+
+Example:
+```bash
+yo aura:extension storage
+```
+
+Produces `app/extensions/storage.js`
+
+#### Styles
+Generates cool styles.
+
+Example:
+```bash
+yo aura:styles
+```
+
+##### Supported types:
+
+* Default (normalize.css)
+* Twitter Bootstrap
+* Twitter Bootstrap for Compass
+* Zurb Foundation
+
+
+### Aura Development docs
 
 * [Notes](https://github.com/aurajs/aura/tree/master/notes)
-* In-progress [docs](http://tony.github.com/aura-docs/index.html)
 
 ## Contribute
 
