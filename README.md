@@ -1,6 +1,6 @@
 # Aura 0.9pre [![Build Status](https://travis-ci.org/aurajs/aura.png?branch=master)](https://travis-ci.org/aurajs/aura)
 
-Aura is a decoupled, event-driven architecture for developing widget-based applications. It takes advantage of patterns and best practices for developing maintainable applications and gives you greater control over widget-based development. Aura gives you complete control of a widget's lifecycle, allowing developers to dynamically start, stop, reload and clean-up parts of their application as needed.
+Aura is a decoupled, event-driven architecture for developing widget-based applications. It is framework-agnostic, taking advantage of patterns and best practices for developing maintainable applications and gives you greater control over widget-based development. Aura gives you complete control of a widget's lifecycle, allowing developers to dynamically start, stop, reload and clean-up parts of their application as needed.
 
 <img src="https://raw.github.com/hull/aura-identity/master/logo/export/halo.png" width="300px"/>
 
@@ -212,10 +212,3 @@ Aura 0.8.x was well received by the developer community, but had regular request
 To cater for this, Aura has been getting a heavy re-write over the past few months and we anticipate releasing a beta that can be tested in April, 2013. This will be followed by detailed documentation and new demo applications.
 
 A version of Aura currently powers the [Hull.io](http://hull.io) widget platform and we are honored to have members of that team directly contributing to the next version of the project.
-
-## Older versions
-
-We have recently been receiving a number of requests from developers looking for the last stable version of Aura
-that demonstrated integration with Backbone. You can [view](https://github.com/aurajs/aura/tree/pre-express-lib-updates)
-the sources to this 0.9.x version or grab a [tarball](https://github.com/aurajs/aura/archive/pre-express-lib-updates.tar.gz) of it.
-We fully intend on showing how Aura 1.0pre works with Backbone as soon as possible.
