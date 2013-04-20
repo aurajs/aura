@@ -53,6 +53,8 @@ This means that they know nothing about each other. To make them communicate, a 
 
 ## Getting started
 
+The simplest usable Aura app using a widget and extension can be found in our [boilerplate](https://github.com/aurajs/boilerplate) repo. We do however recommend reading the rest of the getting started guide below to get acquainted with the general workflow.
+
 ### Requirements
 
 1. [bower](http://twitter.github.com/bower/): run `npm install -g bower` if needed
