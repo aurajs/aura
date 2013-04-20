@@ -4,6 +4,19 @@ Aura is a decoupled, event-driven architecture for developing widget-based appli
 
 <img src="https://raw.github.com/hull/aura-identity/master/logo/export/halo.png" width="300px"/>
 
+## Why Aura?
+
+* We're glue for your application widgets, making it trivial to tie together a number of independently created widgets into a fully functional application. 
+* We offer a complete event-bus supporting application-level and widget-level communication mean you have control over what is getting triggered in your app
+* Bower is a first-class citizen in Aura, managing your dependencies
+* We support the concept of a widget-source, meaning you can specify API end-points for easily pulling down widgets using data-attributes. Minimal JavaScript for more capabilities.
+* We make it trivial to abstract away utility libraries you are using (templating, DOM manipulation) so that you can swap them out for alternatives at any time without a great deal of effort
+* The web platform is moving towards using scoped styles and shadow DOM for keeping parts of your page safe from third-party content that might affect it. Aura does the same for communications by introducing per-widget sandboxes for your events
+* Tooling for scaffolding out new widgets without having to write as much boilerplate
+* Can be used with your MVC framework of choice - we're just there as a helper.
+* First-class support for the Hull.io platform. If you don't want to create a widget yourself, you can easily use them as a widget-source and create apps in less time.
+
+
 ## Concepts
 
 ### The `Aura` object
