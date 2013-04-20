@@ -1,10 +1,10 @@
 # Aura 0.9pre [![Build Status](https://travis-ci.org/aurajs/aura.png?branch=master)](https://travis-ci.org/aurajs/aura)
 
-Aura is a decoupled, event-driven architecture for developing widget-based applications. 
+Aura is an event-driven architecture for developing widget-based applications that scale. It is framework-agnostic, adapts many best-practice patterns for developing maintainable apps and has first-class support for modern tools like [Bower](http://bower.io), [Grunt](http://gruntjs.com) and [Yeoman](http://yeoman.io).
 
-It is framework-agnostic, taking advantage of patterns and best practices for developing maintainable applications and gives you greater control over widget-based development. Aura gives you complete control of a widget's lifecycle, allowing developers to dynamically start, stop, reload and clean-up parts of their application as needed.
+Aura has been used to develop applications like [MIT's Reap](http://www.bobholt.me/2012/09/how-it-was-built-mit-reap/) and is currently under active development.
 
-Want to look at some sample apps built with it? Check out the [GitHub client](https://github.com/sbellity/aura-github), an Aura [Todo](https://github.com/sbellity/aura-todos/) app implemented [two](https://github.com/alexanderbeletsky/todomvc-aura) ways and [Hullagram](https://github.com/hull/hullagram) - an Instagram clone built with Aura and [Hull.io](http://hull.io).
+Want to look at some sample apps built with Aura? Check out the [GitHub client](https://github.com/sbellity/aura-github), an Aura [Todo](https://github.com/sbellity/aura-todos/) app implemented [two](https://github.com/alexanderbeletsky/todomvc-aura) ways and [Hullagram](https://github.com/hull/hullagram) - an Instagram clone built with Aura and [Hull.io](http://hull.io).
 
 <img src="https://raw.github.com/hull/aura-identity/master/logo/export/halo.png" width="300px"/>
 
