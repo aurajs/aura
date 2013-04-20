@@ -1,21 +1,26 @@
 # Aura 0.9pre [![Build Status](https://travis-ci.org/aurajs/aura.png?branch=master)](https://travis-ci.org/aurajs/aura)
 
-Aura is a decoupled, event-driven architecture for developing widget-based applications. It is framework-agnostic, taking advantage of patterns and best practices for developing maintainable applications and gives you greater control over widget-based development. Aura gives you complete control of a widget's lifecycle, allowing developers to dynamically start, stop, reload and clean-up parts of their application as needed.
+Aura is a decoupled, event-driven architecture for developing widget-based applications. 
+
+It is framework-agnostic, taking advantage of patterns and best practices for developing maintainable applications and gives you greater control over widget-based development. Aura gives you complete control of a widget's lifecycle, allowing developers to dynamically start, stop, reload and clean-up parts of their application as needed.
+
+Want to look at some sample apps built with it? Check out the [GitHub client](https://github.com/sbellity/aura-github), an Aura [Todo](https://github.com/sbellity/aura-todos/) app implemented [two](https://github.com/alexanderbeletsky/todomvc-aura) ways and [Hullagram](https://github.com/hull/hullagram) - an Instagram clone built with Aura and [Hull.io](http://hull.io).
 
 <img src="https://raw.github.com/hull/aura-identity/master/logo/export/halo.png" width="300px"/>
 
 ## Why Aura?
 
-* We're glue for your application widgets, making it trivial to tie together a number of independently created widgets into a fully functional application. 
-* A complete event-bus supporting application-level and widget-level communication mean you have control over what is getting triggered in your app
-* We support the concept of a widget-source, meaning you can specify API end-points for easily pulling down widgets using data-attributes. Minimal JavaScript for more capabilities.
-* We make it trivial to abstract away utility libraries you are using (templating, DOM manipulation) so that you can swap them out for alternatives at any time without a great deal of effort
-* Hit the ground running quickly widgets into reusable modules using AMD.
-* Bower is a first-class citizen in Aura, making it easier to manage your application dependencies
-* The web platform is moving towards using scoped styles and shadow DOM for keeping parts of your page safe from third-party content that might affect it. Aura does the same for communications by introducing per-widget sandboxes for your events
-* Tooling for scaffolding out new widgets without having to write as much boilerplate
+* It's basically **glue** for your application widgets, making it trivial to tie together a number of independently created widgets into a fully functional application. 
+* A complete event-bus supporting **application-level and widget-level communication** mean you have control over what is getting triggered in your app
+* Specify an API end-point for widgets easily and just **use data-attributes to include any widget** or widgets. Minimal JavaScript for more capabilities.
+* **Abstract away utility libraries** you are using (templating, DOM manipulation) so that you can swap them out for alternatives at any time without a great deal of effort
+* Hit the ground running quickly widgets into **reusable modules using AMD**.
+* Bower is a first-class citizen in Aura, making it easier to **manage your application dependencies**
+* The web platform is moving towards using scoped styles and shadow DOM for keeping parts of your page safe from third-party content that might affect it. Aura does the same for communications by introducing per-widget **sandboxes** for your events
+* Tooling for **scaffolding** out new widgets without having to write as much boilerplate
 * Can be used with your MVC framework of choice - we're just there as a helper.
 * First-class support for the Hull.io platform. If you don't want to create a widget yourself, you can easily use them as a widget-source and create apps in less time.
+* Extensible via the extensions system, which make a good basis for a rich ecosystem around the project.
 
 
 ## Concepts
@@ -185,11 +190,6 @@ window.attachDebugger = function(app){
 
 ## Resources
 
-### Sample apps
-
-* [GitHub client](https://github.com/sbellity/aura-github)
-* Aura [Todos app](https://github.com/sbellity/aura-todos/) and an [alternative take](https://github.com/alexanderbeletsky/todomvc-aura)
-* [Hullagram](https://github.com/hull/hullagram) - demonstrating Aura + Hull
 
 ### Yeoman generator
 
