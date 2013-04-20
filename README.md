@@ -188,6 +188,10 @@ A scaffolding generator for Yeoman is also available:
 * [Notes](https://github.com/aurajs/aura/tree/master/notes)
 * In-progress [docs](http://tony.github.com/aura-docs/index.html)
 
+## Contribute
+
+See the [contributing docs](https://github.com/aurajs/aura/blob/master/contributing.md)
+
 ## Project status
 
 Aura 0.8.x was well received by the developer community, but had regular requests for a few advanced capabilities. These included individual sandboxes, declarative widgets, support for Bower and a powerful Pub/Sub implementation amongst others.
