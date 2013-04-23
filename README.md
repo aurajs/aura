@@ -162,13 +162,12 @@ var app = new Aura({debug: true});
 Logger usage:
 
 ```js
-//You can use logger from widgets or extensions
+// You can use logger from widgets or extensions
 var logger = sandbox.logger;
 
 logger.log('Hey');
 logger.warn('Hey');
 logger.error('Hey');
-
 ```
 
 If you want to enable event logging, do this:
@@ -181,13 +180,13 @@ Also, when parameter `debug` is true, you can declare following function for any
 
 ```js
 // Function will be called for all Aura apps in your project
-window.attachDebugger = function(app){
-        // Do cool stuff with app object
-        console.log(app);
+window.attachDebugger = function (app) {
+  // Do cool stuff with app object
+  console.log(app);
 
-        // Maybe you want to have access to Aura app via developer console?
-        window.aura = app;
-    };
+  // Maybe you want to have access to Aura app via developer console?
+  window.aura = app;
+};
 ```
 
 
