@@ -204,7 +204,7 @@ An Aura scaffolding generator (for Yeoman) is also available at [Aura generator]
 mkdir my-awesome-project && cd $_
 
 # Then install `generator-aura`:
-npm install generator-aura
+npm install -g generator-aura
 
 # Run `yo aura`, optionally passing an app name:
 yo aura [app-name]
