@@ -10,7 +10,7 @@ Want to look at some sample apps built with Aura? Check out the [GitHub client](
 
 ## Why Aura?
 
-* It's basically **glue** for your application widgets, making it trivial to tie together a number of independently created widgets into a fully functional application. 
+* It's basically **glue** for your application widgets, making it trivial to tie together a number of independently created widgets into a fully functional application.
 * A complete event-bus supporting **application-level and widget-level communication** mean you have control over what is getting triggered in your app
 * Specify an API end-point for widgets easily and just **use data-attributes to include any widget** or widgets. Minimal JavaScript for more capabilities.
 * **Abstract away utility libraries** you are using (templating, DOM manipulation) so that you can swap them out for alternatives at any time without a great deal of effort
@@ -194,7 +194,7 @@ window.attachDebugger = function (app) {
 
 ### Yeoman generator
 
-An Aura scaffolding generator (for Yeoman) is also available at [Aura generator](https://github.com/yeoman-aura/generator-aura).
+An Aura scaffolding generator (for Yeoman) is also available at [Aura generator](https://github.com/dotCypress/generator-aura).
 
 ### Usage
 
