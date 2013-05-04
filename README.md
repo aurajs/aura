@@ -261,6 +261,14 @@ yo aura:styles
 
 * [Notes](https://github.com/aurajs/aura/tree/master/notes)
 
+## FAQs
+
+* [Where does Aura fit in the MVC workflow?](https://github.com/aurajs/aura/issues/223)
+* [How do you initialize a widget with with data objects?](https://github.com/aurajs/aura/issues/222)
+* [Using multiple views and models in a widget](https://github.com/aurajs/aura/issues/224)
+* [Sharing collections of data](https://github.com/karlwestin/aura-example)
+
+
 ## Contribute
 
 See the [contributing docs](https://github.com/aurajs/aura/blob/master/contributing.md)
