@@ -269,6 +269,14 @@ yo aura:styles
 * [Sharing collections of data](https://github.com/karlwestin/aura-example)
 
 
+## Why do developers use us?
+
+* "The architecture and the fact that Aura Widgets are completely decoupled, will allow us to build an ecosystem of widgets that people can reuse internally or share with others."
+* "With WidgetSources and Require, we can load only the widgets that are needed by the app... at runtime."
+* "No JS is required to wire everything up, just include widgets with data-attributes in their markup"
+* "Mediation, same thing here it's a prerequisite to make everything decoupled... but in addition, it allows us to write much less code..."
+* "Template overrides FTW"
+
 ## Contribute
 
 See the [contributing docs](https://github.com/aurajs/aura/blob/master/contributing.md)
