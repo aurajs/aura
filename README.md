@@ -5,6 +5,7 @@ Aura is an event-driven architecture for developing widget-based applications th
 Aura has been used to develop applications like [MIT's Reap](http://www.bobholt.me/2012/09/how-it-was-built-mit-reap/) and is currently under active development.
 
 Want to look at some sample apps built with Aura? Check out the [GitHub client](https://github.com/sbellity/aura-github), the [GitHub Mobile client](https://github.com/hull/Github-Mobile/tree/with-hull),  an Aura [Todo](https://github.com/sbellity/aura-todos/) app implemented [two](https://github.com/alexanderbeletsky/todomvc-aura) ways and [Hullagram](https://github.com/hull/hullagram) - an Instagram clone built with Aura and [Hull.io](http://hull.io).
+You can also read [how to build your own Twitter-like "Open Source" page](http://blog.hull.io/post/46504817377/how-to-build-your-own-twitter-like-open-source-page) using Aura.
 
 <img src="https://raw.github.com/hull/aura-identity/master/logo/export/halo.png" width="300px"/>
 
