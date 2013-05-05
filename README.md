@@ -296,17 +296,45 @@ yo aura:styles
 
 Want to look at some sample apps built with Aura? Check out:
 
-The [GitHub client](https://github.com/sbellity/aura-github)
+###The [GitHub client](https://github.com/sbellity/aura-github)
+
+<img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/github-app.png"/>
 
 
-The [GitHub Mobile client](https://github.com/hull/Github-Mobile/tree/with-hull)
+<img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/github-app2.png"/>
 
 
-[Hullagram](https://github.com/hull/hullagram) - an Instagram clone built with Aura and [Hull.io](http://hull.io).
+<img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/github-app3.png"/>
 
-An Aura [TodoMVC](https://github.com/sbellity/aura-todos/) app implemented [two](https://github.com/alexanderbeletsky/todomvc-aura) ways 
 
-You can also read [how to build your own Twitter-like "Open Source" page](http://blog.hull.io/post/46504817377/how-to-build-your-own-twitter-like-open-source-page) using Aura. There is also a tutorial available on writing a simple [GitHub widget](https://gist.github.com/sbellity/b44364f29fd89679ca39) using Aura.
+<img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/github-app4.png"/>
+
+
+###The [GitHub Mobile client](https://github.com/hull/Github-Mobile/tree/with-hull)
+
+<img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/github-mobile.png"/>
+
+
+###[Hullagram](https://github.com/hull/hullagram) - an Instagram clone built with Aura and [Hull.io](http://hull.io).
+
+
+<img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/hullagram-1.png" width="600px"/>
+<img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/hullagram-2.png" width="600px"/>
+<img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/hullagram-3.png" width="600px"/>
+<img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/hullagram-4.png" width="600px"/>
+
+
+###An Aura [TodoMVC](https://github.com/sbellity/aura-todos/) app implemented [two](https://github.com/alexanderbeletsky/todomvc-aura) ways 
+
+<img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/todomvc.png"/>
+
+
+### [How to build your own Twitter-like "Open Source" page](http://blog.hull.io/post/46504817377/how-to-build-your-own-twitter-like-open-source-page) using Aura. 
+
+<img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/opensource-page.png" width="600px"/>
+
+
+###Writing a simple [GitHub widget](https://gist.github.com/sbellity/b44364f29fd89679ca39) using Aura.
 
 ### Aura Development docs
 
