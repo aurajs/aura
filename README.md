@@ -298,16 +298,16 @@ Want to look at some sample apps built with Aura? Check out:
 
 ###The [GitHub client](https://github.com/sbellity/aura-github)
 
-<img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/github-app.png"/>
+<img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/github-app.png"  width="600px"/>
 
 
-<img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/github-app2.png"/>
+<img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/github-app2.png"  width="600px"/>
 
 
-<img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/github-app3.png"/>
+<img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/github-app3.png"  width="600px"/>
 
 
-<img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/github-app4.png"/>
+<img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/github-app4.png"  width="600px"/>
 
 
 ###The [GitHub Mobile client](https://github.com/hull/Github-Mobile/tree/with-hull)
@@ -318,10 +318,10 @@ Want to look at some sample apps built with Aura? Check out:
 ###[Hullagram](https://github.com/hull/hullagram) - an Instagram clone built with Aura and [Hull.io](http://hull.io).
 
 
-<img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/hullagram-1.png" width="600px"/>
-<img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/hullagram-2.png" width="600px"/>
-<img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/hullagram-3.png" width="600px"/>
-<img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/hullagram-4.png" width="600px"/>
+<img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/hullagram-1.png"/>
+<img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/hullagram-2.png"/>
+<img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/hullagram-3.png"/>
+<img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/hullagram-4.png"/>
 
 
 ###An Aura [TodoMVC](https://github.com/sbellity/aura-todos/) app implemented [two](https://github.com/alexanderbeletsky/todomvc-aura) ways 
