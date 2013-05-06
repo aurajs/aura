@@ -1,4 +1,5 @@
-# Aura 0.9pre [![Build Status](https://travis-ci.org/aurajs/aura.png?branch=master)](https://travis-ci.org/aurajs/aura)
+# Aura 0.9pre
+[![Build Status](https://travis-ci.org/aurajs/aura.png?branch=master)](https://travis-ci.org/aurajs/aura)
 
 Aura is an event-driven architecture for developing widget-based applications that scale. It works great with [Backbone.js](http://backbonejs.org), but is framework-agnostic, adapts many best-practice patterns for developing maintainable apps and has first-class support for modern tools like [Bower](http://bower.io), [Grunt](http://gruntjs.com) and [Yeoman](http://yeoman.io).
 
@@ -6,8 +7,6 @@ Aura has been used to develop applications like [MIT's Reap](http://www.bobholt.
 
 Want to look at some sample apps built with Aura? Check out the [GitHub client](https://github.com/sbellity/aura-github), the [GitHub Mobile client](https://github.com/hull/Github-Mobile/tree/with-hull),  an Aura [Todo](https://github.com/sbellity/aura-todos/) app implemented [two](https://github.com/alexanderbeletsky/todomvc-aura) ways and [Hullagram](https://github.com/hull/hullagram) - an Instagram clone built with Aura and [Hull.io](http://hull.io).
 You can also read [how to build your own Twitter-like "Open Source" page](http://blog.hull.io/post/46504817377/how-to-build-your-own-twitter-like-open-source-page) using Aura.
-
-<img src="https://raw.github.com/hull/aura-identity/master/logo/export/halo.png" width="300px"/>
 
 ## Why Aura?
 
@@ -26,27 +25,27 @@ You can also read [how to build your own Twitter-like "Open Source" page](http:/
 
 ## Concepts
 
-### The `Aura` object
+#### The `Aura` object
 
 Your application will be an instance of the `Aura` object.
 
 Its responsibilities are to load extensions when the app starts and clean them up when the app stops.
 
-### Extension
+#### Extension
 
 Extensions are loaded in your application when it starts. They allow you to add features to the application, and are available to the widgets through their `sandbox`.
 
-### Core
+#### Core
 
 The `core` implements aliases for DOM manipulation, templating and other lower-level utilities that pipe back to a library of choice. Aliases allow switching libraries with minimum impact on your application.
 
-### Sandbox
+#### Sandbox
 
 A `sandbox` is just a way to implement the [facade](http://addyosmani.com/resources/essentialjsdesignpatterns/book/#facadepatternjavascript) pattern on top of features provided by `core`. It lets you expose the parts of a JavaScript library that are safe to use instead of exposing the entire API. This is particularly useful when working in teams.
 
 When your app starts, it will create an instance of `sandbox` in each of your widgets.
 
-### Widget
+#### Widget
 
 A widget represents a unit of a page. Each widget is independent.
 This means that they know nothing about each other. To make them communicate, a [Publish/Subscribe (Mediator)](http://addyosmani.com/resources/essentialjsdesignpatterns/book/#mediatorpatternjavascript) pattern is used.
@@ -56,18 +55,18 @@ This means that they know nothing about each other. To make them communicate, a 
 
 The simplest usable Aura app using a widget and extension can be found in our [boilerplate](https://github.com/aurajs/boilerplate) repo. We do however recommend reading the rest of the getting started guide below to get acquainted with the general workflow.
 
-### Requirements
+#### Requirements
 
 1. [bower](http://twitter.github.com/bower/): run `npm install -g bower` if needed
 2. [grunt-cli](https://github.com/gruntjs/grunt-cli): run `npm install -g grunt-cli` if needed
 
-### Building Aura.js
+#### Building Aura.js
 
 1. Run `npm install` to install build dependencies.
 2. Run `bower install` to install lib dependencies.
 3. Run `grunt build` and `aura.js` will be placed in `dist/`.
 
-### How to run tests
+## Running Tests
 
 #### Browser
 
@@ -77,7 +76,7 @@ Run `grunt`. Then visit `http://localhost:8899/spec/`.
 
 Run `npm test`.
 
-### Creating an Application
+## Creating an Application
 
 The first step in creating an Aura application is to make an instance of `Aura`.
 
@@ -95,7 +94,7 @@ app.start({
 
 This starts the app by saying that it should search for widgets anywhere in the `body` of your HTML document.
 
-### Creating a Widget
+## Creating a Widget
 
 By default widgets are retrieved from a directory called `widgets/` that must be at the same level as your HTML document.
 
@@ -116,7 +115,7 @@ define({
 });
 ```
 
-### Declaring a Widget
+## Declaring a Widget
 
 Add the following code to your HTML document.
 
@@ -126,7 +125,7 @@ Add the following code to your HTML document.
 
 Aura will call the `initialize` method that we have defined in `widgets/hello/main.js`.
 
-### Creating an extension
+## Creating an extension
 
 Imagine that we need an helper to reverse a string. In order to accomplish that we'll need to create an extension.
 
@@ -140,7 +139,7 @@ define('extensions/reverse', {
 });
 ```
 
-### Using extensions
+## Using extensions
 
 To make our `reverse` helper available in our app, run the following code:
 
@@ -152,12 +151,12 @@ This will call the `initialize` function of our `reverse` extension.
 
 Calling `use` when your `app` is already started will throw an error.
 
-### Debugging
+## Debugging
 
 To make `app.logger` available, pass `{debug: true}` into Aura constructor:
 
 ```js
-var app = new Aura({debug: true});
+  var app = new Aura({debug: true});
 ```
 
 Logger usage:
@@ -191,29 +190,29 @@ window.attachDebugger = function (app) {
 ```
 
 
-## Resources
+# Resources
 
-### Yeoman generator
+## Yeoman generator
 
 An Aura scaffolding generator (for Yeoman) is also available at [Aura generator](https://github.com/dotCypress/generator-aura).
 
-### Usage
+## Usage
 
 ```bash
-# First make a new directory, and `cd` into it:
-mkdir my-awesome-project && cd $_
+  # First make a new directory, and `cd` into it:
+  mkdir my-awesome-project && cd $_
 
-# Then install `generator-aura`:
-npm install -g generator-aura
+  # Then install `generator-aura`:
+  npm install -g generator-aura
 
-# Run `yo aura`, optionally passing an app name:
-yo aura [app-name]
+  # Run `yo aura`, optionally passing an app name:
+  yo aura [app-name]
 
-# Finally, install npm and bower dependencies:
-npm install && bower install --dev
+  # Finally, install npm and bower dependencies:
+  npm install && bower install --dev
 ```
 
-### Generators
+## Generators
 
 Available generators:
 
@@ -221,7 +220,7 @@ Available generators:
 * [aura:extension](#extension)
 * [aura:styles](#styles)
 
-#### Widget
+### Widget
 Generates a widget in `app/widgets`.
 
 Example:
@@ -232,7 +231,7 @@ yo aura:widget sample
 
 Produces `app/widgets/sample/main.js`
 
-#### Extension
+### Extension
 Generates a extension in `app/extensions`.
 
 Example:
@@ -242,7 +241,7 @@ yo aura:extension storage
 
 Produces `app/extensions/storage.js`
 
-#### Styles
+### Styles
 Generates cool styles.
 
 Example:
@@ -258,11 +257,11 @@ yo aura:styles
 * Zurb Foundation
 
 
-### Aura Development docs
+## Aura Development docs
 
 * [Notes](https://github.com/aurajs/aura/tree/master/notes)
 
-## FAQs
+# FAQs
 
 * [Where does Aura fit in the MVC workflow?](https://github.com/aurajs/aura/issues/223)
 * [How do you initialize a widget with with data objects?](https://github.com/aurajs/aura/issues/222)
@@ -278,11 +277,11 @@ yo aura:styles
 * "Mediation, same thing here it's a prerequisite to make everything decoupled... but in addition, it allows us to write much less code..."
 * "Template overrides FTW"
 
-## Contribute
+# Contribute
 
 See the [contributing docs](https://github.com/aurajs/aura/blob/master/contributing.md)
 
-## Project status
+# Project status
 
 Aura 0.8.x was well received by the developer community, but had regular requests for a few advanced capabilities. These included individual sandboxes, declarative widgets, support for Bower and a powerful Pub/Sub implementation amongst others.
 
