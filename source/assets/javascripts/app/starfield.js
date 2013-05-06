@@ -1,4 +1,6 @@
 $(function(){
+  var mobile_viewport = true;
+
   var jqContainer = $('#particles');
   var stats;
   var camera, scene, renderer, particle;
@@ -19,8 +21,16 @@ $(function(){
 
   var showStats = false;
 
+  var win = $(window);
+
   init();
   animate();
+
+
+  win.smartresize(function(){ toggleAnimation()});
+  function toggleAnimation(){
+    mobile_viewport = (win.width()>767)?false:true;
+  }
 
   function init() {
 
@@ -64,6 +74,8 @@ $(function(){
       stats.domElement.style.top = '0px';
       container.appendChild( stats.domElement );
     }
+
+    toggleAnimation();
 
     document.addEventListener( 'mousemove', onDocumentMouseMove, false );
     // No touch events for now.
@@ -210,7 +222,9 @@ $(function(){
     }, 1000 / 25 );
 
     // requestAnimationFrame( animate );
-    render();
+    if(!mobile_viewport){
+      render();
+    }
     if (showStats){
       stats.update();
     }
@@ -223,4 +237,5 @@ $(function(){
     camera.lookAt( scene.position );
     renderer.render( scene, camera );
   }
+
 });
