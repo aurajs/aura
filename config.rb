@@ -1,4 +1,5 @@
 require "sass-getunicode"
+require "./lib/markdown_navigation"
 
 set :css_dir, 'assets/stylesheets'
 set :js_dir, 'assets/javascripts'
@@ -17,6 +18,7 @@ set :markdown, :fenced_code_blocks => true,
 
 activate :livereload
 activate :directory_indexes
+activate :markdown_navigation
 
 page "*", :layout => :main
 
