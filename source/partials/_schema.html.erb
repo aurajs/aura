@@ -1,0 +1,208 @@
+            <div class="popovers">
+                <div class="popover" id="popover_sandbox">
+                    <h4>
+                        Powered by the Facade pattern.
+                    </h4>
+                    <ul>
+                        <li>
+                            <p>
+                                <strong>Provides a limited, lightweight API layer on top of the Core for the rest of an application to communicate through.</strong> Rather than exposing say, the entire API for a JavaScript library, we instead only expose those parts that developers in the project will need or are safe to use. This is particularly useful when working in teams.
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                The Sandbox includes a permissions layer, allowing you to configure permissions for widgets such as whether a specific widget has the right to render to the page etc.
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="popover" id="popover_widgets">
+                    <h4>
+                        Widgets represent a complete unit of a page. They could be a calendar, a news block, a todo list or anything else.
+                    </h4>
+                    <ul>
+                        <li>
+                            <p>
+                                <strong>In Backbone.js terms, widgets are composed of Models, Views, Collections and Routers as well as any templates needed for the widget to rendered.</strong>
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                Widgets should be developed such that any number of instances of them could exist on a page in harmony.
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                Publish/Subscribe can be used to communicate between widgets. Alternatively, direct communication (as demonstrated by the controls widget in our examples) may be, however this is discouraged where Pub/Sub can be used instead.
+                            </p>
+                        </li>
+                    </ul>
+                    <h3>
+                        All of the files and demo widgets in Aura use AMD as their module format of choice
+                    </h3>
+                    <ul>
+                        <li>
+                            <p>
+                                These can of course be used with r.js for compilation and optimization if concerned about too many script files (compilation should always be used for production-level apps if using AMD in any situation)
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                Whilst not an Aura feature, we also take advantage of RequireJS 2.0's shim capability to avoid the need to use patched versions of Backbone.js and Underscore.js (a concern with earlier versions of the project).
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <section class="framework-architecture align-center">
+                <div class="row">
+                    <div class="twelve columns component-title">
+                        <h2 class="title">
+                            Aura's multi-tiered architecture.
+                        </h2>
+                    </div>
+                </div>
+                <div class="row upper">
+                    <div class="four columns offset-by-two">
+                        <div class="node widget">
+                            <div class="pop gallery" data-placement="right" data-source="#popover_widgets" data-title="Widgets">
+                                <img class="svg" src="images/gallery.svg">
+                            </div>
+                            <div class="pop sandbox" data-placement="right" data-source="#popover_sandbox" data-title="Sandbox">
+                                <img class="svg" src="images/sandbox.svg">
+                            </div>
+                            <div class="message">
+                                <img class="svg" src="images/message.svg">
+                            </div><strong class="title">Gallery Widget</strong>
+                        </div>
+                    </div>
+                    <div class="four columns end">
+                        <div class="node widget right">
+                            <div class="pop mail" data-placement="left" data-source="#popover_widgets" data-title="Widgets">
+                                <img class="svg" src="images/mail.svg">
+                            </div>
+                            <div class="pop sandbox" data-placement="left" data-source="#popover_sandbox" data-title="Sandbox">
+                                <img class="svg" src="images/sandbox.svg">
+                            </div>
+                            <div class="message">
+                                <img class="svg" src="images/message.svg">
+                            </div><strong class="title">Mail Widget</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="four columns">
+                        <div class="node widget">
+                            <div class="pop comment" data-placement="right" data-source="#popover_widgets" data-title="Widgets">
+                                <img class="svg" src="images/comment.svg">
+                            </div>
+                            <div class="pop sandbox" data-placement="right" data-source="#popover_sandbox" data-title="Sandbox">
+                                <img class="svg" src="images/sandbox.svg">
+                            </div>
+                            <div class="message">
+                                <img class="svg" src="images/message.svg">
+                            </div><strong class="title">Comment Widget</strong>
+                        </div>
+                    </div>
+                    <div class="four columns">
+                        <div class="node widget right">
+                            <div class="pop calendar" data-placement="left" data-source="#popover_widgets" data-title="Widgets">
+                                <img class="svg" src="images/calendar.svg">
+                            </div>
+                            <div class="pop sandbox" data-placement="left" data-source="#popover_sandbox" data-title="Sandbox">
+                                <img class="svg" src="images/sandbox.svg">
+                            </div>
+                            <div class="message">
+                                <img class="svg" src="images/message.svg">
+                            </div><strong class="title">Calendar Widget</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="four columns centered">
+                        <div class="node receive">
+                            <div class="receiver">
+                                <img class="svg" src="images/emit.svg">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="four columns centered">
+                        <div class="popover" id="popover_core">
+                            <h4>
+                                The Core has a number of responsibilities. Powered by the Mediator pattern.
+                            </h4>
+                            <ul>
+                                <li>
+                                    <p>
+                                        <strong>Provides the ability to manage a widget's lifecycle (start, stop, cleanup).</strong> This is powered by work we've done to expand on top of RequireJS 2.0's undef feature for unloading modules. Aura works around RequireJS's limitation of not being able to resolve a modules dependencies to allow the easy unloading of an entire widget. Unloading a widget equates to removing it from the RequireJS caches, deleting instance references to them (which can lower memory) and of course, cleaning up any DOM elements the widget was using.
+                                    </p>
+                                </li>
+                                <li>
+                                    <p>
+                                        <strong>Implements aliases for DOM manipulation, templating and other lower-level utilities that pipe back to a library of choice.</strong> The idea here is that rather than interfacing with the libraries directly, accessing the Core aliases (through the Sandbox) allow developers to switch out the libraries they use at a later date with minimum impact to their application.
+                                    </p>
+                                </li>
+                                <li>
+                                    <p>
+                                        <strong>Exposes Publish/Subscribe functionality that can be used for decoupled communication between parts of an application.</strong> Similar to the concept above, our Pub/Sub implementation can be easily replaced with that of another library and it should still work fine.
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="node core pop" data-placement="top" data-source="#popover_core" data-title="Application Core">
+                            <div class="cog">
+                                <img class="svg" src="images/core.svg">
+                            </div>
+                            <div class="title">
+                                Core
+                            </div>
+                        </div>
+                        <div class="connector"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="four columns centered">
+                        <div class="popover" id="popover_base">
+                            <h4>
+                                The Base layer
+                            </h4>
+                        </div>
+                        <div class="node base">
+                            <div class="pop wrench" data-placement="top" data-source="#popover_base" data-title="Base">
+                                <img class="svg" src="images/base.svg">
+                            </div>
+                            <div class="title">
+                                Base
+                            </div>
+                        </div>
+                        <div class="connector"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="four columns centered">
+                        <div class="popover" id="popover_vendors">
+                            <h4>
+                                The Vendors
+                            </h4>
+                            <ul>
+                                <li>
+                                    <p>
+                                        Underscore.js, Backbone.js, Require.js, Handlebars, ...
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="node vendors">
+                            <div class="pop layers" data-placement="top" data-source="#popover_vendors" data-title="Vendors">
+                                <img class="svg" src="images/vendors.svg">
+                            </div>
+                            <div class="title">
+                                Vendors
+                            </div>
+                        </div>
+                        <div class="connector"></div>
+                    </div>
+                </div>
+            </section>

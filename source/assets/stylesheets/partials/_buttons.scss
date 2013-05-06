@@ -1,0 +1,23 @@
+.button{
+  color: $turquoise;
+  display: inline-block;
+  padding: 17px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  line-height: 1;
+  @include box-sizing('border-box');
+  @include transition(all 0.4s);
+  @include pad_style;
+  &:hover, &:active{
+    text-decoration:none;
+    color:$turquoise;
+  }
+  &.faded{
+    color: rgba(255, 255, 255, 0.55);
+    padding: 15px 18px;
+    &:hover, &:active{
+      color: rgba(255, 255, 255, 0.8);
+    }
+  }
+}

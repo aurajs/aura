@@ -1,0 +1,7 @@
+<% if current_page.data.title != "" %>
+  <div class="nav-container" id="sidenav">
+    <ul class='nav nav-list'>
+      <%=markdown_navigation(current_page)%>
+    </ul>
+  </div>
+<%end%>

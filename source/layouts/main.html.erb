@@ -1,9 +1,31 @@
 <!doctype html>
 <html>
-<head>
-  <title>Aura</title>
-</head>
+  <head>
+    <title><%=data.strings.title|| "Aura"%></title>
+    <meta charset="utf-8" />
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
+    <meta content="width=device-width" name="viewport" />
+    <meta content="<%=data.strings.title%>" property="og:title" />
+    <meta content="<%=data.strings.title%>" property="og:site_name" />
+    <meta content="<%=data.strings.description%>" name="description" />
+    <meta content="http://hull.io" property="og:url" />
+    <meta content="<%=data.strings.image%>" property="og:image" />
+    <%= favicon_tag "favicon.ico" %>
+    <%= stylesheet_link_tag "style" %>
+    <%= javascript_include_tag "modernizr" %>
+  </head>
 <body>
-<%=yield%>
+  <%= partial "partials/header"%>
+  <section class="container introduction">
+    <header class="row">
+      <div class='span3 offset1'><%= partial 'partials/side_nav'%></div>
+      <div class="span6"><%=yield%></div>
+    </header>
+  </section>
+  <footer>
+    <%= partial "partials/footer"%>
+  </footer>
+  <%= javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" %>
+  <%= javascript_include_tag "app" %>
 </body>
 </html>

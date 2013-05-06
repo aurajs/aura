@@ -1,0 +1,39 @@
+.nav-container{
+  padding: 0;
+  background: transparent;
+}
+
+.nav-list{
+  .level_1{
+    margin-bottom:2em; 
+    > a{
+      color: darken($turquoise, 10%);
+    }
+  }
+
+  > li{
+    >a{
+      font-weight: 600;
+      font-size: 1.2em;
+    }
+  }
+
+  .nav-list{
+    > li {
+      > a{
+        font-size: 1em;
+        padding-left: 0px;
+        font-weight: 400;
+      }
+    }
+
+    .nav-list{
+      > li{
+        > a{
+          padding-left: 0px;
+          font-weight: 200;
+        }
+      }
+    }
+  }
+}

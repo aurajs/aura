@@ -1,0 +1,205 @@
+$cog_cycle : 2s;
+$message_cycle : 0.3s;
+$receiver_cycle : 0.3s;
+
+
+.pop{
+  cursor:pointer;
+  position:relative;
+}
+.connector{
+  width: 0px;
+  border-left: 2px solid $emit_gray;
+  height: 2em;
+  position: absolute;
+  left: 50%;
+  top: -1em;
+}
+
+.svg{
+  margin:0 0.2em;
+  @include box-sizing(content-box);
+  rect, path, polygon,  circle{
+    fill: $light_gray !important;
+  }
+  .message &{
+    width:$message_size;
+    height:$message_size;
+    rect, path, polygon, circle{
+      fill: $emit_gray !important;
+    }
+    #c1{
+      @include transform-origin(50%);
+      @include animation(pulse $message_cycle*6 0s infinite);
+    }
+    #c2{
+      @include transform-origin(50%);
+      @include animation(pulse $message_cycle*6 $message_cycle infinite);
+    }
+    #c3{
+      @include transform-origin(50%);
+      @include animation(pulse $message_cycle*6 $message_cycle*2 infinite);
+    }
+  }
+  .cog{
+    @include transform-origin(50%);
+    @include animation(rotate $cog_cycle infinite)
+  }
+  .mail &, .calendar &, .comment &, .gallery &{
+    width:$icon_size;
+    height:$icon_size;
+    rect, path, polygon,  circle{
+      fill: $lighter_gray !important;
+    }
+  }
+  .sandbox &{
+    @include badge($turquoise, $sandbox_size, 5px);
+    rect, path, polygon{
+      fill: $white !important;
+    }
+  }
+  .receiver &{
+    width:$receiver_size;
+    height:$receiver_size;
+    rect, path, polygon{
+      fill: $turquoise !important;
+    }
+    #emit1, #emit2, #emit3, #emit4{
+      fill: $transparent_turquoise !important;
+    }
+    #emit1, #emit2, #emit3, #emit4{
+      @include transform-origin(50%);
+    }
+    #emit1{
+      @include animation(opacity_pulse $receiver_cycle*6 0s infinite)
+    }
+    #emit2{
+      @include animation(opacity_pulse $receiver_cycle*6 $receiver_cycle infinite)
+    }
+    #emit3{
+      @include animation(opacity_pulse $receiver_cycle*6 $receiver_cycle*2 infinite)
+    }
+    #emit4{
+      @include animation(opacity_pulse $receiver_cycle*6 $receiver_cycle*3 infinite)
+    }
+  }
+  .cog &, .wrench &, .layers &{
+    @include badge($dark_gray, 48px, 10px);
+    rect, path, polygon, circle{
+      fill: $white !important;
+    }
+  }
+  .widget &{
+    margin:0 0.2em;
+  }
+}
+
+.sandbox{
+  .svg{
+    @media (min-width: 768px){
+      position:absolute;
+      bottom:-20px;
+      right: -20px;
+      .right &{
+        right:auto;
+        left: -20px;
+      }
+    }
+  }
+}
+
+// Mobile mode:  show only one widget;
+@media (max-width: 767px){
+  .upper, .right{
+    display:none;
+  }
+}
+
+
+.node{
+  position:relative;
+
+  .title{
+    margin:0;
+    display:block;
+    font-weight:400;
+    color:$dark_gray;
+    @include text-shadow(0 1px 0px rgba(255, 255, 255, 1));
+  }
+  &.widget{
+    @media (max-width: 767px){
+      margin-bottom: $message_size+15;
+    }
+
+    @media (min-width: 768px){
+      width: 90%;
+    }
+    @include box-sizing(border-box);
+    background-color:transparent;
+    @include border-radius(5px);
+    border:2px solid $emit_gray;
+    // @extend .button;
+    padding: 10px 0;
+    margin: 10px 0;
+    .title{
+      position: absolute;
+      top: -1em;
+      left: 1em;
+      padding:5px;
+      background:white;
+    }
+  }
+
+  &.core, &.base, &.vendors, &.receive{
+    padding:1em 0;
+    width: 100%;
+    .title{
+      font-weight:600;
+      font-size:16px;
+      left:180px;
+      top:0;
+      margin-top:30px;
+      position:absolute;
+    }
+  }
+  &.receive{
+    margin-top:10px;
+  }
+}
+
+.message{
+  position:absolute;
+  @media (max-width: 767px){
+    @include transform(rotate3d(0, 0, 1, 90deg));
+    left:50%;
+    margin-left:-($message_size+6)/2;
+  }
+  @media(min-width: 768px){
+    right:-120px;
+    bottom:-36px;
+  }
+  .upper &{
+    @include transform(rotate3d(0, 0, 1, 70deg));
+    bottom:-90px;
+    right:-55px;
+    left:auto;
+  }
+  .right &{
+    right:auto;
+    left:-120px;
+    .upper &{
+      left:-60px;
+      @include transform(rotate3d(0, 0, 1,-70deg));
+    }
+  }
+
+}
+
+.receiver{
+  position: absolute;
+  z-index:10;
+  top:-$receiver_size/1.5;
+  left:50%;
+  margin-left:-($receiver_size+2)/2;
+}
+
