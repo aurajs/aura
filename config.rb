@@ -5,7 +5,7 @@ set :css_dir, 'assets/stylesheets'
 set :js_dir, 'assets/javascripts'
 set :images_dir, 'assets/images'
 
-set :build_dir, "tmp"
+# set :build_dir, "tmp"
 
 set :markdown_engine, :redcarpet
 set :markdown, :fenced_code_blocks => true,
