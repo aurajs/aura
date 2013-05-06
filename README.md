@@ -142,7 +142,7 @@ define('extensions/reverse', {
 });
 ```
 
-## Emitting and listening for event notifications
+## Event notifications
 
 The Aura [Mediator](https://github.com/aurajs/aura/blob/master/lib/ext/mediator.js) allows widgets to communicate with each other by subscribing, unsubscribing and emitting sandboxed event notifications. The signatures for these three methods are:
 
@@ -230,7 +230,7 @@ window.attachDebugger = function (app) {
 
 An Aura scaffolding generator (for Yeoman) is also available at [Aura generator](https://github.com/dotCypress/generator-aura).
 
-## Usage
+### Usage
 
 ```bash
   # First make a new directory, and `cd` into it:
@@ -246,7 +246,7 @@ An Aura scaffolding generator (for Yeoman) is also available at [Aura generator]
   npm install && bower install --dev
 ```
 
-## Generators
+### Generators
 
 Available generators:
 
