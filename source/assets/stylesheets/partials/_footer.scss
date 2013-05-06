@@ -1,4 +1,8 @@
+
 footer {
+  @media (max-width: 767px){
+    margin:0 -20px;
+  }
   padding: 2em;
   margin-top: 1em;
   background: #f1f1f1;

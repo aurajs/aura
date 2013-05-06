@@ -78,7 +78,8 @@
 }
 #particles{
   background:$turquoise;
-  @include box-shadow(0 2px 8px rgba(0,0,0,0.2));
+  min-height: 360px;
+  // @include box-shadow(0 2px 8px rgba(0,0,0,0.2));
 }
 .hero-unit {
   background: transparent;
@@ -112,14 +113,16 @@
     max-width: 100%;
   }
   .logo-block{
-    width:60%;
-    max-width: 600px;
-    margin:0 auto 2em auto;
-    .logo{
-      text-align: right;
-    }
-    .title{
-      text-align: left;
+    @media (min-width: 767px){
+      max-width: 600px;
+      margin:0 auto 2em auto;
+      width:60%;
+      .logo{
+        text-align: right;
+      }
+      .title{
+        text-align: left;
+      }
     }
   }
 }
