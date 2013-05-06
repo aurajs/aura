@@ -295,7 +295,9 @@ yo aura:styles
 
 Want to look at some sample apps built with Aura? Check out:
 
-##[GitHub client](https://github.com/sbellity/aura-github)
+##GitHub client
+
+[Repo](https://github.com/sbellity/aura-github)
 
 <img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/github-app.png"  width="600px"/>
 
@@ -309,12 +311,16 @@ Want to look at some sample apps built with Aura? Check out:
 <img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/github-app4.png"  width="600px"/>
 
 
-##[GitHub Mobile client](https://github.com/hull/Github-Mobile/tree/with-hull)
+##GitHub Mobile client
+
+[Repo](https://github.com/hull/Github-Mobile/tree/with-hull)
 
 <img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/github-mobile.png"/>
 
 
-##[Hullagram](https://github.com/hull/hullagram) 
+##Hullagram
+
+[Repo](https://github.com/hull/hullagram) 
 
 An Instagram clone built with Aura and [Hull.io](http://hull.io).
 
@@ -324,19 +330,25 @@ An Instagram clone built with Aura and [Hull.io](http://hull.io).
 <img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/hullagram-4.png"/>
 
 
-##Aura [TodoMVC](https://github.com/sbellity/aura-todos/) 
+##Aura TodoMVC
+
+[Repo](https://github.com/sbellity/aura-todos/)
 
 <img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/todomvc.png"/>
 
 Also implemented in an [alternative](https://github.com/alexanderbeletsky/todomvc-aura) way.
 
 
-##[A Twitter-like "Open Source" page](http://blog.hull.io/post/46504817377/how-to-build-your-own-twitter-like-open-source-page) using Aura. 
+##A Twitter-like "Open Source" page using Aura. 
+
+[Tutorial](http://blog.hull.io/post/46504817377/how-to-build-your-own-twitter-like-open-source-page)
 
 <img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/opensource-page.png" width="600px"/>
 
 
-##Writing simple [GitHub widget](https://gist.github.com/sbellity/b44364f29fd89679ca39)
+##Writing simple GitHub widgets
+
+[Repo](https://gist.github.com/sbellity/b44364f29fd89679ca39)
 
 ### Aura Development docs
 
