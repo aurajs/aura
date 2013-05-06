@@ -1,14 +1,17 @@
-# Aura 0.9pre
+# Aura 0.9pre 
 [![Build Status](https://travis-ci.org/aurajs/aura.png?branch=master)](https://travis-ci.org/aurajs/aura)
 
-Aura is an event-driven architecture for developing widget-based applications that scale. It works great with [Backbone.js](http://backbonejs.org), but is framework-agnostic, adapts many best-practice patterns for developing maintainable apps and has first-class support for modern tools like [Bower](http://bower.io), [Grunt](http://gruntjs.com) and [Yeoman](http://yeoman.io).
+Aura is an event-driven architecture for developing scalable applications using reusable widgets. It works great with [Backbone.js](http://backbonejs.org), but is framework-agnostic, adapts many best-practice patterns for developing maintainable apps and has first-class support for modern tools like [Bower](http://bower.io), [Grunt](http://gruntjs.com) and [Yeoman](http://yeoman.io).
 
 Aura has been used to develop applications like [MIT's Reap](http://www.bobholt.me/2012/09/how-it-was-built-mit-reap/) and is currently under active development.
 
-Want to look at some sample apps built with Aura? Check out the [GitHub client](https://github.com/sbellity/aura-github), the [GitHub Mobile client](https://github.com/hull/Github-Mobile/tree/with-hull),  an Aura [Todo](https://github.com/sbellity/aura-todos/) app implemented [two](https://github.com/alexanderbeletsky/todomvc-aura) ways and [Hullagram](https://github.com/hull/hullagram) - an Instagram clone built with Aura and [Hull.io](http://hull.io).
-You can also read [how to build your own Twitter-like "Open Source" page](http://blog.hull.io/post/46504817377/how-to-build-your-own-twitter-like-open-source-page) using Aura.
-
 ## Why Aura?
+
+We've seen a large shift in the JavaScript community for the past 3 years, with people starting to write web apps in a much more structured way. Yet, assembling the bits and pieces and actually starting to make apps is still a challenge. Another challenge is that most of the time you end up doing the same stuff all over again : you need a way to authenticate users, give them ways to communicate, exchange ideas, work or play together. You have to integrate with external services or APIs like Facebook or Twitter.
+
+Web apps are all about the end user experience (UI, DOM elements). The web development ecosystem is all about much more low level stuff. We need a way to package higher level abstractions and make them truly reusable, and that's what Aura is all about.
+
+Need some more reasons to use Aura?:
 
 * It's basically **glue** for your application widgets, making it trivial to tie together a number of independently created widgets into a fully functional application.
 * A complete event-bus supporting **application-level and widget-level communication** mean you have control over what is getting triggered in your app
@@ -66,7 +69,7 @@ The simplest usable Aura app using a widget and extension can be found in our [b
 2. Run `bower install` to install lib dependencies.
 3. Run `grunt build` and `aura.js` will be placed in `dist/`.
 
-## Running Tests
+### Running Tests
 
 #### Browser
 
@@ -139,6 +142,37 @@ define('extensions/reverse', {
 });
 ```
 
+## Emitting and listening for event notifications
+
+The Aura [Mediator](https://github.com/aurajs/aura/blob/master/lib/ext/mediator.js) allows widgets to communicate with each other by subscribing, unsubscribing and emitting sandboxed event notifications. The signatures for these three methods are:
+
+* `sandbox.on(name, listener, context)`
+* `sandbox.off(name, listener)`
+* `sandbox.emit(data)`
+
+Below we can see an example of a Backbone view using the Mediator to emit a notification when tasks have been cleared and subscribing to changes from `tasks.stats` in order to render when they are updated.
+
+```js
+define(['hbs!./stats'], function(template) {
+  return {
+    type: 'Backbone',
+    events: {
+      'click button': 'clearCompleted'
+    },
+    initialize: function() {
+      this.render();
+      this.sandbox.on('tasks.stats', _.bind(this.render, this));
+    },
+    render: function(stats) {
+      this.html(template(stats || {}));
+    },
+    clearCompleted: function() {
+      this.sandbox.emit('tasks.clear');
+    }
+  }
+});
+```
+
 ## Using extensions
 
 To make our `reverse` helper available in our app, run the following code:
@@ -156,7 +190,7 @@ Calling `use` when your `app` is already started will throw an error.
 To make `app.logger` available, pass `{debug: true}` into Aura constructor:
 
 ```js
-  var app = new Aura({debug: true});
+var app = new Aura({debug: true});
 ```
 
 Logger usage:
@@ -173,7 +207,7 @@ logger.error('Hey');
 If you want to enable event logging, do this:
 
 ```js
-var app = new Aura({debug: true, logEvents: true});
+  var app = new Aura({debug: true, logEvents: true});
 ```
 
 Also, when parameter `debug` is true, you can declare following function for any debug purposes:
@@ -257,7 +291,51 @@ yo aura:styles
 * Zurb Foundation
 
 
-## Aura Development docs
+# Examples
+
+Want to look at some sample apps built with Aura? Check out:
+
+###The [GitHub client](https://github.com/sbellity/aura-github)
+
+<img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/github-app.png"  width="600px"/>
+
+
+<img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/github-app2.png"  width="600px"/>
+
+
+<img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/github-app3.png"  width="600px"/>
+
+
+<img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/github-app4.png"  width="600px"/>
+
+
+###The [GitHub Mobile client](https://github.com/hull/Github-Mobile/tree/with-hull)
+
+<img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/github-mobile.png"/>
+
+
+###[Hullagram](https://github.com/hull/hullagram) - an Instagram clone built with Aura and [Hull.io](http://hull.io).
+
+
+<img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/hullagram-1.png"/>
+<img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/hullagram-2.png"/>
+<img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/hullagram-3.png"/>
+<img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/hullagram-4.png"/>
+
+
+###An Aura [TodoMVC](https://github.com/sbellity/aura-todos/) app implemented [two](https://github.com/alexanderbeletsky/todomvc-aura) ways 
+
+<img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/todomvc.png"/>
+
+
+### [How to build your own Twitter-like "Open Source" page](http://blog.hull.io/post/46504817377/how-to-build-your-own-twitter-like-open-source-page) using Aura. 
+
+<img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/opensource-page.png" width="600px"/>
+
+
+###Writing a simple [GitHub widget](https://gist.github.com/sbellity/b44364f29fd89679ca39) using Aura.
+
+### Aura Development docs
 
 * [Notes](https://github.com/aurajs/aura/tree/master/notes)
 
@@ -269,7 +347,7 @@ yo aura:styles
 * [Sharing collections of data](https://github.com/karlwestin/aura-example)
 
 
-## Why do developers use us?
+# Why do developers use us?
 
 * "The architecture and the fact that Aura Widgets are completely decoupled, will allow us to build an ecosystem of widgets that people can reuse internally or share with others."
 * "With WidgetSources and Require, we can load only the widgets that are needed by the app... at runtime."
