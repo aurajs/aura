@@ -202,6 +202,10 @@ var logger = sandbox.logger;
 logger.log('Hey');
 logger.warn('Hey');
 logger.error('Hey');
+
+//Or directly from Aura app
+
+var logger = app.logger;
 ```
 
 If you want to enable event logging, do this:
