@@ -1,6 +1,6 @@
 define(['aura/aura'], function (aura) {
   'use strict';
-  /*global describe:true it:true before:true sinon:true */
+  /*global describe:true, it:true, before:true, sinon:true */
 
   describe('Aura Apps', function () {
     describe('App Public API', function () {

@@ -1,6 +1,6 @@
 define(['aura/aura', 'aura/ext/widgets'], function (aura, ext) {
   'use strict';
-  /*global describe:true it:true beforeEach:true before:true alert:true sinon:true */
+  /*global describe:true, it:true, beforeEach:true, before:true, alert:true, sinon:true */
 
   var appConfig = { widgets: { sources: { 'default' : 'spec/widgets' } } };
   var appsContainer = $('<div>').attr('style', 'display:none');

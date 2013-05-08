@@ -1,6 +1,6 @@
 define(['aura/aura.extensions'], function (ExtManager) {
   'use strict';
-  /*global describe:true it:true before:true sinon:true */
+  /*global describe:true, it:true, before:true, sinon:true */
 
   describe('ExtManager', function () {
     it('should be a constructor', function () {
