@@ -13,7 +13,8 @@
     "grunt-mocha": "0.3.1",
     "mocha": "1.9.0",
     "sinon": "1.7.2",
-    "sinon-chai": "2.4.0"
+    "sinon-chai": "2.4.0",
+    "grunt-dox": "~0.4.1"
   },
   "scripts": {
     "pretest": "bower install",

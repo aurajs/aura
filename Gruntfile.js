@@ -6,6 +6,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-requirejs');
   grunt.loadNpmTasks('grunt-mocha');
+  grunt.loadNpmTasks('grunt-dox');
 
   var PORT = 8899;
 
@@ -47,6 +48,15 @@ module.exports = function (grunt) {
         }
       }
     },
+    dox: {
+      options: {
+        title: "AuraJS documentation"
+      },
+      files: {
+        src: ['lib/'],
+        dest: 'docs'
+      }
+    },
     jshint: {
       all: {
         options: {
@@ -77,6 +87,6 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('spec', ['jshint', 'mocha']);
-  grunt.registerTask('build', ['connect', 'spec', 'requirejs']);
+  grunt.registerTask('build', ['connect', 'spec', 'requirejs','dox']);
   grunt.registerTask('default', ['connect', 'spec', 'watch']);
 };
