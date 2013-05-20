@@ -101,7 +101,7 @@ define(['aura/aura'], function (aura) {
         });
       });
 
-      it('Should bubble up exceptions throw by extensions during the boot process', function(done) {
+      it('Should bubble up exceptions thrown by extensions during the boot process', function(done) {
         var ext = {
           initialize: function() {
             throw new Error('Ext initialization error');
