@@ -110,8 +110,8 @@ define(['aura/aura'], function (aura) {
         var App = aura().use(ext);
         var fail = App.start().fail(function (err) {
           err.should.be.an.instanceOf(Error);
-          err.message.should.be.equal('Ext initialization error');
-          err.stack.should.be.exist;
+          err.message.should.equal('Ext initialization error');
+          err.stack.should.exist;
           done();
         });
       });
