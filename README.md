@@ -91,7 +91,7 @@ Now that we have our `app`, we can start it.
 
 ```js
 app.start({
-  widget: 'body'
+  widgets: 'body'
 });
 ```
 
