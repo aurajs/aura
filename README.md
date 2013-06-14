@@ -91,7 +91,7 @@ Now that we have our `app`, we can start it.
 
 ```js
 app.start({
-  widget: 'body'
+  widgets: 'body'
 });
 ```
 
@@ -187,12 +187,13 @@ Calling `use` when your `app` is already started will throw an error.
 
 ## Debugging
 
-To make `app.logger` available, pass `{debug: true}` into Aura constructor:
+To enable debug extension and logging pass `{debug: {enable: true}}` into Aura constructor:
 
 ```js
-var app = new Aura({debug: true});
+var app = new Aura({debug: {
+  enable: true
+});
 ```
-
 Logger usage:
 
 ```js
@@ -207,14 +208,21 @@ logger.error('Hey');
 
 var logger = app.logger;
 ```
-
-If you want to enable event logging, do this:
+Below we can see an example how to enable logging in specific ext/widgets.
+By default all loggers are enabled.
 
 ```js
-  var app = new Aura({debug: true, logEvents: true});
+var app = new Aura({debug: {
+  enable: true,
+  components: 'aura:mediator login signup info'
+});
 ```
 
-Also, when parameter `debug` is true, you can declare following function for any debug purposes:
+Built-in components:
+
+* aura:mediator - event logging.
+
+Also, when `debug mode` is enabled, you can declare following function for any debug purposes:
 
 ```js
 // Function will be called for all Aura apps in your project
