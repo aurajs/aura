@@ -131,6 +131,7 @@ Aura will call the `initialize` method that we have defined in `widgets/hello/ma
 ## Creating an extension
 
 Imagine that we need an helper to reverse a string. In order to accomplish that we'll need to create an extension.
+By default extension are retrieved from a directory called `extensions/` that must be at the same level as your HTML document.
 
 ```js
 define('extensions/reverse', {
