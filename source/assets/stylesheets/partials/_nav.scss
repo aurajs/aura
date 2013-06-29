@@ -8,37 +8,33 @@
   background: transparent;
 }
 
-.nav-list{
+#side_nav{
   .level_1{
-    margin-bottom:2em; 
+    padding-left: 0;
+    @include adjust-font-size-to(18px);
+    @include rhythm(0, 0, 0, 0, 18px);
     > a{
       color: darken($turquoise, 10%);
     }
   }
-
-  > li{
-    >a{
-      font-weight: 600;
-      font-size: 1.2em;
-    }
+  .level_2{
+    @include adjust-font-size-to(14px);
+    @include rhythm(0, 0, 0, 0, 14px);
   }
+}
 
-  .nav-list{
-    > li {
-      > a{
-        font-size: 1em;
-        padding-left: 0px;
-        font-weight: 400;
-      }
-    }
-
-    .nav-list{
-      > li{
-        > a{
-          padding-left: 0px;
-          font-weight: 200;
-        }
-      }
-    }
+.navbar-static-top{
+  z-index: 100;
+  position: relative;
+}
+#side_nav.affix{
+  top:0;
+  position: fixed;
+  & + .container{
+    margin-top: 46px;
   }
+}
+
+.accordion-heading .accordion-toggle{
+  padding-left: 0;
 }

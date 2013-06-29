@@ -260,11 +260,11 @@ This directory must contain:
 For our "hello" widget the `main.js` will be:
 
 ```js
-define({
-  initialize: function () {
-    this.$el.html('<h1>Hello Aura</h1>');
-  }
-});
+    define({
+      initialize: function () {
+        this.$el.html('<h1>Hello Aura</h1>');
+      }
+    });
 ```
 
 ## Declaring a Widget
@@ -448,16 +448,11 @@ Want to look at some sample apps built with Aura? Check out:
 
 [Repo](https://github.com/sbellity/aura-github)
 
-<img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/github-app.png"  width="600px"/>
+<img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/github-app.png"/>
+<img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/github-app2.png"/>
 
-
-<img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/github-app2.png"  width="600px"/>
-
-
-<img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/github-app3.png"  width="600px"/>
-
-
-<img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/github-app4.png"  width="600px"/>
+<img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/github-app3.png"/>
+<img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/github-app4.png"/>
 
 ## GitHub Mobile client
 
@@ -472,6 +467,7 @@ An Instagram clone built with Aura and [Hull.io](http://hull.io).
 
 <img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/hullagram-1.png"/>
 <img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/hullagram-2.png"/>
+
 <img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/hullagram-3.png"/>
 <img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/hullagram-4.png"/>
 

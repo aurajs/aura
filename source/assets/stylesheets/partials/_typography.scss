@@ -1,8 +1,11 @@
+$base_color: $dark_gray;
+
 body {
   @extend .brand-font;
-  color: $dark_gray;
-  font-size: 16px;
-  line-height:1.6;
+  color: $base_color;
+  font-size: $base-font-size;
+  // line-height: 24px;
+
   text-rendering: optimizelegibility;
   -webkit-font-smoothing: antialiased;
 }
@@ -16,38 +19,58 @@ a {
   }
 }
 
-li{
-  line-height: 1.6;
+
+
+
+h1, h2, h3, h4, h5, h6 {
+  @extend .brand-font;
+  @extend .normal-weight;
+  color: darken($dark_gray, 10%);
 }
 
-h1{
-  font-size: 2.75em;
-  font-size: 2em;
-}
-h2{
-  font-size: 2.3em;
-  font-size: 1.4em;
-}
-h3{
-  font-size: 1.8em;
-  font-size: 1.2em;
-}
-h4{
-  font-size: 1.3em;
-  font-size: 1em;
-}
-h5{
-  font-size: 1em;
-  font-size: 1em;
-}
-h6{
-  font-size: 1em;
+.introduction{
+
+  h1 {
+    @include adjust-font-size-to(42px);
+    @include rhythm(2, 0, 0, 2, 42px);
+    color: darken($base_color, 15%);
+  }
+
+  h2 {
+    @include adjust-font-size-to(36px);
+    @include rhythm(2, 0, 0, 1, 36px);
+    color: darken($base_color, 15%);
+  }
+
+  h3 {
+    @include adjust-font-size-to(24px);
+    @include rhythm(1, 0, 0, 1, 24px);
+    color: darken($base_color, 15%);
+  }
+
+  h4 {
+    @include adjust-font-size-to(18px);
+    @include rhythm(1, 0, 0, 1);
+    color: darken($base_color, 15%);
+  }
+  p{
+    @include adjust-font-size-to(18px);
+    @include rhythm(0.5, 0, 0, 0.5, 18px);
+  }
+  li{
+    @include adjust-font-size-to(18px);
+    @include rhythm(0, 0, 0.2, 0, 18px);
+  }
 }
 
-h2, h3, h4, h5, h6{
-  margin-top:1.4em;
-  margin-bottom:0.4em;
+.header {
+  h2{
+    @include adjust-font-size-to(24px, 1.5);
+    @include rhythm(0, 0.5, 0.5, 0, 24px);
+  }
 }
+
+
 .bold-weight{
   font-weight: 600;
 }
@@ -56,15 +79,9 @@ h2, h3, h4, h5, h6{
   font-weight: 400;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  @extend .brand-font;
-  @extend .normal-weight;
-  color: darken($dark_gray, 10%);
-}
-
 
 .introduction{
-  h1{
+  h1, h4{
     @extend .bold-weight;
   }
 }
@@ -74,6 +91,7 @@ h1, h2, h3, h4, h5, h6 {
   background: $almost_white;
   border:none;
 }
+
 code {
   @extend .pre;
   font-family: Monaco, Menlo, Consolas, "Courier New", monospace;

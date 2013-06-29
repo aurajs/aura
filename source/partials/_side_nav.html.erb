@@ -1,7 +1,12 @@
 <% if current_page.data.title != "" %>
-  <div class="nav-container" id="sidenav">
-    <ul class='nav nav-list'>
-      <%=markdown_navigation(current_page)%>
-    </ul>
+  <div id="side_nav" class=" hidden-phone hidden-table" data-spy="affix" data-offset-top="355">
+    <div class="row">
+      <div class="span3">
+        <h5>&nbsp;</h5>
+        <ul class='nav accordion' id="accordion">
+          <%=markdown_navigation(current_page)%>
+        </ul>
+      </div>
+    </div>
   </div>
 <%end%>

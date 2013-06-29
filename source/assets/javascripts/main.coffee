@@ -24,6 +24,20 @@ $ ->
   hljs.initHighlightingOnLoad();
   $(window).smartresize -> initPopovers()
 
+  p = $('.container img').parent('p')
+  p.each (i,e)->
+    i = $(e).find('img')
+    sp = Math.floor(8/i.length)
+    console.log i.length
+    p.addClass('thumbnails')
+    i.wrap("<li class='span#{sp}'/>").wrap('<div class="thumbnail"/>')
+  # l.parents('p').addClass('thumbnails')
+  # 
+  $("#side_nav a[href^='#']").on 'click', (e) ->
+     e.preventDefault()
+     $('html, body').animate { scrollTop: $(this.hash).offset().top }, 300
+
+
   # Auto Add ID slugs to pages.
   slug= (str="") ->
     str = str.replace(/^\s+|\s+$/g, "").toLowerCase()

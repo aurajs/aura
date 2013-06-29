@@ -22,18 +22,20 @@
     <%= stylesheet_link_tag "style" %>
     <%= javascript_include_tag "modernizr" %>
   </head>
-<body>
+<body data-spy="scroll" data-target=".navbar">
   <%= partial "partials/header"%>
   <section class="container introduction">
-    <header class="row">
-      <div class='span3 offset1'><%= partial 'partials/side_nav'%></div>
-      <div class="span6"><%=yield%></div>
-    </header>
+    <div class="row">
+      <div class="span3">
+        <%= partial 'partials/side_nav'%>
+      </div>
+      <div class="span9"><%=yield%></div>
+    </div>
   </section>
   <footer>
     <%= partial "partials/footer"%>
   </footer>
-  <%= javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" %>
+  <%= javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js" %>
   <%= javascript_include_tag "app" %>
 </body>
 </html>
