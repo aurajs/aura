@@ -272,7 +272,7 @@ For our "hello" widget the `main.js` will be:
 Add the following code to your HTML document.
 
 ```html
-    <div data-aura-widget="hello"></div>
+    &lt;div data-aura-widget="hello"&gt;&lt;/div&gt;
 ```
 
 Aura will call the `initialize` method that we have defined in `widgets/hello/main.js`.
