@@ -311,12 +311,6 @@ Want to look at some sample apps built with Aura? Check out:
 <img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/github-app4.png"  width="600px"/>
 
 
-##GitHub Mobile client
-
-[Repo](https://github.com/hull/Github-Mobile/tree/with-hull)
-
-<img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/github-mobile.png"/>
-
 
 ##Hullagram
 
