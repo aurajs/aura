@@ -133,7 +133,7 @@ Now we can place this widget everywhere in our app by using Aura's HTML API base
 
 
 ```html
-    &lt;div data-aura-widget="issues" data-aura-repo="aurajs/aura"&gt;&lt;&#47;div&gt;
+    &lt;div data-aura-widget="issues" data-aura-repo="aurajs/aura"&gt;&lt;/div&gt;
 ```
 
 You can even have multiple instances of this widget in you page :
@@ -141,10 +141,10 @@ You can even have multiple instances of this widget in you page :
 
 ```html
     &lt;div class='row'&gt;
-      &lt;div class='span4' data-aura-widget="issues" data-aura-repo="aurajs/aura"&gt;&lt;&#47;div&gt;
-      &lt;div class='span4' data-aura-widget="issues" data-aura-repo="emberjs/ember.js"&gt;&lt;&#47;div&gt;
-      &lt;div class='span4' data-aura-widget="issues" data-aura-repo="documentcloud/backbone"&gt;&lt;&#47;div&gt;
-    &lt;&#47;div&gt;
+      &lt;div class='span4' data-aura-widget="issues" data-aura-repo="aurajs/aura"&gt;&lt;/div&gt;
+      &lt;div class='span4' data-aura-widget="issues" data-aura-repo="emberjs/ember.js"&gt;&lt;/div&gt;
+      &lt;div class='span4' data-aura-widget="issues" data-aura-repo="documentcloud/backbone"&gt;&lt;/div&gt;
+    &lt;/div&gt;
 ```
 
 Any other widget can now emit issues.filter`  events that these widgets will respond to.
