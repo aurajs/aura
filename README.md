@@ -1,13 +1,162 @@
 # Aura 0.9pre 
 [![Build Status](https://travis-ci.org/aurajs/aura.png?branch=master)](https://travis-ci.org/aurajs/aura)
 
-Aura is an event-driven architecture for developing scalable applications using reusable widgets. It works great with [Backbone.js](http://backbonejs.org), but is framework-agnostic, adapts many best-practice patterns for developing maintainable apps and has first-class support for modern tools like [Bower](http://bower.io), [Grunt](http://gruntjs.com) and [Yeoman](http://yeoman.io).
+Aura is an **event-driven architecture for wrapping your code into reusable widgets and extensions that can easily communicate with each other.**
+ 
+We work great with **existing** frameworks like [Backbone.js](http://backbonejs.org) or [Ember](http://emberjs.com), but are framework-agnostic, adapting many best-practice patterns for developing maintainable applications.
 
-Aura has been used to develop applications like [MIT's Reap](http://www.bobholt.me/2012/09/how-it-was-built-mit-reap/) and is currently under active development.
+<img src="assets/images/notmvc.jpg"/>
+
+Aura has first-class support for modern tools like [Bower](http://bower.io)], [Grunt](http://gruntjs.com) and [Yeoman](http://yeoman.io) and uses libraries like [RequireJS](http://requirejs.org/) under the covers (for now). As solutions like ES6 modules and [Polymer](http://www.polymer-project.org) become stable and usable, the project will move towards using them.
+
+## Everything is a widget
+
+A widget is something **[atomic](http://juristr.com/blog/2013/04/modularity-in-javascript-frameworks/)** with a clear responsibility. A mini-app basically that can be instantiated (possibly multiple times) on an arbitrary part of your application. You might not be accustomed to thinking like this, preferring to build a highly coupled app. That might work just fine initially, but once it gets more complex you can run into trouble. Therefore, next time when you start building something bigger, stop for a moment and try to identify possible widgets.
+
+Consider for example GitHub’s site:
+
+<img src="assets/images/github.jpg"/>
+
+Separating your application into smaller parts is essential for keeping your architecture clean, reusable and mainly maintainable. The principle is a known concept in computer science: “divide and conquer”. Divide everything up into smaller parts which have lower complexity, are easier to test and cause fewer headaches. Then compose them together to form your larger application.
+
+## But Wait: My Widgets Have to Communicate!
+
+Modules (or widgets) within your application need to communicate with each other. Such communication creates dependencies as widget An eeds to have a reference to widget B if it needs to invoke some operation on it, right? Well, not necessarily, as that would again couple those widgets together and you couldn’t exchange widget B arbitrarily without having to also change widget A.
+
+Therefore, a common practice for creating a modular architecture is to decouple communication among components through event broadcasting mechanisms. Aura comes with global and widget-level messaging patterns, making this a breeze.
+
+<img src="assets/images/multi.jpg"/>
+
+## A Quick Example
+
+### How does it work ?
+
+Widgets are completely decoupled, they only can talk to each other via events. You can't have a handle on them from the outside, and themselves are just aware of what you explicitely make available throught their sandboxes`.
+
+To build your app, you can assemble widgets via AuraJS's HTML API, by using the data-aura-widget` attribute.
+
+Let's take an example. Let's say that we want to build a Github Issues app. We need to be able to :
+
+* Display lists of issues from specific repos
+* Filter those issues
+
+
+Now let's make some widgets, but first we need a way to talk to [Github's API](http://developer.github.com/v3/issues/).
+
+Here is a simple [AuraJS extension](https://github.com/aurajs/aura/blob/master/notes/extensions.md) that does just that :
+
+**extensions/aura-github.js**
+
+```js
+    define({
+      initialize: function (app) {
+        app.sandbox.github = function (path, verb, data) {
+          var dfd = $.Deferred();
+          var token = app.config.github.token;
+          verb = verb || 'get';
+          if (data &amp;&amp; verb != 'get') {
+            data = JSON.stringify(data);
+          }
+          $.ajax({
+            type: verb,
+            url: 'https://api.github.com/' + path,
+            data: data,
+            headers: {
+              "Authorization": "token " + token
+            },
+            success: dfd.resolve,
+            error: dfd.reject
+          });
+          return dfd;
+        };
+      }
+    });
+```
+
+This extension exposes in all our widgets a way to talk to Github's API via the this.sandbox.github` method.
+
+To use it in your aura app :
+
+**app.js**
+
+
+```js
+    var app = new Aura({
+      github: { token: 'current-user-token-here' }
+    });
+    app.use('extensions/aura-github');
+    app.start({ widgets: 'body' });
+```
+
+And now, let's write the issues` widget :
+
+**widgets/issues/main.js**
+
+
+```js
+    define(['underscore', 'text!./issues.html'], function(_, tpl) {
+
+      // Allow template to be overriden locally 
+      // via a text/template script tag
+      var template, customTemplate = $('script['data-aura-template="github/issues"]');
+      if (customTemplate.length &gt; 0) {
+        template = _.template(customTemplate.html());
+      } else {
+        template = _.template(tpl);
+      }
+
+      return {
+        initialize: function() {
+          _.bindAll(this);
+          this.repo   = this.options.repo;
+          this.filter = this.options.filter || {};
+          this.sandbox.on('issues.filter', this.fetch, this);
+          this.fetch();
+        },
+        fetch: function(filter) {
+          this.filter = _.extend(this.filter, filter || {});
+          var path = 'repos/' + this.repo + '/issues';
+          return this.sandbox.github(path, 'get', this.filter).then(this.render);
+        },
+        render: function(issues) {
+          this.html(template({
+            issues: issues,
+            filter: this.filter,
+            repo: this.repo
+          }));
+        }
+      };
+    });
+```
+
+Now we can place this widget everywhere in our app by using Aura's HTML API based on data-attributes.
+
+
+```html
+    &lt;div data-aura-widget="issues" data-aura-repo="aurajs/aura"&gt;&lt;&#47;div&gt;
+```
+
+You can even have multiple instances of this widget in you page :
+
+
+```html
+    &lt;div class='row'&gt;
+      &lt;div class='span4' data-aura-widget="issues" data-aura-repo="aurajs/aura"&gt;&lt;&#47;div&gt;
+      &lt;div class='span4' data-aura-widget="issues" data-aura-repo="emberjs/ember.js"&gt;&lt;&#47;div&gt;
+      &lt;div class='span4' data-aura-widget="issues" data-aura-repo="documentcloud/backbone"&gt;&lt;&#47;div&gt;
+    &lt;&#47;div&gt;
+```
+
+Any other widget can now emit issues.filter`  events that these widgets will respond to.
+For example in another widget that will allow the user to filter the issues lists, we can have :
+
+```js
+    this.sandbox.emit('issues.filter', { state: 'closed' });
+```
+
+You can find a [Github client demo app based on AuraJS + a bunch of Github widgets here](http://github.com/sbellity/aura-github)
 
 ## Why Aura?
-
-We've seen a large shift in the JavaScript community for the past 3 years, with people starting to write web apps in a much more structured way. Yet, assembling the bits and pieces and actually starting to make apps is still a challenge. Another challenge is that most of the time you end up doing the same stuff all over again : you need a way to authenticate users, give them ways to communicate, exchange ideas, work or play together. You have to integrate with external services or APIs like Facebook or Twitter.
 
 Web apps are all about the end user experience (UI, DOM elements). The web development ecosystem is all about much more low level stuff. We need a way to package higher level abstractions and make them truly reusable, and that's what Aura is all about.
 
@@ -123,7 +272,7 @@ define({
 Add the following code to your HTML document.
 
 ```html
-<div data-aura-widget="hello"></div>
+    <div data-aura-widget="hello"></div>
 ```
 
 Aura will call the `initialize` method that we have defined in `widgets/hello/main.js`.
@@ -310,6 +459,9 @@ Want to look at some sample apps built with Aura? Check out:
 
 <img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/github-app4.png"  width="600px"/>
 
+## GitHub Mobile client
+
+[Repo](https://github.com/hull/Github-Mobile/tree/with-hull)
 
 
 ##Hullagram
@@ -367,11 +519,3 @@ Also implemented in an [alternative](https://github.com/alexanderbeletsky/todomv
 # Contribute
 
 See the [contributing docs](https://github.com/aurajs/aura/blob/master/contributing.md)
-
-# Project status
-
-Aura 0.8.x was well received by the developer community, but had regular requests for a few advanced capabilities. These included individual sandboxes, declarative widgets, support for Bower and a powerful Pub/Sub implementation amongst others.
-
-To cater for this, Aura has been getting a heavy re-write over the past few months and we anticipate releasing a beta that can be tested in April, 2013. This will be followed by detailed documentation and new demo applications.
-
-A version of Aura currently powers the [Hull.io](http://hull.io) widget platform and we are honored to have members of that team directly contributing to the next version of the project.

@@ -30,6 +30,9 @@ configure :build do
   # Minify Javascript on build
   activate :minify_javascript
 
+  # Generate Favicon
+  activate :favicon_maker
+
   # Enable cache buster
   # activate :cache_buster
 
