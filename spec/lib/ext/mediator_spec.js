@@ -61,6 +61,26 @@ define(['aura/aura', 'aura/ext/mediator'], function (aura, extension) {
         });
       });
 
+      describe('#once', function() {
+        it('should augment sandbox', function() {
+          sandbox.once.should.be.a('function');
+        });
+
+        it('should add listener', function() {
+          sandbox.once('test', function() {});
+          mediator.listeners('test').should.have.length(1);
+        });
+
+        it('should remove listener after its called once', function(done) {
+          sandbox.once('test', function() {
+            mediator.listeners('test').should.have.length(0);
+            done();
+          });
+          mediator.listeners('test').should.have.length(1);
+          sandbox.emit('test');
+        });
+      });
+
       describe('#emit', function () {
         it('should augment sandbox', function () {
           sandbox.emit.should.be.a('function');
