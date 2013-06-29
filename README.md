@@ -98,7 +98,7 @@ And now, let's write the issues` widget :
 
       // Allow template to be overriden locally 
       // via a text/template script tag
-      var template, customTemplate = $('script['data-aura-template="github/issues"]');
+      var template, customTemplate = $('script[data-aura-template="github/issues"]');
       if (customTemplate.length &gt; 0) {
         template = _.template(customTemplate.html());
       } else {
