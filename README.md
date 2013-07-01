@@ -1,7 +1,7 @@
 # Aura 0.9pre 
 [![Build Status](https://travis-ci.org/aurajs/aura.png?branch=master)](https://travis-ci.org/aurajs/aura)
 
-Aura is an event-driven architecture for developing scalable applications using reusable widgets. It works great with [Backbone.js](http://backbonejs.org), but is framework-agnostic, adapts many best-practice patterns for developing maintainable apps and has first-class support for modern tools like [Bower](http://bower.io), [Grunt](http://gruntjs.com) and [Yeoman](http://yeoman.io).
+Aura is an event-driven architecture for developing scalable applications using reusable components. It works great with [Backbone.js](http://backbonejs.org), but is framework-agnostic, adapts many best-practice patterns for developing maintainable apps and has first-class support for modern tools like [Bower](http://bower.io), [Grunt](http://gruntjs.com) and [Yeoman](http://yeoman.io).
 
 Aura has been used to develop applications like [MIT's Reap](http://www.bobholt.me/2012/09/how-it-was-built-mit-reap/) and is currently under active development.
 
@@ -13,16 +13,16 @@ Web apps are all about the end user experience (UI, DOM elements). The web devel
 
 Need some more reasons to use Aura?:
 
-* It's basically **glue** for your application widgets, making it trivial to tie together a number of independently created widgets into a fully functional application.
-* A complete event-bus supporting **application-level and widget-level communication** mean you have control over what is getting triggered in your app
-* Specify an API end-point for widgets easily and just **use data-attributes to include any widget** or widgets. Minimal JavaScript for more capabilities.
+* It's basically **glue** for your application components, making it trivial to tie together a number of independently created components into a fully functional application.
+* A complete event-bus supporting **application-level and component-level communication** mean you have control over what is getting triggered in your app
+* Specify an API end-point for components easily and just **use data-attributes to include any component** or components. Minimal JavaScript for more capabilities.
 * **Abstract away utility libraries** you are using (templating, DOM manipulation) so that you can swap them out for alternatives at any time without a great deal of effort
-* Hit the ground running quickly widgets into **reusable modules using AMD**.
+* Hit the ground running quickly components into **reusable modules using AMD**.
 * Bower is a first-class citizen in Aura, making it easier to **manage your application dependencies**
-* The web platform is moving towards using scoped styles and shadow DOM for keeping parts of your page safe from third-party content that might affect it. Aura does the same for communications by introducing per-widget **sandboxes** for your events
-* Tooling for **scaffolding** out new widgets without having to write as much boilerplate
+* The web platform is moving towards using scoped styles and shadow DOM for keeping parts of your page safe from third-party content that might affect it. Aura does the same for communications by introducing per-component **sandboxes** for your events
+* Tooling for **scaffolding** out new components without having to write as much boilerplate
 * Can be used with your MVC framework of choice - we're just there as a helper.
-* First-class support for the Hull.io platform. If you don't want to create a widget yourself, you can easily use them as a widget-source and create apps in less time.
+* First-class support for the Hull.io platform. If you don't want to create a component yourself, you can easily use them as a components-source and create apps in less time.
 * Extensible via the extensions system, which make a good basis for a rich ecosystem around the project.
 
 
@@ -36,7 +36,7 @@ Its responsibilities are to load extensions when the app starts and clean them u
 
 #### Extension
 
-Extensions are loaded in your application when it starts. They allow you to add features to the application, and are available to the widgets through their `sandbox`.
+Extensions are loaded in your application when it starts. They allow you to add features to the application, and are available to the components through their `sandbox`.
 
 #### Core
 
@@ -46,17 +46,17 @@ The `core` implements aliases for DOM manipulation, templating and other lower-l
 
 A `sandbox` is just a way to implement the [facade](http://addyosmani.com/resources/essentialjsdesignpatterns/book/#facadepatternjavascript) pattern on top of features provided by `core`. It lets you expose the parts of a JavaScript library that are safe to use instead of exposing the entire API. This is particularly useful when working in teams.
 
-When your app starts, it will create an instance of `sandbox` in each of your widgets.
+When your app starts, it will create an instance of `sandbox` in each of your components.
 
 #### Component
 
-A widget represents a unit of a page. Each widget is independent.
+A component represents a unit of a page. Each component is independent.
 This means that they know nothing about each other. To make them communicate, a [Publish/Subscribe (Mediator)](http://addyosmani.com/resources/essentialjsdesignpatterns/book/#mediatorpatternjavascript) pattern is used.
 
 
 ## Getting started
 
-The simplest usable Aura app using a widget and extension can be found in our [boilerplate](https://github.com/aurajs/boilerplate) repo. We do however recommend reading the rest of the getting started guide below to get acquainted with the general workflow.
+The simplest usable Aura app using a component and extension can be found in our [boilerplate](https://github.com/aurajs/boilerplate) repo. We do however recommend reading the rest of the getting started guide below to get acquainted with the general workflow.
 
 #### Requirements
 
@@ -91,24 +91,24 @@ Now that we have our `app`, we can start it.
 
 ```js
 app.start({
-  widgets: 'body'
+  components: 'body'
 });
 ```
 
-This starts the app by saying that it should search for widgets anywhere in the `body` of your HTML document.
+This starts the app by saying that it should search for components anywhere in the `body` of your HTML document.
 
 ## Creating a Component
 
-By default widgets are retrieved from a directory called `widgets/` that must be at the same level as your HTML document.
+By default components are retrieved from a directory called `components/` that must be at the same level as your HTML document.
 
-Let's say we want to create an "hello" widget. To do that we need to create a `widgets/hello/` directory
+Let's say we want to create an "hello" component. To do that we need to create a `components/hello/` directory
 
 This directory must contain:
 
-- A `main.js` file. It will bootstrap and describe the widget. It is mandatory, no matter how small it can be.
-- All the other files that your widget needs (models, templates, …).
+- A `main.js` file. It will bootstrap and describe the component. It is mandatory, no matter how small it can be.
+- All the other files that your component needs (models, templates, …).
 
-For our "hello" widget the `main.js` will be:
+For our "hello" component the `main.js` will be:
 
 ```js
 define({
@@ -123,10 +123,10 @@ define({
 Add the following code to your HTML document.
 
 ```html
-<div data-aura-widget="hello"></div>
+<div data-aura-component="hello"></div>
 ```
 
-Aura will call the `initialize` method that we have defined in `widgets/hello/main.js`.
+Aura will call the `initialize` method that we have defined in `components/hello/main.js`.
 
 ## Creating an extension
 
@@ -145,7 +145,7 @@ define('extensions/reverse', {
 
 ## Emitting and listening for event notifications
 
-The Aura [Mediator](https://github.com/aurajs/aura/blob/master/lib/ext/mediator.js) allows widgets to communicate with each other by subscribing, unsubscribing and emitting sandboxed event notifications. The signatures for these three methods are:
+The Aura [Mediator](https://github.com/aurajs/aura/blob/master/lib/ext/mediator.js) allows components to communicate with each other by subscribing, unsubscribing and emitting sandboxed event notifications. The signatures for these three methods are:
 
 * `sandbox.on(name, listener, context)`
 * `sandbox.off(name, listener)`
@@ -198,7 +198,7 @@ var app = new Aura({debug: {
 Logger usage:
 
 ```js
-// You can use logger from widgets or extensions
+// You can use logger from components or extensions
 var logger = sandbox.logger;
 
 logger.log('Hey');
@@ -209,7 +209,7 @@ logger.error('Hey');
 
 var logger = app.logger;
 ```
-Below we can see an example how to enable logging in specific ext/widgets.
+Below we can see an example how to enable logging in specific ext/components.
 By default all loggers are enabled.
 
 ```js
@@ -263,20 +263,20 @@ An Aura scaffolding generator (for Yeoman) is also available at [Aura generator]
 
 Available generators:
 
-* [aura:widget](#widget)
+* [aura:component](#component)
 * [aura:extension](#extension)
 * [aura:styles](#styles)
 
 ### Component
-Generates a widget in `app/widgets`.
+Generates a component in `app/components`.
 
 Example:
 
 ```bash
-yo aura:widget sample
+yo aura:component sample
 ```
 
-Produces `app/widgets/sample/main.js`
+Produces `app/components/sample/main.js`
 
 ### Extension
 Generates a extension in `app/extensions`.
@@ -346,7 +346,7 @@ Want to look at some sample apps built with Aura? Check out:
 <img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/opensource-page.png" width="600px"/>
 
 
-###Writing a simple [GitHub widget](https://gist.github.com/sbellity/b44364f29fd89679ca39) using Aura.
+###Writing a simple [GitHub component](https://gist.github.com/sbellity/b44364f29fd89679ca39) using Aura.
 
 ### Aura Development docs
 
@@ -355,16 +355,16 @@ Want to look at some sample apps built with Aura? Check out:
 # FAQs
 
 * [Where does Aura fit in the MVC workflow?](https://github.com/aurajs/aura/issues/223)
-* [How do you initialize a widget with with data objects?](https://github.com/aurajs/aura/issues/222)
-* [Using multiple views and models in a widget](https://github.com/aurajs/aura/issues/224)
+* [How do you initialize a component with with data objects?](https://github.com/aurajs/aura/issues/222)
+* [Using multiple views and models in a component](https://github.com/aurajs/aura/issues/224)
 * [Sharing collections of data](https://github.com/karlwestin/aura-example)
 
 
 # Why do developers use us?
 
-* "The architecture and the fact that Aura Components are completely decoupled, will allow us to build an ecosystem of widgets that people can reuse internally or share with others."
-* "With ComponentSources and Require, we can load only the widgets that are needed by the app... at runtime."
-* "No JS is required to wire everything up, just include widgets with data-attributes in their markup"
+* "The architecture and the fact that Aura Components are completely decoupled, will allow us to build an ecosystem of components that people can reuse internally or share with others."
+* "With ComponentSources and Require, we can load only the components that are needed by the app... at runtime."
+* "No JS is required to wire everything up, just include components with data-attributes in their markup"
 * "Mediation, same thing here it's a prerequisite to make everything decoupled... but in addition, it allows us to write much less code..."
 * "Template overrides FTW"
 
@@ -374,8 +374,8 @@ See the [contributing docs](https://github.com/aurajs/aura/blob/master/contribut
 
 # Project status
 
-Aura 0.8.x was well received by the developer community, but had regular requests for a few advanced capabilities. These included individual sandboxes, declarative widgets, support for Bower and a powerful Pub/Sub implementation amongst others.
+Aura 0.8.x was well received by the developer community, but had regular requests for a few advanced capabilities. These included individual sandboxes, declarative components, support for Bower and a powerful Pub/Sub implementation amongst others.
 
 To cater for this, Aura has been getting a heavy re-write over the past few months and we anticipate releasing a beta that can be tested in April, 2013. This will be followed by detailed documentation and new demo applications.
 
-A version of Aura currently powers the [Hull.io](http://hull.io) widget platform and we are honored to have members of that team directly contributing to the next version of the project.
+A version of Aura currently powers the [Hull.io](http://hull.io) components platform and we are honored to have members of that team directly contributing to the next version of the project.
