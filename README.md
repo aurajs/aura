@@ -48,7 +48,7 @@ A `sandbox` is just a way to implement the [facade](http://addyosmani.com/resour
 
 When your app starts, it will create an instance of `sandbox` in each of your widgets.
 
-#### Widget
+#### Component
 
 A widget represents a unit of a page. Each widget is independent.
 This means that they know nothing about each other. To make them communicate, a [Publish/Subscribe (Mediator)](http://addyosmani.com/resources/essentialjsdesignpatterns/book/#mediatorpatternjavascript) pattern is used.
@@ -97,7 +97,7 @@ app.start({
 
 This starts the app by saying that it should search for widgets anywhere in the `body` of your HTML document.
 
-## Creating a Widget
+## Creating a Component
 
 By default widgets are retrieved from a directory called `widgets/` that must be at the same level as your HTML document.
 
@@ -118,7 +118,7 @@ define({
 });
 ```
 
-## Declaring a Widget
+## Declaring a Component
 
 Add the following code to your HTML document.
 
@@ -267,7 +267,7 @@ Available generators:
 * [aura:extension](#extension)
 * [aura:styles](#styles)
 
-### Widget
+### Component
 Generates a widget in `app/widgets`.
 
 Example:
@@ -362,8 +362,8 @@ Want to look at some sample apps built with Aura? Check out:
 
 # Why do developers use us?
 
-* "The architecture and the fact that Aura Widgets are completely decoupled, will allow us to build an ecosystem of widgets that people can reuse internally or share with others."
-* "With WidgetSources and Require, we can load only the widgets that are needed by the app... at runtime."
+* "The architecture and the fact that Aura Components are completely decoupled, will allow us to build an ecosystem of widgets that people can reuse internally or share with others."
+* "With ComponentSources and Require, we can load only the widgets that are needed by the app... at runtime."
 * "No JS is required to wire everything up, just include widgets with data-attributes in their markup"
 * "Mediation, same thing here it's a prerequisite to make everything decoupled... but in addition, it allows us to write much less code..."
 * "Template overrides FTW"

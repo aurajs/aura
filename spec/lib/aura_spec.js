@@ -59,7 +59,7 @@ define(['aura/aura'], function (aura) {
     describe('Defining and loading extensions', function () {
       it('Should be able to use extensions defined as objects', function (done) {
         var ext = { initialize: sinon.spy() };
-        aura().use(ext).start({ widgets: [] }).done(function () {
+        aura().use(ext).start({ components: [] }).done(function () {
           ext.initialize.should.have.been.called;
           done();
         });
