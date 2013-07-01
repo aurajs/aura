@@ -41,7 +41,7 @@ module.exports = function (grunt) {
             'aura/aura.extensions',
             'aura/ext/debug',
             'aura/ext/mediator',
-            'aura/ext/widgets'
+            'aura/ext/components'
           ],
           exclude: ['jquery'],
           out: 'dist/aura.js'
