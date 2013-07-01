@@ -6,7 +6,7 @@ require.config({
   paths: {
     components: 'components',
     aura: 'lib',
-    widgets: 'spec/widgets',
+    aura_components: 'spec/aura_components',
     chai: 'node_modules/chai/chai',
     sinonChai:'node_modules/sinon-chai/lib/sinon-chai'
   }
@@ -26,7 +26,7 @@ define(['chai', 'sinonChai'], function (chai, sinonChai) {
   require([
     'spec/lib/aura_spec',
     'spec/lib/aura.extensions_spec',
-    'spec/lib/ext/widgets_spec',
+    'spec/lib/ext/components_spec',
     'spec/lib/ext/mediator_spec'
   ], function () {
     mocha.run();

@@ -64,6 +64,31 @@ define(['aura/aura', 'aura/ext/components'], function (aura, ext) {
       });
     });
 
+    describe('Using legacy data-aura-widget attributes...', function () {
+
+      var app, options;
+
+      var myLegacyWidget = makeSpyComponent('legacy_widget', {
+        initialize: function () {}
+      });
+
+      before(function (done) {
+        var markup =  '<div data-aura-widget="legacy_widget"></div>';
+
+        var container = buildAppMarkup(markup);
+
+        app = aura();
+        app.start({ components: container }).done(function () {
+          setTimeout(done, 0);
+        });
+      });
+
+      it('Legacy data-aura-widget attribute should be recognized', function () {
+        myLegacyWidget.should.have.been.called;
+      });
+
+    });
+
     describe('Using alternate namespace for data-attributes...', function () {
       var app, options;
 
