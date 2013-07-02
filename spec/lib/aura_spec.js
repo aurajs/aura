@@ -100,6 +100,21 @@ define(['aura/aura'], function (aura) {
           done();
         });
       });
+
+      it('Should bubble up exceptions thrown by extensions during the boot process', function(done) {
+        var ext = {
+          initialize: function() {
+            throw new Error('Ext initialization error');
+          }
+        };
+        var App = aura().use(ext);
+        var fail = App.start().fail(function (err) {
+          err.should.be.an.instanceOf(Error);
+          err.message.should.equal('Ext initialization error');
+          err.stack.should.exist;
+          done();
+        });
+      });
     });
 
     describe('Logging', function() {
