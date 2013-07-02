@@ -31,9 +31,9 @@ Therefore, a common practice for creating a modular architecture is to decouple 
 
 ### How does it work ?
 
-Widgets are completely decoupled, they only can talk to each other via events. You can't have a handle on them from the outside, and themselves are just aware of what you explicitely make available throught their sandboxes`.
+Widgets are completely decoupled, they only can talk to each other via events. You can't have a handle on them from the outside, and themselves are just aware of what you explicitely make available throught their `sandboxes`.
 
-To build your app, you can assemble widgets via AuraJS's HTML API, by using the data-aura-widget` attribute.
+To build your app, you can assemble widgets via AuraJS's HTML API, by using the `data-aura-widget` attribute.
 
 Let's take an example. Let's say that we want to build a Github Issues app. We need to be able to :
 
@@ -73,7 +73,7 @@ Here is a simple [AuraJS extension](https://github.com/aurajs/aura/blob/master/n
     });
 ```
 
-This extension exposes in all our widgets a way to talk to Github's API via the this.sandbox.github` method.
+This extension exposes in all our widgets a way to talk to Github's API via the `this.sandbox.github` method.
 
 To use it in your aura app :
 
@@ -147,7 +147,7 @@ You can even have multiple instances of this widget in you page :
     &lt;/div&gt;
 ```
 
-Any other widget can now emit issues.filter`  events that these widgets will respond to.
+Any other widget can now emit `issues.filter`  events that these widgets will respond to.
 For example in another widget that will allow the user to filter the issues lists, we can have :
 
 ```js
