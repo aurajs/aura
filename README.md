@@ -7,7 +7,7 @@ We work great with **existing** frameworks like [Backbone.js](http://backbonejs.
 
 <img src="assets/images/notmvc.jpg"/>
 
-Aura has first-class support for modern tools like [Bower](http://bower.io)], [Grunt](http://gruntjs.com) and [Yeoman](http://yeoman.io) and uses libraries like [RequireJS](http://requirejs.org/) under the covers (for now). As solutions like ES6 modules and [Polymer](http://www.polymer-project.org) become stable and usable, the project will move towards using them.
+Aura has first-class support for modern tools like [Bower](http://bower.io), [Grunt](http://gruntjs.com) and [Yeoman](http://yeoman.io) and uses libraries like [RequireJS](http://requirejs.org/) under the covers (for now). As solutions like ES6 modules and [Polymer](http://www.polymer-project.org) become stable and usable, the project will move towards using them.
 
 ## Everything is a widget
 
