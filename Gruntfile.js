@@ -5,8 +5,8 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-requirejs');
+  grunt.loadNpmTasks('grunt-contrib-yuidoc');
   grunt.loadNpmTasks('grunt-mocha');
-  grunt.loadNpmTasks('grunt-dox');
 
   var PORT = 8899;
 
@@ -48,13 +48,16 @@ module.exports = function (grunt) {
         }
       }
     },
-    dox: {
-      options: {
-        title: "AuraJS documentation"
-      },
-      files: {
-        src: ['lib/'],
-        dest: 'docs'
+    yuidoc: {
+      compile: {
+        name: "<%= pkg.name %>",
+        description: "<%= pkg.description %>",
+        version: "<%= pkg.version %>",
+        url: "<%= pkg.homepage %>",
+        options: {
+          paths: [ "lib" ],
+          outdir: "docs"
+        }
       }
     },
     jshint: {
