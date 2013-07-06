@@ -46,7 +46,7 @@ module.exports = function (grunt) {
           exclude: ['jquery'],
           out: 'dist/aura.js'
         }
-      }
+      })
     },
     yuidoc: {
       compile: {
@@ -91,6 +91,6 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('spec', ['jshint', 'mocha']);
-  grunt.registerTask('build', ['connect', 'spec', 'requirejs','dox']);
+  grunt.registerTask('build', ['connect', 'spec', 'requirejs']);
   grunt.registerTask('default', ['connect', 'spec', 'watch']);
 };
