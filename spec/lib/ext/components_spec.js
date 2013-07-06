@@ -146,7 +146,7 @@ define(['aura/aura', 'aura/ext/components'], function (aura, ext) {
       // An extension to load it
       var ext = {
         initialize: function (app) {
-          app.core.registerComponentType('NewComponentType', NewComponentType);
+          app.registerComponentType('NewComponentType', NewComponentType);
         }
       };
 
