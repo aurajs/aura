@@ -90,7 +90,7 @@ module.exports = function (grunt) {
     }
   });
 
-  grunt.registerTask('spec', ['jshint', 'mocha']);
-  grunt.registerTask('build', ['connect', 'spec', 'requirejs']);
-  grunt.registerTask('default', ['connect', 'spec', 'watch']);
+  grunt.registerTask('spec', ['jshint', 'connect', 'mocha']);
+  grunt.registerTask('build', ['spec', 'requirejs']);
+  grunt.registerTask('default', ['spec', 'watch']);
 };

@@ -131,7 +131,6 @@ Aura will call the `initialize` method that we have defined in `components/hello
 ## Creating an extension
 
 Imagine that we need an helper to reverse a string. In order to accomplish that we'll need to create an extension.
-By default extension are retrieved from a directory called `extensions/` that must be at the same level as your HTML document.
 
 ```js
 define('extensions/reverse', {
@@ -142,6 +141,23 @@ define('extensions/reverse', {
   }
 });
 ```
+
+
+## Using extensions
+
+Extensions can then be loaded by your app by referencing them with their module name.
+
+To make our `reverse` helper available in our app, run the following code:
+
+This will call the `initialize` function of our `reverse` extension.
+
+```js
+var app = Aura();
+app.use('extensions/reverse');
+app.start({ widgets: 'body' });
+```
+
+Calling `use` when your `app` is already started will throw an error.
 
 ## Emitting and listening for event notifications
 
@@ -173,18 +189,6 @@ define(['hbs!./stats'], function(template) {
   }
 });
 ```
-
-## Using extensions
-
-To make our `reverse` helper available in our app, run the following code:
-
-```js
-app.use('extensions/reverse');
-```
-
-This will call the `initialize` function of our `reverse` extension.
-
-Calling `use` when your `app` is already started will throw an error.
 
 ## Debugging
 
