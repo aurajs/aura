@@ -146,7 +146,7 @@ define(['aura/aura', 'aura/ext/components'], function (aura, ext) {
       // An extension to load it
       var ext = {
         initialize: function (app) {
-          app.registerComponentType('NewComponentType', NewComponentType);
+          app.components.addType('NewComponentType', NewComponentType);
         }
       };
 
@@ -214,7 +214,7 @@ define(['aura/aura', 'aura/ext/components'], function (aura, ext) {
         app = aura();
 
         // Adding the source
-        app.registerComponentsSource('anotherSource', 'remoteComponents');
+        app.components.addSource('anotherSource', 'remoteComponents');
 
         // app start...
         var container = buildAppMarkup('<div data-aura-component="ext_component@anotherSource"></div>');
@@ -228,7 +228,7 @@ define(['aura/aura', 'aura/ext/components'], function (aura, ext) {
       });
 
       it('Should complain if we try to add a source that has already been registered', function () {
-        var err = function () { app.registerComponentsSource('anotherSource', '...'); };
+        var err = function () { app.components.addSource('anotherSource', '...'); };
         err.should.Throw('Components source \'anotherSource\' is already registered');
       });
     });
@@ -238,7 +238,7 @@ define(['aura/aura', 'aura/ext/components'], function (aura, ext) {
 
       var app, ext = {
         initialize: function (app) {
-          app.registerComponentsSource('aSource', 'aUrl');
+          app.components.addSource('aSource', 'aUrl');
         }
       };
 
@@ -253,6 +253,62 @@ define(['aura/aura', 'aura/ext/components'], function (aura, ext) {
       });
     });
 
+    describe('Components Callbacks', function(done) {
+      var spy = sinon.spy();
+      var spyAfter = sinon.spy();
+      var spyCustom = sinon.spy();
+
+      before(function(done) {
+        var container = buildAppMarkup('<div id="a-component"></div>');
+        var aComponent = makeSpyComponent('a_component_with_callbacks', {
+          initialize: function() {
+            if (this.beforeInitializeCalled) {
+              spy();
+              this.initializedCalled = true;
+            }
+          },
+          myCustomMethod: function() {}
+        });
+        var app = aura();
+
+        app.use(function(app) {
+          app.components.before('initialize', function() {
+            var self = this;
+            var dfd = app.core.data.deferred();
+            setTimeout(function() {
+              self.beforeInitializeCalled = true;
+              dfd.resolve();
+            }, 10);
+            return dfd.promise();
+          });
+          app.components.after('initialize', function() {
+            if (this.initializedCalled) {
+              spyAfter();
+            }
+            this.invokeWithCallbacks('myCustomMethod');
+          });
+
+          app.components.after('myCustomMethod', function() {
+            spyCustom();
+            this.sandbox.stop();
+          });
+
+          app.components.after('remove', function() {
+            done();
+          });
+        });
+
+        var yeah = { name: 'a_component_with_callbacks', options: { el: '#a-component', formidable: 'Tout a Fait' } };
+        app.start([yeah]);
+      });
+
+      it('should have called the before callback before initialize', function() {
+        spy.should.have.been.called;
+        spyAfter.should.have.been.called;
+        spyCustom.should.have.been.called;
+      });
+    });
+
     describe('sandbox', function () {
       var app;
       var sandbox;
@@ -261,7 +317,7 @@ define(['aura/aura', 'aura/ext/components'], function (aura, ext) {
         app = aura();
         app.start().done(function () {
           mediator = app.core.mediator;
-          sandbox = app.createSandbox();
+          sandbox = app.sandboxes.create();
           setTimeout(done, 0);
         });
       });

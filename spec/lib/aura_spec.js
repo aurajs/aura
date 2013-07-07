@@ -113,7 +113,7 @@ define(['aura/aura'], function (aura) {
 
       it('logger should be available on sandboxes', function() {
         var App = aura();
-        var sandbox = App.createSandbox();
+        var sandbox = App.sandboxes.create();
         sandbox.logger.log.should.be.a('function');
         sandbox.logger.name.should.equal(sandbox.ref);
       });
