@@ -6,10 +6,10 @@ define(['aura/aura', 'aura/ext/mediator'], function (aura, extension) {
   describe('Mediator', function () {
     var app;
     var mediator;
-    var config = { maxListeners: 32 };
+    var config = { mediator: { maxListeners: 32 }, components: false };
 
     beforeEach(function (done) {
-      app = aura({ mediator: config });
+      app = aura(config);
       app.use(extension);
       app.start().done(function () {
         mediator = app.core.mediator;

@@ -315,7 +315,7 @@ define(['aura/aura', 'aura/ext/components'], function (aura, ext) {
       var mediator;
       before(function (done) {
         app = aura();
-        app.start().done(function () {
+        app.start({ components: false }).done(function () {
           mediator = app.core.mediator;
           sandbox = app.sandboxes.create();
           setTimeout(done, 0);
