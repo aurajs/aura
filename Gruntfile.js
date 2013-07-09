@@ -29,7 +29,7 @@ module.exports = function (grunt) {
             aura: 'lib',
             jquery: 'empty:',
             underscore: 'empty:',
-            eventemitter: 'components/eventemitter2/lib/eventemitter2'
+            eventemitter: 'bower_components/eventemitter2/lib/eventemitter2'
           },
           shim: {
             underscore: {
