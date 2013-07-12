@@ -3,7 +3,7 @@
   "version": "0.9.0",
   "main": "lib/aura.js",
   "dependencies": {
-    "jquery": "~1.9.1",
+    "jquery": "~1.10.x",
     "underscore": "~1.4.4",
     "eventemitter2": "~0.4.11",
     "requirejs": "~2.1.4",
