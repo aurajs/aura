@@ -5,8 +5,8 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-requirejs');
+  grunt.loadNpmTasks('grunt-contrib-yuidoc');
   grunt.loadNpmTasks('grunt-mocha');
-  grunt.loadNpmTasks('grunt-dox');
 
   var PORT = 8899;
 
@@ -29,7 +29,7 @@ module.exports = function (grunt) {
             aura: 'lib',
             jquery: 'empty:',
             underscore: 'empty:',
-            eventemitter: 'components/eventemitter2/lib/eventemitter2'
+            eventemitter: 'bower_components/eventemitter2/lib/eventemitter2'
           },
           shim: {
             underscore: {
@@ -41,20 +41,24 @@ module.exports = function (grunt) {
             'aura/aura.extensions',
             'aura/ext/debug',
             'aura/ext/mediator',
-            'aura/ext/widgets'
+            'aura/ext/components'
           ],
           exclude: ['jquery'],
           out: 'dist/aura.js'
         }
       }
     },
-    dox: {
-      options: {
-        title: "AuraJS documentation"
-      },
-      files: {
-        src: ['lib/'],
-        dest: 'docs'
+    yuidoc: {
+      compile: {
+        name: "<%= pkg.name %>",
+        description: "<%= pkg.description %>",
+        version: "<%= pkg.version %>",
+        url: "<%= pkg.homepage %>",
+        options: {
+          paths: [ "lib" ],
+          outdir: "docs",
+          parseOnly: true
+        }
       }
     },
     jshint: {
@@ -86,7 +90,7 @@ module.exports = function (grunt) {
     }
   });
 
-  grunt.registerTask('spec', ['jshint', 'connect', 'mocha']);
-  grunt.registerTask('build', ['spec', 'requirejs','dox']);
-  grunt.registerTask('default', ['spec', 'watch']);
+  grunt.registerTask('spec', ['jshint', 'mocha']);
+  grunt.registerTask('build', ['connect', 'spec', 'requirejs']);
+  grunt.registerTask('default', ['connect', 'spec', 'watch']);
 };

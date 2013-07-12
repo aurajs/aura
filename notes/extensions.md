@@ -6,7 +6,7 @@ accepts configuration.
 
 manages the loading of extensions.
 
-bring the widgets to life.
+bring the components to life.
 
 
 ### Anatomy of an app
@@ -14,7 +14,7 @@ bring the widgets to life.
 app public interface : 
 
 - `use(ref)` : entry point to add an extension
-- `registerWidgetsSource(name, baseUrl)` : adds a new endpoint to load widgets
+- `registerComponentsSource(name, baseUrl)` : adds a new endpoint to load components
 - `start(options)` : starts the app
 - `stop()` : stop the app. & should be responsible for cleanup (not implemented yet...)
 
@@ -22,7 +22,7 @@ The app's responsibility is to load a bunch of extensions,
 make sure they are properly loaded when the app starts
 make sure they are properly cleaned up when the app stops
 
-The extensions are there to provide a runtime for the widgets that the app starts.
+The extensions are there to provide a runtime for the components that the app starts.
 
 ### Lifecycle of an app
 
@@ -30,20 +30,20 @@ The extensions are there to provide a runtime for the widgets that the app start
 
     var app = aura(config);
     app.use('ext1').use('ext2');
-    app.registerWidgetsSource('http://my.external/widgets/store', 'superwidgets');
+    app.registerComponentsSource('http://my.external/components/store', 'supercomponents');
     app.start();
 
 internally the app wraps 3 important objects : `config`, `core`, `sandbox`
 
 - `config` is the object passed as first param of the apps constructor
 - `core`   is a container where the extensions add new features
-- `sandbox` is an object that will be used as a prototype, to create fresh sandboxes to the widgets
+- `sandbox` is an object that will be used as a prototype, to create fresh sandboxes to the components
 
 
 *The sandbox object*
 `sandbox` is just way to implement the facade pattern on top of features provided by `core`
 the key ideas here is that it's just a blueprint (/ or factory) that will be used, once the app is 
-started to make new instances of sandboxed environments for the widgets. 
+started to make new instances of sandboxed environments for the components. 
 
 
 
@@ -54,17 +54,17 @@ started to make new instances of sandboxed environments for the widgets.
 `app.extensions` is an instance of `ExtManager` and handles all the grunt work of loading extensions
 
 `app.extensions.init` returns a promise that resolves when all the extensions have been loaded, which signals the app 
-that it can start launching widgets !
+that it can start launching components !
 
 #### on app.stop
 
-here, all the widgets started by the app should be stopped. 
+here, all the components started by the app should be stopped. 
 and all the dependencies loaded by the app extensions should be cleaned up
 
 _this is not implemented yet..._
 
 
-### What's the difference between an extension and sandbox / widget
+### What's the difference between an extension and sandbox / component
 
 #### 2.1 what it can augment in aura
 
@@ -73,7 +73,7 @@ they are responsible for :
 
 - resolving & loading external dependencies via requirejs
 - they have a direct access to the app's internals
-- they are here to add new features to the app... that are made available through the sandboxes to the widgets.
+- they are here to add new features to the app... that are made available through the sandboxes to the components.
 
 
 Extensions can have multiple forms : 
@@ -199,14 +199,14 @@ Let's wrap FB sdk as an aura extension :
 
 #####  2.2.a aura core 
 
-extensions are here to provide features that will be used by the widgets...
+extensions are here to provide features that will be used by the components...
 they are meant to extend the apps' core & sandbox.
 they also have access to the apps's config.
 
-#####  2.2.b other widgets 
+#####  2.2.b other components 
 
-the extensions don't actually execute code in the widgets.
-They are all run before the first widget is even instantiated.
+the extensions don't actually execute code in the components.
+They are all run before the first component is even instantiated.
 
 #####  2.2.c both
 
@@ -218,9 +218,9 @@ They are all run before the first widget is even instantiated.
 
 everything... they have a direct access to the app object.
 
-#####  2.3.b other widgets 
+#####  2.3.b other components 
 
-they don't know anything directly about the widgets
+they don't know anything directly about the components
 
 #####  2.3.c both  
 
@@ -271,9 +271,9 @@ It would allow us to implement the permissions system as a middleware for exampl
 
 - can does mediator handle any other functionality other than pubsub?
 
-### Widgets
+### Components
 
-Widgets features...
+Components features...
 
 
 ## Questions
@@ -296,11 +296,11 @@ they should be versionned with aura, i think.
 
 - should extensions in core themselves be git projects that can be downloaded with bower ?
 
-`ext/widgets` and `ext/mediator` are the core of aura... for the moment they are distributed with 
+`ext/components` and `ext/mediator` are the core of aura... for the moment they are distributed with 
 aura and added by default.
 
-personnaly i already came up with a real use case where i used aura-express without the widgets features. 
-so we could maybe make the widgets ext optional. 
+personnaly i already came up with a real use case where i used aura-express without the components features. 
+so we could maybe make the components ext optional. 
 
 `ext/mediator` should always be here i think...
 

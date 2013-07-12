@@ -106,20 +106,6 @@ define(['aura/aura.extensions'], function (ExtManager) {
         });
       });
 
-      it('Should fail if the initialization of an extension throws an Error', function (done) {
-        var ext = {
-          initialize: function () {
-            throw 'Get away!';
-          }
-        };
-        var mgr = new ExtManager();
-
-        mgr.add({ref: ext});
-
-        mgr.init().fail(function () {
-          done();
-        });
-      });
     });
 
     describe('Lifecycle', function() {
@@ -149,7 +135,9 @@ define(['aura/aura.extensions'], function (ExtManager) {
         var mgr = new ExtManager().add({
           ref: {
             initialize: function () {
-              throw genErr;
+              var dfd = $.Deferred();
+              dfd.reject(genErr);
+              return dfd;
             }
           }
         });

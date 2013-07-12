@@ -6,10 +6,10 @@ define(['aura/aura', 'aura/ext/mediator'], function (aura, extension) {
   describe('Mediator', function () {
     var app;
     var mediator;
-    var config = { maxListeners: 32 };
+    var config = { mediator: { maxListeners: 32 }, components: false };
 
     beforeEach(function (done) {
-      app = aura({ mediator: config });
+      app = aura(config);
       app.use(extension);
       app.start().done(function () {
         mediator = app.core.mediator;
@@ -34,7 +34,7 @@ define(['aura/aura', 'aura/ext/mediator'], function (aura, extension) {
     describe('sandbox', function () {
       var sandbox;
       beforeEach(function () {
-        sandbox = app.createSandbox();
+        sandbox = app.sandboxes.create();
       });
 
       describe('#on', function () {
@@ -150,7 +150,7 @@ define(['aura/aura', 'aura/ext/mediator'], function (aura, extension) {
           }
           spy4();
         };
-        sandbox = app.createSandbox();
+        sandbox = app.sandboxes.create();
       });
 
       it('should call them in order', function() {
@@ -181,7 +181,7 @@ define(['aura/aura', 'aura/ext/mediator'], function (aura, extension) {
 
     describe('attaching context in listeners', function() {
       it('the sandbox should be the default context', function() {
-        var context, sandbox = app.createSandbox();
+        var context, sandbox = app.sandboxes.create();
         sandbox.on('test', function() {
           context = this;
         });
@@ -190,7 +190,7 @@ define(['aura/aura', 'aura/ext/mediator'], function (aura, extension) {
       });
 
       it('should be possible to override the default context', function() {
-        var context, sandbox = app.createSandbox(), ctx = 'ctx';
+        var context, sandbox = app.sandboxes.create(), ctx = 'ctx';
         sandbox.on('test', function() {
           context = this;
         }, ctx);

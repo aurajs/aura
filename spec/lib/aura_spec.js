@@ -15,7 +15,7 @@ define(['aura/aura'], function (aura) {
 
       App.use(ext);
 
-      var startOptions  = { foo: 'bar' };
+      var startOptions  = { foo: 'bar', components: false };
       var initStatus = App.start(startOptions);
 
       // Make sure the app is started before...
@@ -59,7 +59,7 @@ define(['aura/aura'], function (aura) {
     describe('Defining and loading extensions', function () {
       it('Should be able to use extensions defined as objects', function (done) {
         var ext = { initialize: sinon.spy() };
-        aura().use(ext).start({ widgets: [] }).done(function () {
+        aura().use(ext).start({ components: false }).done(function () {
           ext.initialize.should.have.been.called;
           done();
         });
@@ -71,7 +71,7 @@ define(['aura/aura'], function (aura) {
           insideExt('foo');
         });
         var App = aura().use(ext);
-        App.start().done(function () {
+        App.start({ components: false }).done(function () {
           ext.should.have.been.calledWith(App);
           insideExt.should.have.been.calledWith('foo');
           done();
@@ -79,7 +79,7 @@ define(['aura/aura'], function (aura) {
       });
 
       it('Should pass the start options to the extensions...', function (done) {
-        var startOptions = { foo: 'bar' };
+        var startOptions = { foo: 'bar', components: false };
         var insideExt = sinon.spy();
         var ext = sinon.spy(function (app) {
           insideExt(app.startOptions);
@@ -95,26 +95,12 @@ define(['aura/aura'], function (aura) {
       it('Should be able to use extensions defined as amd modules', function (done) {
         var ext = { initialize: sinon.spy() };
         define('myExtensionModule', ext);
-        aura().use('myExtensionModule').start().done(function () {
+        aura().use('myExtensionModule').start({ components: false }).done(function () {
           ext.initialize.should.have.been.called;
           done();
         });
       });
 
-      it('Should bubble up exceptions thrown by extensions during the boot process', function(done) {
-        var ext = {
-          initialize: function() {
-            throw new Error('Ext initialization error');
-          }
-        };
-        var App = aura().use(ext);
-        var fail = App.start().fail(function (err) {
-          err.should.be.an.instanceOf(Error);
-          err.message.should.equal('Ext initialization error');
-          err.stack.should.exist;
-          done();
-        });
-      });
     });
 
     describe('Logging', function() {
@@ -127,7 +113,7 @@ define(['aura/aura'], function (aura) {
 
       it('logger should be available on sandboxes', function() {
         var App = aura();
-        var sandbox = App.createSandbox();
+        var sandbox = App.sandboxes.create();
         sandbox.logger.log.should.be.a('function');
         sandbox.logger.name.should.equal(sandbox.ref);
       });

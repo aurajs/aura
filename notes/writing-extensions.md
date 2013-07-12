@@ -21,9 +21,9 @@ example :
 
 ### is there a test suite format where aura extensions can be tested in integration with aura / other loaded extensions?
 
-### is there a test suite format where aura extensions can be tested in integration with aura / other loaded extensions + widgets?
+### is there a test suite format where aura extensions can be tested in integration with aura / other loaded extensions + components?
 
-### is there a skeleton available / that can be used for gitsubmodules / etc to make extensions and widgets?
+### is there a skeleton available / that can be used for gitsubmodules / etc to make extensions and components?
 
 we could have something like :
 
@@ -62,7 +62,7 @@ and in main:
 ### Tooling
 
 * is there any tools available / we can create on top of grunt to aid with making a test suite for extensions ?
-* is there any tools available /  we can create on top of grunt to aid with making a test suite for sandboxes / widgets ?
+* is there any tools available /  we can create on top of grunt to aid with making a test suite for sandboxes / components ?
 * is there a way a grunt tool / app.json / project.json that be can used with a custom bower directory to wrap a project's dependencies?
 
 
@@ -72,7 +72,7 @@ It definitely would be nice to have grunt based tools to help with :
 - the creation & build of apps
 
 
-It will be `mandatory` to have build tools to package and distribute widgets though... if we want to be able to load widgets 
+It will be `mandatory` to have build tools to package and distribute components though... if we want to be able to load components 
 from different sources / origins (mostly because of limitations on the loading of text! files cross-domain).
 
 

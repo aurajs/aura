@@ -20,7 +20,7 @@ deps registry to keep track of the deps graph + ref count
   see: https://npmjs.org/browse/keyword/dependency. modules like https://npmjs.org/package/madge
   and https://github.com/hughsk/reqursive may be helpful
 
-### Widget level dependencies
+### Component level dependencies
 
 Same thing as app ?
 
