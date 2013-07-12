@@ -6,12 +6,25 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-requirejs');
   grunt.loadNpmTasks('grunt-contrib-yuidoc');
+  grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-mocha');
 
   var PORT = 8899;
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+    meta: {
+      banner: '/*!\n' +
+        '* <%= pkg.name %>\n' +
+        '* v<%= pkg.version %> - ' +
+        '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
+        '<%= pkg.homepage ? "* " + pkg.homepage + "\n" : "" %>' +
+        '* (c) <%= pkg.author.name %>;' +
+        ' <%= _.pluck(pkg.licenses, "type").join(", ") %> License\n' +
+        '* Created by: <%= _.pluck(pkg.maintainers, "name").join(", ") %>\n' +
+        '* Contributors: <%= _.pluck(pkg.contributors, "name").join(", ") %>\n' +
+        '*/'
+    },
     connect: {
       server: {
         options: {
@@ -24,7 +37,8 @@ module.exports = function (grunt) {
       compile: {
         options: {
           baseUrl: '.',
-          optimize: 'none',
+          optimize: 'uglify2',
+          preserveLicenseComments: false,
           paths: {
             aura: 'lib',
             jquery: 'empty:',
@@ -47,6 +61,20 @@ module.exports = function (grunt) {
           out: 'dist/aura.js'
         }
       }
+    },
+    concat: {
+      options: {
+        stripBanners: true,
+          banner: 
+            "/*! Aura v<%= pkg.version %> | " +
+            "(c) 2013 The Aura authors | " +
+            "MIT License " +
+            "*/\n"
+      },
+      dist: {
+        src: ['dist/aura.js'],
+        dest: 'dist/aura.js',
+      },
     },
     yuidoc: {
       compile: {
@@ -91,6 +119,6 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('spec', ['jshint', 'mocha']);
-  grunt.registerTask('build', ['connect', 'spec', 'requirejs']);
+  grunt.registerTask('build', ['connect', 'spec', 'requirejs', 'concat']);
   grunt.registerTask('default', ['connect', 'spec', 'watch']);
 };
