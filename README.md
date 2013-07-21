@@ -1,4 +1,4 @@
-# Aura 0.9pre 
+# Aura 0.9.1 
 [![Build Status](https://travis-ci.org/aurajs/aura.png?branch=master)](https://travis-ci.org/aurajs/aura)
 
 Aura is an event-driven architecture for developing scalable applications using reusable components. It works great with [Backbone.js](http://backbonejs.org), but is framework-agnostic, adapts many best-practice patterns for developing maintainable apps and has first-class support for modern tools like [Bower](http://bower.io), [Grunt](http://gruntjs.com) and [Yeoman](http://yeoman.io).
