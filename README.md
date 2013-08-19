@@ -1,4 +1,7 @@
-# Aura 0.9.1 
+# Aura 0.9.1
+
+<img src="https://raw.github.com/hull/aura-identity/master/logo/export/halo.png" width="300px" align="right">
+
 [![Build Status](https://travis-ci.org/aurajs/aura.png?branch=master)](https://travis-ci.org/aurajs/aura)
 
 Aura is an event-driven architecture for developing scalable applications using reusable components. It works great with [Backbone.js](http://backbonejs.org), but is framework-agnostic, adapts many best-practice patterns for developing maintainable apps and has first-class support for modern tools like [Bower](http://bower.io), [Grunt](http://gruntjs.com) and [Yeoman](http://yeoman.io).
@@ -338,12 +341,12 @@ Want to look at some sample apps built with Aura? Check out:
 <img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/hullagram-4.png"/>
 
 
-###An Aura [TodoMVC](https://github.com/sbellity/aura-todos/) app implemented [two](https://github.com/alexanderbeletsky/todomvc-aura) ways 
+###An Aura [TodoMVC](https://github.com/sbellity/aura-todos/) app implemented [two](https://github.com/alexanderbeletsky/todomvc-aura) ways
 
 <img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/todomvc.png"/>
 
 
-### [How to build your own Twitter-like "Open Source" page](http://blog.hull.io/post/46504817377/how-to-build-your-own-twitter-like-open-source-page) using Aura. 
+### [How to build your own Twitter-like "Open Source" page](http://blog.hull.io/post/46504817377/how-to-build-your-own-twitter-like-open-source-page) using Aura.
 
 <img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/opensource-page.png" width="600px"/>
 
