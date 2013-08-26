@@ -102,14 +102,14 @@ This starts the app by saying that it should search for components anywhere in t
 
 ## Creating a Component
 
-By default components are retrieved from a directory called `components/` that must be at the same level as your HTML document.
+By default, components are retrieved from a directory called `components/` that must be at the same level as your HTML document.
 
-Let's say we want to create an "hello" component. To do that we need to create a `components/hello/` directory
+Let's say we want to create a "hello" component. To do that, we need to create a `components/hello/` directory
 
 This directory must contain:
 
 - A `main.js` file. It will bootstrap and describe the component. It is mandatory, no matter how small it can be.
-- All the other files that your component needs (models, templates, …).
+- All the other files that your component needs (models, templates, ...).
 
 For our "hello" component the `main.js` will be:
 
@@ -157,7 +157,7 @@ This will call the `initialize` function of our `reverse` extension.
 ```js
 var app = Aura();
 app.use('extensions/reverse');
-app.start({ widgets: 'body' });
+app.start({ components: 'body' });
 ```
 
 Calling `use` when your `app` is already started will throw an error.
@@ -195,11 +195,13 @@ define(['hbs!./stats'], function(template) {
 
 ## Debugging
 
-To enable debug extension and logging pass `{debug: {enable: true}}` into Aura constructor:
+To enable debug extension and logging pass `{debug: {enable: true}}` into the Aura constructor:
 
 ```js
-var app = new Aura({debug: {
-  enable: true
+var app = new Aura({
+  debug: {
+    enable: true
+  }
 });
 ```
 Logger usage:
@@ -212,7 +214,7 @@ logger.log('Hey');
 logger.warn('Hey');
 logger.error('Hey');
 
-//Or directly from Aura app
+// Or directly from Aura app
 
 var logger = app.logger;
 ```
@@ -220,9 +222,11 @@ Below we can see an example how to enable logging in specific ext/components.
 By default all loggers are enabled.
 
 ```js
-var app = new Aura({debug: {
-  enable: true,
-  components: 'aura:mediator login signup info'
+var app = new Aura({
+  debug: {
+    enable: true,
+    components: 'aura:mediator login signup info'
+  }
 });
 ```
 
@@ -242,7 +246,6 @@ window.attachDebugger = function (app) {
   window.aura = app;
 };
 ```
-
 
 # Resources
 
