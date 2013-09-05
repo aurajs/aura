@@ -168,7 +168,7 @@ The Aura [Mediator](https://github.com/aurajs/aura/blob/master/lib/ext/mediator.
 
 * `sandbox.on(name, listener, context)`
 * `sandbox.off(name, listener)`
-* `sandbox.emit(data)`
+* `sandbox.emit(name, data)`
 
 Below we can see an example of a Backbone view using the Mediator to emit a notification when tasks have been cleared and subscribing to changes from `tasks.stats` in order to render when they are updated.
 
