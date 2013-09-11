@@ -117,6 +117,24 @@ define(['aura/aura'], function (aura) {
         sandbox.logger.log.should.be.a('function');
         sandbox.logger.name.should.equal(sandbox.ref);
       });
+
+      it('logger should be disabled by default', function() {
+        var App = aura();
+        var sandbox = App.sandboxes.create();
+        App.logger.isEnabled().should.not.be.ok;
+        sandbox.logger.isEnabled().should.not.be.ok;
+      });
+
+      it('logger should be initialized with options to the Aura constructor', function () {
+        var App1 = aura({debug: true});
+        var sandbox1 = App1.sandboxes.create();
+        App1.logger.isEnabled().should.be.ok;
+        sandbox1.logger.isEnabled().should.be.ok;
+        var App = aura({debug: {enable: true}});
+        var sandbox = App.sandboxes.create();
+        App.logger.isEnabled().should.be.ok;
+        sandbox.logger.isEnabled().should.be.ok;
+      });
     });
 
   });
