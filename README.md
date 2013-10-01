@@ -1,4 +1,4 @@
-# Aura 0.9.1
+# Aura 0.9.2
 
 <img src="https://raw.github.com/hull/aura-identity/master/logo/export/halo.png" width="300px" align="right">
 
