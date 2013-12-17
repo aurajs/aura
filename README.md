@@ -8,6 +8,21 @@ Aura is an event-driven architecture for developing scalable applications using 
 
 Aura has been used to develop applications like [MIT's Reap](http://www.bobholt.me/2012/09/how-it-was-built-mit-reap/) and is currently under active development.
 
+## Project update (December, 2013)
+
+We first started AuraJS two years ago and have evolved it over time (with the help of engineers at [Hull.io](http://hull.io) and our contributors) to meet the needs of the RequireJS community. Today is is an excellent reference framework for how to structure a large-scale application with many of the core patterns necessary to build a system of decoupled modules that cleanly speak to each other. 
+
+Two years on, the maintainers of AuraJS agree that the future of decoupled, scalable applications lie in Web
+Components - a set of standards composed of Custom Elements, Templates, Imports and ShadowDOM, aimed at offering
+a way to build encapsulated components using features found in the browser.
+
+To this end, our efforts on AuraJS moving forward will be focused on how it can help enable patterns for scalability
+in applications built with Web Components (using polyfills and libraries such as [Polymer](http://polymer-project.org). This may take the form of several Aura 'elements' that can be easily included and reused in large projects.
+
+Developers using AuraJS 0.9.2 and below will still be able to contribute to the current stable version of the project (there are large projects already built with it), however support for this version will be limited as we work on the designs for our next major version. We are more than happy to accept any contributions that meet our guidelines and will be reviewing the issue tracker for this version as time allows.
+
+Our team are excited about the future direction of the project and look forward to announcing more news about our work here in the future.
+
 ## Why Aura?
 
 We've seen a large shift in the JavaScript community for the past 3 years, with people starting to write web apps in a much more structured way. Yet, assembling the bits and pieces and actually starting to make apps is still a challenge. Another challenge is that most of the time you end up doing the same stuff all over again : you need a way to authenticate users, give them ways to communicate, exchange ideas, work or play together. You have to integrate with external services or APIs like Facebook or Twitter.
@@ -380,10 +395,3 @@ Want to look at some sample apps built with Aura? Check out:
 
 See the [contributing docs](https://github.com/aurajs/aura/blob/master/contributing.md)
 
-# Project status
-
-Aura 0.8.x was well received by the developer community, but had regular requests for a few advanced capabilities. These included individual sandboxes, declarative components, support for Bower and a powerful Pub/Sub implementation amongst others.
-
-To cater for this, Aura has been getting a heavy re-write over the past few months and we anticipate releasing a beta that can be tested in April, 2013. This will be followed by detailed documentation and new demo applications.
-
-A version of Aura currently powers the [Hull.io](http://hull.io) components platform and we are honored to have members of that team directly contributing to the next version of the project.
