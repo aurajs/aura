@@ -196,7 +196,7 @@ define(['hbs!./stats'], function(template) {
     },
     initialize: function() {
       this.render();
-      this.sandbox.on('tasks.stats', _.bind(this.render, this));
+      this.sandbox.on('tasks.stats', this.render, this);
     },
     render: function(stats) {
       this.html(template(stats || {}));
