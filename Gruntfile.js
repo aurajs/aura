@@ -65,7 +65,7 @@ module.exports = function (grunt) {
     concat: {
       options: {
         stripBanners: true,
-          banner: 
+          banner:
             "/*! Aura v<%= pkg.version %> | " +
             "(c) 2013 The Aura authors | " +
             "MIT License " +

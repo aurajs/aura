@@ -12,6 +12,7 @@
   "nomen": false,
   "expr": true,
   "globals": {
+    "module": true,
     "console": true,
     "require": true,
     "define": true,
