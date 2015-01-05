@@ -8,7 +8,17 @@ Aura is an event-driven architecture for developing scalable applications using 
 
 Aura has been used to develop applications like [MIT's Reap](http://www.bobholt.me/2012/09/how-it-was-built-mit-reap/) and is currently under active development.
 
-## Project update (December, 2013)
+## Project updates
+
+### January, 2015
+
+At this time, we are aware that a number of developers are using Aura in production and welcome help with improving 
+the core codebase via patches, feedback or improvements to our documentation. We have not yet had time to refactor
+the codebase into a set of Web Components (per the last periodic update), but are still interested in doing this.
+
+If you are interested in taking over core maintenance of the project please feel free to get in touch.
+
+### December, 2013
 
 We first started AuraJS two years ago and have evolved it over time (with the help of engineers at [Hull.io](http://hull.io) and our contributors) to meet the needs of the RequireJS community. Today is is an excellent reference framework for how to structure a large-scale application with many of the core patterns necessary to build a system of decoupled modules that cleanly speak to each other. 
 
