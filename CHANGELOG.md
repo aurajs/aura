@@ -1,5 +1,7 @@
 # v0.9.3 - 01/2015
 
+This is a periodic maintenance release which includes minor fixes:
+
 * Improvements to [callbacks](https://github.com/aurajs/aura/commit/bb3f377a46de119c0f2539a9044e7ffa4dea4d8e)
 * [IE8 Fixes](https://github.com/aurajs/aura/commit/a1db9e0a7dbd820a2faced50addf1de11409efe6)
 * [Typo improvements](https://github.com/aurajs/aura/commit/e066fe230e0b3840763d2590852644032e95a5ce)
