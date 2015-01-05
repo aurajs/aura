@@ -2,7 +2,7 @@
   "name": "aura",
   "description": "Aura is an event-driven architecture for developing scalable applications using reusable components",
   "homepage": "http://aurajs.com",
-  "version": "0.9.3",
+  "version": "0.9.4",
   "main": [
     "lib/aura.js"
   ],

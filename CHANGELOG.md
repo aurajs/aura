@@ -1,4 +1,4 @@
-# v0.9.3 - 01/2015
+# v0.9.3/0.9.4 - 01/2015
 
 This is a periodic maintenance release which includes minor fixes:
 

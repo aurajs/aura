@@ -1,8 +1,9 @@
 {
   "name": "aura",
-  "version": "0.9.3",
+  "version": "0.9.4",
   "homepage": "http://aurajs.com",
   "url": "https://github.com/aurajs/aura",
+  "description": "An event-driven architecture for developing scalable applications",
   "devDependencies": {
     "bower": "^1.3.12",
     "chai": "^1.10.0",
