@@ -2,7 +2,7 @@
 
 <img src="https://raw.github.com/hull/aura-identity/master/logo/export/halo.png" width="300px" align="right">
 
-#  [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-url]][daviddm-image]
+#  [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url]
 
 Aura is an event-driven architecture for developing scalable applications using reusable components. It works great with [Backbone.js](http://backbonejs.org), but is framework-agnostic, adapts many best-practice patterns for developing maintainable apps and has first-class support for modern tools like [Bower](http://bower.io), [Grunt](http://gruntjs.com) and [Yeoman](http://yeoman.io).
 
@@ -409,5 +409,3 @@ See the [contributing docs](https://github.com/aurajs/aura/blob/master/contribut
 [npm-image]: https://badge.fury.io/js/aura.svg
 [travis-url]: https://travis-ci.org/addyosmani/aura
 [travis-image]: https://travis-ci.org/addyosmani/aura.svg?branch=master
-[daviddm-url]: https://david-dm.org/addyosmani/aura.svg?theme=shields.io
-[daviddm-image]: https://david-dm.org/addyosmani/aura
