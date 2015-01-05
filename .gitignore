@@ -3,6 +3,5 @@ node_modules
 bower_components
 components
 npm-debug.log
-dist
 .sass-cache
 /docs/
