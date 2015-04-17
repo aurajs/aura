@@ -88,7 +88,7 @@ The simplest usable Aura app using a component and extension can be found in our
 
 #### Requirements
 
-1. [bower](http://twitter.github.com/bower/): run `npm install -g bower` if needed
+1. [bower](http://bower.io/): run `npm install -g bower` if needed
 2. [grunt-cli](https://github.com/gruntjs/grunt-cli): run `npm install -g grunt-cli` if needed
 
 #### Building Aura.js
