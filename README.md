@@ -343,7 +343,7 @@ yo aura:styles
 
 Want to look at some sample apps built with Aura? Check out:
 
-###The [GitHub client](https://github.com/sbellity/aura-github)
+### The [GitHub client](https://github.com/sbellity/aura-github)
 
 <img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/github-app.png"  width="600px"/>
 
@@ -357,10 +357,10 @@ Want to look at some sample apps built with Aura? Check out:
 <img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/github-app4.png"  width="600px"/>
 
 
-###The [GitHub Mobile client](https://github.com/hull/Github-Mobile/tree/with-hull)
+### The [GitHub Mobile client](https://github.com/hull/Github-Mobile/tree/with-hull)
 
 
-###[Hullagram](https://github.com/hull/hullagram) - an Instagram clone built with Aura and [Hull.io](http://hull.io).
+### [Hullagram](https://github.com/hull/hullagram) - an Instagram clone built with Aura and [Hull.io](http://hull.io).
 
 
 <img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/hullagram-1.png"/>
@@ -369,7 +369,7 @@ Want to look at some sample apps built with Aura? Check out:
 <img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/hullagram-4.png"/>
 
 
-###An Aura [TodoMVC](https://github.com/sbellity/aura-todos/) app implemented [two](https://github.com/alexanderbeletsky/todomvc-aura) ways
+### An Aura [TodoMVC](https://github.com/sbellity/aura-todos/) app implemented [two](https://github.com/alexanderbeletsky/todomvc-aura) ways
 
 <img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/todomvc.png"/>
 
@@ -379,7 +379,7 @@ Want to look at some sample apps built with Aura? Check out:
 <img src="https://raw.github.com/aurajs/aura-identity/master/screenshots/medium/opensource-page.png" width="600px"/>
 
 
-###Writing a simple [GitHub component](https://gist.github.com/sbellity/b44364f29fd89679ca39) using Aura.
+### Writing a simple [GitHub component](https://gist.github.com/sbellity/b44364f29fd89679ca39) using Aura.
 
 ### Aura Development docs
 
